@@ -1,21 +1,42 @@
-Jekyll Themes
-=============
+# Paper for Jekyll
+A new material design utilising theme for your Jekyll blog. Built on [Material Design Lite](http://www.getmdl.io/).
 
-A directory of the best-looking themes for Jekyll blogs
+![screenshot](assets/screenshots/mockup.jpg)
 
+## Demo
+ [dbtek.github.io/paper-demo](http://dbtek.github.io/paper-demo)
 
-Submitting a Theme
-------------------
+### Batteries Included
+There are many cool features bundled with Paper such as:
 
-Have a theme you want to share?
+- Full Github Pages support.
+- Responsive layout.
+- Dynamic search with [jekyll-search](https://github.com/christian-fei/Simple-Jekyll-Search/).
+- Customizable theme colors.
+- Sass variables.
+- RSS feed.
+- Post tags and categories.
+- Pagination.
+- Syntax highlighting with pygments.
+- Disqus comments.
 
-* Fork the site on GitHub
-* Create a new post in the `_posts` directory and fill out the relevant YAML fields
-* Make a 250x200 thumbnail and drop it in the thumbnails directory. List its filename in the post's markdown file.
-* Test it out, then push your changes up and open a pull request.
+### Tech
+Under the hood Paper contains:  
+- Material Design Lite.
+- CoffeeScript.
+- Sass.
 
+### Install
+Easiest way of getting Paper work is forking.
 
-License
--------
+- Fork the [repo](https://github.com/dbtek/paper).
+- Rename forked repo as `username.github.io`.
+- Set up blog by editing `_config.yml`.
+- Enjoy.
 
-The contents of this repository are licensed under the [GNU Public License.](http://www.gnu.org/licenses/gpl-3.0.html)
+### Author
+Ismail Demirbilek
+[@dbtek](https://twitter.com/dbtek)
+
+### License
+[MIT](http://opensource.org/licenses/MIT)
