@@ -1,5 +1,5 @@
 # Site settings
-title: Paper Theme
+title: goeun-oh
 description: > # this means to ignore newlines until "baseurl:"
   A gentle theme for Jekyll utilising material design.
 baseurl: "/" # the subpath of your site, e.g. /blog/
@@ -26,7 +26,7 @@ github_username:
 
 # Theming options
 # These settings are mandatory.
-theme:              'blue-pink'
+theme:              'minima'
 # drawer theming
 drawer:
   text_color:       'grey-600'
