@@ -12,7 +12,8 @@ img {
 .head {
 
   color: #fff;
-  min-height: 100vh;
+  min-height: 50vh;
+  height: 50vh;
 
   display: -webkit-box;
 
@@ -85,7 +86,7 @@ img {
   color: #fff;
   margin-top: 10px;
   font-size: 20px;
-  font-size: 1.25rem;
+  font-size: 2rem;
 }
 
 .head-buttons {
@@ -106,22 +107,42 @@ img {
 .head-buttons a {
   color: inherit;
 }
-
+.menu-buttons {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;               /* ✅ 모바일에서 줄 바꿈 */
+  justify-content: center;
+}
 .head-menu-wrap {
   position: absolute;
   bottom: 40px;
   left: 50%;
-  -webkit-transform: translate(-50%, 0);
-          transform: translate(-50%, 0);
-
-  display: -ms-grid;
-
-  display: grid;
-  -ms-grid-columns: auto auto auto auto;
-      grid-template-columns: auto auto auto auto;
-  grid-column-gap: 10px;
+  transform: translateX(-50%);
   
+  display: flex;              /* ✅ grid → flex */
+  flex-direction: column;     /* ✅ 위아래 정렬 */
+  align-items: center;        /* ✅ 가운데 정렬 */
+  gap: 10px;                  /* ✅ 문구와 버튼 간격 */
   margin: 0 auto;
+}
+.head-menu-wrap a {
+  padding: 14px 28px;              /* 클릭 영역 넓힘 */
+  font-size: 1.2rem;               /* 글자 크기 키움 */
+  border-radius: 8px;              /* 모서리 둥글게 */
+  border: 2px solid white;         /* 테두리 유지 */
+  background-color: rgba(255,255,255,0.1); /* 배경 반투명 효과 */
+  color: white;                    /* 글자색 흰색 */
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button-guide-text {
+  text-align: center;
+  color: white;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  font-weight: bold;
 }
 
 .justify-text {
@@ -163,10 +184,10 @@ img {
 }
 
 .section {
-  max-width: 768px;
-  margin: 60px auto;
+  max-width: 1000px;
+  margin: 20px auto;
   padding: 20px 0;
-  min-height: 100vh;
+  min-height: 55vh;
 
   display: -webkit-box;
 
@@ -192,10 +213,10 @@ img {
 
 .section-heading {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
   font-family: 'PT Sans', Arial, Helvetica, sans-serif;
-  font-size: 40px;
-  font-size: 2.5rem;
+  font-size: 50px;
+  font-size: 3rem;
   color: #222;
   font-weight: bold;
 }
@@ -221,23 +242,97 @@ img {
 .section-wrapper:nth-child(odd) .paragraph-text {
   color: #fff;
 }
+#about.section {
+  min-height: 50vh;
+  padding-top: 2rem;
+  scroll-margin-top: 80px; /* Optional: smooth scrolling offset */
+}
+
+
 
 .paragraph-text {
   font-family: 'PT Sans', sans-serif;
   font-size: 20.8px;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   margin: 30px auto;
   color: #404040;
+  line-height: 1.6;
+  margin-bottom: 2rem;
 }
 
 .paragraph-text-normal {
   font-family: 'PT Sans', sans-serif;
   color: #404040;
 }
+.skills-summary {
+  margin-bottom: 6rem; /* ✅ Skills에만 여백 넓게 적용 */
+}
+
 
 .pt-sans-font {
   font-family: 'PT Sans', sans-serif;
 }
+.skill-category {
+  font-size: 2rem;
+  color: white;
+  text-align: center;
+  margin: 3rem 0 1.5rem; /* 위에 여백 더 줌 (3rem) */
+}
+
+.skill-tag-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 25px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  justify-content: center;
+}
+
+.skill-tag {
+  background-color: #1e90ff;
+  color: white;                     /* ✅ 글자색 흰색 */
+  padding: 14px 24px;              /* ✅ 버튼 크게 */
+  border-radius: 30px;             /* ✅ 더 둥글게 */
+  font-size: 1.3rem;               /* ✅ 글자 더 크게 */
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  display: inline-flex;           /* ✅ 인라인 블록 정렬 */
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  /* text-align: center; */
+  border: 1.5px solid white;
+  text-shadow: 0 0 2px black;
+
+}
+/* 공통 기본 스타일 */
+.skill-tag img {
+  height: 30px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+/* 아이콘별로 width만 조정 */
+.img.icon-small {
+  width: 70px !important;
+}
+.icon-medium {
+  width: 55px;
+}
+.icon-wide {
+  width: 70px;
+}
+
+
+.skill-icon {
+  width: 20px;        /* 기존보다 키움 */
+  height: 20px;
+  margin-right: 8px;  /* 글자와 간격 */
+  vertical-align: middle;
+}
+
+
 
 .skill-grid-item {
   -webkit-transition: all 0.3s ease-in-out;
@@ -381,8 +476,9 @@ img {
 
 .profile-pic {
   border-radius: 50%;
-  width: 170px;
-  height: 170px;
+  width: 280px;
+  height: 280px;
+  object-fit: cover;
   border: solid 2px white;
 }
 
@@ -445,7 +541,10 @@ a {
 }
 
 .head-inner-wrap {
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .bottom-link {
