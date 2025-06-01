@@ -1,9 +1,13 @@
 source "https://rubygems.org"
-gem "jekyll"
-gem "jekyll-paginate-v2"
-gem "jekyll-feed"
-gem "jekyll-sitemap"
-gem "webrick"
-gem "premonition"
-gem "h2o-ac-jekyll-extlinks"
-gem "nokogiri", "~> 1.17.0"
+gem 'jekyll'
+gem 'jekyll-paginate'
+gem 'jekyll-seo-tag'
+gem 'jekyll-sitemap'
+gem 'jekyll-relative-links'
+gem "tzinfo-data", "~> 1.2021"
+
+# windows specific
+gem 'wdm', '>= 0.1.0'
+
+# update ruby version
+gem 'webrick'

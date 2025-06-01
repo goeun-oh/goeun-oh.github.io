@@ -1,288 +1,117 @@
-# jekyll-theme-h2o-ac
-version: 1.5.1
+site: JDox
+title: JDox
+greetings: Hi 👋
+description: >-
+  JDox is Jekyll blog theme powered by Github Pages
+lang: en
+image: https://res.cloudinary.com/notee/image/upload/v1640411291/notes/imgseo.jpg
+timezone:  Asia/Jakarta
+repo: https://github.com/aliifam/cnote # site repo [optional]
+data-theme: light # default theme "dark" | "light"
+discus-identifier: webthme
+default-thumb: https://res.cloudinary.com/notee/image/upload/v1640412257/notes/default-thumb.webp
 
-# Site settings 配置站点
-title: 'Mr Li'
-description: '个人的一个技术博客站点，主要用于记录个人在学习过程中遇到的技术问题及解决方法、技术实验，以及一些比较有趣的事情。'
-keyword: 'zhonger，zhonger的博客，nodejs，kvm, 机器学习'
-url: 'https://h2o-ac.pages.dev' # your host
+author:
+  name: Aliif Arief
+  url: https://notes.aliif.space/
+  bio: just ordinary boy interest in software development 
+  avatar: https://res.cloudinary.com/notee/image/upload/v1640410819/notes/avatar.jpg
+  username: aliifam # general username
+  github: aliifam # github username
+  twitter: lifrief # twitter username
+  email: me@aliif.space # email adress
 
-# when build blog on server, if you don't need baseurl, you should leave this value blank.
-# 在服务器上建站时，如果你不需要子域名，请将这一格留空
-# if you're using GitHub Pages, set baseurl to your blog's .
-# 如果你在使用 GitHub Pages, 请将 baseurl 设置为你的网址的子域名
-# for example, if your site is "kaeyleo.github.io", then this url should leave blank.
-# 例如，当你的域名是 "kaeyleo.github.io"  时，这个 url 需要留空
-# but if your created a repo named "myblog", and the site is "kaeyleo.github.io/myblog", change baseurl to '/myblog'
-# 但是，如果你创建了一个叫 "myblog" 的网站，此时网址会变成 "kaeyleo.github.io/myblog" ，这时再将 baseurl 设置为 '/myblog'
-baseurl: ''
+twitter:
+  username: lifrief
+  card: summary_large_image
 
-# Internalization 国际化
-languages: ["zh-Hans", "zh-Hant", "en", "ja"]
-default_lang: "zh-Hans"
+# Font Settings
+googlewebfonts: family=Archivo:wght@400;700&family=Source+Code+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,300;1,400;1,500;1,600;1,700;1,900
 
-# Github
-github:
-  enabled: true
-  owner: zhonger
-  repository: jekyll-theme-H2O-ac
+# URL settings
+url: "https://aliifam.github.io" # Domain Name of host. [username].github.io for github pages
+baseurl: "/jdox" # sub folder for jekyll site. only if jekyll site not in root of host. leave blank if not wishd. always add / in front.
+permalink: pretty
 
-# PWA
-pwa:
-  color: '#81BBFF'
-  short_name: 'lisz'
+# local
+# url: "http://localhost:4000" # 
+# baseurl: "" # 
 
-# Navigation links
-nav:
-  home: '/'
-  blog: '/blog/index.html'
-  archives: '/archives.html'
-  tags: '/tags.html'
-  about:   
-    RSS: '/feed.xml'
 
-# Gray for the whole site 全站灰色
-gray: false
-
-# Formats
-# 时间格式（Time format）：0 -- 2022-04-29    1 -- 29 Apr 2022   2 -- 2022年4月29日
-formats:
-  time: 0   
-
-# Favicon
-favicon: "/favicon.ico"
-
-# Footer
-footer:
-  since: 2015
-
-# Author 配置博主信息
-author: 'zhonger'
-nickname: 'zhonger'
-bio: '全栈开发者，热爱前端、运维和架构设计'
-avatar: '/assets/img/profile.webp'
-
-# Search
-search: true
-
-# Night mode
-nightMode: false
-
-# Comments 评论功能
-comments:
-  disqus: false
-  disqus_url: 'https://h2o-ac.disqus.com/embed.js'
-  waline: false
-  waline_url: 'https://h2o-ac-waline.lisz.top/'
-  waline_reaction: false
-  waline_locale: 
-  artalk: false
-  artalk_url: 'https://artalk.lisz.top'
-  artalk_name: 'h2o-ac'
-  artalk_uaBadge: false
-  utterances: false
-  utterances_url: 'https://utteranc.es/client.js'
-  # utterances_repo: 'zhonger/utterances-comments'
-  giscus: false
-  giscus_url: 'https://giscus.app/client.js'
-  # giscus_repo: 'zhonger/giscus-comments'
-  # giscus_repo_id: 'R_kgDONLt80A'
-  # giscus_category_id: 'DIC_kwDONLt80M4CkDnG'
-  giscus_lang: 'zh-CN'
-  twikoo: false
-  twikoo_url: 'https://twikoo.lisz.top'
-  # twikoo_region: 'ap-shanghai'
-  # twikoo_lang: 'zh-CN'
-
-# MathJax 公式支持 by Ray-Eldath
-mathjax: true
-
-# Share
-social-share: true
-social-share-items: ['wechat', 'weibo', 'douban', 'twitter']
-
-# theme color 主题皮肤
-theme-color: 'default'  # pink or default
-
-# Post header background patterns (when the post no cover): circuitBoard, overlappingCircles, food, glamorous, ticTacToe, seaOfClouds
-postPatterns: 'circuitBoard'
-
-# SNS settings 配置社交网站
-# url: email, weibo, zhihu, twitter, instagram, juejin, github, douban, facebook, dribble, uicn, jianshu, medium, linkedin
-sns:
-  # google-scholar: 'https://scholar.google.com/citations?user=AUupIooAAAAJ'
-  # researchgate: 'https://www.researchgate.net/profile/Shengzhou-Li'
-  # ORCID: 'https://orcid.org/0000-0001-6973-3825'
-  # github: 'https://github.com/zhonger'
-  # linkedin: 'https://www.linkedin.com/in/shengzhouli/'
-  # segmentfault: 'https://segmentfault.com/u/wuwozhonger'
-
-# Links 友情链接
-links:
-  # 'Mr Li': 'https://lisz.me'
-
-# Calendar 日历
-calendar: true
-
-# Supports 赞助商
-supports:
-  upyun: 
-  webify: 
-
-# Badges
-badges:
-  netlify: true # Netlify
-  vercel: true # Vercel
-  cloudflare: true # Cloudflare
-  foreverblog: true # Foreverblog
-  wormhole: true # Wormhole
-  travelling: true # Travelling
-  notbyAI: true # NotByAI
-
-# Alive time
-alivetime: true
-alivestart: "12/23/2021"
-
-# Beian 备案号
-beian: '沪ICP备xxxxxxxx号'
-# moe_beian: 'xxxxxxxx'
-
-# CC License
-cclicense: true
-
-# CNZZ Analytics
-# cnzz: 1234567891
-cnzz: 
-
-# Busuanzi Analytics
-busuanzi: true
-#busuanzi_url: https://busuanzi.lisz.top/js 
-
-# Umami Analytics
-umami:
-  status: 
-  id: 
-  js: 
-
-# Shynet Analytics
-shynet: false
-shynet_url: ''
-
-# Plausible Analytics
-plausible: false
-plausible_domain: 'example.com'
-plausible_url: ''
-# plausible_js: ''
-
-# Fathom Analytics
-fathom: false
-fathom_id: ''
-
-# Ackee Analytics
-ackee: false
-ackee_url: ''
-ackee_id: ''
-# ackee_js: ''
-
-# Matomo Analytics
-matomo: false
-matomo_url: ''
-matomo_id: ''
-
-# Google Analytics
-# google_analytics: UA-XXXXXXXXX-X
-google_analytics: 
-
-# Google Search
-google_search: 
-
-# ToS
-tos: /tos.html
-
-# Tags 设置标签
-recommend-tags: true # whether or not display recommend-tags on the sidebar
-recommend-condition-size: 12 # a tag will be recommended if the size of it is more than this value
-
-# Build settings
-pagination:
-  enabled: true
-  per_page: 5
-  permalink: 'page:num/'
-  title: ':title | :num of :max'
-  limit: 0
-  sort_field: 'date'
-  sort_reverse: true
-
-exclude: ['node_modules', 'dev', 'package.json', 'webpack.config.js', '.gitignore', 'README.md', '*.gemspec', '*.gem']
-
-# Markdown
 markdown: kramdown
-highlighter: rouge
 kramdown:
   input: GFM
+  syntax_highlighter: rouge
 
-# Prism settings
-# Support all offical and extended themes
-# Please visit https://prismjs.com and https://github.com/PrismJS/prism-themes/tree/master/themes to check the supported theme names
-prism:
-  theme: one-light
-  line_numbers: true
 
-# RSS
-RSS: true
+exclude:
+  - .jekyll-cache
+  - .obsidian
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE.md
+  - README.md
+  - CONTRIBUTING.md
+  
+compress_html:
+  clippings: all
+  comments: ["<!-- ", " -->"]
 
-# Permalink
-# See: https://github.com/kaeyleo/jekyll-theme-H2O/issues/35
-permalink: /:categories/:title.html
+sass:
+  sass_dir: _sass
+  style: compressed
 
-# Extlinks
-extlinks:
-  attributes: {rel: nofollow, target: _blank, class: extlinks}
-  # rel_exclude: ['host1.com', 'host2.net']
-  # class_exclude: ['host1.com', 'host2.net']
+plugins:
+  - jekyll-paginate
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-relative-links
+paginate: 20
+paginate_path: "/page/:num"
 
-# Mermaid
-mermaid: true
+collections:
+  pages:
+    output: true
+    permalink: /:name
+  posts:
+    output: true
+    permalink: /:slug/
+  authors:
+    output: true
+  
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      layout: "default"
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  -
+    scope:
+      path: ""
+    values:
+      image: https://res.cloudinary.com/notee/image/upload/v1640411291/notes/imgseo.jpg
+  - 
+    scope:
+      path: ""
+      type: "authors"
+    values:
+      layout: "author"
 
-# TOC
-toc: true
-# <div class="title">{% if title %} {{title}} {% else %} {{default_title}} {% endif %}</div>
-# premonition
-premonition:
-  default:
-    template: '<div class="premonition {{type}}">
-          <div class="header">
-            <svg class="icon {{type}}" aria-hidden="true">
-                <use xlink:href="#icon-{{type}}"></use>
-            </svg>
-            <div class="title"> {{title}} </div>
-          </div>
-          <div class="content">
-            {{content}}
-          </div>
-        </div>'
-  types:
-    citation:
-      template: '<div class="premonition {{type}}">
-          <div class="header">
-            <svg class="icon {{type}}" aria-hidden="true">
-                <use xlink:href="#icon-{{type}}"></use>
-            </svg>     
-          </div>
-          <div class="content">
-            {{content}}
-          </div>
-          {% if title %}<div class="ref"> ------ {{title}} </div>{% endif %}
-        </div>'
-      default_title: ''
-    note:
-      default_title: 'Note'
-    info:
-      default_title: 'Info'
-    warning:
-      default_title: 'Warning'
-    error:
-      default_title: 'Error'
 
-# Plugins
-plugins: [jekyll-paginate-v2, jekyll-feed, jekyll-sitemap, premonition, h2o-ac-jekyll-extlinks]
+relative_links:
+  enabled:     true
+  collections: false
+
+
