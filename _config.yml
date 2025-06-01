@@ -1,34 +1,16 @@
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+name: Jekyll Themes
+url: http://matt.harzewski.com
+description: Insert tagline here
 
-# Build settings
-markdown: kramdown
-permalink: pretty
-plugins:
-  - jekyll-sitemap
-compress_html:
-  clippings: all
-  comments: all
-  startings: [html, head, body]
+permalink: /themes/:title/
 
-# Pages Path
-defaults:
-  - scope:
-      path: "_pages"
-    values:
-      permalink: /:basename:output_ext
+plugins: [jekyll-paginate]
 
-include:
-  - _pages
+highlighter: pygments
+paginate: 20
 
-sass:
-  sass_dir: assets/scss
-  style: compressed
+markdown: rdiscount
+rdiscount:
+    extensions: ['smart']
 
-# Exclude from processing.
-exclude:
-  - Gemfile
-  - Gemfile.lock
-  - LICENSE.text
-  - README.md
-  - SECURITY.md
+exclude: ['README.md', 'Gemfile.lock', 'Gemfile', 'Rakefile', 'vendor']
