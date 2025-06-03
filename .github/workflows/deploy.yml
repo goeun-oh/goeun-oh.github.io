@@ -28,8 +28,6 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: main           # ✅ 반드시 main!
           publish_dir: ./public
-          allow_empty_commit: false
-          keep_files: false
-          force_orphan: true             # ✅ 이걸 true로 해야 충돌 방지
+          publish_branch: main         # ✅ 꼭 main이어야 함 (User Page)
+          force_orphan: true           # ✅ 이게 핵심입니다!
