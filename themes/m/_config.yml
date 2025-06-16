@@ -48,16 +48,17 @@ drawer:
   home: true
   archives: true
   categories: true
-  tags: false
+  tags: true
   links: false
   rss: false
 
 footer:
-  since: 
-  hosted_on: 
+  since: 2024
+  hosted_on: GitHub Pages
   powered_by_hexo: true
   theme_m: true
   custom: |
+    <p>끊임없이 배우고 성장하는 개발자</p>
 
 open_graph:
   google_analytics:
@@ -69,7 +70,7 @@ open_graph:
 posts:
   thumbnail_title: false # true /false
   index_content: auto # false / auto / excerpt / content
-  show_categories: false
+  show_categories: true
   license: '<a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>'
 
 comments:
@@ -87,7 +88,7 @@ comments:
     mapping: pathname
     reactions_enabled: 1
     input_position: bottom
-    theme: preferred_color_scheme
+    theme: preferred-color-scheme
     src: "https://giscus.app/client.js"
 
 search:
