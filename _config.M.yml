@@ -1,0 +1,119 @@
+# Hexo M Theme Configuration
+# Theme: https://github.com/theme-M/hexo-theme-M
+
+# Header
+menu:
+  Home: /
+  Archives: /archives
+  About: /about
+
+# Content
+excerpt_link: Read More
+fancybox: true
+
+# Profile
+profile:
+  enabled: true
+  avatar: /images/avatar.jpg
+  author: 고은
+  author_title: 개발자
+  location: Seoul, Korea
+  follow: https://github.com/goeun-oh
+
+# Contact
+contact:
+  - icon: github
+    url: https://github.com/goeun-oh
+  - icon: email
+    url: mailto:your-email@example.com
+
+# Social
+social:
+  github: https://github.com/goeun-oh
+  linkedin: # Add your LinkedIn URL
+  instagram: # Add your Instagram URL
+
+# Footer
+footer:
+  since: 2024
+  icon:
+    name: fa fa-heart
+    animated: true
+    color: "#ff0000"
+  copyright: 고은의 포트폴리오
+
+# Sidebar
+sidebar:
+  position: right
+  display: post
+  padding: 18
+  offset: 12
+
+# Post
+post:
+  meta:
+    date:
+      enabled: true
+      format: "YYYY-MM-DD"
+    updated:
+      enabled: true
+      format: "YYYY-MM-DD"
+    categories:
+      enabled: true
+      delimiter: " > "
+    tags:
+      enabled: true
+      delimiter: " "
+
+# Archive
+archive:
+  type: 'monthly'
+
+# Code Highlight
+highlight:
+  enable: true
+  line_number: true
+  auto_detect: true
+  tab_replace: 4
+  
+# Comments
+comments:
+  enable: false
+  provider: disqus
+  disqus:
+    shortname: # your disqus shortname
+
+# Search
+search:
+  enable: true
+  service: local
+  path: search.xml
+  field: post
+  onload: false
+
+# Analytics
+analytics:
+  google_analytics: # your google analytics id
+  gtag: # your gtag id
+
+# SEO
+seo:
+  enable: true
+  structured_data:
+    enable: true
+  open_graph:
+    enable: true
+    image: # default og:image
+  twitter_card:
+    enable: true
+    image: # default twitter:image
+
+# Favicon
+favicon: /favicon.ico
+
+# Math
+math:
+  enable: false
+  engine: mathjax
+  mathjax:
+    src: https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML
