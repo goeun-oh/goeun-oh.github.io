@@ -3,12 +3,12 @@
 
 # Header
 menu:
-  Home: /
-  Archives: /archives
-  About: /about
+  포트폴리오: /
+  프로젝트: /archives
+  소개: /about
 
 # Content
-excerpt_link: Read More
+excerpt_link: 더 읽기
 fancybox: true
 
 # Profile
@@ -16,7 +16,7 @@ profile:
   enabled: true
   avatar: /images/avatar.jpg
   author: 고은
-  author_title: 개발자
+  author_title: 웹 개발자
   location: Seoul, Korea
   follow: https://github.com/goeun-oh
 
