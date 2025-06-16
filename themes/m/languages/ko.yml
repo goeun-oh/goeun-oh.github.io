@@ -1,0 +1,50 @@
+common:
+    home: "홈"
+    search: "검색"
+    archive: "아카이브"
+    category: "카테고리"
+    tag: "태그"
+    newer: "다음"
+    older: "이전"
+    about: "소개"
+    contact: "연락처"
+    menu: "메뉴"
+    toc: "목차"
+    read_more: "더 읽기"
+    posted: "게시됨"
+    updated: "업데이트됨"
+    share: "공유"
+    permalink: "고유링크"
+    
+footer:
+    powered_by: "제공:"
+    theme: "테마"
+    
+post:
+    copyright: "저작권"
+    license: "라이선스"
+    
+page:
+    contents: "내용"
+    back_to_top: "맨 위로"
+    
+counter:
+    tag_cloud:
+        zero: "태그 없음"
+        one: "1개 태그"
+        other: "%d개 태그"
+    
+    archive_a:
+        zero: "아카이브 없음"
+        one: "1개 아카이브"
+        other: "%d개 아카이브"
+        
+    archive_b:
+        zero: "포스트 없음"
+        one: "1개 포스트"
+        other: "%d개 포스트"
+        
+    categories:
+        zero: "카테고리 없음"
+        one: "1개 카테고리"
+        other: "%d개 카테고리"
