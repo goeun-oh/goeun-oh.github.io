@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ko" >
+<head>
+    <meta charset="utf-8">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+
+
+    <link rel="dns-prefetch" //cdn.jsdelivr.net>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.2/dist/css/mdui.min.css">
+
+
+
+
+
+<meta name="theme-color" content="#3F51B5">
+
+
+<style>
+    html,body{scroll-behavior:smooth;min-height:100vh}
+    blockquote>strong>a{word-break:break-all}
+    .mdui-hoverable:hover,.mdui-hoverable:focus{-webkit-box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12) !important;box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12) !important;}
+    .mdui-card-primary-title a{text-decoration:none !important}
+    .page-number{display:none !important}
+    .mdui-container-fluid{transition:opacity .4s}
+    
+        body{background-color: #f6f6f6}
+
+    
+</style>
+    
+    <title>첫 번째 프로젝트 - React Todo App | 고은의 포트폴리오</title>
+    <link rel="canonical" href="https://www.goeun-oh.com/2024/12/16/react-todo-app/">
+    <meta name="description" content="프로젝트 개요React를 사용해서 만든 첫 번째 개인 프로젝트인 Todo 애플리케이션입니다.사용자가 할 일을 추가하고, 완료 처리하며, 삭제할 수 있는 기본적인 CRUD 기능을 구현했습니다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="첫 번째 프로젝트 - React Todo App">
+<meta property="og:url" content="https://www.goeun-oh.com/2024/12/16/react-todo-app/index.html">
+<meta property="og:site_name" content="고은의 포트폴리오">
+<meta property="og:description" content="프로젝트 개요React를 사용해서 만든 첫 번째 개인 프로젝트인 Todo 애플리케이션입니다.사용자가 할 일을 추가하고, 완료 처리하며, 삭제할 수 있는 기본적인 CRUD 기능을 구현했습니다.">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:published_time" content="2024-12-16T01:30:00.000Z">
+<meta property="article:modified_time" content="2025-06-16T05:48:27.358Z">
+<meta property="article:author" content="고은">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="Frontend">
+<meta name="twitter:card" content="summary">
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body class="mdui-theme-primary-indigo mdui-theme-accent-pink mdui-appbar-with-toolbar ">
+    <div class="mdui-theme-layout-light">
+    <header id="appbar" class="mdui-appbar mdui-appbar-fixed mdui-shadow-0 mdui-appbar-scroll-hide">
+    <div class="mdui-toolbar">
+        <button mdui-drawer="{target: '.mdui-drawer'}" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon material-icons">menu</i></button>
+        <a href="/" class="mdui-typo-title">고은의 포트폴리오</a>
+        <div class="mdui-toolbar-spacer"></div>
+        
+        <a href="/search/" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon material-icons">search</i></a>
+        
+    </div>
+</header>
+    <aside class="mdui-drawer mdui-drawer-close">
+    <nav class="mdui-list" mdui-collapse="{accordion: true}">
+        <a href="#" class="mdui-list-item mdui-ripple h-card">
+            <div class="mdui-list-item-avatar">
+                
+                <i class="mdui-color-theme-primary mdui-icon material-icons">person</i>
+                
+            </div>
+            <div class="mdui-list-item-content p-name">고은</div>
+            <span style="display:none" class="u-url u-uid">https://www.goeun-oh.com</span>
+        </a>
+        <div class="mdui-divider"></div>
+        
+        <a href="/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
+            <div class="mdui-list-item-content">홈</div>
+        </a>
+        
+        <div class="mdui-collapse-item">
+            <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">inbox</i>
+                <div class="mdui-list-item-content">아카이브</div>
+                <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+            </div>
+            <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                <a class="mdui-list-item mdui-ripple m-link" href="/archives/2025/06/">6월 2025</a><a class="mdui-list-item mdui-ripple m-link" href="/archives/2024/12/">12월 2024</a><a class="mdui-list-item mdui-ripple m-link" href="/archives/2024/01/">1월 2024</a>
+            </div>
+        </div>
+        
+        <div class="mdui-collapse-item">
+            <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">apps</i>
+                <div class="mdui-list-item-content">카테고리</div>
+                <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+            </div>
+            <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                <a class="mdui-list-item mdui-ripple m-link" href="/categories/%EA%B0%9C%EB%B0%9C/">개발</a><a class="mdui-list-item mdui-ripple m-link" href="/categories/%EC%86%8C%EA%B0%9C/">소개</a><a class="mdui-list-item mdui-ripple m-link" href="/categories/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/">프로젝트</a>
+            </div>
+        </div>
+        
+        <a href="/tags/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">local_offer</i>
+            <div class="mdui-list-item-content">태그</div>
+        </a>
+        
+    </nav>
+    <div class="mdui-divider"></div>
+    <footer class="mdui-m-l-2 mdui-m-t-1 mdui-typo mdui-text-color-theme-disabled">
+        <p class="mdui-m-b-0">
+            <p>끊임없이 배우고 성장하는 개발자</p>
+<br>
+            © 2024 - 
+            2025 고은<br>
+            
+            Hosted on <a href="/" rel="noreferrer"
+                target="_blank">GitHub Pages</a><br>
+            
+            Powered by <a href="https://hexo.io/" rel="noreferrer" target="_blank">Hexo</a><br>
+            
+            Theme - <a href="https://github.com/kwaa/hexo-theme-m" rel="noreferrer" target="_blank"
+                mdui-tooltip="{position:'right', content: 'by 藍+85CD'}">M</a></p>
+            
+    </footer>
+</aside>
+    </div>
+    <div class="mdui-container-fluid mdui-center" style="max-width:720px">
+        <article class="h-entry mdui-card mdui-hoverable mdui-shadow-1 mdui-m-y-2" style="opacity: 1; border-radius: 4px"
+>
+    
+    <div class="mdui-card-primary mdui-ripple">
+    <div class="mdui-card-primary-title">
+        <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" >첫 번째 프로젝트 - React Todo App</a>
+        <a class="p-author h-card" style="display:none" href="https://www.goeun-oh.com">고은</a>
+        
+        <small> <a class="mdui-text-color-theme-text category-link" href="/categories/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/">프로젝트</a></small>
+        
+    </div>
+    <div class="mdui-card-primary-subtitle mdui-typo">
+        
+        <span><a class="tag-none-link" href="/tags/Frontend/" rel="tag">Frontend</a> <a class="tag-none-link" href="/tags/JavaScript/" rel="tag">JavaScript</a> <a class="tag-none-link" href="/tags/React/" rel="tag">React</a></span>
+        <span>-</span>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2024-12-16 10:30<br>Updated: 2025-06-16 02:48'}" datetime="2024-12-16T01:30:00.000Z">2024-12-16</time>
+        <span>-</span>
+        
+            <span>2024/12/16/react-todo-app/</span>
+        
+    </div>
+</div>
+    
+    
+    <div class="mdui-divider"></div>
+    <div class="mdui-card-content mdui-typo">
+        
+        <div class="p-summary" style="display:none"><h2 id="프로젝트-개요"><a href="#프로젝트-개요" class="headerlink" title="프로젝트 개요"></a>프로젝트 개요</h2><p>React를 사용해서 만든 첫 번째 개인 프로젝트인 Todo 애플리케이션입니다.<br>사용자가 할 일을 추가하고, 완료 처리하며, 삭제할 수 있는 기본적인 CRUD 기능을 구현했습니다.</p></div>
+        <main class="e-content"><h2 id="프로젝트-개요"><a href="#프로젝트-개요" class="headerlink" title="프로젝트 개요"></a>프로젝트 개요</h2><p>React를 사용해서 만든 첫 번째 개인 프로젝트인 Todo 애플리케이션입니다.<br>사용자가 할 일을 추가하고, 완료 처리하며, 삭제할 수 있는 기본적인 CRUD 기능을 구현했습니다.</p>
+<span id="more"></span>
+
+<h2 id="사용된-기술"><a href="#사용된-기술" class="headerlink" title="사용된 기술"></a>사용된 기술</h2><ul>
+<li><strong>Frontend</strong>: React, CSS3, HTML5</li>
+<li><strong>상태 관리</strong>: React Hooks (useState, useEffect)</li>
+<li><strong>스타일링</strong>: CSS Modules</li>
+<li><strong>배포</strong>: Netlify</li>
+</ul>
+<h2 id="주요-기능"><a href="#주요-기능" class="headerlink" title="주요 기능"></a>주요 기능</h2><h3 id="1-할-일-추가"><a href="#1-할-일-추가" class="headerlink" title="1. 할 일 추가"></a>1. 할 일 추가</h3><p>사용자가 입력 필드에 할 일을 입력하고 엔터키를 누르거나 추가 버튼을 클릭하면 새로운 할 일이 목록에 추가됩니다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">addTodo</span> = (<span class="params">text</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> newTodo = &#123;</span><br><span class="line">    <span class="attr">id</span>: <span class="title class_">Date</span>.<span class="title function_">now</span>(),</span><br><span class="line">    <span class="attr">text</span>: text.<span class="title function_">trim</span>(),</span><br><span class="line">    <span class="attr">completed</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">createdAt</span>: <span class="keyword">new</span> <span class="title class_">Date</span>()</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="title function_">setTodos</span>([...todos, newTodo]);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-완료-상태-토글"><a href="#2-완료-상태-토글" class="headerlink" title="2. 완료 상태 토글"></a>2. 완료 상태 토글</h3><p>체크박스를 클릭하여 할 일의 완료 상태를 변경할 수 있습니다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">toggleTodo</span> = (<span class="params">id</span>) =&gt; &#123;</span><br><span class="line">  <span class="title function_">setTodos</span>(todos.<span class="title function_">map</span>(<span class="function"><span class="params">todo</span> =&gt;</span> </span><br><span class="line">    todo.<span class="property">id</span> === id </span><br><span class="line">      ? &#123; ...todo, <span class="attr">completed</span>: !todo.<span class="property">completed</span> &#125;</span><br><span class="line">      : todo</span><br><span class="line">  ));</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-할-일-삭제"><a href="#3-할-일-삭제" class="headerlink" title="3. 할 일 삭제"></a>3. 할 일 삭제</h3><p>삭제 버튼을 클릭하여 특정 할 일을 목록에서 제거할 수 있습니다.</p>
+<h2 id="배운-점"><a href="#배운-점" class="headerlink" title="배운 점"></a>배운 점</h2><p>이 프로젝트를 통해 다음과 같은 것들을 학습할 수 있었습니다:</p>
+<ul>
+<li>React의 기본 개념 (컴포넌트, state, props)</li>
+<li>React Hooks의 활용법</li>
+<li>이벤트 핸들링</li>
+<li>배열과 객체의 불변성 유지</li>
+<li>CSS Modules를 통한 스타일 관리</li>
+</ul>
+<h2 id="개선-사항"><a href="#개선-사항" class="headerlink" title="개선 사항"></a>개선 사항</h2><p>향후 다음과 같은 기능들을 추가할 예정입니다:</p>
+<ul>
+<li><input disabled="" type="checkbox"> 로컬 스토리지를 활용한 데이터 영속화</li>
+<li><input disabled="" type="checkbox"> 할 일 편집 기능</li>
+<li><input disabled="" type="checkbox"> 카테고리별 분류</li>
+<li><input disabled="" type="checkbox"> 검색 기능</li>
+<li><input disabled="" type="checkbox"> 반응형 디자인 개선</li>
+</ul>
+<h2 id="GitHub-링크"><a href="#GitHub-링크" class="headerlink" title="GitHub 링크"></a>GitHub 링크</h2><p><a target="_blank" rel="noopener" href="https://github.com/goeun-oh/react-todo-app">프로젝트 저장소 보기</a></p>
+<hr>
+<p><em>이 프로젝트는 React 학습의 첫 단계였으며, 기본기를 탄탄히 다지는 데 큰 도움이 되었습니다.</em></p>
+</main>
+        
+        <blockquote class="mdui-m-x-0 mdui-m-t-4">
+    <strong>
+        Author: <a href="#">고은</a><br>
+        URL: <a href="https://www.goeun-oh.com/2024/12/16/react-todo-app/">https://www.goeun-oh.com/2024/12/16/react-todo-app/</a><br>
+        
+            라이선스
+        
+    </strong>
+</blockquote>
+        
+    </div>
+    
+</article>
+
+<nav class="mdui-theme-layout-light mdui-color-transparent mdui-row mdui-m-b-2">
+    
+        <div class="mdui-col-xs-12 mdui-m-b-2">
+            <a class="extend prev mdui-btn mdui-ripple mdui-float-left mdui-text-truncate" rel="prev"
+                style="max-width: 100%" href="/2025/06/02/hello-world/">
+                <i class="mdui-icon mdui-icon-left material-icons">arrow_back</i>Hello World
+            </a>
+        </div>
+    
+        <div class="mdui-col-xs-12">
+            <a class="extend next mdui-btn mdui-ripple mdui-float-right mdui-text-truncate" rel="next"
+                style="max-width: 100%" href="/2024/01/25/my-web-development-project/">
+                <i class="mdui-icon mdui-icon-right material-icons">arrow_forward</i>웹 개발 프로젝트 경험기
+            </a>
+        </div>
+    
+</nav>
+
+    </div>
+    <a href="#" class="mdui-fab mdui-fab-fixed mdui-hidden-xs mdui-color-theme-accent mdui-ripple"><i class="mdui-icon material-icons">keyboard_arrow_up</i></a>
+
+<script src="https://cdn.jsdelivr.net/npm/mdui@1.0.2/dist/js/mdui.min.js"></script>
+
+
+<script>
+    var $ = mdui.$;
+    function init(){
+        //
+    }
+    window.addEventListener("load", () => {
+        //
+        init()
+    }, {once: true});
+</script>
+
+</body>
+</html>
