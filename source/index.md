@@ -35,7 +35,7 @@ layout: page
   --nav-height: 100px;
   --border-radius: 8px;
   --section-padding: 100px;
-  --max-width: 1000px;
+  --max-width: 1200px;
   --transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
@@ -141,9 +141,8 @@ body {
 .section {
   margin: 0 auto;
   padding: var(--section-padding) 0;
-  max-width: var(--max-width);
+  max-width: 1200px; /* var(--max-width) 대신 고정값 */
 }
-
 /* Hero Section */
 .hero {
   display: flex;
@@ -416,7 +415,7 @@ body {
 }
 /* Projects Section */
 .projects-section {
-  max-width: 1000px;
+  max-width: 1200px; /* 1000px에서 1200px로 늘림 */
   text-align: center;
 }
 
@@ -660,9 +659,11 @@ body {
     grid-template-columns: 1fr;
   }
   .projects-grid {
-    grid-template-columns: 1fr;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px; /* 30px에서 20px로 줄임 */
+    margin-top: 50px;
   }
-  
   .project-header {
     display: flex;
     justify-content: space-between;
