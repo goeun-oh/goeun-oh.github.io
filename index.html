@@ -41,8 +41,8 @@
 <meta property="og:site_name">
 <meta property="og:description" content="@import url(&#39;https:&#x2F;&#x2F;fonts.googleapis.com&#x2F;css2?family&#x3D;Inter:wght@300;400;500;600;700&amp;family&#x3D;JetBrains+Mono:wght@400;500;600&amp;display&#x3D;swap&#39;);  * {   margin: 0;   padding: 0;   box-sizing: border-box;">
 <meta property="og:locale" content="ko_KR">
-<meta property="article:published_time" content="2025-06-17T07:27:21.505Z">
-<meta property="article:modified_time" content="2025-06-17T07:27:21.505Z">
+<meta property="article:published_time" content="2025-06-17T07:32:49.384Z">
+<meta property="article:modified_time" content="2025-06-17T07:32:49.384Z">
 <meta property="article:author" content="고은">
 <meta property="article:tag" content="개발자, 포트폴리오, 웹개발, 프론트엔드, 백엔드">
 <meta name="twitter:card" content="summary">
@@ -137,7 +137,7 @@
     </div>
     <div class="mdui-card-primary-subtitle mdui-typo">
         
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-17 04:27<br>Updated: 2025-06-17 04:27'}" datetime="2025-06-17T07:27:21.505Z">2025-06-17</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-17 04:32<br>Updated: 2025-06-17 04:32'}" datetime="2025-06-17T07:32:49.384Z">2025-06-17</time>
         <span>-</span>
         
             <span>index.html</span>
@@ -283,7 +283,44 @@ body {
     gap: 8px;
   }
 }
+/* 기존 모바일 숨기기 코드를 이렇게 수정 */
+@media (max-width: 768px) {
+  .vertical-nav {
+    display: flex; /* none에서 flex로 변경 */
+    right: 10px; /* 모바일에서는 더 가까이 */
+    padding: 20px 12px; /* 패딩 조정 */
+    width: auto; /* 너비 자동 조정 */
+    min-width: 120px; /* 최소 너비 설정 */
+  }
+  
+  .nav-label {
+    font-size: var(--fz-xxs); /* 더 작은 글씨 */
+    display: block; /* 모바일에서도 라벨 표시 */
+  }
+  
+  .nav-item {
+    gap: 8px; /* 간격 줄이기 */
+    padding: 8px 0; /* 패딩 조정 */
+  }
+  
+  .nav-dot {
+    width: 6px; /* 점 크기 조정 */
+    height: 6px;
+  }
+}
 
+/* 아주 작은 화면용 추가 조정 */
+@media (max-width: 480px) {
+  .vertical-nav {
+    right: 5px;
+    padding: 15px 8px;
+    min-width: 100px;
+  }
+  
+  .nav-label {
+    font-size: 10px;
+  }
+}
 
 .nav a:hover {
   color: var(--accent);
