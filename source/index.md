@@ -429,14 +429,13 @@ body {
 
 .project-card {
   background: var(--bg-light);
-  padding: 30px;
+  padding: 20px; /* 30px에서 20px로 줄임 */
   border-radius: var(--border-radius);
   border: 1px solid var(--border);
   transition: var(--transition);
   text-align: left;
   position: relative;
   overflow: hidden;
-  min-height: 400px; /* 이 줄 추가 */
   display: flex;
   flex-direction: column;
 }
@@ -453,14 +452,14 @@ body {
 
 .project-image {
   width: 100%;
-  height: 150px;
+  height: 120px; /* 150px에서 120px로 줄임 */
   background: linear-gradient(135deg, var(--accent), var(--accent-hover));
   border-radius: var(--border-radius);
-  margin-bottom: 20px;
+  margin-bottom: 15px; /* 20px에서 15px로 줄임 */
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.5rem;
+  font-size: 2rem; /* 2.5rem에서 2rem으로 줄임 */
   color: white;
   transition: var(--transition);
 }
@@ -502,30 +501,33 @@ body {
 
 .project-description {
   color: var(--text-light);
-  font-size: var(--fz-md);
-  line-height: 1.6;
-  margin-bottom: 20px;
+  font-size: var(--fz-sm); /* var(--fz-md)에서 작게 */
+  line-height: 1.5; /* 1.6에서 1.5로 */
+  margin-bottom: 15px; /* 20px에서 15px로 */
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* 3줄로 제한 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .project-tech {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px; /* 8px에서 6px로 */
   margin-top: auto;
 }
 
 .project-tech-tag {
   background: var(--bg);
   color: var(--text-light);
-  padding: 6px 12px;
-  border-radius: 15px;
+  padding: 4px 8px; /* 6px 12px에서 줄임 */
+  border-radius: 12px; /* 15px에서 12px로 */
   font-size: var(--fz-xs);
   font-weight: 500;
   border: 1px solid var(--border);
   font-family: var(--font-mono);
   transition: var(--transition);
 }
-
 .project-tech-tag:hover {
   background: var(--accent-light);
   color: var(--accent-hover);
@@ -662,9 +664,10 @@ body {
   }
   
   .project-header {
-    flex-direction: column;
+    display: flex;
+    justify-content: space-between;
     align-items: flex-start;
-    gap: 10px;
+    margin-bottom: 10px; /* 15px에서 10px로 */
   }
   
   .project-links {
