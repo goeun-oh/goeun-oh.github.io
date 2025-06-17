@@ -58,7 +58,7 @@ body {
   counter-reset: section;
 }
 
-/* Header */
+/* Header - 수정된 버전 */
 .header {
   display: flex;
   justify-content: space-between;
@@ -75,12 +75,9 @@ body {
   transition: var(--transition);
 }
 
-.logo a {
-  color: var(--accent);
-  font-family: var(--font-mono);
-  text-decoration: none;
-  font-size: var(--fz-lg);
-  font-weight: 600;
+.nav {
+  width: auto; /* 추가 */
+  overflow: visible; /* 추가 */
 }
 
 .nav ol {
@@ -90,22 +87,56 @@ body {
   padding: 0;
   margin: 0;
   list-style: none;
+  white-space: nowrap; /* 추가 - 줄바꿈 방지 */
+  gap: 20px; /* 추가 - 메뉴 간격 */
 }
 
 .nav ol li {
-  margin: 0 5px;
+  margin: 0; /* 기존 margin: 0 5px; 제거 */
   position: relative;
   font-size: var(--fz-sm);
 }
 
-.nav a {
-  padding: 10px;
-  text-decoration: none;
-  color: var(--text-light);
-  font-family: var(--font-mono);
-  font-weight: 400;
-  transition: var(--transition);
+/* 반응형 - 모바일에서 헤더 조정 */
+@media (max-width: 1080px) {
+  .header {
+    padding: 0 30px; /* 50px에서 30px로 */
+  }
+  
+  .nav ol {
+    gap: 15px; /* 간격 줄이기 */
+  }
 }
+
+@media (max-width: 768px) {
+  .header {
+    padding: 0 25px;
+  }
+  
+  .nav ol {
+    gap: 10px;
+  }
+  
+  .nav ol li {
+    font-size: var(--fz-xs); /* 폰트 크기 줄이기 */
+  }
+  
+  .resume-button {
+    padding: 0.5rem 0.75rem; /* 버튼 크기 줄이기 */
+    font-size: var(--fz-xs);
+  }
+}
+
+@media (max-width: 600px) {
+  .header {
+    padding: 0 15px;
+  }
+  
+  .nav ol {
+    gap: 8px;
+  }
+}
+
 
 .nav a:hover {
   color: var(--accent);
@@ -711,6 +742,13 @@ body {
     gap: 10px;
   }
 }
+/* 페이지 제목 카드 숨기기 */
+.mdui-card-primary-title {
+  display: none !important;
+}
+.mdui-card-primary-subtitle {
+  display: none !important;
+}
 /* Footer */
 .footer {
   display: flex;
@@ -741,7 +779,13 @@ body {
 .footer .credit a:hover {
   color: var(--accent);
 }
-
+.logo a {
+  color: var(--accent);
+  font-family: var(--font-mono);
+  text-decoration: none;
+  font-size: var(--fz-xxl); /* var(--fz-lg)에서 var(--fz-xxl)로 변경 */
+  font-weight: 700; /* 600에서 700으로 더 굵게 */
+}
 /* Responsive Design */
 @media (max-width: 1080px) {
   .main {
