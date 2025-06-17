@@ -136,32 +136,27 @@ body {
     gap: 8px;
   }
 }
-/* 기존 모바일 숨기기 코드를 이렇게 수정 */
+/* 모바일에서 햄버거 메뉴 클릭시 사이드바 표시 */
 @media (max-width: 768px) {
   .vertical-nav {
-    display: flex; /* none에서 flex로 변경 */
-    right: 10px; /* 모바일에서는 더 가까이 */
-    padding: 20px 12px; /* 패딩 조정 */
-    width: auto; /* 너비 자동 조정 */
-    min-width: 120px; /* 최소 너비 설정 */
+    display: none; /* 기본적으로 숨김 */
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 250px;
+    background: rgba(17, 34, 64, 0.95);
+    z-index: 9999;
+    padding: 80px 20px 20px;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
   }
   
-  .nav-label {
-    font-size: var(--fz-xxs); /* 더 작은 글씨 */
-    display: block; /* 모바일에서도 라벨 표시 */
-  }
-  
-  .nav-item {
-    gap: 8px; /* 간격 줄이기 */
-    padding: 8px 0; /* 패딩 조정 */
-  }
-  
-  .nav-dot {
-    width: 6px; /* 점 크기 조정 */
-    height: 6px;
+  .vertical-nav.active {
+    display: flex;
+    transform: translateX(0);
   }
 }
-
 /* 아주 작은 화면용 추가 조정 */
 @media (max-width: 480px) {
   .vertical-nav {
