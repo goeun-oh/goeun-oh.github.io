@@ -873,7 +873,7 @@ body {
   <div class="logo">
     <a href="/">Goeun's Space</a>
   </div>
-  <nav class="nav">
+  <!--<nav class="nav">
     <ol>
       <li><a href="#about">About</a></li>
       <li><a href="#skills">Skills</a></li>
@@ -881,7 +881,7 @@ body {
       <li><a href="/portfolio">Portfolio</a></li>
       <li><a href="#contact">Contact</a></li>
     </ol>
-  </nav>
+  </nav>-->
 </header>
 
 <!-- Main Content -->
