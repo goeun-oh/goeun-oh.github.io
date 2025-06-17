@@ -41,8 +41,8 @@
 <meta property="og:site_name">
 <meta property="og:description" content="@import url(&#39;https:&#x2F;&#x2F;fonts.googleapis.com&#x2F;css2?family&#x3D;Inter:wght@300;400;500;600;700&amp;family&#x3D;JetBrains+Mono:wght@400;500;600&amp;display&#x3D;swap&#39;);  * {   margin: 0;   padding: 0;   box-sizing: border-box;">
 <meta property="og:locale" content="ko_KR">
-<meta property="article:published_time" content="2025-06-17T15:06:03.461Z">
-<meta property="article:modified_time" content="2025-06-17T15:06:03.461Z">
+<meta property="article:published_time" content="2025-06-17T15:14:48.709Z">
+<meta property="article:modified_time" content="2025-06-17T15:14:48.709Z">
 <meta property="article:author" content="고은">
 <meta property="article:tag" content="개발자, 포트폴리오, 웹개발, 프론트엔드, 백엔드">
 <meta name="twitter:card" content="summary">
@@ -137,7 +137,7 @@
     </div>
     <div class="mdui-card-primary-subtitle mdui-typo">
         
-        <time class="dt-published" mdui-tooltip="{content:'投稿日：2025-06-18 12:06<br>編集日：2025-06-18 12:06'}" datetime="2025-06-17T15:06:03.461Z">2025-06-18</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-18 12:14<br>Updated: 2025-06-18 12:14'}" datetime="2025-06-17T15:14:48.709Z">2025-06-18</time>
         <span>-</span>
         
             <span>index.html</span>
@@ -221,7 +221,85 @@ body {
   border-bottom: 1px solid var(--border);
   transition: var(--transition);
 }
+/* 모바일 전용 네비게이션 바 - 수정된 버전 */
+.mobile-nav {
+  display: none; /* 기본적으로 숨김 */
+}
 
+@media (max-width: 768px) {
+  /* 기존 vertical-nav 숨기기 */
+  .vertical-nav {
+    display: none !important;
+  }
+  
+  /* 모바일 네비게이션 표시 - 더 예쁜 디자인 */
+  .mobile-nav {
+    display: flex;
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(15px);
+    padding: 8px 16px;
+    border-radius: 20px;
+    gap: 16px;
+    z-index: 999;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    padding: 8px 6px;
+    border-radius: 12px;
+    transition: var(--transition);
+    min-width: 35px;
+  }
+  
+  .mobile-nav-item:hover {
+    background: rgba(49, 130, 206, 0.1);
+    transform: translateY(-2px);
+  }
+  
+  .mobile-nav-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--text-lighter);
+    transition: var(--transition);
+  }
+  
+  .mobile-nav-item.active .mobile-nav-dot {
+    background: var(--accent);
+    transform: scale(2);
+    box-shadow: 0 0 8px rgba(49, 130, 206, 0.4);
+  }
+  
+  .mobile-nav-label {
+    font-size: 8px;
+    color: var(--text-light);
+    font-family: var(--font-mono);
+    text-align: center;
+    font-weight: 500;
+  }
+  
+  .mobile-nav-item.active .mobile-nav-label {
+    color: var(--accent);
+    font-weight: 600;
+  }
+}
+
+/* 데스크톱에서는 확실히 숨김 */
+@media (min-width: 769px) {
+  .mobile-nav {
+    display: none !important;
+  }
+}
 .nav {
   width: auto; /* 추가 */
   overflow: visible; /* 추가 */
@@ -1411,8 +1489,8 @@ window.addEventListener('scroll', function() {
         
         <blockquote class="mdui-m-x-0 mdui-m-t-4">
     <strong>
-        著者：<a href="#">고은</a><br>
-        リンク：<a href="https://www.goeun-oh.com/index.html">https://www.goeun-oh.com/index.html</a><br>
+        Author: <a href="#">고은</a><br>
+        URL: <a href="https://www.goeun-oh.com/index.html">https://www.goeun-oh.com/index.html</a><br>
         
             라이선스
         
