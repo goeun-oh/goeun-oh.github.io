@@ -444,9 +444,9 @@ body {
     <h1>👋 고은 (Goeun Oh)</h1>
     <p class="subtitle">끊임없이 배우고 성장하는 <span class="highlight">풀스택 개발자</span></p>
     <div class="contact-links">
-      <a href="mailto:your.email@example.com" class="contact-link">📧 이메일</a>
+      <a href="mailto:goeun.oh.dev@gmail.com" class="contact-link">📧 이메일</a>
       <a href="https://github.com/goeun-oh" class="contact-link" target="_blank">💻 GitHub</a>
-      <a href="https://linkedin.com/in/your-profile" class="contact-link" target="_blank">💼 LinkedIn</a>
+      <a href="https://linkedin.com/in/goeun-oh" class="contact-link" target="_blank">💼 LinkedIn</a>
       <a href="/archives" class="contact-link">📝 블로그</a>
     </div>
   </section>
@@ -690,9 +690,9 @@ body {
     <h2 class="cta-title">🚀 함께 멋진 것을 만들어보아요!</h2>
     <p class="cta-description">새로운 프로젝트와 협업 기회를 기다리고 있습니다. 언제든 연락해주세요!</p>
     <div class="contact-links">
-      <a href="mailto:your.email@example.com" class="contact-link">📧 이메일 보내기</a>
+      <a href="mailto:goeun.oh.dev@gmail.com" class="contact-link">📧 이메일 보내기</a>
       <a href="https://github.com/goeun-oh" class="contact-link" target="_blank">💻 GitHub 보기</a>
-      <a href="https://linkedin.com/in/your-profile" class="contact-link" target="_blank">💼 LinkedIn 연결</a>
+      <a href="https://linkedin.com/in/goeun-oh" class="contact-link" target="_blank">💼 LinkedIn 연결</a>
       <a href="/archives" class="contact-link">📝 블로그 둘러보기</a>
     </div>
   </section>
