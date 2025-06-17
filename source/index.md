@@ -757,12 +757,6 @@ body {
   box-shadow: 0 15px 40px -10px rgba(26, 32, 44, 0.2);
 }
 
-/* 모바일에서 숨기기 */
-@media (max-width: 768px) {
-  .vertical-nav {
-    display: none;
-  }
-}
 
 /* 태블릿에서 간소화 */
 @media (max-width: 1024px) {
