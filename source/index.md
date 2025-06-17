@@ -14,24 +14,17 @@ layout: page
 }
 
 :root {
-  /* Light theme colors */
   --bg: #ffffff;
   --bg-light: #f8fafc;
-  --bg-section: #fafbfc;
   --text: #1a202c;
   --text-light: #4a5568;
   --text-lighter: #718096;
   --border: #e2e8f0;
-  --border-light: #f7fafc;
   --accent: #3182ce;
   --accent-light: #bee3f8;
   --accent-hover: #2c5282;
-  
-  /* Typography */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   --font-mono: 'JetBrains Mono', 'Monaco', 'Roboto Mono', monospace;
-  
-  /* Font sizes */
   --fz-xs: 13px;
   --fz-sm: 14px;
   --fz-md: 16px;
@@ -39,14 +32,10 @@ layout: page
   --fz-xl: 20px;
   --fz-xxl: 22px;
   --fz-heading: 32px;
-  
-  /* Layout */
   --nav-height: 100px;
   --border-radius: 8px;
   --section-padding: 100px;
   --max-width: 1000px;
-  
-  /* Transitions */
   --transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
@@ -66,6 +55,7 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  counter-reset: section;
 }
 
 /* Header */
@@ -325,35 +315,13 @@ body {
   background-color: var(--accent);
 }
 
-.about-pic .wrapper:hover,
-.about-pic .wrapper:focus {
+.about-pic .wrapper:hover {
   box-shadow: 0 20px 30px -15px rgba(26, 32, 44, 0.2);
   transform: translate(-10px, -10px);
 }
 
-.about-pic .wrapper:hover:before,
-.about-pic .wrapper:focus:before {
+.about-pic .wrapper:hover:after {
   transform: translate(10px, 10px);
-}
-
-.about-pic .wrapper:hover .img,
-.about-pic .wrapper:focus .img {
-  filter: none;
-  mix-blend-mode: normal;
-}
-
-.about-pic .wrapper:before {
-  content: '';
-  display: block;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: var(--border-radius);
-  transition: var(--transition);
-  top: 0;
-  left: 0;
-  background-color: var(--bg-light);
-  mix-blend-mode: screen;
 }
 
 .about-pic .wrapper:after {
@@ -373,8 +341,6 @@ body {
 .about-pic .img {
   position: relative;
   border-radius: var(--border-radius);
-  mix-blend-mode: multiply;
-  filter: grayscale(100%) contrast(1) brightness(90%);
   transition: var(--transition);
   width: 100%;
   height: auto;
@@ -426,11 +392,6 @@ body {
   gap: 10px;
 }
 
-.skill-icon {
-  color: var(--accent);
-  font-size: var(--fz-xxl);
-}
-
 .skill-tags {
   display: flex;
   flex-wrap: wrap;
@@ -454,9 +415,86 @@ body {
   transform: translateY(-2px);
 }
 
-/* Counter for sections */
-body {
-  counter-reset: section;
+/* Contact Section */
+.contact-section {
+  max-width: 600px;
+  margin: 0 auto 100px;
+  text-align: center;
+}
+
+.contact-section .overline {
+  display: block;
+  margin-bottom: 20px;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: var(--fz-md);
+  font-weight: 400;
+}
+
+.contact-section .title {
+  font-size: clamp(40px, 5vw, 60px);
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+
+.contact-section .description {
+  color: var(--text-light);
+  font-size: var(--fz-xl);
+  line-height: 1.6;
+  margin-bottom: 50px;
+}
+
+.contact-section .email-link {
+  color: var(--accent);
+  background-color: transparent;
+  border: 1px solid var(--accent);
+  border-radius: var(--border-radius);
+  padding: 1.25rem 2rem;
+  font-size: var(--fz-md);
+  font-family: var(--font-mono);
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  transition: var(--transition);
+  display: inline-block;
+}
+
+.contact-section .email-link:hover {
+  background-color: var(--accent-light);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(49, 130, 206, 0.2);
+}
+
+/* Footer */
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: auto;
+  min-height: 70px;
+  padding: 15px;
+  text-align: center;
+  border-top: 1px solid var(--border);
+  margin-top: 100px;
+}
+
+.footer .credit {
+  color: var(--text-lighter);
+  font-family: var(--font-mono);
+  font-size: var(--fz-xs);
+  line-height: 1;
+}
+
+.footer .credit a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.footer .credit a:hover {
+  color: var(--accent);
 }
 
 /* Responsive Design */
@@ -530,8 +568,7 @@ body {
   <nav class="nav">
     <ol>
       <li><a href="#about">About</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#work">Work</a></li>
+      <li><a href="#skills">Skills</a></li>
       <li><a href="#contact">Contact</a></li>
     </ol>
     <div>
@@ -600,12 +637,11 @@ body {
   </section>
 
   <!-- Skills Section -->
-  <section class="skills-section section">
+  <section id="skills" class="skills-section section">
     <h2 class="numbered-heading">Technical Skills</h2>
     <div class="skills-grid">
       <div class="skill-card">
         <div class="skill-category">
-          <span class="skill-icon">🔧</span>
           HDL & Design
         </div>
         <div class="skill-tags">
@@ -620,7 +656,6 @@ body {
 
       <div class="skill-card">
         <div class="skill-category">
-          <span class="skill-icon">⚡</span>
           EDA Tools
         </div>
         <div class="skill-tags">
@@ -635,7 +670,6 @@ body {
 
       <div class="skill-card">
         <div class="skill-category">
-          <span class="skill-icon">🎯</span>
           Hardware Platforms
         </div>
         <div class="skill-tags">
@@ -650,7 +684,6 @@ body {
 
       <div class="skill-card">
         <div class="skill-category">
-          <span class="skill-icon">📊</span>
           Analysis & Verification
         </div>
         <div class="skill-tags">
@@ -664,5 +697,23 @@ body {
       </div>
     </div>
   </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact-section section">
+    <span class="overline">다음 단계는?</span>
+    <h2 class="title">연락해주세요</h2>
+    <p class="description">
+      새로운 하드웨어 프로젝트나 협업 기회에 대해 이야기하고 싶으시다면 언제든 연락해주세요. 
+      항상 흥미로운 프로젝트와 새로운 기회에 열려있습니다.
+    </p>
+    <a class="email-link" href="mailto:goeun.oh.dev@gmail.com">안녕하세요</a>
+  </section>
 </div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="credit">
+    <p>&copy; 2025 Goeun Oh. Built with <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+  </div>
+</footer>
 {% endraw %}
