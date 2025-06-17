@@ -35,7 +35,7 @@ layout: page
   --nav-height: 100px;
   --border-radius: 8px;
   --section-padding: 100px;
-  --max-width: 1200px;
+  --max-width: 1400px;
   --transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
@@ -133,11 +133,10 @@ body {
 .main {
   margin: 0 auto;
   width: 100%;
-  max-width: 1600px;
+  max-width: 1800px; /* 1600px에서 더 넓게 */
   min-height: 100vh;
   padding: 0 150px;
 }
-
 .section {
   margin: 0 auto;
   padding: var(--section-padding) 0;
@@ -415,17 +414,20 @@ body {
 }
 /* Projects Section */
 .projects-section {
-  max-width: 1200px; /* 1000px에서 1200px로 늘림 */
+  max-width: none; /* 제한 없음 */
+  width: 100%;
   text-align: center;
 }
 
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 30px;
+  gap: 5px; /* 최소 간격 */
   margin-top: 50px;
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
 }
-
 .project-card {
   background: var(--bg-light);
   padding: 20px; /* 30px에서 20px로 줄임 */
@@ -619,7 +621,7 @@ body {
 /* Responsive Design */
 @media (max-width: 1080px) {
   .main {
-    padding: 0 100px;
+    padding: 0 80px; /* 100px에서 80px로 */
   }
 }
 
