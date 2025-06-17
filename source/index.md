@@ -437,7 +437,51 @@ body {
   align-items: start;
   text-align: left;
 }
+.about-inner-new {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  text-align: left;
+  max-width: 800px;
+  margin: 0 auto;
+}
 
+.about-intro {
+  text-align: center;
+  font-size: var(--fz-xl);
+}
+
+.about-intro p {
+  margin: 0;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+.about-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.about-text-main {
+  font-size: var(--fz-lg);
+}
+
+.about-text-main p {
+  margin: 0 0 20px;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    text-align: center;
+  }
+}
 .about-text {
   font-size: var(--fz-lg);
 }
@@ -446,6 +490,55 @@ body {
   margin: 0 0 20px;
   color: var(--text-light);
   line-height: 1.6;
+}
+.about-text-right {
+  font-size: var(--fz-lg);
+  margin-top: 20px;
+}
+
+.about-text-right p {
+  margin: 0 0 20px;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+.about-top {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 50px;
+  align-items: start;
+  margin-bottom: 40px;
+}
+
+.about-text-left {
+  font-size: var(--fz-lg);
+}
+
+.about-text-left p {
+  margin: 0;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+.about-bottom {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: var(--fz-lg);
+}
+
+.about-bottom p {
+  margin: 0 0 20px;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+  .about-top {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    text-align: center;
+  }
 }
 
 .skills-list {
@@ -1038,49 +1131,37 @@ body {
     </div>
   </section>
 
-  <!-- About Section -->
-  <section id="about" class="about-section section">
-    <h2 class="numbered-heading">About Me</h2>
-    <div class="about-inner">
-      <div>
-        <div class="about-text">
-          <p>
-            안녕하세요! 저는 효율적이고 혁신적인 디지털 시스템을 설계하는 것에 열정을 가진 
-            디지털회로 설계 엔지니어입니다.
-          </p>
-          <p>
-            FPGA, ASIC 설계부터 시스템 최적화까지 다양한 하드웨어 설계 기술을 익히며, 
-            항상 더 나은 성능과 효율성을 추구합니다. 첨단 기술과 창의적 사고를 결합하여 
-            미래 지향적인 디지털 솔루션을 개발하고 싶습니다.
-          </p>
-          <p>
-            최근에는 저전력 설계와 고성능 프로세서 아키텍처에 특히 관심을 가지고 
-            다양한 프로젝트를 진행하고 있습니다.
-          </p>
-          <p>다음은 제가 최근에 작업하고 있는 기술들입니다:</p>
-          <ul class="skills-list">
-            <li>Verilog HDL</li>
-            <li>SystemVerilog</li>
-            <li>VHDL</li>
-            <li>Vivado</li>
-            <li>Quartus Prime</li>
-            <li>ModelSim</li>
-            <li>RISC-V</li>
-            <li>FPGA Design</li>
-            <li>ASIC Design</li>
-            <li>Digital Signal Processing</li>
-          </ul>
-        </div>
-      </div>
-    <!-- 수정된 코드 -->
+<!-- About Section - 수정된 버전 -->
+<section id="about" class="about-section section">
+  <h2 class="numbered-heading">About Me</h2>
+  
+  <!-- 첫 번째 문단과 사진을 나란히 -->
+  <div class="about-top">
+    <div class="about-text-left">
+      <p>
+        안녕하세요! 저는 효율적이고 혁신적인 디지털 시스템을 설계하는 것에 열정을 가진 
+        디지털회로 설계 엔지니어입니다.
+      </p>
+    </div>
     <div class="about-pic">
       <div class="wrapper">
-        <img src="/images/profile.jpg" alt="고은 프로필 사진" class="img">
+        <img src="images/profile.jpg" alt="고은 프로필 사진" class="img">
       </div>
     </div>
-    </div>
-  </section>
-
+  </div>
+  <!-- 나머지 문단들 가운데 정렬 -->
+  <div class="about-bottom">
+    <p>
+      FPGA, ASIC 설계부터 시스템 최적화까지 다양한 하드웨어 설계 기술을 익히며, 
+      항상 더 나은 성능과 효율성을 추구합니다. 첨단 기술과 창의적 사고를 결합하여 
+      미래 지향적인 디지털 솔루션을 개발하고 싶습니다.
+    </p>
+    <p>
+      최근에는 저전력 설계와 고성능 프로세서 아키텍처에 특히 관심을 가지고 
+      다양한 프로젝트를 진행하고 있습니다.
+    </p>
+  </div>
+</section>
   <!-- Skills Section -->
   <section id="skills" class="skills-section section">
     <h2 class="numbered-heading">Technical Skills</h2>
@@ -1090,51 +1171,15 @@ body {
           HDL & Design
         </div>
         <div class="skill-tags">
-          <span class="skill-tag">Verilog HDL</span>
-          <span class="skill-tag">VHDL</span>
+          <span class="skill-tag">Verilog</span>
           <span class="skill-tag">SystemVerilog</span>
-          <span class="skill-tag">Digital Logic</span>
-          <span class="skill-tag">RTL Design</span>
-          <span class="skill-tag">FSM Design</span>
-        </div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-category">
-          EDA Tools
-        </div>
-        <div class="skill-tags">
           <span class="skill-tag">Vivado</span>
-          <span class="skill-tag">Quartus Prime</span>
+          <span class="skill-tag">Vitis</span>
           <span class="skill-tag">ModelSim</span>
-          <span class="skill-tag">Synopsys DC</span>
-          <span class="skill-tag">Cadence</span>
-          <span class="skill-tag">QuestaSim</span>
-        </div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-category">
-          Hardware Platforms
-        </div>
-        <div class="skill-tags">
-          <span class="skill-tag">Xilinx FPGA</span>
-          <span class="skill-tag">Intel FPGA</span>
-          <span class="skill-tag">ASIC Design</span>
-          <span class="skill-tag">SoC Design</span>
-          <span class="skill-tag">RISC-V</span>
-          <span class="skill-tag">ARM Cortex</span>
-        </div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-category">
-          Analysis & Verification
-        </div>
-        <div class="skill-tags">
-          <span class="skill-tag">Timing Analysis</span>
-          <span class="skill-tag">Power Analysis</span>
-          <span class="skill-tag">Functional Verification</span>
-          <span class="skill-tag">Logic Synthesis</span>
-          <span class="skill-tag">DFT</span>
-          <span class="skill-tag">Signal Integrity</span>
+          <span class="skill-tag">Synopsys Vcs & Verdi</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">C</span>
+          <span class="skill-tag">Java</span>
         </div>
       </div>
     </div>
