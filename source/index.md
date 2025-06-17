@@ -136,25 +136,62 @@ body {
     gap: 8px;
   }
 }
-/* 모바일에서 햄버거 메뉴 클릭시 사이드바 표시 */
+/* 모바일에서 하단 고정 네비게이션 */
 @media (max-width: 768px) {
   .vertical-nav {
-    display: none; /* 기본적으로 숨김 */
     position: fixed;
-    top: 0;
-    right: 0;
-    height: 100vh;
-    width: 250px;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    flex-direction: row;
     background: rgba(17, 34, 64, 0.95);
-    z-index: 9999;
-    padding: 80px 20px 20px;
-    transform: translateX(100%);
-    transition: transform 0.3s ease;
+    padding: 15px 25px;
+    border-radius: 30px;
+    z-index: 999;
+    width: auto;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
   
-  .vertical-nav.active {
-    display: flex;
-    transform: translateX(0);
+  .nav-item {
+    margin: 0 8px;
+    flex-direction: column;
+    gap: 5px;
+    padding: 8px;
+    border-radius: 15px;
+    transition: var(--transition);
+  }
+  
+  .nav-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+  }
+  
+  .nav-label {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+  }
+  
+  .nav-number {
+    display: none; /* 숫자 숨기기 */
+  }
+  
+  .nav-dot {
+    width: 8px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.6);
+    border: none;
+  }
+  
+  .nav-dot.active {
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+  }
+  
+  .nav-item.active .nav-label {
+    color: var(--accent);
   }
 }
 /* 아주 작은 화면용 추가 조정 */
