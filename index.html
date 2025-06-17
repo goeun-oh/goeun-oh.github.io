@@ -42,8 +42,8 @@
 <meta property="og:description" content="@import url(&#39;https:&#x2F;&#x2F;fonts.googleapis.com&#x2F;css2?family&#x3D;Inter:wght@300;400;500;600;700&amp;family&#x3D;JetBrains+Mono:wght@400;500;600&amp;display&#x3D;swap&#39;);  * {   margin: 0;   padding: 0;   box-sizing: border-box;">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:image" content="https://www.goeun-oh.com/images/profile.jpg">
-<meta property="article:published_time" content="2025-06-17T15:43:59.807Z">
-<meta property="article:modified_time" content="2025-06-17T15:43:59.807Z">
+<meta property="article:published_time" content="2025-06-17T16:09:02.106Z">
+<meta property="article:modified_time" content="2025-06-17T16:09:02.106Z">
 <meta property="article:author" content="고은">
 <meta property="article:tag" content="개발자, 포트폴리오, 웹개발, 프론트엔드, 백엔드">
 <meta name="twitter:card" content="summary">
@@ -139,7 +139,7 @@
     </div>
     <div class="mdui-card-primary-subtitle mdui-typo">
         
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-18 12:43<br>Updated: 2025-06-18 12:43'}" datetime="2025-06-17T15:43:59.807Z">2025-06-18</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-18 01:09<br>Updated: 2025-06-18 01:09'}" datetime="2025-06-17T16:09:02.106Z">2025-06-18</time>
         <span>-</span>
         
             <span>index.html</span>
@@ -894,7 +894,22 @@ body {
 .project-card:hover .project-image {
   transform: scale(1.05);
 }
+.project-link {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
 
+.project-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+}
 
 .project-header {
   display: flex;
@@ -1338,14 +1353,13 @@ body {
   <!-- Projects Section -->
   <section id="projects" class="projects-section section">
     <h2 class="numbered-heading">Featured Projects</h2>
+    <a href="projects/risc-v-processor.html" class="project-card-link">
     <div class="projects-grid">
       <div class="project-card">
         <div class="project-image">🔧</div>
         <div class="project-header">
           <h3 class="project-title">RISC-V 프로세서 설계</h3>
           <div class="project-links">
-            <a href="#" class="project-link" title="GitHub">📂</a>
-            <a href="#" class="project-link" title="Demo">🚀</a>
           </div>
         </div>
         <p class="project-description">
@@ -1360,18 +1374,17 @@ body {
           <span class="project-tech-tag">FPGA</span>
         </div>
       </div>
+      </a>
       <div class="project-card">
         <div class="project-image">⚡</div>
         <div class="project-header">
-          <h3 class="project-title">저전력 IoT SoC</h3>
+          <h3 class="project-title">VGA</h3>
           <div class="project-links">
             <a href="#" class="project-link" title="GitHub">📂</a>
           </div>
         </div>
         <p class="project-description">
-          IoT 디바이스용 저전력 SoC를 설계하고 있습니다. 
-          동적 전압 스케일링과 클럭 게이팅 기법을 적용하여 
-          전력 소모를 최소화하면서 성능을 유지합니다.
+          VGA
         </p>
         <div class="project-tech">
           <span class="project-tech-tag">SystemVerilog</span>
@@ -1383,7 +1396,7 @@ body {
       <div class="project-card">
         <div class="project-image">🎯</div>
         <div class="project-header">
-          <h3 class="project-title">DSP 신호처리 가속기</h3>
+          <h3 class="project-title">APB Bus</h3>
           <div class="project-links">
             <a href="#" class="project-link" title="GitHub">📂</a>
             <a href="#" class="project-link" title="Paper">📄</a>
