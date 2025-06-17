@@ -14,6 +14,7 @@ timezone: 'Asia/Seoul'
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
 url: https://www.goeun-oh.com
+root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -103,4 +104,4 @@ theme: m
 deploy:
   type: git
   repo: https://github.com/goeun-oh/goeun-oh.github.io.git
-  branch: gh-pages
+  branch: main
