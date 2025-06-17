@@ -521,13 +521,9 @@ body {
   width: 100%;
   height: auto;
   vertical-align: middle;
+  object-fit: cover;
+  aspect-ratio: 1;
   background-color: var(--bg-light);
-  min-height: 300px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
-  color: var(--text-lighter);
 }
 
 /* Skills Grid Section */
@@ -1076,11 +1072,12 @@ body {
           </ul>
         </div>
       </div>
-      <div class="about-pic">
-        <div class="wrapper">
-          <div class="img">👩‍💻</div>
-        </div>
+    <!-- 수정된 코드 -->
+    <div class="about-pic">
+      <div class="wrapper">
+        <img src="/images/profile.jpg" alt="고은 프로필 사진" class="img">
       </div>
+    </div>
     </div>
   </section>
 
