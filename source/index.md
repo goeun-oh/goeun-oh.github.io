@@ -136,7 +136,44 @@ body {
     gap: 8px;
   }
 }
+/* 기존 모바일 숨기기 코드를 이렇게 수정 */
+@media (max-width: 768px) {
+  .vertical-nav {
+    display: flex; /* none에서 flex로 변경 */
+    right: 10px; /* 모바일에서는 더 가까이 */
+    padding: 20px 12px; /* 패딩 조정 */
+    width: auto; /* 너비 자동 조정 */
+    min-width: 120px; /* 최소 너비 설정 */
+  }
+  
+  .nav-label {
+    font-size: var(--fz-xxs); /* 더 작은 글씨 */
+    display: block; /* 모바일에서도 라벨 표시 */
+  }
+  
+  .nav-item {
+    gap: 8px; /* 간격 줄이기 */
+    padding: 8px 0; /* 패딩 조정 */
+  }
+  
+  .nav-dot {
+    width: 6px; /* 점 크기 조정 */
+    height: 6px;
+  }
+}
 
+/* 아주 작은 화면용 추가 조정 */
+@media (max-width: 480px) {
+  .vertical-nav {
+    right: 5px;
+    padding: 15px 8px;
+    min-width: 100px;
+  }
+  
+  .nav-label {
+    font-size: 10px;
+  }
+}
 
 .nav a:hover {
   color: var(--accent);
