@@ -1,5 +1,5 @@
 ---
-title: 고은의 포트폴리오
+title: goeun's space
 layout: page
 ---
 
