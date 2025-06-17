@@ -529,30 +529,7 @@ body {
   border-color: var(--accent);
 }
 
-.project-status {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: var(--accent);
-  color: white;
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-size: var(--fz-xs);
-  font-weight: 500;
-  font-family: var(--font-mono);
-}
 
-.project-status.completed {
-  background: #48bb78;
-}
-
-.project-status.in-progress {
-  background: #ed8936;
-}
-
-.project-status.prototype {
-  background: #9f7aea;
-}
 /* Contact Section */
 .contact-section {
   max-width: 600px;
@@ -857,7 +834,6 @@ body {
     <h2 class="numbered-heading">Featured Projects</h2>
     <div class="projects-grid">
       <div class="project-card">
-        <div class="project-status completed">완료</div>
         <div class="project-image">🔧</div>
         <div class="project-header">
           <h3 class="project-title">RISC-V 프로세서 설계</h3>
@@ -879,7 +855,6 @@ body {
         </div>
       </div>
       <div class="project-card">
-        <div class="project-status in-progress">진행중</div>
         <div class="project-image">⚡</div>
         <div class="project-header">
           <h3 class="project-title">저전력 IoT SoC</h3>
@@ -900,7 +875,6 @@ body {
         </div>
       </div>
       <div class="project-card">
-        <div class="project-status prototype">프로토타입</div>
         <div class="project-image">🎯</div>
         <div class="project-header">
           <h3 class="project-title">DSP 신호처리 가속기</h3>
@@ -922,7 +896,6 @@ body {
         </div>
       </div>
       <div class="project-card">
-        <div class="project-status completed">완료</div>
         <div class="project-image">🔐</div>
         <div class="project-header">
           <h3 class="project-title">AES 암호화 모듈</h3>
