@@ -74,7 +74,85 @@ body {
   border-bottom: 1px solid var(--border);
   transition: var(--transition);
 }
+/* 모바일 전용 네비게이션 바 - 수정된 버전 */
+.mobile-nav {
+  display: none; /* 기본적으로 숨김 */
+}
 
+@media (max-width: 768px) {
+  /* 기존 vertical-nav 숨기기 */
+  .vertical-nav {
+    display: none !important;
+  }
+  
+  /* 모바일 네비게이션 표시 - 더 예쁜 디자인 */
+  .mobile-nav {
+    display: flex;
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(15px);
+    padding: 8px 16px;
+    border-radius: 20px;
+    gap: 16px;
+    z-index: 999;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    padding: 8px 6px;
+    border-radius: 12px;
+    transition: var(--transition);
+    min-width: 35px;
+  }
+  
+  .mobile-nav-item:hover {
+    background: rgba(49, 130, 206, 0.1);
+    transform: translateY(-2px);
+  }
+  
+  .mobile-nav-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--text-lighter);
+    transition: var(--transition);
+  }
+  
+  .mobile-nav-item.active .mobile-nav-dot {
+    background: var(--accent);
+    transform: scale(2);
+    box-shadow: 0 0 8px rgba(49, 130, 206, 0.4);
+  }
+  
+  .mobile-nav-label {
+    font-size: 8px;
+    color: var(--text-light);
+    font-family: var(--font-mono);
+    text-align: center;
+    font-weight: 500;
+  }
+  
+  .mobile-nav-item.active .mobile-nav-label {
+    color: var(--accent);
+    font-weight: 600;
+  }
+}
+
+/* 데스크톱에서는 확실히 숨김 */
+@media (min-width: 769px) {
+  .mobile-nav {
+    display: none !important;
+  }
+}
 .nav {
   width: auto; /* 추가 */
   overflow: visible; /* 추가 */
