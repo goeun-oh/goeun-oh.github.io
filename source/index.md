@@ -3,6 +3,7 @@ title: 고은의 포트폴리오
 layout: page
 ---
 
+{% raw %}
 <style>
 * {
   margin: 0;
@@ -23,7 +24,6 @@ body {
   padding: 0 20px;
 }
 
-/* Hero Section */
 .hero {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
@@ -70,7 +70,6 @@ body {
   box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
-/* Section Styles */
 .section {
   margin-bottom: 80px;
   background: white;
@@ -101,7 +100,6 @@ body {
   border-radius: 2px;
 }
 
-/* About Section */
 .about-content {
   font-size: 1.1rem;
   line-height: 1.8;
@@ -111,7 +109,40 @@ body {
   margin: 0 auto;
 }
 
-/* Skills Section */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  margin: 40px 0;
+}
+
+.stat-card {
+  text-align: center;
+  background: #f7fafc;
+  padding: 30px;
+  border-radius: 15px;
+  border: 2px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  border-color: #667eea;
+  transform: translateY(-5px);
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #667eea;
+  display: block;
+}
+
+.stat-label {
+  color: #4a5568;
+  font-weight: 500;
+  margin-top: 10px;
+}
+
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -135,9 +166,6 @@ body {
   font-size: 1.4rem;
   margin-bottom: 20px;
   color: #2d3748;
-  display: flex;
-  align-items: center;
-  gap: 10px;
 }
 
 .skill-tags {
@@ -162,7 +190,6 @@ body {
   transform: translateY(-2px);
 }
 
-/* Projects Section */
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -255,7 +282,6 @@ body {
   background: #cbd5e0;
 }
 
-/* Experience Section */
 .experience-timeline {
   position: relative;
   padding-left: 40px;
@@ -317,42 +343,6 @@ body {
   line-height: 1.6;
 }
 
-/* Stats Section */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 30px;
-  margin: 40px 0;
-}
-
-.stat-card {
-  text-align: center;
-  background: #f7fafc;
-  padding: 30px;
-  border-radius: 15px;
-  border: 2px solid #e2e8f0;
-  transition: all 0.3s ease;
-}
-
-.stat-card:hover {
-  border-color: #667eea;
-  transform: translateY(-5px);
-}
-
-.stat-number {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #667eea;
-  display: block;
-}
-
-.stat-label {
-  color: #4a5568;
-  font-weight: 500;
-  margin-top: 10px;
-}
-
-/* CTA Section */
 .cta-section {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
@@ -374,63 +364,18 @@ body {
   opacity: 0.9;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
-  .hero h1 {
-    font-size: 2.5rem;
-  }
-  
-  .hero .subtitle {
-    font-size: 1.2rem;
-  }
-  
-  .section {
-    padding: 30px 20px;
-  }
-  
-  .section-title {
-    font-size: 2rem;
-  }
-  
-  .projects-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .skills-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .contact-links {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .experience-timeline {
-    padding-left: 20px;
-  }
+  .hero h1 { font-size: 2.5rem; }
+  .hero .subtitle { font-size: 1.2rem; }
+  .section { padding: 30px 20px; }
+  .section-title { font-size: 2rem; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .contact-links { flex-direction: column; align-items: center; }
+  .experience-timeline { padding-left: 20px; }
 }
 
-/* Animations */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.section {
-  animation: fadeInUp 0.6s ease-out;
-}
-
-/* Dark theme elements */
 .highlight {
   background: linear-gradient(120deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
   padding: 2px 8px;
@@ -439,7 +384,6 @@ body {
 </style>
 
 <div class="portfolio-container">
-  <!-- Hero Section -->
   <section class="hero">
     <h1>👋 고은 (Goeun Oh)</h1>
     <p class="subtitle">끊임없이 배우고 성장하는 <span class="highlight">풀스택 개발자</span></p>
@@ -451,7 +395,6 @@ body {
     </div>
   </section>
 
-  <!-- About Section -->
   <section class="section">
     <h2 class="section-title">🚀 About Me</h2>
     <div class="about-content">
@@ -462,7 +405,6 @@ body {
       <p>"<em>코드는 단순히 동작하는 것을 넘어서, 사람들의 삶을 더 나아지게 만드는 도구</em>"라고 생각합니다.</p>
     </div>
     
-    <!-- Quick Stats -->
     <div class="stats-grid">
       <div class="stat-card">
         <span class="stat-number">15+</span>
@@ -483,7 +425,6 @@ body {
     </div>
   </section>
 
-  <!-- Skills Section -->
   <section class="section">
     <h2 class="section-title">💻 Technical Skills</h2>
     <div class="skills-grid">
@@ -546,25 +487,21 @@ body {
     </div>
   </section>
 
-  <!-- Projects Section -->
   <section class="section">
     <h2 class="section-title">🛠️ Featured Projects</h2>
     <div class="projects-grid">
       <div class="project-card">
-        <div class="project-image">
-          🌐
-        </div>
+        <div class="project-image">🌐</div>
         <div class="project-content">
           <h3 class="project-title">개인 포트폴리오 웹사이트</h3>
           <p class="project-description">
-            반응형 디자인을 적용한 개인 포트폴리오 웹사이트로, 모바일 친화적이며 빠른 로딩 속도와 SEO 최적화를 구현했습니다. 현대적인 UI/UX 디자인과 함께 사용자 경험을 최우선으로 고려했습니다.
+            반응형 디자인을 적용한 개인 포트폴리오 웹사이트로, 모바일 친화적이며 빠른 로딩 속도와 SEO 최적화를 구현했습니다.
           </p>
           <div class="project-tech">
             <span class="tech-tag">Hexo</span>
             <span class="tech-tag">GitHub Pages</span>
             <span class="tech-tag">JavaScript</span>
             <span class="tech-tag">Responsive Design</span>
-            <span class="tech-tag">SEO</span>
           </div>
           <div class="project-links">
             <a href="https://goeun-oh.github.io" class="project-link" target="_blank">Live Demo</a>
@@ -574,13 +511,11 @@ body {
       </div>
 
       <div class="project-card">
-        <div class="project-image">
-          🛍️
-        </div>
+        <div class="project-image">🛍️</div>
         <div class="project-content">
           <h3 class="project-title">온라인 쇼핑몰 플랫폼</h3>
           <p class="project-description">
-            React와 Node.js를 활용한 풀스택 전자상거래 플랫폼입니다. 사용자 인증, 상품 관리, 결제 시스템, 주문 관리 등의 핵심 기능을 구현하며 실무에 적용 가능한 수준의 완성도를 달성했습니다.
+            React와 Node.js를 활용한 풀스택 전자상거래 플랫폼입니다. 사용자 인증, 상품 관리, 결제 시스템 등의 핵심 기능을 구현했습니다.
           </p>
           <div class="project-tech">
             <span class="tech-tag">React</span>
@@ -588,7 +523,6 @@ body {
             <span class="tech-tag">Express</span>
             <span class="tech-tag">MongoDB</span>
             <span class="tech-tag">JWT</span>
-            <span class="tech-tag">Stripe API</span>
           </div>
           <div class="project-links">
             <a href="#" class="project-link">Live Demo</a>
@@ -598,21 +532,17 @@ body {
       </div>
 
       <div class="project-card">
-        <div class="project-image">
-          📝
-        </div>
+        <div class="project-image">📝</div>
         <div class="project-content">
           <h3 class="project-title">협업 프로젝트 관리 도구</h3>
           <p class="project-description">
-            팀 프로젝트를 효율적으로 관리할 수 있는 웹 애플리케이션입니다. 실시간 협업, 칸반 보드, 진행률 추적 등의 기능을 제공하며, 사용자 친화적인 인터페이스로 생산성 향상에 기여합니다.
+            팀 프로젝트를 효율적으로 관리할 수 있는 웹 애플리케이션입니다. 실시간 협업, 칸반 보드, 진행률 추적 등의 기능을 제공합니다.
           </p>
           <div class="project-tech">
             <span class="tech-tag">Vue.js</span>
             <span class="tech-tag">Python</span>
             <span class="tech-tag">Django</span>
             <span class="tech-tag">PostgreSQL</span>
-            <span class="tech-tag">Socket.io</span>
-            <span class="tech-tag">Docker</span>
           </div>
           <div class="project-links">
             <a href="#" class="project-link">Live Demo</a>
@@ -622,20 +552,17 @@ body {
       </div>
 
       <div class="project-card">
-        <div class="project-image">
-          🌤️
-        </div>
+        <div class="project-image">🌤️</div>
         <div class="project-content">
           <h3 class="project-title">실시간 날씨 대시보드</h3>
           <p class="project-description">
-            OpenWeatherMap API를 활용한 실시간 날씨 정보 대시보드입니다. 지역별 날씨 조회, 7일 예보, 날씨 알림 기능을 구현하며, 데이터 시각화를 통해 직관적인 정보 전달을 실현했습니다.
+            OpenWeatherMap API를 활용한 실시간 날씨 정보 대시보드입니다. 지역별 날씨 조회, 7일 예보 기능을 구현했습니다.
           </p>
           <div class="project-tech">
             <span class="tech-tag">React</span>
             <span class="tech-tag">TypeScript</span>
             <span class="tech-tag">Chart.js</span>
             <span class="tech-tag">OpenWeather API</span>
-            <span class="tech-tag">Tailwind CSS</span>
           </div>
           <div class="project-links">
             <a href="#" class="project-link">Live Demo</a>
@@ -646,7 +573,6 @@ body {
     </div>
   </section>
 
-  <!-- Experience Section -->
   <section class="section">
     <h2 class="section-title">💼 Experience & Growth</h2>
     <div class="experience-timeline">
@@ -656,8 +582,7 @@ body {
         <p class="experience-period">2023.03 - 현재</p>
         <p class="experience-description">
           웹 서비스 개발 및 유지보수를 담당하며, React 기반 프론트엔드와 Node.js 백엔드 개발을 진행했습니다. 
-          팀 협업을 통한 애자일 개발 프로세스에 참여하며 서비스 품질 향상에 기여했습니다. 
-          사용자 경험 개선을 위한 A/B 테스트 도입과 성능 최적화를 통해 페이지 로딩 속도를 40% 향상시켰습니다.
+          팀 협업을 통한 애자일 개발 프로세스에 참여하며 서비스 품질 향상에 기여했습니다.
         </p>
       </div>
       
@@ -667,8 +592,7 @@ body {
         <p class="experience-period">2022.09 - 2023.02</p>
         <p class="experience-description">
           클라이언트 웹사이트 제작 및 유지보수 업무를 담당했습니다. 
-          WordPress 커스터마이징과 반응형 웹 디자인 구현 경험을 쌓았으며, 
-          다양한 업종의 클라이언트 요구사항을 분석하고 맞춤형 솔루션을 제공했습니다.
+          WordPress 커스터마이징과 반응형 웹 디자인 구현 경험을 쌓았습니다.
         </p>
       </div>
 
@@ -678,14 +602,12 @@ body {
         <p class="experience-period">2022.01 - 현재</p>
         <p class="experience-description">
           지속적인 자기개발을 통해 최신 웹 기술을 학습하고 개인 프로젝트에 적용하고 있습니다. 
-          오픈소스 프로젝트 기여, 기술 블로그 운영, 개발자 커뮤니티 활동을 통해 
-          개발 역량을 지속적으로 향상시키고 있습니다.
+          오픈소스 프로젝트 기여, 기술 블로그 운영을 통해 개발 역량을 향상시키고 있습니다.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- CTA Section -->
   <section class="cta-section">
     <h2 class="cta-title">🚀 함께 멋진 것을 만들어보아요!</h2>
     <p class="cta-description">새로운 프로젝트와 협업 기회를 기다리고 있습니다. 언제든 연락해주세요!</p>
@@ -697,3 +619,4 @@ body {
     </div>
   </section>
 </div>
+{% endraw %}
