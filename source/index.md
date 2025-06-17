@@ -68,7 +68,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Header - 기존 메뉴바 스타일 유지하되 라이트 테마로 조정 */
+/* Header */
 .header {
   display: flex;
   justify-content: space-between;
@@ -258,12 +258,208 @@ body {
   background-color: var(--border);
 }
 
+/* About Section */
+.about-section {
+  max-width: 900px;
+  text-align: center;
+}
+
+.about-inner {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 50px;
+  align-items: start;
+  text-align: left;
+}
+
+.about-text {
+  font-size: var(--fz-lg);
+}
+
+.about-text p {
+  margin: 0 0 20px;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+.skills-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(140px, 200px));
+  gap: 10px;
+  padding: 0;
+  margin: 25px 0 0 0;
+  list-style: none;
+}
+
+.skills-list li {
+  position: relative;
+  margin-bottom: 10px;
+  padding-left: 20px;
+  font-family: var(--font-mono);
+  font-size: var(--fz-sm);
+  color: var(--text-light);
+}
+
+.skills-list li:before {
+  content: '▹';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: var(--fz-md);
+  line-height: 12px;
+}
+
+.about-pic {
+  position: relative;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.about-pic .wrapper {
+  box-shadow: 0 10px 30px -15px rgba(26, 32, 44, 0.1);
+  transition: var(--transition);
+  display: block;
+  position: relative;
+  width: 100%;
+  border-radius: var(--border-radius);
+  background-color: var(--accent);
+}
+
+.about-pic .wrapper:hover,
+.about-pic .wrapper:focus {
+  box-shadow: 0 20px 30px -15px rgba(26, 32, 44, 0.2);
+  transform: translate(-10px, -10px);
+}
+
+.about-pic .wrapper:hover:before,
+.about-pic .wrapper:focus:before {
+  transform: translate(10px, 10px);
+}
+
+.about-pic .wrapper:hover .img,
+.about-pic .wrapper:focus .img {
+  filter: none;
+  mix-blend-mode: normal;
+}
+
+.about-pic .wrapper:before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+  top: 0;
+  left: 0;
+  background-color: var(--bg-light);
+  mix-blend-mode: screen;
+}
+
+.about-pic .wrapper:after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 2px solid var(--accent);
+  top: 20px;
+  left: 20px;
+  z-index: -1;
+  transition: var(--transition);
+  border-radius: var(--border-radius);
+}
+
+.about-pic .img {
+  position: relative;
+  border-radius: var(--border-radius);
+  mix-blend-mode: multiply;
+  filter: grayscale(100%) contrast(1) brightness(90%);
+  transition: var(--transition);
+  width: 100%;
+  height: auto;
+  vertical-align: middle;
+  background-color: var(--bg-light);
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: var(--text-lighter);
+}
+
+/* Skills Grid Section */
+.skills-section {
+  max-width: 1000px;
+  text-align: center;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-top: 50px;
+}
+
+.skill-card {
+  background: var(--bg-light);
+  padding: 30px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border);
+  transition: var(--transition);
+  text-align: left;
+}
+
+.skill-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px -15px rgba(26, 32, 44, 0.2);
+  border-color: var(--accent);
+}
+
+.skill-category {
+  font-size: var(--fz-xl);
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.skill-icon {
+  color: var(--accent);
+  font-size: var(--fz-xxl);
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.skill-tag {
+  background: var(--bg);
+  color: var(--text-light);
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: var(--fz-sm);
+  font-weight: 500;
+  border: 1px solid var(--border);
+  transition: var(--transition);
+}
+
+.skill-tag:hover {
+  background: var(--accent);
+  color: white;
+  transform: translateY(-2px);
+}
+
 /* Counter for sections */
 body {
   counter-reset: section;
 }
 
-/* Responsive Design - 기본 */
+/* Responsive Design */
 @media (max-width: 1080px) {
   .main {
     padding: 0 100px;
@@ -290,6 +486,21 @@ body {
   .hero h2 {
     font-size: clamp(25px, 7vw, 50px);
   }
+  
+  .about-inner {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    text-align: center;
+  }
+  
+  .skills-list {
+    grid-template-columns: repeat(1, minmax(140px, 200px));
+    justify-content: center;
+  }
+  
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 480px) {
@@ -311,7 +522,7 @@ body {
 }
 </style>
 
-<!-- Header (기존 메뉴바 유지) -->
+<!-- Header -->
 <header class="header">
   <div class="logo">
     <a href="/">Goeun's Space</a>
@@ -343,6 +554,114 @@ body {
         효율적이고 창의적인 디지털 시스템 설계를 추구합니다.
       </p>
       <a class="cta-button" href="mailto:goeun.oh.dev@gmail.com">연락하기</a>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about-section section">
+    <h2 class="numbered-heading">About Me</h2>
+    <div class="about-inner">
+      <div>
+        <div class="about-text">
+          <p>
+            안녕하세요! 저는 효율적이고 혁신적인 디지털 시스템을 설계하는 것에 열정을 가진 
+            디지털회로 설계 엔지니어입니다.
+          </p>
+          <p>
+            FPGA, ASIC 설계부터 시스템 최적화까지 다양한 하드웨어 설계 기술을 익히며, 
+            항상 더 나은 성능과 효율성을 추구합니다. 첨단 기술과 창의적 사고를 결합하여 
+            미래 지향적인 디지털 솔루션을 개발하고 싶습니다.
+          </p>
+          <p>
+            최근에는 저전력 설계와 고성능 프로세서 아키텍처에 특히 관심을 가지고 
+            다양한 프로젝트를 진행하고 있습니다.
+          </p>
+          <p>다음은 제가 최근에 작업하고 있는 기술들입니다:</p>
+          <ul class="skills-list">
+            <li>Verilog HDL</li>
+            <li>SystemVerilog</li>
+            <li>VHDL</li>
+            <li>Vivado</li>
+            <li>Quartus Prime</li>
+            <li>ModelSim</li>
+            <li>RISC-V</li>
+            <li>FPGA Design</li>
+            <li>ASIC Design</li>
+            <li>Digital Signal Processing</li>
+          </ul>
+        </div>
+      </div>
+      <div class="about-pic">
+        <div class="wrapper">
+          <div class="img">👩‍💻</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section class="skills-section section">
+    <h2 class="numbered-heading">Technical Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-category">
+          <span class="skill-icon">🔧</span>
+          HDL & Design
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Verilog HDL</span>
+          <span class="skill-tag">VHDL</span>
+          <span class="skill-tag">SystemVerilog</span>
+          <span class="skill-tag">Digital Logic</span>
+          <span class="skill-tag">RTL Design</span>
+          <span class="skill-tag">FSM Design</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-category">
+          <span class="skill-icon">⚡</span>
+          EDA Tools
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Vivado</span>
+          <span class="skill-tag">Quartus Prime</span>
+          <span class="skill-tag">ModelSim</span>
+          <span class="skill-tag">Synopsys DC</span>
+          <span class="skill-tag">Cadence</span>
+          <span class="skill-tag">QuestaSim</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-category">
+          <span class="skill-icon">🎯</span>
+          Hardware Platforms
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Xilinx FPGA</span>
+          <span class="skill-tag">Intel FPGA</span>
+          <span class="skill-tag">ASIC Design</span>
+          <span class="skill-tag">SoC Design</span>
+          <span class="skill-tag">RISC-V</span>
+          <span class="skill-tag">ARM Cortex</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-category">
+          <span class="skill-icon">📊</span>
+          Analysis & Verification
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Timing Analysis</span>
+          <span class="skill-tag">Power Analysis</span>
+          <span class="skill-tag">Functional Verification</span>
+          <span class="skill-tag">Logic Synthesis</span>
+          <span class="skill-tag">DFT</span>
+          <span class="skill-tag">Signal Integrity</span>
+        </div>
+      </div>
     </div>
   </section>
 </div>
