@@ -422,7 +422,7 @@ body {
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 30px;
   margin-top: 50px;
 }
@@ -436,6 +436,9 @@ body {
   text-align: left;
   position: relative;
   overflow: hidden;
+  min-height: 400px; /* 이 줄 추가 */
+  display: flex;
+  flex-direction: column;
 }
 
 .project-card:hover {
