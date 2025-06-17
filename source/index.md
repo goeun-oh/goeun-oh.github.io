@@ -413,20 +413,25 @@ body {
   transform: translateY(-2px);
 }
 /* Projects Section */
-.projects-section {
-  max-width: none; /* 제한 없음 */
-  width: 100%;
-  text-align: center;
+/* Projects Section */
+.projects {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  padding: 80px 5px; /* 거의 마진 없음 */
+}
+
+.projects .numbered-heading {
+  max-width: 1000px;
+  margin: 0 auto 50px;
 }
 
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 5px; /* 최소 간격 */
-  margin-top: 50px;
-  max-width: 1600px;
-  margin-left: auto;
-  margin-right: auto;
+  gap: 8px; /* 아주 작은 간격 */
+  max-width: none; /* 제한 없음 */
+  margin: 0 auto;
+  width: 100%;
 }
 .project-card {
   background: var(--bg-light);
