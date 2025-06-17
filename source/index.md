@@ -417,7 +417,7 @@ body {
 .projects {
   width: 100vw;
   margin-left: calc(-50vw + 50%);
-  padding: 80px 5px; /* 거의 마진 없음 */
+  padding: 80px 50px;
 }
 
 .projects .numbered-heading {
@@ -427,15 +427,14 @@ body {
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px; /* 아주 작은 간격 */
-  max-width: none; /* 제한 없음 */
+  grid-template-columns: 1fr; /* 2fr에서 1fr로 변경 */
+  gap: 30px;
+  max-width: 800px; /* 1400px에서 800px로 줄임 */
   margin: 0 auto;
-  width: 100%;
 }
 .project-card {
   background: var(--bg-light);
-  padding: 20px; /* 30px에서 20px로 줄임 */
+  padding: 30px; /* 20px에서 30px로 늘림 */
   border-radius: var(--border-radius);
   border: 1px solid var(--border);
   transition: var(--transition);
@@ -446,6 +445,30 @@ body {
   flex-direction: column;
 }
 
+.project-image {
+  width: 100%;
+  height: 150px; /* 120px에서 150px로 늘림 */
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+  border-radius: var(--border-radius);
+  margin-bottom: 20px; /* 15px에서 20px로 늘림 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem; /* 2rem에서 2.5rem로 늘림 */
+  color: white;
+  transition: var(--transition);
+}
+
+.project-description {
+  color: var(--text-light);
+  font-size: var(--fz-md); /* var(--fz-sm)에서 다시 늘림 */
+  line-height: 1.6; /* 1.5에서 1.6으로 */
+  margin-bottom: 20px; /* 15px에서 20px로 */
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* 3줄에서 4줄로 늘림 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 .project-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 15px 40px -15px rgba(26, 32, 44, 0.3);
@@ -456,19 +479,6 @@ body {
   transform: scale(1.05);
 }
 
-.project-image {
-  width: 100%;
-  height: 120px; /* 150px에서 120px로 줄임 */
-  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
-  border-radius: var(--border-radius);
-  margin-bottom: 15px; /* 20px에서 15px로 줄임 */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem; /* 2.5rem에서 2rem으로 줄임 */
-  color: white;
-  transition: var(--transition);
-}
 
 .project-header {
   display: flex;
@@ -591,7 +601,116 @@ body {
   transform: translateY(-3px);
   box-shadow: 0 10px 30px rgba(49, 130, 206, 0.2);
 }
+/* Vertical Navigation - 연결선 제거한 버전 */
+.vertical-nav {
+  position: fixed;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 30px 20px;
+  border-radius: 25px;
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 30px -10px rgba(26, 32, 44, 0.15);
+}
 
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  transition: var(--transition);
+  padding: 8px 0;
+  position: relative;
+}
+
+.nav-item:hover {
+  transform: translateX(-5px);
+}
+
+.nav-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--border);
+  border: 2px solid var(--bg);
+  transition: var(--transition);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.nav-dot.active {
+  background: var(--accent);
+  transform: scale(1.3);
+  box-shadow: 0 0 15px rgba(49, 130, 206, 0.3);
+}
+
+.nav-item:hover .nav-dot {
+  background: var(--accent);
+  transform: scale(1.2);
+}
+
+.nav-label {
+  font-family: var(--font-mono);
+  font-size: var(--fz-sm);
+  color: var(--text-light);
+  font-weight: 500;
+  transition: var(--transition);
+  opacity: 1;
+  white-space: nowrap;
+}
+
+.nav-item.active .nav-label {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.nav-item:hover .nav-label {
+  color: var(--accent);
+}
+
+.nav-number {
+  font-family: var(--font-mono);
+  font-size: var(--fz-xs);
+  color: var(--accent);
+  font-weight: 600;
+  margin-right: 5px;
+  opacity: 0.8;
+}
+
+/* 호버 효과 */
+.vertical-nav:hover {
+  transform: translateY(-50%) scale(1.02);
+  box-shadow: 0 15px 40px -10px rgba(26, 32, 44, 0.2);
+}
+
+/* 모바일에서 숨기기 */
+@media (max-width: 768px) {
+  .vertical-nav {
+    display: none;
+  }
+}
+
+/* 태블릿에서 간소화 */
+@media (max-width: 1024px) {
+  .vertical-nav {
+    right: 20px;
+    padding: 25px 15px;
+  }
+  
+  .nav-label {
+    font-size: var(--fz-xs);
+  }
+  
+  .nav-item {
+    gap: 10px;
+  }
+}
 /* Footer */
 .footer {
   display: flex;
@@ -943,6 +1062,64 @@ body {
   </section>
 </div>
 
+
+<!-- Vertical Navigation -->
+<nav class="vertical-nav">
+  <div class="nav-item" onclick="scrollToSection('about')">
+    <span class="nav-number">01</span>
+    <div class="nav-dot"></div>
+    <span class="nav-label">About</span>
+  </div>
+  <div class="nav-item" onclick="scrollToSection('skills')">
+    <span class="nav-number">02</span>
+    <div class="nav-dot"></div>
+    <span class="nav-label">Skills</span>
+  </div>
+  <div class="nav-item" onclick="scrollToSection('projects')">
+    <span class="nav-number">03</span>
+    <div class="nav-dot"></div>
+    <span class="nav-label">Projects</span>
+  </div>
+  <div class="nav-item" onclick="scrollToSection('contact')">
+    <span class="nav-number">04</span>
+    <div class="nav-dot"></div>
+    <span class="nav-label">Contact</span>
+  </div>
+</nav>
+
+<script>
+function scrollToSection(sectionId) {
+  document.getElementById(sectionId).scrollIntoView({
+    behavior: 'smooth'
+  });
+}
+
+window.addEventListener('scroll', function() {
+  const sections = ['about', 'skills', 'projects', 'contact'];
+  const navItems = document.querySelectorAll('.nav-item');
+  
+  let current = '';
+  sections.forEach(section => {
+    const element = document.getElementById(section);
+    if (element) {
+      const rect = element.getBoundingClientRect();
+      if (rect.top <= 150 && rect.bottom >= 150) {
+        current = section;
+      }
+    }
+  });
+  
+  navItems.forEach((item, index) => {
+    item.classList.remove('active');
+    if (sections[index] === current) {
+      item.classList.add('active');
+    }
+  });
+});
+</script>
+
+<!-- Footer -->
+<footer class="footer">
 <!-- Footer -->
 <footer class="footer">
   <div class="credit">
