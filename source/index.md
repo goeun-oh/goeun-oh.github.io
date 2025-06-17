@@ -745,7 +745,22 @@ body {
 .project-card:hover .project-image {
   transform: scale(1.05);
 }
+.project-link {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
 
+.project-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+}
 
 .project-header {
   display: flex;
@@ -1189,14 +1204,13 @@ body {
   <!-- Projects Section -->
   <section id="projects" class="projects-section section">
     <h2 class="numbered-heading">Featured Projects</h2>
+    <a href="projects/risc-v-processor.html" class="project-card-link">
     <div class="projects-grid">
       <div class="project-card">
         <div class="project-image">🔧</div>
         <div class="project-header">
           <h3 class="project-title">RISC-V 프로세서 설계</h3>
           <div class="project-links">
-            <a href="#" class="project-link" title="GitHub">📂</a>
-            <a href="#" class="project-link" title="Demo">🚀</a>
           </div>
         </div>
         <p class="project-description">
@@ -1211,18 +1225,17 @@ body {
           <span class="project-tech-tag">FPGA</span>
         </div>
       </div>
+      </a>
       <div class="project-card">
         <div class="project-image">⚡</div>
         <div class="project-header">
-          <h3 class="project-title">저전력 IoT SoC</h3>
+          <h3 class="project-title">VGA</h3>
           <div class="project-links">
             <a href="#" class="project-link" title="GitHub">📂</a>
           </div>
         </div>
         <p class="project-description">
-          IoT 디바이스용 저전력 SoC를 설계하고 있습니다. 
-          동적 전압 스케일링과 클럭 게이팅 기법을 적용하여 
-          전력 소모를 최소화하면서 성능을 유지합니다.
+          VGA
         </p>
         <div class="project-tech">
           <span class="project-tech-tag">SystemVerilog</span>
@@ -1234,7 +1247,7 @@ body {
       <div class="project-card">
         <div class="project-image">🎯</div>
         <div class="project-header">
-          <h3 class="project-title">DSP 신호처리 가속기</h3>
+          <h3 class="project-title">APB Bus</h3>
           <div class="project-links">
             <a href="#" class="project-link" title="GitHub">📂</a>
             <a href="#" class="project-link" title="Paper">📄</a>
