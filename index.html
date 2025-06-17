@@ -41,8 +41,8 @@
 <meta property="og:site_name">
 <meta property="og:description" content="@import url(&#39;https:&#x2F;&#x2F;fonts.googleapis.com&#x2F;css2?family&#x3D;Inter:wght@300;400;500;600;700&amp;family&#x3D;JetBrains+Mono:wght@400;500;600&amp;display&#x3D;swap&#39;);  * {   margin: 0;   padding: 0;   box-sizing: border-box;">
 <meta property="og:locale" content="ko_KR">
-<meta property="article:published_time" content="2025-06-17T05:20:38.551Z">
-<meta property="article:modified_time" content="2025-06-17T05:20:38.551Z">
+<meta property="article:published_time" content="2025-06-17T06:03:06.842Z">
+<meta property="article:modified_time" content="2025-06-17T06:03:06.842Z">
 <meta property="article:author" content="고은">
 <meta property="article:tag" content="개발자, 포트폴리오, 웹개발, 프론트엔드, 백엔드">
 <meta name="twitter:card" content="summary">
@@ -137,7 +137,7 @@
     </div>
     <div class="mdui-card-primary-subtitle mdui-typo">
         
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-17 02:20<br>Updated: 2025-06-17 02:20'}" datetime="2025-06-17T05:20:38.551Z">2025-06-17</time>
+        <time class="dt-published" mdui-tooltip="{content:'投稿日：2025-06-17 03:03<br>編集日：2025-06-17 03:03'}" datetime="2025-06-17T06:03:06.842Z">2025-06-17</time>
         <span>-</span>
         
             <span>index.html</span>
@@ -182,7 +182,7 @@
   --nav-height: 100px;
   --border-radius: 8px;
   --section-padding: 100px;
-  --max-width: 1000px;
+  --max-width: 1400px;
   --transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
@@ -280,17 +280,15 @@ body {
 .main {
   margin: 0 auto;
   width: 100%;
-  max-width: 1600px;
+  max-width: 1800px; /* 1600px에서 더 넓게 */
   min-height: 100vh;
   padding: 0 150px;
 }
-
 .section {
   margin: 0 auto;
   padding: var(--section-padding) 0;
-  max-width: var(--max-width);
+  max-width: 1200px; /* var(--max-width) 대신 고정값 */
 }
-
 /* Hero Section */
 .hero {
   display: flex;
@@ -562,27 +560,37 @@ body {
   transform: translateY(-2px);
 }
 /* Projects Section */
-.projects-section {
+/* Projects Section */
+.projects {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  padding: 80px 5px; /* 거의 마진 없음 */
+}
+
+.projects .numbered-heading {
   max-width: 1000px;
-  text-align: center;
+  margin: 0 auto 50px;
 }
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 30px;
-  margin-top: 50px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px; /* 아주 작은 간격 */
+  max-width: none; /* 제한 없음 */
+  margin: 0 auto;
+  width: 100%;
 }
-
 .project-card {
   background: var(--bg-light);
-  padding: 30px;
+  padding: 20px; /* 30px에서 20px로 줄임 */
   border-radius: var(--border-radius);
   border: 1px solid var(--border);
   transition: var(--transition);
   text-align: left;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .project-card:hover {
@@ -597,14 +605,14 @@ body {
 
 .project-image {
   width: 100%;
-  height: 150px;
+  height: 120px; /* 150px에서 120px로 줄임 */
   background: linear-gradient(135deg, var(--accent), var(--accent-hover));
   border-radius: var(--border-radius);
-  margin-bottom: 20px;
+  margin-bottom: 15px; /* 20px에서 15px로 줄임 */
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.5rem;
+  font-size: 2rem; /* 2.5rem에서 2rem으로 줄임 */
   color: white;
   transition: var(--transition);
 }
@@ -646,60 +654,40 @@ body {
 
 .project-description {
   color: var(--text-light);
-  font-size: var(--fz-md);
-  line-height: 1.6;
-  margin-bottom: 20px;
+  font-size: var(--fz-sm); /* var(--fz-md)에서 작게 */
+  line-height: 1.5; /* 1.6에서 1.5로 */
+  margin-bottom: 15px; /* 20px에서 15px로 */
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* 3줄로 제한 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .project-tech {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px; /* 8px에서 6px로 */
   margin-top: auto;
 }
 
 .project-tech-tag {
   background: var(--bg);
   color: var(--text-light);
-  padding: 6px 12px;
-  border-radius: 15px;
+  padding: 4px 8px; /* 6px 12px에서 줄임 */
+  border-radius: 12px; /* 15px에서 12px로 */
   font-size: var(--fz-xs);
   font-weight: 500;
   border: 1px solid var(--border);
   font-family: var(--font-mono);
   transition: var(--transition);
 }
-
 .project-tech-tag:hover {
   background: var(--accent-light);
   color: var(--accent-hover);
   border-color: var(--accent);
 }
 
-.project-status {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: var(--accent);
-  color: white;
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-size: var(--fz-xs);
-  font-weight: 500;
-  font-family: var(--font-mono);
-}
 
-.project-status.completed {
-  background: #48bb78;
-}
-
-.project-status.in-progress {
-  background: #ed8936;
-}
-
-.project-status.prototype {
-  background: #9f7aea;
-}
 /* Contact Section */
 .contact-section {
   max-width: 600px;
@@ -785,7 +773,7 @@ body {
 /* Responsive Design */
 @media (max-width: 1080px) {
   .main {
-    padding: 0 100px;
+    padding: 0 80px; /* 100px에서 80px로 */
   }
 }
 
@@ -825,13 +813,16 @@ body {
     grid-template-columns: 1fr;
   }
   .projects-grid {
-    grid-template-columns: 1fr;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px; /* 30px에서 20px로 줄임 */
+    margin-top: 50px;
   }
-  
   .project-header {
-    flex-direction: column;
+    display: flex;
+    justify-content: space-between;
     align-items: flex-start;
-    gap: 10px;
+    margin-bottom: 10px; /* 15px에서 10px로 */
   }
   
   .project-links {
@@ -1004,7 +995,6 @@ body {
     <h2 class="numbered-heading">Featured Projects</h2>
     <div class="projects-grid">
       <div class="project-card">
-        <div class="project-status completed">완료</div>
         <div class="project-image">🔧</div>
         <div class="project-header">
           <h3 class="project-title">RISC-V 프로세서 설계</h3>
@@ -1026,7 +1016,6 @@ body {
         </div>
       </div>
       <div class="project-card">
-        <div class="project-status in-progress">진행중</div>
         <div class="project-image">⚡</div>
         <div class="project-header">
           <h3 class="project-title">저전력 IoT SoC</h3>
@@ -1047,7 +1036,6 @@ body {
         </div>
       </div>
       <div class="project-card">
-        <div class="project-status prototype">프로토타입</div>
         <div class="project-image">🎯</div>
         <div class="project-header">
           <h3 class="project-title">DSP 신호처리 가속기</h3>
@@ -1069,7 +1057,6 @@ body {
         </div>
       </div>
       <div class="project-card">
-        <div class="project-status completed">완료</div>
         <div class="project-image">🔐</div>
         <div class="project-header">
           <h3 class="project-title">AES 암호화 모듈</h3>
@@ -1114,8 +1101,8 @@ body {
         
         <blockquote class="mdui-m-x-0 mdui-m-t-4">
     <strong>
-        Author: <a href="#">고은</a><br>
-        URL: <a href="https://www.goeun-oh.com/index.html">https://www.goeun-oh.com/index.html</a><br>
+        著者：<a href="#">고은</a><br>
+        リンク：<a href="https://www.goeun-oh.com/index.html">https://www.goeun-oh.com/index.html</a><br>
         
             라이선스
         
