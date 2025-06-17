@@ -1190,6 +1190,25 @@ body {
     <span class="nav-label">Contact</span>
   </div>
 </nav>
+<!-- 🔥 여기에 모바일 네비게이션 추가! -->
+<nav class="mobile-nav">
+  <div class="mobile-nav-item" onclick="scrollToSection('about')">
+    <div class="mobile-nav-dot"></div>
+    <span class="mobile-nav-label">About</span>
+  </div>
+  <div class="mobile-nav-item" onclick="scrollToSection('skills')">
+    <div class="mobile-nav-dot"></div>
+    <span class="mobile-nav-label">Skills</span>
+  </div>
+  <div class="mobile-nav-item" onclick="scrollToSection('projects')">
+    <div class="mobile-nav-dot"></div>
+    <span class="mobile-nav-label">Projects</span>
+  </div>
+  <div class="mobile-nav-item" onclick="scrollToSection('contact')">
+    <div class="mobile-nav-dot"></div>
+    <span class="mobile-nav-label">Contact</span>
+  </div>
+</nav>
 
 <script>
 function scrollToSection(sectionId) {
@@ -1201,6 +1220,7 @@ function scrollToSection(sectionId) {
 window.addEventListener('scroll', function() {
   const sections = ['about', 'skills', 'projects', 'contact'];
   const navItems = document.querySelectorAll('.nav-item');
+  const mobileNavItems = document.querySelectorAll('.mobile-nav-item'); // 🔥 추가!
   
   let current = '';
   sections.forEach(section => {
@@ -1213,7 +1233,16 @@ window.addEventListener('scroll', function() {
     }
   });
   
+  // 데스크톱 네비게이션 업데이트
   navItems.forEach((item, index) => {
+    item.classList.remove('active');
+    if (sections[index] === current) {
+      item.classList.add('active');
+    }
+  });
+  
+  // 🔥 모바일 네비게이션 업데이트 (새로 추가!)
+  mobileNavItems.forEach((item, index) => {
     item.classList.remove('active');
     if (sections[index] === current) {
       item.classList.add('active');
