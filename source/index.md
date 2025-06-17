@@ -12,207 +12,206 @@ layout: page
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans', Ubuntu, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.6;
-  color: #333;
-  background: #f8fafc;
+  color: #1a1a1a;
+  background: #ffffff;
+  font-weight: 400;
 }
 
 .portfolio-container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 40px;
 }
 
+/* Hero Section */
 .hero {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
   color: white;
-  padding: 80px 0;
+  padding: 120px 0;
   text-align: center;
-  margin-bottom: 60px;
-  border-radius: 0 0 50px 50px;
+  margin-bottom: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+  opacity: 0.1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
 }
 
 .hero h1 {
-  font-size: 3.5rem;
+  font-size: 4rem;
   font-weight: 700;
-  margin-bottom: 20px;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  margin-bottom: 24px;
+  text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  letter-spacing: -0.025em;
 }
 
 .hero .subtitle {
-  font-size: 1.4rem;
-  margin-bottom: 30px;
+  font-size: 1.5rem;
+  margin-bottom: 40px;
   opacity: 0.9;
+  font-weight: 300;
 }
 
 .hero .contact-links {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 24px;
   flex-wrap: wrap;
 }
 
 .contact-link {
-  background: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.1);
   color: white;
-  padding: 12px 24px;
-  border-radius: 25px;
+  padding: 16px 32px;
+  border-radius: 8px;
   text-decoration: none;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.3);
+  border: 1px solid rgba(255,255,255,0.2);
+  font-weight: 500;
 }
 
 .contact-link:hover {
-  background: rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.2);
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
 }
 
+/* Section Styles */
 .section {
-  margin-bottom: 80px;
-  background: white;
-  border-radius: 20px;
-  padding: 50px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  border: 1px solid #e2e8f0;
+  margin-bottom: 120px;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 80px 60px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 6px rgba(0,0,0,0.04);
+  border: 1px solid #f1f5f9;
 }
 
 .section-title {
-  font-size: 2.5rem;
+  font-size: 2.75rem;
   font-weight: 700;
-  margin-bottom: 40px;
+  margin-bottom: 48px;
   text-align: center;
-  color: #2d3748;
+  color: #0f172a;
   position: relative;
+  letter-spacing: -0.025em;
 }
 
 .section-title::after {
   content: '';
   position: absolute;
-  bottom: -10px;
+  bottom: -16px;
   left: 50%;
   transform: translateX(-50%);
   width: 80px;
   height: 4px;
-  background: linear-gradient(90deg, #667eea, #764ba2);
+  background: linear-gradient(90deg, #0f172a, #334155);
   border-radius: 2px;
 }
 
 .about-content {
-  font-size: 1.1rem;
+  font-size: 1.125rem;
   line-height: 1.8;
-  color: #4a5568;
+  color: #475569;
   text-align: center;
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 30px;
-  margin: 40px 0;
+.about-content strong {
+  color: #0f172a;
+  font-weight: 600;
 }
 
-.stat-card {
-  text-align: center;
-  background: #f7fafc;
-  padding: 30px;
-  border-radius: 15px;
-  border: 2px solid #e2e8f0;
-  transition: all 0.3s ease;
-}
-
-.stat-card:hover {
-  border-color: #667eea;
-  transform: translateY(-5px);
-}
-
-.stat-number {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #667eea;
-  display: block;
-}
-
-.stat-label {
-  color: #4a5568;
-  font-weight: 500;
-  margin-top: 10px;
-}
-
+/* Skills Section */
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 40px;
 }
 
 .skill-category {
-  background: #f7fafc;
-  padding: 30px;
-  border-radius: 15px;
-  border-left: 5px solid #667eea;
+  background: #f8fafc;
+  padding: 40px;
+  border-radius: 12px;
+  border-left: 4px solid #0f172a;
   transition: all 0.3s ease;
+  border: 1px solid #e2e8f0;
 }
 
 .skill-category:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(15, 23, 42, 0.1);
 }
 
 .skill-category h3 {
-  font-size: 1.4rem;
-  margin-bottom: 20px;
-  color: #2d3748;
+  font-size: 1.5rem;
+  margin-bottom: 24px;
+  color: #0f172a;
+  font-weight: 600;
 }
 
 .skill-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 12px;
 }
 
 .skill-tag {
   background: #e2e8f0;
-  color: #4a5568;
-  padding: 8px 16px;
-  border-radius: 20px;
+  color: #475569;
+  padding: 10px 18px;
+  border-radius: 8px;
   font-size: 0.9rem;
   font-weight: 500;
   transition: all 0.3s ease;
 }
 
 .skill-tag:hover {
-  background: #667eea;
+  background: #0f172a;
   color: white;
   transform: translateY(-2px);
 }
 
+/* Projects Section */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 48px;
 }
 
 .project-card {
   background: white;
-  border-radius: 20px;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
   transition: all 0.3s ease;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #f1f5f9;
 }
 
 .project-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
 }
 
 .project-image {
   height: 200px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -221,19 +220,19 @@ body {
 }
 
 .project-content {
-  padding: 30px;
+  padding: 32px;
 }
 
 .project-title {
   font-size: 1.5rem;
-  font-weight: 700;
-  color: #2d3748;
-  margin-bottom: 15px;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 16px;
 }
 
 .project-description {
-  color: #4a5568;
-  line-height: 1.6;
+  color: #475569;
+  line-height: 1.7;
   margin-bottom: 20px;
 }
 
@@ -245,23 +244,23 @@ body {
 }
 
 .tech-tag {
-  background: #edf2f7;
-  color: #4a5568;
-  padding: 6px 12px;
-  border-radius: 15px;
+  background: #f1f5f9;
+  color: #475569;
+  padding: 6px 14px;
+  border-radius: 6px;
   font-size: 0.8rem;
   font-weight: 500;
 }
 
 .project-links {
   display: flex;
-  gap: 15px;
+  gap: 16px;
 }
 
 .project-link {
-  background: #667eea;
+  background: #0f172a;
   color: white;
-  padding: 10px 20px;
+  padding: 12px 24px;
   border-radius: 8px;
   text-decoration: none;
   font-weight: 500;
@@ -269,219 +268,128 @@ body {
 }
 
 .project-link:hover {
-  background: #5a67d8;
+  background: #1e293b;
   transform: translateY(-2px);
 }
 
 .project-link.secondary {
-  background: #e2e8f0;
-  color: #4a5568;
+  background: #f8fafc;
+  color: #475569;
+  border: 1px solid #e2e8f0;
 }
 
-.project-link.secondary:hover {
-  background: #cbd5e0;
-}
-
-.experience-timeline {
-  position: relative;
-  padding-left: 40px;
-}
-
-.experience-timeline::before {
-  content: '';
-  position: absolute;
-  left: 20px;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: #e2e8f0;
-}
-
-.experience-item {
-  position: relative;
-  margin-bottom: 40px;
-  background: #f7fafc;
-  padding: 30px;
-  border-radius: 15px;
-  border-left: 4px solid #667eea;
-}
-
-.experience-item::before {
-  content: '';
-  position: absolute;
-  left: -33px;
-  top: 30px;
-  width: 12px;
-  height: 12px;
-  background: #667eea;
-  border-radius: 50%;
-  border: 3px solid white;
-}
-
-.experience-title {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #2d3748;
-  margin-bottom: 8px;
-}
-
-.experience-company {
-  font-size: 1.1rem;
-  color: #667eea;
-  font-weight: 600;
-  margin-bottom: 8px;
-}
-
-.experience-period {
-  color: #718096;
-  font-size: 0.9rem;
-  margin-bottom: 15px;
-}
-
-.experience-description {
-  color: #4a5568;
-  line-height: 1.6;
-}
-
+/* CTA Section */
 .cta-section {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
   color: white;
   text-align: center;
-  padding: 60px 40px;
-  border-radius: 20px;
+  padding: 80px 60px;
+  border-radius: 16px;
   margin-bottom: 0;
 }
 
 .cta-title {
   font-size: 2.5rem;
   font-weight: 700;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .cta-description {
-  font-size: 1.2rem;
-  margin-bottom: 30px;
+  font-size: 1.25rem;
+  margin-bottom: 40px;
   opacity: 0.9;
 }
 
+/* Responsive Design */
 @media (max-width: 768px) {
+  .portfolio-container { padding: 0 20px; }
+  .hero { padding: 80px 0; }
   .hero h1 { font-size: 2.5rem; }
-  .hero .subtitle { font-size: 1.2rem; }
-  .section { padding: 30px 20px; }
-  .section-title { font-size: 2rem; }
+  .section { padding: 40px 24px; margin-bottom: 80px; }
   .projects-grid { grid-template-columns: 1fr; }
   .skills-grid { grid-template-columns: 1fr; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .contact-links { flex-direction: column; align-items: center; }
-  .experience-timeline { padding-left: 20px; }
 }
 
 .highlight {
-  background: linear-gradient(120deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-  padding: 2px 8px;
+  background: linear-gradient(120deg, rgba(15, 23, 42, 0.1) 0%, rgba(51, 65, 85, 0.1) 100%);
+  padding: 3px 8px;
   border-radius: 4px;
+  font-weight: 500;
 }
 </style>
 
 <div class="portfolio-container">
   <section class="hero">
-    <h1>👋 고은 (Goeun Oh)</h1>
-    <p class="subtitle">끊임없이 배우고 성장하는 <span class="highlight">풀스택 개발자</span></p>
-    <div class="contact-links">
-      <a href="mailto:goeun.oh.dev@gmail.com" class="contact-link">📧 이메일</a>
-      <a href="https://github.com/goeun-oh" class="contact-link" target="_blank">💻 GitHub</a>
-      <a href="https://linkedin.com/in/goeun-oh" class="contact-link" target="_blank">💼 LinkedIn</a>
-      <a href="/archives" class="contact-link">📝 블로그</a>
+    <div class="hero-content">
+      <h1>👋 고은 (Goeun Oh)</h1>
+      <p class="subtitle">혁신적인 디지털 시스템을 설계하는 <span class="highlight">디지털회로 설계 엔지니어</span></p>
+      <div class="contact-links">
+        <a href="mailto:goeun.oh.dev@gmail.com" class="contact-link">📧 Contact</a>
+        <a href="https://github.com/goeun-oh" class="contact-link" target="_blank">💻 GitHub</a>
+        <a href="https://linkedin.com/in/goeun-oh" class="contact-link" target="_blank">💼 LinkedIn</a>
+        <a href="/archives" class="contact-link">📝 Blog</a>
+      </div>
     </div>
   </section>
 
   <section class="section">
     <h2 class="section-title">🚀 About Me</h2>
     <div class="about-content">
-      <p>안녕하세요! <strong>사용자 중심의 웹 서비스</strong>를 만드는 것에 열정을 가진 풀스택 개발자 고은입니다.</p>
+      <p>안녕하세요! <strong>효율적이고 혁신적인 디지털 시스템</strong>을 설계하는 것에 열정을 가진 디지털회로 설계 엔지니어 지망생 고은입니다.</p>
       <br>
-      <p>새로운 기술을 학습하고 적용하는 것을 즐기며, 항상 더 나은 코드와 사용자 경험을 위해 고민합니다. 팀워크를 중시하고, 지속적인 성장을 통해 <strong>가치 있는 서비스</strong>를 만들어가고 싶습니다.</p>
-      <br>
-      <p>"<em>코드는 단순히 동작하는 것을 넘어서, 사람들의 삶을 더 나아지게 만드는 도구</em>"라고 생각합니다.</p>
-    </div>
-    
-    <div class="stats-grid">
-      <div class="stat-card">
-        <span class="stat-number">15+</span>
-        <div class="stat-label">완성한 프로젝트</div>
-      </div>
-      <div class="stat-card">
-        <span class="stat-number">10+</span>
-        <div class="stat-label">사용 가능한 기술</div>
-      </div>
-      <div class="stat-card">
-        <span class="stat-number">2+</span>
-        <div class="stat-label">년의 개발 경험</div>
-      </div>
-      <div class="stat-card">
-        <span class="stat-number">24/7</span>
-        <div class="stat-label">학습하는 자세</div>
-      </div>
+      <p>FPGA, ASIC 설계부터 시스템 최적화까지 다양한 하드웨어 설계 기술을 익히며, 항상 더 나은 성능과 효율성을 추구합니다. <strong>첨단 기술과 창의적 사고</strong>를 결합하여 미래 지향적인 디지털 솔루션을 개발하고 싶습니다.</p>
     </div>
   </section>
 
   <section class="section">
-    <h2 class="section-title">💻 Technical Skills</h2>
+    <h2 class="section-title">⚡ Technical Skills</h2>
     <div class="skills-grid">
       <div class="skill-category">
-        <h3>🎨 Frontend Development</h3>
+        <h3>🔧 Digital Design & EDA Tools</h3>
         <div class="skill-tags">
-          <span class="skill-tag">HTML5</span>
-          <span class="skill-tag">CSS3</span>
-          <span class="skill-tag">JavaScript (ES6+)</span>
-          <span class="skill-tag">TypeScript</span>
-          <span class="skill-tag">React</span>
-          <span class="skill-tag">Vue.js</span>
-          <span class="skill-tag">Next.js</span>
-          <span class="skill-tag">Tailwind CSS</span>
-          <span class="skill-tag">Sass/SCSS</span>
+          <span class="skill-tag">Verilog HDL</span>
+          <span class="skill-tag">VHDL</span>
+          <span class="skill-tag">SystemVerilog</span>
+          <span class="skill-tag">Vivado</span>
+          <span class="skill-tag">Quartus Prime</span>
+          <span class="skill-tag">ModelSim</span>
+          <span class="skill-tag">Synopsys DC</span>
         </div>
       </div>
       
       <div class="skill-category">
-        <h3>⚙️ Backend Development</h3>
+        <h3>🎯 Hardware Platforms</h3>
         <div class="skill-tags">
-          <span class="skill-tag">Node.js</span>
-          <span class="skill-tag">Express.js</span>
+          <span class="skill-tag">Xilinx FPGA</span>
+          <span class="skill-tag">Intel FPGA</span>
+          <span class="skill-tag">ASIC Design</span>
+          <span class="skill-tag">SoC Design</span>
+          <span class="skill-tag">ARM Cortex</span>
+          <span class="skill-tag">RISC-V</span>
+        </div>
+      </div>
+      
+      <div class="skill-category">
+        <h3>📊 Analysis & Verification</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Functional Verification</span>
+          <span class="skill-tag">Timing Analysis</span>
+          <span class="skill-tag">Power Analysis</span>
+          <span class="skill-tag">Logic Synthesis</span>
+          <span class="skill-tag">DFT</span>
+        </div>
+      </div>
+      
+      <div class="skill-category">
+        <h3>💻 Programming & Tools</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">C/C++</span>
           <span class="skill-tag">Python</span>
-          <span class="skill-tag">Django</span>
-          <span class="skill-tag">FastAPI</span>
-          <span class="skill-tag">Java</span>
-          <span class="skill-tag">Spring Boot</span>
-          <span class="skill-tag">RESTful API</span>
-          <span class="skill-tag">GraphQL</span>
-        </div>
-      </div>
-      
-      <div class="skill-category">
-        <h3>🗄️ Database & Storage</h3>
-        <div class="skill-tags">
-          <span class="skill-tag">MySQL</span>
-          <span class="skill-tag">PostgreSQL</span>
-          <span class="skill-tag">MongoDB</span>
-          <span class="skill-tag">Redis</span>
-          <span class="skill-tag">SQLite</span>
-          <span class="skill-tag">Firebase</span>
-        </div>
-      </div>
-      
-      <div class="skill-category">
-        <h3>🚀 DevOps & Tools</h3>
-        <div class="skill-tags">
-          <span class="skill-tag">Git/GitHub</span>
-          <span class="skill-tag">Docker</span>
-          <span class="skill-tag">AWS</span>
-          <span class="skill-tag">Heroku</span>
-          <span class="skill-tag">Netlify</span>
-          <span class="skill-tag">Vercel</span>
-          <span class="skill-tag">GitHub Actions</span>
-          <span class="skill-tag">Webpack</span>
-          <span class="skill-tag">Vite</span>
+          <span class="skill-tag">MATLAB</span>
+          <span class="skill-tag">TCL/TK</span>
+          <span class="skill-tag">Git/SVN</span>
+          <span class="skill-tag">Linux</span>
         </div>
       </div>
     </div>
@@ -491,131 +399,77 @@ body {
     <h2 class="section-title">🛠️ Featured Projects</h2>
     <div class="projects-grid">
       <div class="project-card">
-        <div class="project-image">🌐</div>
+        <div class="project-image">🔧</div>
         <div class="project-content">
-          <h3 class="project-title">개인 포트폴리오 웹사이트</h3>
+          <h3 class="project-title">32-bit RISC-V 프로세서 설계</h3>
           <p class="project-description">
-            반응형 디자인을 적용한 개인 포트폴리오 웹사이트로, 모바일 친화적이며 빠른 로딩 속도와 SEO 최적화를 구현했습니다.
+            Verilog HDL을 사용하여 완전한 5-stage pipeline RISC-V 프로세서를 설계했습니다. 하드웨어 최적화와 성능 향상에 중점을 두고 개발했습니다.
           </p>
           <div class="project-tech">
-            <span class="tech-tag">Hexo</span>
-            <span class="tech-tag">GitHub Pages</span>
-            <span class="tech-tag">JavaScript</span>
-            <span class="tech-tag">Responsive Design</span>
+            <span class="tech-tag">Verilog HDL</span>
+            <span class="tech-tag">Vivado</span>
+            <span class="tech-tag">RISC-V ISA</span>
+            <span class="tech-tag">Pipeline Design</span>
           </div>
           <div class="project-links">
-            <a href="https://goeun-oh.github.io" class="project-link" target="_blank">Live Demo</a>
-            <a href="https://github.com/goeun-oh/goeun-oh.github.io" class="project-link secondary" target="_blank">GitHub</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-image">🛍️</div>
-        <div class="project-content">
-          <h3 class="project-title">온라인 쇼핑몰 플랫폼</h3>
-          <p class="project-description">
-            React와 Node.js를 활용한 풀스택 전자상거래 플랫폼입니다. 사용자 인증, 상품 관리, 결제 시스템 등의 핵심 기능을 구현했습니다.
-          </p>
-          <div class="project-tech">
-            <span class="tech-tag">React</span>
-            <span class="tech-tag">Node.js</span>
-            <span class="tech-tag">Express</span>
-            <span class="tech-tag">MongoDB</span>
-            <span class="tech-tag">JWT</span>
-          </div>
-          <div class="project-links">
-            <a href="#" class="project-link">Live Demo</a>
+            <a href="#" class="project-link">Details</a>
             <a href="#" class="project-link secondary">GitHub</a>
           </div>
         </div>
       </div>
 
       <div class="project-card">
-        <div class="project-image">📝</div>
+        <div class="project-image">📡</div>
         <div class="project-content">
-          <h3 class="project-title">협업 프로젝트 관리 도구</h3>
+          <h3 class="project-title">고속 신호처리 FPGA 시스템</h3>
           <p class="project-description">
-            팀 프로젝트를 효율적으로 관리할 수 있는 웹 애플리케이션입니다. 실시간 협업, 칸반 보드, 진행률 추적 등의 기능을 제공합니다.
+            실시간 디지털 신호처리를 위한 FPGA 기반 시스템을 설계했습니다. DSP 블록을 효율적으로 활용하여 고성능 필터링을 구현했습니다.
           </p>
           <div class="project-tech">
-            <span class="tech-tag">Vue.js</span>
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">Django</span>
-            <span class="tech-tag">PostgreSQL</span>
+            <span class="tech-tag">SystemVerilog</span>
+            <span class="tech-tag">Xilinx Zynq</span>
+            <span class="tech-tag">DSP</span>
+            <span class="tech-tag">Real-time Processing</span>
           </div>
           <div class="project-links">
-            <a href="#" class="project-link">Live Demo</a>
+            <a href="#" class="project-link">Details</a>
             <a href="#" class="project-link secondary">GitHub</a>
           </div>
         </div>
       </div>
 
       <div class="project-card">
-        <div class="project-image">🌤️</div>
+        <div class="project-image">⚡</div>
         <div class="project-content">
-          <h3 class="project-title">실시간 날씨 대시보드</h3>
+          <h3 class="project-title">저전력 IoT SoC 설계</h3>
           <p class="project-description">
-            OpenWeatherMap API를 활용한 실시간 날씨 정보 대시보드입니다. 지역별 날씨 조회, 7일 예보 기능을 구현했습니다.
+            초저전력 IoT 애플리케이션을 위한 SoC를 설계했습니다. 파워 게이팅과 클럭 게이팅 기법을 적용하여 전력 효율성을 극대화했습니다.
           </p>
           <div class="project-tech">
-            <span class="tech-tag">React</span>
-            <span class="tech-tag">TypeScript</span>
-            <span class="tech-tag">Chart.js</span>
-            <span class="tech-tag">OpenWeather API</span>
+            <span class="tech-tag">VHDL</span>
+            <span class="tech-tag">Low Power Design</span>
+            <span class="tech-tag">SoC Architecture</span>
+            <span class="tech-tag">IoT</span>
           </div>
           <div class="project-links">
-            <a href="#" class="project-link">Live Demo</a>
+            <a href="#" class="project-link">Details</a>
             <a href="#" class="project-link secondary">GitHub</a>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <h2 class="section-title">💼 Experience & Growth</h2>
-    <div class="experience-timeline">
-      <div class="experience-item">
-        <h3 class="experience-title">풀스택 개발자</h3>
-        <p class="experience-company">테크 스타트업 ABC</p>
-        <p class="experience-period">2023.03 - 현재</p>
-        <p class="experience-description">
-          웹 서비스 개발 및 유지보수를 담당하며, React 기반 프론트엔드와 Node.js 백엔드 개발을 진행했습니다. 
-          팀 협업을 통한 애자일 개발 프로세스에 참여하며 서비스 품질 향상에 기여했습니다.
-        </p>
-      </div>
-      
-      <div class="experience-item">
-        <h3 class="experience-title">웹 개발 인턴</h3>
-        <p class="experience-company">디지털 에이전시 XYZ</p>
-        <p class="experience-period">2022.09 - 2023.02</p>
-        <p class="experience-description">
-          클라이언트 웹사이트 제작 및 유지보수 업무를 담당했습니다. 
-          WordPress 커스터마이징과 반응형 웹 디자인 구현 경험을 쌓았습니다.
-        </p>
-      </div>
-
-      <div class="experience-item">
-        <h3 class="experience-title">개인 프로젝트 & 학습</h3>
-        <p class="experience-company">자기주도 학습</p>
-        <p class="experience-period">2022.01 - 현재</p>
-        <p class="experience-description">
-          지속적인 자기개발을 통해 최신 웹 기술을 학습하고 개인 프로젝트에 적용하고 있습니다. 
-          오픈소스 프로젝트 기여, 기술 블로그 운영을 통해 개발 역량을 향상시키고 있습니다.
-        </p>
       </div>
     </div>
   </section>
 
   <section class="cta-section">
-    <h2 class="cta-title">🚀 함께 멋진 것을 만들어보아요!</h2>
-    <p class="cta-description">새로운 프로젝트와 협업 기회를 기다리고 있습니다. 언제든 연락해주세요!</p>
-    <div class="contact-links">
-      <a href="mailto:goeun.oh.dev@gmail.com" class="contact-link">📧 이메일 보내기</a>
-      <a href="https://github.com/goeun-oh" class="contact-link" target="_blank">💻 GitHub 보기</a>
-      <a href="https://linkedin.com/in/goeun-oh" class="contact-link" target="_blank">💼 LinkedIn 연결</a>
-      <a href="/archives" class="contact-link">📝 블로그 둘러보기</a>
+    <div class="cta-content">
+      <h2 class="cta-title">🚀 함께 혁신적인 하드웨어를 만들어보아요!</h2>
+      <p class="cta-description">새로운 프로젝트와 협업 기회를 기다리고 있습니다. 언제든 연락해주세요!</p>
+      <div class="contact-links">
+        <a href="mailto:goeun.oh.dev@gmail.com" class="contact-link">📧 이메일 보내기</a>
+        <a href="https://github.com/goeun-oh" class="contact-link" target="_blank">💻 GitHub 보기</a>
+        <a href="https://linkedin.com/in/goeun-oh" class="contact-link" target="_blank">💼 LinkedIn 연결</a>
+        <a href="/archives" class="contact-link">📝 블로그 둘러보기</a>
+      </div>
     </div>
   </section>
 </div>
