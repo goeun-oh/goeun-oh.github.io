@@ -655,7 +655,6 @@ body {
           <span class="skill-tag">FSM Design</span>
         </div>
       </div>
-
       <div class="skill-card">
         <div class="skill-category">
           EDA Tools
@@ -669,7 +668,6 @@ body {
           <span class="skill-tag">QuestaSim</span>
         </div>
       </div>
-
       <div class="skill-card">
         <div class="skill-category">
           Hardware Platforms
@@ -683,7 +681,6 @@ body {
           <span class="skill-tag">ARM Cortex</span>
         </div>
       </div>
-
       <div class="skill-card">
         <div class="skill-category">
           Analysis & Verification
