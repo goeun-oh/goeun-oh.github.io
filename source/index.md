@@ -414,7 +414,145 @@ body {
   color: white;
   transform: translateY(-2px);
 }
+/* Projects Section */
+.projects-section {
+  max-width: 1000px;
+  text-align: center;
+}
 
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  margin-top: 50px;
+}
+
+.project-card {
+  background: var(--bg-light);
+  padding: 30px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border);
+  transition: var(--transition);
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px -15px rgba(26, 32, 44, 0.3);
+  border-color: var(--accent);
+}
+
+.project-card:hover .project-image {
+  transform: scale(1.05);
+}
+
+.project-image {
+  width: 100%;
+  height: 150px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+  border-radius: var(--border-radius);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: white;
+  transition: var(--transition);
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.project-title {
+  font-size: var(--fz-xl);
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.project-links {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+  margin-left: 15px;
+}
+
+.project-link {
+  color: var(--text-light);
+  font-size: var(--fz-lg);
+  transition: var(--transition);
+  text-decoration: none;
+  padding: 5px;
+}
+
+.project-link:hover {
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.project-description {
+  color: var(--text-light);
+  font-size: var(--fz-md);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.project-tech-tag {
+  background: var(--bg);
+  color: var(--text-light);
+  padding: 6px 12px;
+  border-radius: 15px;
+  font-size: var(--fz-xs);
+  font-weight: 500;
+  border: 1px solid var(--border);
+  font-family: var(--font-mono);
+  transition: var(--transition);
+}
+
+.project-tech-tag:hover {
+  background: var(--accent-light);
+  color: var(--accent-hover);
+  border-color: var(--accent);
+}
+
+.project-status {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: var(--accent);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: var(--fz-xs);
+  font-weight: 500;
+  font-family: var(--font-mono);
+}
+
+.project-status.completed {
+  background: #48bb78;
+}
+
+.project-status.in-progress {
+  background: #ed8936;
+}
+
+.project-status.prototype {
+  background: #9f7aea;
+}
 /* Contact Section */
 .contact-section {
   max-width: 600px;
@@ -539,6 +677,19 @@ body {
   .skills-grid {
     grid-template-columns: 1fr;
   }
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .project-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .project-links {
+    margin-left: 0;
+  }
 }
 
 @media (max-width: 480px) {
@@ -557,6 +708,9 @@ body {
   .numbered-heading:after {
     width: 100%;
   }
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
 
@@ -569,7 +723,7 @@ body {
     <ol>
       <li><a href="#about">About</a></li>
       <li><a href="#skills">Skills</a></li>
-      <li><a href="/projects">Projects</a></li>
+      <li><a href="#projects">Projects</a></li>
       <li><a href="/portfolio">Portfolio</a></li>
       <li><a href="#contact">Contact</a></li>
     </ol>
@@ -698,6 +852,99 @@ body {
   </section>
 
   <!-- Contact Section -->
+  <!-- Projects Section -->
+  <section id="projects" class="projects-section section">
+    <h2 class="numbered-heading">Featured Projects</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-status completed">완료</div>
+        <div class="project-image">🔧</div>
+        <div class="project-header">
+          <h3 class="project-title">RISC-V 프로세서 설계</h3>
+          <div class="project-links">
+            <a href="#" class="project-link" title="GitHub">📂</a>
+            <a href="#" class="project-link" title="Demo">🚀</a>
+          </div>
+        </div>
+        <p class="project-description">
+          32비트 RISC-V ISA 기반 프로세서를 Verilog로 설계했습니다. 
+          5단계 파이프라인 구조를 구현하여 성능을 최적화하고, 
+          메모리 계층 구조와 캐시 시스템을 포함합니다.
+        </p>
+        <div class="project-tech">
+          <span class="project-tech-tag">Verilog HDL</span>
+          <span class="project-tech-tag">RISC-V</span>
+          <span class="project-tech-tag">Vivado</span>
+          <span class="project-tech-tag">FPGA</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-status in-progress">진행중</div>
+        <div class="project-image">⚡</div>
+        <div class="project-header">
+          <h3 class="project-title">저전력 IoT SoC</h3>
+          <div class="project-links">
+            <a href="#" class="project-link" title="GitHub">📂</a>
+          </div>
+        </div>
+        <p class="project-description">
+          IoT 디바이스용 저전력 SoC를 설계하고 있습니다. 
+          동적 전압 스케일링과 클럭 게이팅 기법을 적용하여 
+          전력 소모를 최소화하면서 성능을 유지합니다.
+        </p>
+        <div class="project-tech">
+          <span class="project-tech-tag">SystemVerilog</span>
+          <span class="project-tech-tag">Low Power</span>
+          <span class="project-tech-tag">SoC Design</span>
+          <span class="project-tech-tag">UPF</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-status prototype">프로토타입</div>
+        <div class="project-image">🎯</div>
+        <div class="project-header">
+          <h3 class="project-title">DSP 신호처리 가속기</h3>
+          <div class="project-links">
+            <a href="#" class="project-link" title="GitHub">📂</a>
+            <a href="#" class="project-link" title="Paper">📄</a>
+          </div>
+        </div>
+        <p class="project-description">
+          FFT 및 FIR 필터링을 위한 하드웨어 가속기를 개발했습니다. 
+          병렬 처리 아키텍처를 통해 실시간 신호처리 성능을 달성하고 
+          메모리 대역폭을 최적화했습니다.
+        </p>
+        <div class="project-tech">
+          <span class="project-tech-tag">VHDL</span>
+          <span class="project-tech-tag">DSP</span>
+          <span class="project-tech-tag">FFT</span>
+          <span class="project-tech-tag">Xilinx</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-status completed">완료</div>
+        <div class="project-image">🔐</div>
+        <div class="project-header">
+          <h3 class="project-title">AES 암호화 모듈</h3>
+          <div class="project-links">
+            <a href="#" class="project-link" title="GitHub">📂</a>
+            <a href="#" class="project-link" title="Demo">🚀</a>
+          </div>
+        </div>
+        <p class="project-description">
+          AES-256 암호화/복호화 하드웨어 모듈을 구현했습니다. 
+          파이프라인 구조로 처리량을 향상시키고, 
+          사이드채널 공격에 대한 보안성을 강화했습니다.
+        </p>
+        <div class="project-tech">
+          <span class="project-tech-tag">Verilog</span>
+          <span class="project-tech-tag">Cryptography</span>
+          <span class="project-tech-tag">Security</span>
+          <span class="project-tech-tag">AES</span>
+        </div>
+      </div>
+    </div>
+  </section>
   <section id="contact" class="contact-section section">
     <span class="overline">다음 단계는?</span>
     <h2 class="title">연락해주세요</h2>
