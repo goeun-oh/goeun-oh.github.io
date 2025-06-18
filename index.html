@@ -41,11 +41,13 @@
 <meta property="og:site_name">
 <meta property="og:description" content="@import url(&#39;https:&#x2F;&#x2F;fonts.googleapis.com&#x2F;css2?family&#x3D;Inter:wght@300;400;500;600;700&amp;family&#x3D;JetBrains+Mono:wght@400;500;600&amp;display&#x3D;swap&#39;);  * {   margin: 0;   padding: 0;   box-sizing: border-box;">
 <meta property="og:locale" content="ko_KR">
-<meta property="article:published_time" content="2025-06-17T07:45:27.044Z">
-<meta property="article:modified_time" content="2025-06-17T07:45:27.044Z">
+<meta property="og:image" content="https://www.goeun-oh.com/images/profile.jpg">
+<meta property="article:published_time" content="2025-06-18T00:25:59.009Z">
+<meta property="article:modified_time" content="2025-06-18T00:25:59.009Z">
 <meta property="article:author" content="고은">
 <meta property="article:tag" content="개발자, 포트폴리오, 웹개발, 프론트엔드, 백엔드">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.goeun-oh.com/images/profile.jpg">
 <meta name="generator" content="Hexo 7.3.0"></head>
 <body class="mdui-theme-primary-indigo mdui-theme-accent-pink mdui-appbar-with-toolbar ">
     <div class="mdui-theme-layout-light">
@@ -84,7 +86,7 @@
                 <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
             </div>
             <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
-                <a class="mdui-list-item mdui-ripple m-link" href="/archives/2025/06/">6월 2025</a><a class="mdui-list-item mdui-ripple m-link" href="/archives/2024/12/">12월 2024</a><a class="mdui-list-item mdui-ripple m-link" href="/archives/2024/01/">1월 2024</a>
+                <a class="mdui-list-item mdui-ripple m-link" href="/archives/2025/06/">6월 2025</a>
             </div>
         </div>
         
@@ -95,7 +97,7 @@
                 <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
             </div>
             <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
-                <a class="mdui-list-item mdui-ripple m-link" href="/categories/%EA%B0%9C%EB%B0%9C/">개발</a><a class="mdui-list-item mdui-ripple m-link" href="/categories/%EC%86%8C%EA%B0%9C/">소개</a><a class="mdui-list-item mdui-ripple m-link" href="/categories/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/">프로젝트</a>
+                
             </div>
         </div>
         
@@ -137,7 +139,7 @@
     </div>
     <div class="mdui-card-primary-subtitle mdui-typo">
         
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-17 04:45<br>Updated: 2025-06-17 04:45'}" datetime="2025-06-17T07:45:27.044Z">2025-06-17</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-18 09:25<br>Updated: 2025-06-18 09:25'}" datetime="2025-06-18T00:25:59.009Z">2025-06-18</time>
         <span>-</span>
         
             <span>index.html</span>
@@ -221,7 +223,85 @@ body {
   border-bottom: 1px solid var(--border);
   transition: var(--transition);
 }
+/* 모바일 전용 네비게이션 바 - 수정된 버전 */
+.mobile-nav {
+  display: none; /* 기본적으로 숨김 */
+}
 
+@media (max-width: 768px) {
+  /* 기존 vertical-nav 숨기기 */
+  .vertical-nav {
+    display: none !important;
+  }
+  
+  /* 모바일 네비게이션 표시 - 더 예쁜 디자인 */
+  .mobile-nav {
+    display: flex;
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(15px);
+    padding: 8px 16px;
+    border-radius: 20px;
+    gap: 16px;
+    z-index: 999;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    padding: 8px 6px;
+    border-radius: 12px;
+    transition: var(--transition);
+    min-width: 35px;
+  }
+  
+  .mobile-nav-item:hover {
+    background: rgba(49, 130, 206, 0.1);
+    transform: translateY(-2px);
+  }
+  
+  .mobile-nav-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--text-lighter);
+    transition: var(--transition);
+  }
+  
+  .mobile-nav-item.active .mobile-nav-dot {
+    background: var(--accent);
+    transform: scale(2);
+    box-shadow: 0 0 8px rgba(49, 130, 206, 0.4);
+  }
+  
+  .mobile-nav-label {
+    font-size: 8px;
+    color: var(--text-light);
+    font-family: var(--font-mono);
+    text-align: center;
+    font-weight: 500;
+  }
+  
+  .mobile-nav-item.active .mobile-nav-label {
+    color: var(--accent);
+    font-weight: 600;
+  }
+}
+
+/* 데스크톱에서는 확실히 숨김 */
+@media (min-width: 769px) {
+  .mobile-nav {
+    display: none !important;
+  }
+}
 .nav {
   width: auto; /* 추가 */
   overflow: visible; /* 추가 */
@@ -506,7 +586,51 @@ body {
   align-items: start;
   text-align: left;
 }
+.about-inner-new {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  text-align: left;
+  max-width: 800px;
+  margin: 0 auto;
+}
 
+.about-intro {
+  text-align: center;
+  font-size: var(--fz-xl);
+}
+
+.about-intro p {
+  margin: 0;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+.about-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.about-text-main {
+  font-size: var(--fz-lg);
+}
+
+.about-text-main p {
+  margin: 0 0 20px;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    text-align: center;
+  }
+}
 .about-text {
   font-size: var(--fz-lg);
 }
@@ -515,6 +639,55 @@ body {
   margin: 0 0 20px;
   color: var(--text-light);
   line-height: 1.6;
+}
+.about-text-right {
+  font-size: var(--fz-lg);
+  margin-top: 20px;
+}
+
+.about-text-right p {
+  margin: 0 0 20px;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+.about-top {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 50px;
+  align-items: start;
+  margin-bottom: 40px;
+}
+
+.about-text-left {
+  font-size: var(--fz-lg);
+}
+
+.about-text-left p {
+  margin: 0;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+.about-bottom {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: var(--fz-lg);
+}
+
+.about-bottom p {
+  margin: 0 0 20px;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+  .about-top {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    text-align: center;
+  }
 }
 
 .skills-list {
@@ -590,13 +763,9 @@ body {
   width: 100%;
   height: auto;
   vertical-align: middle;
+  object-fit: cover;
+  aspect-ratio: 1;
   background-color: var(--bg-light);
-  min-height: 300px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
-  color: var(--text-lighter);
 }
 
 /* Skills Grid Section */
@@ -725,7 +894,22 @@ body {
 .project-card:hover .project-image {
   transform: scale(1.05);
 }
+.project-link {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
 
+.project-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+}
 
 .project-header {
   display: flex;
@@ -1096,63 +1280,38 @@ body {
 
 <!-- Main Content -->
 <div class="main">
-  <!-- Hero Section -->
-  <section class="hero section">
-    <div class="hero-content">
-      <p class="intro">안녕하세요, 저는</p>
-      <h1>고은입니다.</h1>
-      <h2>디지털회로 설계 엔지니어입니다.</h2>
-      <p class="description">
-        혁신적인 하드웨어 솔루션을 설계하며, FPGA와 ASIC을 통해 
-        미래 기술의 기반을 구축하는 것에 열정을 가지고 있습니다. 
-        효율적이고 창의적인 디지털 시스템 설계를 추구합니다.
+
+<!-- About Section - 수정된 버전 -->
+<section id="about" class="about-section section">
+  <h2 class="numbered-heading">About Me</h2>
+  
+  <!-- 첫 번째 문단과 사진을 나란히 -->
+  <div class="about-top">
+    <div class="about-text-left">
+      <p>
+        안녕하세요! 저는 효율적이고 혁신적인 디지털 시스템을 설계하는 것에 열정을 가진 
+        디지털회로 설계 엔지니어입니다.
       </p>
-      <a class="cta-button" href="mailto:goeun.oh.dev@gmail.com">연락하기</a>
     </div>
-  </section>
-
-  <!-- About Section -->
-  <section id="about" class="about-section section">
-    <h2 class="numbered-heading">About Me</h2>
-    <div class="about-inner">
-      <div>
-        <div class="about-text">
-          <p>
-            안녕하세요! 저는 효율적이고 혁신적인 디지털 시스템을 설계하는 것에 열정을 가진 
-            디지털회로 설계 엔지니어입니다.
-          </p>
-          <p>
-            FPGA, ASIC 설계부터 시스템 최적화까지 다양한 하드웨어 설계 기술을 익히며, 
-            항상 더 나은 성능과 효율성을 추구합니다. 첨단 기술과 창의적 사고를 결합하여 
-            미래 지향적인 디지털 솔루션을 개발하고 싶습니다.
-          </p>
-          <p>
-            최근에는 저전력 설계와 고성능 프로세서 아키텍처에 특히 관심을 가지고 
-            다양한 프로젝트를 진행하고 있습니다.
-          </p>
-          <p>다음은 제가 최근에 작업하고 있는 기술들입니다:</p>
-          <ul class="skills-list">
-            <li>Verilog HDL</li>
-            <li>SystemVerilog</li>
-            <li>VHDL</li>
-            <li>Vivado</li>
-            <li>Quartus Prime</li>
-            <li>ModelSim</li>
-            <li>RISC-V</li>
-            <li>FPGA Design</li>
-            <li>ASIC Design</li>
-            <li>Digital Signal Processing</li>
-          </ul>
-        </div>
-      </div>
-      <div class="about-pic">
-        <div class="wrapper">
-          <div class="img">👩‍💻</div>
-        </div>
+    <div class="about-pic">
+      <div class="wrapper">
+        <img src="images/profile.jpg" alt="고은 프로필 사진" class="img">
       </div>
     </div>
-  </section>
-
+  </div>
+  <!-- 나머지 문단들 가운데 정렬 -->
+  <div class="about-bottom">
+    <p>
+      FPGA, ASIC 설계부터 시스템 최적화까지 다양한 하드웨어 설계 기술을 익히며, 
+      항상 더 나은 성능과 효율성을 추구합니다. 첨단 기술과 창의적 사고를 결합하여 
+      미래 지향적인 디지털 솔루션을 개발하고 싶습니다.
+    </p>
+    <p>
+      최근에는 저전력 설계와 고성능 프로세서 아키텍처에 특히 관심을 가지고 
+      다양한 프로젝트를 진행하고 있습니다.
+    </p>
+  </div>
+</section>
   <!-- Skills Section -->
   <section id="skills" class="skills-section section">
     <h2 class="numbered-heading">Technical Skills</h2>
@@ -1162,51 +1321,15 @@ body {
           HDL & Design
         </div>
         <div class="skill-tags">
-          <span class="skill-tag">Verilog HDL</span>
-          <span class="skill-tag">VHDL</span>
+          <span class="skill-tag">Verilog</span>
           <span class="skill-tag">SystemVerilog</span>
-          <span class="skill-tag">Digital Logic</span>
-          <span class="skill-tag">RTL Design</span>
-          <span class="skill-tag">FSM Design</span>
-        </div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-category">
-          EDA Tools
-        </div>
-        <div class="skill-tags">
           <span class="skill-tag">Vivado</span>
-          <span class="skill-tag">Quartus Prime</span>
+          <span class="skill-tag">Vitis</span>
           <span class="skill-tag">ModelSim</span>
-          <span class="skill-tag">Synopsys DC</span>
-          <span class="skill-tag">Cadence</span>
-          <span class="skill-tag">QuestaSim</span>
-        </div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-category">
-          Hardware Platforms
-        </div>
-        <div class="skill-tags">
-          <span class="skill-tag">Xilinx FPGA</span>
-          <span class="skill-tag">Intel FPGA</span>
-          <span class="skill-tag">ASIC Design</span>
-          <span class="skill-tag">SoC Design</span>
-          <span class="skill-tag">RISC-V</span>
-          <span class="skill-tag">ARM Cortex</span>
-        </div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-category">
-          Analysis & Verification
-        </div>
-        <div class="skill-tags">
-          <span class="skill-tag">Timing Analysis</span>
-          <span class="skill-tag">Power Analysis</span>
-          <span class="skill-tag">Functional Verification</span>
-          <span class="skill-tag">Logic Synthesis</span>
-          <span class="skill-tag">DFT</span>
-          <span class="skill-tag">Signal Integrity</span>
+          <span class="skill-tag">Synopsys Vcs & Verdi</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">C</span>
+          <span class="skill-tag">Java</span>
         </div>
       </div>
     </div>
@@ -1216,14 +1339,13 @@ body {
   <!-- Projects Section -->
   <section id="projects" class="projects-section section">
     <h2 class="numbered-heading">Featured Projects</h2>
+    <a href="projects/risc-v-processor.html" class="project-card-link">
     <div class="projects-grid">
       <div class="project-card">
         <div class="project-image">🔧</div>
         <div class="project-header">
           <h3 class="project-title">RISC-V 프로세서 설계</h3>
           <div class="project-links">
-            <a href="#" class="project-link" title="GitHub">📂</a>
-            <a href="#" class="project-link" title="Demo">🚀</a>
           </div>
         </div>
         <p class="project-description">
@@ -1238,18 +1360,17 @@ body {
           <span class="project-tech-tag">FPGA</span>
         </div>
       </div>
+      </a>
       <div class="project-card">
         <div class="project-image">⚡</div>
         <div class="project-header">
-          <h3 class="project-title">저전력 IoT SoC</h3>
+          <h3 class="project-title">VGA</h3>
           <div class="project-links">
             <a href="#" class="project-link" title="GitHub">📂</a>
           </div>
         </div>
         <p class="project-description">
-          IoT 디바이스용 저전력 SoC를 설계하고 있습니다. 
-          동적 전압 스케일링과 클럭 게이팅 기법을 적용하여 
-          전력 소모를 최소화하면서 성능을 유지합니다.
+          VGA
         </p>
         <div class="project-tech">
           <span class="project-tech-tag">SystemVerilog</span>
@@ -1261,7 +1382,7 @@ body {
       <div class="project-card">
         <div class="project-image">🎯</div>
         <div class="project-header">
-          <h3 class="project-title">DSP 신호처리 가속기</h3>
+          <h3 class="project-title">APB Bus</h3>
           <div class="project-links">
             <a href="#" class="project-link" title="GitHub">📂</a>
             <a href="#" class="project-link" title="Paper">📄</a>
@@ -1337,6 +1458,25 @@ body {
     <span class="nav-label">Contact</span>
   </div>
 </nav>
+<!-- 🔥 여기에 모바일 네비게이션 추가! -->
+<nav class="mobile-nav">
+  <div class="mobile-nav-item" onclick="scrollToSection('about')">
+    <div class="mobile-nav-dot"></div>
+    <span class="mobile-nav-label">About</span>
+  </div>
+  <div class="mobile-nav-item" onclick="scrollToSection('skills')">
+    <div class="mobile-nav-dot"></div>
+    <span class="mobile-nav-label">Skills</span>
+  </div>
+  <div class="mobile-nav-item" onclick="scrollToSection('projects')">
+    <div class="mobile-nav-dot"></div>
+    <span class="mobile-nav-label">Projects</span>
+  </div>
+  <div class="mobile-nav-item" onclick="scrollToSection('contact')">
+    <div class="mobile-nav-dot"></div>
+    <span class="mobile-nav-label">Contact</span>
+  </div>
+</nav>
 
 <script>
 function scrollToSection(sectionId) {
@@ -1348,6 +1488,7 @@ function scrollToSection(sectionId) {
 window.addEventListener('scroll', function() {
   const sections = ['about', 'skills', 'projects', 'contact'];
   const navItems = document.querySelectorAll('.nav-item');
+  const mobileNavItems = document.querySelectorAll('.mobile-nav-item'); // 🔥 추가!
   
   let current = '';
   sections.forEach(section => {
@@ -1360,7 +1501,16 @@ window.addEventListener('scroll', function() {
     }
   });
   
+  // 데스크톱 네비게이션 업데이트
   navItems.forEach((item, index) => {
+    item.classList.remove('active');
+    if (sections[index] === current) {
+      item.classList.add('active');
+    }
+  });
+  
+  // 🔥 모바일 네비게이션 업데이트 (새로 추가!)
+  mobileNavItems.forEach((item, index) => {
     item.classList.remove('active');
     if (sections[index] === current) {
       item.classList.add('active');
