@@ -1131,20 +1131,6 @@ body {
 
 <!-- Main Content -->
 <div class="main">
-  <!-- Hero Section -->
-  <section class="hero section">
-    <div class="hero-content">
-      <p class="intro">안녕하세요, 저는</p>
-      <h1>고은입니다.</h1>
-      <h2>디지털회로 설계 엔지니어입니다.</h2>
-      <p class="description">
-        혁신적인 하드웨어 솔루션을 설계하며, FPGA와 ASIC을 통해 
-        미래 기술의 기반을 구축하는 것에 열정을 가지고 있습니다. 
-        효율적이고 창의적인 디지털 시스템 설계를 추구합니다.
-      </p>
-      <a class="cta-button" href="mailto:goeun.oh.dev@gmail.com">연락하기</a>
-    </div>
-  </section>
 
 <!-- About Section - 수정된 버전 -->
 <section id="about" class="about-section section">
