@@ -1,6 +1,6 @@
 ---
 title: goeun's space
-layout: page
+layout: index
 ---
 
 {% raw %}
