@@ -321,7 +321,7 @@ body {
             </div>
             <div class="info-content">
                 <div class="info-label">학력</div>
-                <div class="info-value">아주대학교<br>(전자공학과)</div>
+                <div class="info-value">아주대학교 (전자공학과)</div>
             </div>
         </div>
     </div>
