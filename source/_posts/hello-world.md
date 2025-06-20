@@ -9,13 +9,11 @@
     <title>About Me Demo</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap');
-
     * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
     }
-    
     body {
         font-family: 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
         background-color: #ffffff;
@@ -24,21 +22,22 @@
         padding: 40px 20px;
         font-weight: 400;
     }
-    
     .container {
         max-width: 1200px;
         margin: 0 auto;
     }
-    
     .numbered-heading {
-        display: flex;
+        font-family: __Black_Han_Sans_1e1a52,__Black_Han_Sans_Fallback_1e1a52 !important;
+        font-style: normal !important;
+        display: inline-block;
+        margin: 0 auto 60px auto;
         align-items: center;
         justify-content: center;
-        margin-bottom: 60px;
-        font-size: 48px;
-        font-weight: 900;
+        margin-bottom: 60px !important;
+        font-size: 44px !important;
+        font-weight: 800 !important;
         color: #000000;
-        letter-spacing: -0.02em;
+        letter-spacing: 0.02em;
         text-transform: uppercase;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
@@ -46,110 +45,90 @@
         position: relative;
         white-space: nowrap;
         flex-wrap: nowrap;
+        border-bottom: 3px solid #000000 !important;
+        padding-bottom: 8px;
     }
-    
-    .numbered-heading::before {
-        content: '';
-        display: block;
-        width: 100px;
-        height: 2px;
-        margin-right: 20px;
-        background-color: #e5e7eb;
-        border-radius: 1px;
-        flex-shrink: 0;
-    }
-    
-    .numbered-heading:after {
-        content: '';
-        display: block;
-        width: 100px;
-        height: 2px;
-        margin-left: 20px;
-        background-color: #e5e7eb;
-        border-radius: 1px;
-        flex-shrink: 0;
-    }
-    
-    .about-info-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 30px 40px;
-        max-width: 1000px;
-    }
-    
-    .info-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 20px;
-        padding: 0;
-        background: transparent;
-        border: none;
-        box-shadow: none;
-        transition: none;
-    }
-    
-    .info-icon {
-        width: 24px;
-        height: 24px;
-        color: #000000;
-        flex-shrink: 0;
-        margin-top: 2px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .info-content {
-        flex: 1;
-    }
-    
-    .info-label {
-        font-size: 16px;
-        font-weight: 600;
-        color: #000000;
-        margin-bottom: 4px;
-        letter-spacing: -0.01em;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-    }
-    
-    .info-value {
-        font-size: 16px;
-        color: #000000;
-        line-height: 1.5;
-        font-weight: 500;
-        letter-spacing: -0.01em;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-    }
-    
-    @media (max-width: 768px) {
+.about-info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px 40px;
+    max-width: 1000px;
+    margin: 0 auto; /* 추가: 가운데 정렬 */
+}
+@media (max-width: 768px) {
         .about-info-grid {
             grid-template-columns: 1fr;
             gap: 25px;
-        }
-        
+        }   
         .numbered-heading {
             font-size: 36px;
         }
-        
-        .numbered-heading::before {
-            width: 80px;
-            margin-right: 20px;
-        }
-        
+        .numbered-heading::before,
         .numbered-heading:after {
-            width: 80px;
-            margin-left: 20px;
+            width: 50px;
         }
     }
-
-    @media (max-width: 1024px) and (min-width: 769px) {
-        .about-info-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px 30px;
-        }
+.about-section {
+  max-width: 1000px;
+  margin: 0 auto; /* 섹션 자체를 가운데 정렬 */
+  text-align: center; /* center에서 left로 변경 */
+}
+.about-info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px 40px;
+    max-width: 1000px;
+    margin: 0 auto; /* 추가: 가운데 정렬 */
+    text-align: left;
+}
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px; /* 기존 0에서 여백 추가 */
+    background: #ffffff; /* 또는 #fafafa */
+    border: 1px solid #e5e7eb; /* 경계선 추가 */
+    border-radius: 8px; /* 둥근 모서리 */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* 가벼운 그림자 */
+    transition: all 0.2s ease; /* 호버 효과를 위한 트랜지션 */
+}
+.info-icon {
+    width: 24px;
+    height: 24px;
+    color: #000000;
+    flex-shrink: 0;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.info-content {
+    flex: 1;
+}
+.info-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.info-value {
+    font-size: 16px;
+    color: #000000;
+    line-height: 1.5;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+@media (max-width: 1024px) and (min-width: 769px) {
+    .about-info-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px 30px;
     }
+}
 </style>
 
 </head>
@@ -157,7 +136,6 @@
     <div class="container">
         <section id="about" class="about-section">
             <h2 class="numbered-heading">ABOUT ME</h2>
-
         <div class="about-info-grid">
             <div class="info-item">
                 <div class="info-icon">
@@ -170,7 +148,6 @@
                     <div class="info-value">오고은</div>
                 </div>
             </div>
-
             <div class="info-item">
                 <div class="info-icon">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -182,7 +159,6 @@
                     <div class="info-value">98.01.10</div>
                 </div>
             </div>
-
             <div class="info-item">
                 <div class="info-icon">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -194,7 +170,6 @@
                     <div class="info-value">경기도 용인시</div>
                 </div>
             </div>
-
             <div class="info-item">
                 <div class="info-icon">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -206,7 +181,6 @@
                     <div class="info-value">010-7251-3263</div>
                 </div>
             </div>
-
             <div class="info-item">
                 <div class="info-icon">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -218,7 +192,6 @@
                     <div class="info-value">qw433812@gmail.com</div>
                 </div>
             </div>
-
             <div class="info-item">
                 <div class="info-icon">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -227,7 +200,7 @@
                 </div>
                 <div class="info-content">
                     <div class="info-label">학력</div>
-                    <div class="info-value">아주대학교<br>(전자공학과)</div>
+                    <div class="info-value">아주대학교 (전자공학과)</div>
                 </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
 {
-  "name": "hexo-site",
+  "name": "hexo",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -24,5 +24,20 @@
     "hexo-server": "^3.0.0",
     "hexo-theme-landscape": "^1.0.0",
     "hexo-theme-next": "^8.23.0"
-  }
+  },
+  "devDependencies": {
+    "eslint": "^9.29.0"
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/goeun-oh/goeun-oh.github.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/goeun-oh/goeun-oh.github.io/issues"
+  },
+  "homepage": "https://github.com/goeun-oh/goeun-oh.github.io#readme",
+  "description": ""
 }
