@@ -68,6 +68,7 @@ body {
   z-index: 1000;
   padding: 0 50px;
   width: 100%;
+  max-width: 1800px; 
   height: var(--nav-height);
   background-color: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
@@ -75,17 +76,26 @@ body {
   transition: var(--transition);
 }
 
-/* 🔥 Hero Section 복구! */
-.hero {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  min-height: 100vh;
-  text-align: center;
-  padding: 0;
+.logo a {
+  color: var(--accent);
+  font-family: var(--font-mono);
+  text-decoration: none;
+  font-size: var(--fz-xxl); /* var(--fz-lg)에서 var(--fz-xxl)로 변경 */
+  font-weight: 700; /* 600에서 700으로 더 굵게 */
 }
-
+/* Main Layout */
+.main {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1800px; /* 1600px에서 더 넓게 */
+  min-height: 100vh;
+  padding: 0 150px;
+}
+.section {
+  margin: 0 auto;
+  padding: var(--section-padding) 0;
+  max-width: 1200px; /* var(--max-width) 대신 고정값 */
+}
 .hero-content {
   max-width: 800px;
 }
@@ -148,6 +158,12 @@ body {
 }
 .mdui-card-primary-subtitle {
   display: none !important;
+}
+.mdui-card-primary.mdui-ripple{
+  display: none !important;
+}
+.mdui-m-x-0.mdui-m-t-4{
+  display : none !important;
 }
 .numbered-heading {
     font-family: __Black_Han_Sans_1e1a52,__Black_Han_Sans_Fallback_1e1a52 !important;
@@ -231,15 +247,6 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-@media (max-width: 768px) {
-    .about-info-grid {
-        grid-template-columns: 1fr;
-        gap: 25px;
-    }   
-    .numbered-heading {
-        font-size: 36px !important;
-    }
-}
 
 @media (max-width: 1024px) and (min-width: 769px) {
     .about-info-grid {
@@ -247,7 +254,96 @@ body {
         gap: 25px 30px;
     }
 }
+@media (max-width: 1080px) {
+  .main {
+    padding: 0 80px; /* 100px에서 80px로 */
+  }
+  .header {
+    padding: 0 30px; /* 50px에서 30px로 */
+  }
+}
 
+@media (max-width: 768px) {
+  .main {
+    padding: 0 50px;
+  }
+  .header {
+    padding: 0 25px;
+  }
+  .section {
+    padding: 80px 0;
+  }
+  
+  .hero h1 {
+    font-size: clamp(30px, 8vw, 60px);
+  }
+  
+  .hero h2 {
+    font-size: clamp(25px, 7vw, 50px);
+  }
+  
+  .about-inner {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    text-align: center;
+  }
+  .about-info-grid {
+      grid-template-columns: 1fr;
+      gap: 25px;
+  }   
+  .numbered-heading {
+      font-size: 36px !important;
+  }
+  .skills-list {
+    grid-template-columns: repeat(1, minmax(140px, 200px));
+    justify-content: center;
+  }
+  
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px; /* 30px에서 20px로 줄임 */
+    margin-top: 50px;
+  }
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px; /* 15px에서 10px로 */
+  }
+  
+  .project-links {
+    margin-left: 0;
+  }
+}
+@media (max-width: 600px) {
+  .header {
+    padding: 0 15px;
+  }
+}
+@media (max-width: 480px) {
+  .main {
+    padding: 0 25px;
+  }
+  
+  .section {
+    padding: 60px 0;
+  }
+  
+  .header {
+    padding: 0 15px;
+  }
+  
+  .numbered-heading:after {
+    width: 100%;
+  }
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
 </style>
 
 <!-- Header -->
@@ -256,20 +352,6 @@ body {
     <a href="/">Goeun's Space</a>
   </div>
 </header>
-
-<!-- 🔥 Hero Section 복구! -->
-<section class="hero">
-  <div class="hero-content">
-    <p class="intro">안녕하세요!</p>
-    <h1>Goeun Oh</h1>
-    <h2>Frontend Developer</h2>
-    <p class="description">
-      사용자 경험을 중시하는 프론트엔드 개발자입니다.<br>
-      깔끔하고 직관적인 웹 애플리케이션을 만듭니다.
-    </p>
-    <a href="#about" class="cta-button">더 알아보기</a>
-  </div>
-</section>
 
 <!-- Main Content -->
 <div class="main">
@@ -385,10 +467,4 @@ window.addEventListener('scroll', function() {
 });
 </script>
 
-<!-- Footer -->
-<footer class="footer">
-  <div class="credit">
-    <p>&copy; 2025 Goeun Oh. Built with <a href="https://hexo.io/" target="_blank">Hexo</a></p>
-  </div>
-</footer>
 {% endraw %}
