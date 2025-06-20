@@ -251,6 +251,152 @@ body {
     }
 }
 
+
+        .skills-section {
+            background:rgb(245, 245, 145);
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            padding-bottom: 100px;  /* 아래쪽만 padding */
+        }
+
+        .skills-title {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 48px;
+            font-weight: 800;
+            color: #2d3748;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            text-decoration: underline;
+            text-decoration-thickness: 4px;
+            text-underline-offset: 8px;
+        }
+
+        .skills-icon {
+            width: 40px;
+            height: 40px;
+            color: #2d3748;
+        }
+
+        .skills-container {
+            background: #f5f5dc;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 1000px;
+            align-items: center;
+            margin: 0 auto;  /* 👈 이미 있어야 하는데... */
+        }
+
+        .skill-category {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 35px;
+            text-align: left;
+        }
+
+        .skill-category:last-child {
+            margin-bottom: 0;
+        }
+
+        .category-icon-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: #fff;
+            border-radius: 12px;
+            flex-shrink: 0;
+            border: 2px solid #ddd;
+        }
+
+        .category-icon {
+            width: 30px;
+            height: 30px;
+            color: #666;
+        }
+
+        .category-content {
+            flex: 1;
+        }
+
+        .category-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 12px;
+            letter-spacing: -0.01em;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill-tag {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            color: white;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            outline: none;
+        }
+
+        .skill-tag:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Language Skills - 사진과 같은 색상 */
+        .language .skill-tag:nth-child(1) { background: #4a90e2; } /* Verilog */
+        .language .skill-tag:nth-child(2) { background: #50c878; } /* SystemVerilog */
+        .language .skill-tag:nth-child(3) { background: #7b68ee; } /* Python */
+        .language .skill-tag:nth-child(4) { background: #ff6b6b; } /* Java */
+        .language .skill-tag:nth-child(5) { background: #ffa500; } /* C */
+
+        /* Tools - 사진과 같은 색상 */
+        .tools .skill-tag:nth-child(1) { background: #4a90e2; } /* Vivado */
+        .tools .skill-tag:nth-child(2) { background: #50c878; } /* Vitis */
+        .tools .skill-tag:nth-child(3) { background: #7b68ee; } /* ModelSim */
+        .tools .skill-tag:nth-child(4) { background: #ff6b6b; } /* PsPice */
+        .tools .skill-tag:nth-child(5) { background: #ffa500; } /* Synopsys Verdi */
+        .tools .skill-tag:nth-child(6) { background: #20b2aa; } /* Synopsys VCS */
+
+        @media (max-width: 768px) {
+            .skills-container {
+                padding: 30px 20px;
+            }
+
+            .skill-category {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+
+            .category-content {
+                width: 100%;
+            }
+
+            .skills-title {
+                font-size: 36px;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .skills-icon {
+                width: 40px;
+                height: 40px;
+            }
+        }
 </style>
 
 <!-- Main Content -->
@@ -322,6 +468,52 @@ body {
             <div class="info-content">
                 <div class="info-label">학력</div>
                 <div class="info-value">아주대학교 (전자공학과)</div>
+            </div>
+        </div>
+</section>
+
+<!-- Skills Section -->
+<section id="skills" class="skills-section">
+        <h2 class="numbered-heading">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="width: 40px; height: 40px;">
+                <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0L19.2 12l-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
+            </svg>
+            SKILLS
+        </h2>
+        <div class="skills-container">
+            <div class="skill-category">
+                <div class="category-icon-wrapper">
+                    <svg class="category-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0L19.2 12l-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
+                    </svg>
+                </div>
+                <div class="category-content">
+                    <h3 class="category-title">Language</h3>
+                    <div class="skills-list language">
+                        <span class="skill-tag">Verilog</span>
+                        <span class="skill-tag">SystemVerilog</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">C</span>
+                    </div>
+                </div>
+            </div>
+            <div class="skill-category">
+                <div class="category-icon-wrapper">
+                    <svg class="category-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+                    </svg>
+                </div>
+                <div class="category-content">
+                    <h3 class="category-title">Tools</h3>
+                    <div class="skills-list tools">
+                        <span class="skill-tag">Vivado</span>
+                        <span class="skill-tag">Vitis</span>
+                        <span class="skill-tag">ModelSim</span>
+                        <span class="skill-tag">PsPice</span>
+                        <span class="skill-tag">Synopsys Verdi</span>
+                        <span class="skill-tag">Synopsys VCS</span>
+                </div>
             </div>
         </div>
     </div>
