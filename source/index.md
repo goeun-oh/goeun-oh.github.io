@@ -97,7 +97,6 @@ body {
 .custom-nav-item:hover,
 .custom-nav-item.active {
   color: #ff4081;
-  background-color:rgb(238, 158, 185);
 }
 /* 햄버거 + 로고 + 메뉴 묶음 */
 .toolbar-left-group {
