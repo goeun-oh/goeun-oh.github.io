@@ -3,7 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: "Goeun's Space"
+title: ""
 subtitle: '포트폴리오, 공부한 것을 정리하는 블로그입니다'
 description: '끊임없이 배우고 성장하는 개발자 고은의 포트폴리오입니다.'
 keywords: '개발자, 포트폴리오, 웹개발, 프론트엔드, 백엔드'
@@ -49,13 +49,19 @@ highlight:
   line_number: true
   auto_detect: false
   tab_replace: ''
+  wrap: true
+  hljs: false
+prismjs:
+  preprocess: true
+  line_number: true
+  tab_replace: ''
 
-# Home page setting
+# Home page setting - 포트폴리오 메인 페이지가 홈으로 표시되도록 설정
 # path: Root path for your blogs index page. (default = '')
 # per_page: Posts displayed per page. (0 = disable pagination)
 # order_by: Posts order. (Order by date descending by default)
 index_generator:
-  path: ''
+  path: 'blog'  # 블로그 포스트는 /blog 경로로 이동
   per_page: 10
   order_by: -date
 
@@ -72,7 +78,7 @@ meta_generator: true
 ## Hexo uses Moment.js to parse and display date
 ## You can customize the date format as defined in
 ## http://momentjs.com/docs/#/displaying/format/
-date_format: YYYY-MM-DD
+date_format: YYYY년 MM월 DD일
 time_format: HH:mm:ss
 ## updated_option supports 'mtime', 'date', 'empty'
 updated_option: 'mtime'
@@ -91,27 +97,12 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: M
-
+theme: m
+theme_config:
+  max_width: 1200px
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
   repo: https://github.com/goeun-oh/goeun-oh.github.io.git
-  branch: main
-
-# 댓글 시스템 설정 (giscus)
-giscus:
-  enable: true
-  repo: 'goeun-oh/goeun-oh.github.io'
-  repo_id: 'R_kgDONNGd9w'
-  category: 'General'
-  category_id: 'DIC_kwDONNGd984Ci7rC'
-  mapping: 'pathname'
-  strict: '0'
-  reactions_enabled: '1'
-  emit_metadata: '0'
-  input_position: 'bottom'
-  theme: 'light'
-  lang: 'ko'
-  loading: 'lazy'
+  branch: gh-pages
