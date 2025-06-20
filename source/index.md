@@ -543,25 +543,50 @@ body {
   color: var(--text-light);
   line-height: 1.6;
 }
-.info-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 6px 0;
-}
-.info-label {
-  font-weight: 600;
-  color: var(--accent); /* 색상을 accent로 변경하여 구분 */
-  font-size: var(--fz-lg);
-  min-width: 120px; /* 최소 너비 설정으로 정렬 */
-  flex-shrink: 0; /* 줄어들지 않도록 */
+.info-section {
+  padding-top: 20px;
+  margin-bottom: 40px;
 }
 
-.info-value {
-  color: var(--text-light);
-  font-size: var(--fz-lg);
-  line-height: 1.5;
+.info-section h3 {
+  font-size: 22px;
+  margin-bottom: 24px;
+  color: var(--text);
+  font-weight: 600;
+  border-left: 4px solid var(--accent);
+  padding-left: 12px;
 }
+
+.info-grid {
+  display: grid;
+  row-gap: 14px;
+}
+
+/* 라벨 */
+.info-label {
+  font-size: 16px;
+  color: var(--text);
+  font-weight: 500;
+  min-width: 120px;
+  display: inline-block;
+}
+
+/* 값 */
+.info-value {
+  font-size: 16px;
+  color: var(--text-light);
+  font-weight: 400;
+}
+
+/* 항목 전체 */
+.info-item {
+  display: flex;
+  align-items: baseline;
+  column-gap: 16px;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.5); /* subtle 라인 */
+  padding-bottom: 6px;
+}
+
 /* 모바일 대응 */
 @media (max-width: 768px) {
   .about-top {
@@ -1238,31 +1263,28 @@ body {
       <img src="images/profile.jpg" alt="고은 프로필 사진" class="img">
     </div>
   </div>
-
   <!-- 기본 정보 나열 -->
   <div class="about-basic-info">
-    <div class="info-section">
-      <h3>기본정보</h3>
-    <div class="info-grid" style="display: table;">
-      <div class="info-item" style="display: table-row;">
-        <div class="info-label" style="display: table-cell; padding-right: 12px;">이름:</div>
-        <div class="info-value" style="display: table-cell;">오고은</div>
-      </div>
-        <div class="info-item">
-          <span class="info-label">최종학력:</span>
-          <span class="info-value">아주대학교 학사 졸업</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">학과:</span>
-          <span class="info-value">전자공학과</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">어학 점수:</span>
-          <span class="info-value">IM2</span>
-        </div>
-      </div>
+   <div class="info-section">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="info-label"><strong>이름</strong></span>
+      <span class="info-value">오고은</span>
+    </div>
+    <div class="info-item">
+      <span class="info-label"><strong>최종학력</strong></span>
+      <span class="info-value">아주대학교 학사 졸업</span>
+    </div>
+    <div class="info-item">
+      <span class="info-label"><strong>학과</strong></span>
+      <span class="info-value">전자공학과</span>
+    </div>
+    <div class="info-item">
+      <span class="info-label"><strong>어학 점수</strong></span>
+      <span class="info-value">IM2</span>
     </div>
   </div>
+</div>
 </section>
 
 
