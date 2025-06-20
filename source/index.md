@@ -287,80 +287,82 @@ body {
             padding-bottom: 100px;  /* 아래쪽만 padding */
         }
 
-        .skills-title {
-            display: inline-flex;
-            align-items: center;
-            gap: 15px;
-            font-size: 48px;
-            font-weight: 800;
-            color: #2d3748;
-            margin-bottom: 60px;
-            text-transform: uppercase;
-            letter-spacing: 0.02em;
-            text-decoration: underline;
-            text-decoration-thickness: 4px;
-            text-underline-offset: 8px;
-        }
+@media (max-width: 768px) {
+    .skills-container {
+        width: calc(100% - 20px) !important;
+        margin: 0 10px !important;
+        padding: 20px !important;
+        box-sizing: border-box !important;
+    }
 
+    .skill-row {
+        display: grid !important;
+        grid-template-columns: 1fr !important; /* 세로로 쌓기 */
+        text-align: center !important;
+        gap: 15px !important;
+        margin-bottom: 30px !important;
+        padding: 20px !important;
+        background: rgba(255, 255, 255, 0.7) !important;
+        border-radius: 12px !important;
+    }
+
+    .skill-row:last-child {
+        margin-bottom: 0 !important;
+    }
+
+    .skill-icon {
+        width: 50px !important;
+        height: 50px !important;
+        margin: 0 auto !important;
+        background: #fff !important;
+        border: 2px solid #ddd !important;
+        border-radius: 10px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        color: #666 !important;
+    }
+
+    .skill-category-name {
+        font-size: 18px !important;
+        font-weight: 600 !important;
+        color: #2d3748 !important;
+        margin: 0 !important;
+    }
+
+    .skill-tags {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+        justify-content: center !important;
+    }
+
+    .skill-tag {
+        padding: 8px 16px !important;
+        border-radius: 20px !important;
+        font-size: 13px !important;
+        font-weight: 500 !important;
+        color: white !important;
+        transition: all 0.2s ease !important;
+        cursor: pointer !important;
+    }
+
+    .skills-title {
+        font-size: 36px !important;
+        margin-bottom: 40px !important;
+    }
+}
         .skills-icon {
             width: 40px;
             height: 40px;
             color: #2d3748;
         }
 
-        .skills-container {
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            width: 1000px;
-            align-items: center;
-            margin: 0 auto;  /* 👈 이미 있어야 하는데... */
-        }
-.skill-row {
-    display: grid;
-    grid-template-columns: 80px 120px 1fr;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 20px;
-    padding: 15px;
-    background: rgba(255, 255, 255, 0.7);
-    border-radius: 12px;
-    text-align: left;
-}
-
-.skill-row:last-child {
-    margin-bottom: 0;
-}
-
-.skill-icon {
-    width: 50px;
-    height: 50px;
-    background: #fff;
-    border: 2px solid #ddd;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #666;
-}
-
 .skill-icon svg {
     width: 24px;
     height: 24px;
 }
 
-.skill-category-name {
-    font-size: 18px;
-    font-weight: 600;
-    color: #2d3748;
-}
-
-.skill-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
 /* Language Skills - 사진과 같은 색상 */
 .language-row .skill-tag:nth-child(1) { background: #4a90e2; } /* Verilog */
 .language-row .skill-tag:nth-child(2) { background: #50c878; } /* SystemVerilog */
@@ -375,16 +377,7 @@ body {
 .tools-row .skill-tag:nth-child(4) { background: #ff6b6b; } /* PsPice */
 .tools-row .skill-tag:nth-child(5) { background: #ffa500; } /* Synopsys Verdi */
 .tools-row .skill-tag:nth-child(6) { background: #20b2aa; } /* Synopsys VCS */
-/* 👈 이거 추가해야 함! */
-.skill-tag {
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 500;
-    color: white;
-    transition: all 0.2s ease;
-    cursor: pointer;
-}
+
 
 .skill-tag:hover {
     transform: translateY(-1px);
