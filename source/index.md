@@ -154,8 +154,12 @@ body {
 
 <!-- Main Content -->
 <div class="main">
+{% endraw %}
+
 # About Section
 {% include_code _about-content.md %}
+
+{% raw %}
 </div>
 
 <script>
