@@ -545,6 +545,18 @@ document.addEventListener('DOMContentLoaded', function () {
     const siteTitle = document.createElement('div');
     siteTitle.className = 'site-title';
     siteTitle.textContent = "Goeun's Space";
+    
+    // 🔥 모바일에서 스타일 직접 적용
+    if (window.innerWidth <= 768) {
+        siteTitle.style.fontSize = '20px';
+        siteTitle.style.whiteSpace = 'nowrap';
+        siteTitle.style.overflow = 'visible';
+        siteTitle.style.textOverflow = 'unset';
+        siteTitle.style.maxWidth = 'none';
+        siteTitle.style.flex = '1';
+        siteTitle.style.textAlign = 'center';
+        siteTitle.style.margin = '0 15px';
+    }
 
     // 오른쪽 네비 메뉴
     const navMenu = document.createElement('div');
@@ -557,11 +569,19 @@ document.addEventListener('DOMContentLoaded', function () {
     `;
 
     // 오른쪽 그룹: 네비 + 검색
+
     const rightGroup = document.createElement('div');
     rightGroup.className = 'right-group';
     rightGroup.style.display = 'flex';
     rightGroup.style.alignItems = 'center';
     rightGroup.style.gap = '24px';
+    
+    // 🔥 모바일에서는 네비게이션 숨기기
+    if (window.innerWidth <= 768) {
+        navMenu.style.display = 'none';
+        // 검색 버튼도 숨기고 싶다면:
+        // rightGroup.style.display = 'none';
+    }
     rightGroup.appendChild(navMenu);
 
     // 검색 버튼도 오른쪽 그룹에 포함
