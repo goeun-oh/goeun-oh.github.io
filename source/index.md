@@ -1,11 +1,10 @@
----
 title: goeun's space
 layout: page
 ---
 
 {% raw %}
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 * {
   margin: 0;
@@ -15,14 +14,15 @@ layout: page
 
 :root {
   --bg: #ffffff;
+  --bg-light: #f8fafc;
   --text: #1a202c;
   --text-light: #4a5568;
+  --text-lighter: #718096;
   --border: #e2e8f0;
   --accent: #3182ce;
   --accent-light: #bee3f8;
+  --accent-hover: #2c5282;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-<<<<<<< HEAD
-=======
   --font-mono: 'JetBrains Mono', 'Monaco', 'Roboto Mono', monospace;
   --fz-xs: 13px;
   --fz-sm: 14px;
@@ -31,135 +31,117 @@ layout: page
   --fz-xl: 20px;
   --fz-xxl: 22px;
   --fz-heading: 32px;
-  --nav-height: 100px;
+  --nav-height: 70px;
   --border-radius: 8px;
   --section-padding: 100px;
   --max-width: 1400px;
->>>>>>> parent of 43d541e (Create unified header like the example image - single navbar with logo and navigation)
   --transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
   background-color: var(--bg);
   color: var(--text);
   font-family: var(--font-sans);
+  font-size: var(--fz-lg);
   line-height: 1.6;
-<<<<<<< HEAD
-=======
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   counter-reset: section;
 }
 
-/* Header - 수정된 버전 */
-.header {
+.mdui-toolbar {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px) !important;
+  border-bottom: 1px solid var(--border) !important;
+  height: var(--nav-height) !important;
+  padding: 0 50px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 30px; /* 요소 간 간격 추가 */
+  justify-content: flex-start !important;
+}
+
+.mdui-toolbar-spacer {
+  flex-grow: 1;
+}
+
+.right-group {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  position: fixed;
-  top: 0;
-  z-index: 1000;
-  padding: 0 50px;
-  width: 100%;
-  max-width: 1800px; 
-  height: var(--nav-height);
-  background-color: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border);
-  transition: var(--transition);
+  gap: 24px;
 }
 
-.logo a {
-  color: var(--accent);
-  font-family: var(--font-mono);
-  text-decoration: none;
-  font-size: var(--fz-xxl); /* var(--fz-lg)에서 var(--fz-xxl)로 변경 */
-  font-weight: 700; /* 600에서 700으로 더 굵게 */
-}
-/* Main Layout */
-.main {
-  margin: 0 auto;
-  width: 100%;
-  max-width: 1800px; /* 1600px에서 더 넓게 */
-  min-height: 100vh;
-  padding: 0 150px;
-}
-.section {
-  margin: 0 auto;
-  padding: var(--section-padding) 0;
-  max-width: 1200px; /* var(--max-width) 대신 고정값 */
-}
-.hero-content {
-  max-width: 800px;
+.custom-nav {
+  display: flex;
+  gap: 20px;
 }
 
-.hero .intro {
-  margin: 0 0 30px;
-  color: var(--accent);
-  font-family: var(--font-mono);
-  font-size: var(--fz-md);
-  font-weight: 400;
-}
-
-.hero h1 {
-  margin: 0 0 30px;
-  font-size: clamp(40px, 8vw, 80px);
-  font-weight: 700;
-  color: var(--text);
-  line-height: 1.1;
-}
-
-.hero h2 {
-  margin: 0 0 30px;
+.custom-nav-item {
   color: var(--text-light);
-  line-height: 1.1;
-  font-size: clamp(35px, 7vw, 70px);
-  font-weight: 600;
-}
-
-.hero .description {
-  margin: 20px 0 50px;
-  max-width: 600px;
-  color: var(--text-light);
-  font-size: var(--fz-xl);
-  line-height: 1.6;
-}
-
-.hero .cta-button {
-  color: var(--accent);
-  background-color: transparent;
-  border: 1px solid var(--accent);
-  border-radius: var(--border-radius);
-  padding: 1.25rem 2rem;
   font-size: var(--fz-md);
-  font-family: var(--font-mono);
   font-weight: 500;
-  line-height: 1;
-  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 6px;
   transition: var(--transition);
-  display: inline-block;
+  text-decoration: none;
 }
 
-.hero .cta-button:hover {
+.custom-nav-item:hover,
+.custom-nav-item.active {
+  color: var(--accent);
   background-color: var(--accent-light);
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(49, 130, 206, 0.2);
 }
-/* 페이지 제목 카드 숨기기 */
-.mdui-card-primary-title {
+/* 햄버거 + 로고 + 메뉴 묶음 */
+.toolbar-left-group {
+  display: flex;
+  align-items: center;
+  gap: 40px; /* 로고와 메뉴 사이 간격 */
+}
+
+/* 🔥 툴바 내 로고 스타일 - 크고 굵게! */
+.site-title {
+  font-size: 24px;
+  font-weight: 700;
+  /* color: var(--accent); */
+  font-family: var(--font-sans);
+  letter-spacing: -0.02em;
+  color: #ff4081 !important; /* 분홍색 (핑크 500) */
+}
+
+/* 로고 호버 효과 */
+.site-title:hover {
+  color: var(--accent-hover);
+  transition: var(--transition);
+  cursor: pointer;
+  color: #ff4081 !important; /* 분홍색 (핑크 500) */
+}
+
+/* 네비게이션 메뉴 */
+.custom-nav {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+/* 페이지 제목 카드만 숨기기 (사이드바는 유지) */
+.mdui-card-primary-title,
+.mdui-card-primary-subtitle,
+.mdui-card-primary.mdui-ripple,
+.mdui-m-x-0.mdui-m-t-4 {
   display: none !important;
->>>>>>> parent of 43d541e (Create unified header like the example image - single navbar with logo and navigation)
 }
-.mdui-card-primary-subtitle {
-  display: none !important;
-}
-.mdui-card-primary.mdui-ripple{
-  display: none !important;
-}
-.mdui-m-x-0.mdui-m-t-4{
-  display : none !important;
-}
+
 .numbered-heading {
+    font-family: __Black_Han_Sans_1e1a52,__Black_Han_Sans_Fallback_1e1a52 !important;
+    font-style: normal !important;
     display: inline-block;
     margin: 0 auto 60px auto;
     font-size: 44px !important;
@@ -167,6 +149,11 @@ body {
     color: #000000;
     letter-spacing: 0.02em;
     text-transform: uppercase;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    position: relative;
+    white-space: nowrap;
     border-bottom: 3px solid #000000 !important;
     padding-bottom: 8px;
 }
@@ -184,7 +171,7 @@ body {
     max-width: 1000px;
     margin: 0 auto;
     text-align: center;
-    padding: 100px 0;
+    padding: var(--section-padding) 0;
 }
 
 .info-item {
@@ -219,6 +206,9 @@ body {
     font-weight: 600;
     color: #000000;
     margin-bottom: 4px;
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .info-value {
@@ -226,20 +216,34 @@ body {
     color: #000000;
     line-height: 1.5;
     font-weight: 500;
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-<<<<<<< HEAD
+/* 반응형 디자인 */
 @media (max-width: 768px) {
+    .custom-nav {
+        display: none;
+    }
+    
+    .mdui-toolbar {
+        padding: 0 25px !important;
+    }
+    
+    .mdui-toolbar .mdui-typo-headline {
+        font-size: 24px !important;
+    }
+    
     .about-info-grid {
         grid-template-columns: 1fr;
         gap: 25px;
     }   
+    
     .numbered-heading {
         font-size: 36px !important;
     }
 }
-=======
->>>>>>> parent of 43d541e (Create unified header like the example image - single navbar with logo and navigation)
 
 @media (max-width: 1024px) and (min-width: 769px) {
     .about-info-grid {
@@ -247,112 +251,11 @@ body {
         gap: 25px 30px;
     }
 }
-<<<<<<< HEAD
+
 </style>
-
-=======
-@media (max-width: 1080px) {
-  .main {
-    padding: 0 80px; /* 100px에서 80px로 */
-  }
-  .header {
-    padding: 0 30px; /* 50px에서 30px로 */
-  }
-}
-
-@media (max-width: 768px) {
-  .main {
-    padding: 0 50px;
-  }
-  .header {
-    padding: 0 25px;
-  }
-  .section {
-    padding: 80px 0;
-  }
-  
-  .hero h1 {
-    font-size: clamp(30px, 8vw, 60px);
-  }
-  
-  .hero h2 {
-    font-size: clamp(25px, 7vw, 50px);
-  }
-  
-  .about-inner {
-    grid-template-columns: 1fr;
-    gap: 30px;
-    text-align: center;
-  }
-  .about-info-grid {
-      grid-template-columns: 1fr;
-      gap: 25px;
-  }   
-  .numbered-heading {
-      font-size: 36px !important;
-  }
-  .skills-list {
-    grid-template-columns: repeat(1, minmax(140px, 200px));
-    justify-content: center;
-  }
-  
-  .skills-grid {
-    grid-template-columns: 1fr;
-  }
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px; /* 30px에서 20px로 줄임 */
-    margin-top: 50px;
-  }
-  .project-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 10px; /* 15px에서 10px로 */
-  }
-  
-  .project-links {
-    margin-left: 0;
-  }
-}
-@media (max-width: 600px) {
-  .header {
-    padding: 0 15px;
-  }
-}
-@media (max-width: 480px) {
-  .main {
-    padding: 0 25px;
-  }
-  
-  .section {
-    padding: 60px 0;
-  }
-  
-  .header {
-    padding: 0 15px;
-  }
-  
-  .numbered-heading:after {
-    width: 100%;
-  }
-  .projects-grid {
-    grid-template-columns: 1fr;
-  }
-}
-</style>
-
-<!-- Header -->
-<header class="header">
-  <div class="logo">
-    <a href="/">Goeun's Space</a>
-  </div>
-</header>
 
 <!-- Main Content -->
 <div class="main">
->>>>>>> parent of 43d541e (Create unified header like the example image - single navbar with logo and navigation)
 <section id="about" class="about-section">
     <h2 class="numbered-heading">ABOUT ME</h2>
     <div class="about-info-grid">
@@ -424,21 +327,70 @@ body {
         </div>
     </div>
 </section>
-<<<<<<< HEAD
-=======
 </div>
 
 <script>
-function scrollToSection(sectionId) {
-  document.getElementById(sectionId).scrollIntoView({
-    behavior: 'smooth'
+// 페이지 로드 후 네비게이션 메뉴 동적 추가
+
+document.addEventListener('DOMContentLoaded', function () {
+  const toolbar = document.querySelector('.mdui-toolbar');
+  if (toolbar) {
+    const spacer = document.querySelector('.mdui-toolbar-spacer') ||
+                   toolbar.querySelector('div[class*=spacer]');
+
+    // 로고
+    const siteTitle = document.createElement('div');
+    siteTitle.className = 'site-title';
+    siteTitle.textContent = "Goeun's Space";
+
+    // 오른쪽 네비 메뉴
+    const navMenu = document.createElement('div');
+    navMenu.className = 'custom-nav';
+    navMenu.innerHTML = `
+      <a class="custom-nav-item active" onclick="scrollToSection('about')">About me</a>
+      <a class="custom-nav-item" onclick="scrollToSection('skills')">Skills</a>
+      <a class="custom-nav-item" onclick="scrollToSection('projects')">Projects</a>
+      <a class="custom-nav-item" onclick="scrollToSection('contact')">Contact</a>
+    `;
+
+    // 오른쪽 그룹: 네비 + 검색
+    const rightGroup = document.createElement('div');
+    rightGroup.className = 'right-group';
+    rightGroup.style.display = 'flex';
+    rightGroup.style.alignItems = 'center';
+    rightGroup.style.gap = '24px';
+    rightGroup.appendChild(navMenu);
+
+    // 검색 버튼도 오른쪽 그룹에 포함
+    const search = toolbar.querySelector('a[href="/search/"]');
+    if (search) rightGroup.appendChild(search);
+
+    // 햄버거 다음에 로고 추가
+    const menuButton = toolbar.querySelector('button');
+    if (menuButton) toolbar.insertBefore(siteTitle, menuButton.nextSibling);
+
+    // spacer 뒤에 오른쪽 그룹 삽입
+    if (spacer) toolbar.insertBefore(rightGroup, spacer.nextSibling);
+  }
   });
+
+
+
+
+// 섹션 스크롤
+function scrollToSection(sectionId) {
+  const element = document.getElementById(sectionId);
+  if (element) {
+    element.scrollIntoView({
+      behavior: 'smooth'
+    });
+  }
 }
 
+// 스크롤 시 네비게이션 업데이트
 window.addEventListener('scroll', function() {
   const sections = ['about', 'skills', 'projects', 'contact'];
-  const navItems = document.querySelectorAll('.nav-item');
-  const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
+  const navItems = document.querySelectorAll('.custom-nav-item');
   
   let current = '';
   sections.forEach(section => {
@@ -451,14 +403,8 @@ window.addEventListener('scroll', function() {
     }
   });
   
+  // 네비게이션 업데이트
   navItems.forEach((item, index) => {
-    item.classList.remove('active');
-    if (sections[index] === current) {
-      item.classList.add('active');
-    }
-  });
-  
-  mobileNavItems.forEach((item, index) => {
     item.classList.remove('active');
     if (sections[index] === current) {
       item.classList.add('active');
@@ -466,6 +412,5 @@ window.addEventListener('scroll', function() {
   });
 });
 </script>
->>>>>>> parent of 43d541e (Create unified header like the example image - single navbar with logo and navigation)
 
 {% endraw %}

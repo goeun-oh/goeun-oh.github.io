@@ -34,15 +34,15 @@
     
     <title>goeun&#39;s space | </title>
     <link rel="canonical" href="https://www.goeun-oh.com/">
-    <meta name="description" content="@import url(&#39;https:&#x2F;&#x2F;fonts.googleapis.com&#x2F;css2?family&#x3D;Inter:wght@300;400;500;600;700&amp;display&#x3D;swap&#39;);  * {   margin: 0;   padding: 0;   box-sizing: border-box; }  :root {   --bg: #ffffff;   --text: #">
+    <meta name="description" content="@import url(&#39;https:&#x2F;&#x2F;fonts.googleapis.com&#x2F;css2?family&#x3D;Inter:wght@300;400;500;600;700&amp;family&#x3D;JetBrains+Mono:wght@400;500;600&amp;display&#x3D;swap&#39;);  * {   margin: 0;   padding: 0;   box-sizing: border-box;">
 <meta property="og:type" content="website">
 <meta property="og:title" content="goeun&#39;s space">
 <meta property="og:url" content="https://www.goeun-oh.com/index.html">
 <meta property="og:site_name">
-<meta property="og:description" content="@import url(&#39;https:&#x2F;&#x2F;fonts.googleapis.com&#x2F;css2?family&#x3D;Inter:wght@300;400;500;600;700&amp;display&#x3D;swap&#39;);  * {   margin: 0;   padding: 0;   box-sizing: border-box; }  :root {   --bg: #ffffff;   --text: #">
+<meta property="og:description" content="@import url(&#39;https:&#x2F;&#x2F;fonts.googleapis.com&#x2F;css2?family&#x3D;Inter:wght@300;400;500;600;700&amp;family&#x3D;JetBrains+Mono:wght@400;500;600&amp;display&#x3D;swap&#39;);  * {   margin: 0;   padding: 0;   box-sizing: border-box;">
 <meta property="og:locale" content="ko_KR">
-<meta property="article:published_time" content="2025-06-20T13:46:53.153Z">
-<meta property="article:modified_time" content="2025-06-20T13:46:53.153Z">
+<meta property="article:published_time" content="2025-06-20T14:26:49.034Z">
+<meta property="article:modified_time" content="2025-06-20T14:26:49.034Z">
 <meta property="article:author" content="고은">
 <meta property="article:tag" content="개발자, 포트폴리오, 웹개발, 프론트엔드, 백엔드">
 <meta name="twitter:card" content="summary">
@@ -137,7 +137,7 @@
     </div>
     <div class="mdui-card-primary-subtitle mdui-typo">
         
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-20 10:46<br>Updated: 2025-06-20 10:46'}" datetime="2025-06-20T13:46:53.153Z">2025-06-20</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-20 11:26<br>Updated: 2025-06-20 11:26'}" datetime="2025-06-20T14:26:49.034Z">2025-06-20</time>
         <span>-</span>
         
             <span>index.html</span>
@@ -152,7 +152,7 @@
         <div class="p-summary" style="display:none"></div>
         <main class="e-content">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 * {
   margin: 0;
@@ -162,23 +162,134 @@
 
 :root {
   --bg: #ffffff;
+  --bg-light: #f8fafc;
   --text: #1a202c;
   --text-light: #4a5568;
+  --text-lighter: #718096;
   --border: #e2e8f0;
   --accent: #3182ce;
   --accent-light: #bee3f8;
+  --accent-hover: #2c5282;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Monaco', 'Roboto Mono', monospace;
+  --fz-xs: 13px;
+  --fz-sm: 14px;
+  --fz-md: 16px;
+  --fz-lg: 18px;
+  --fz-xl: 20px;
+  --fz-xxl: 22px;
+  --fz-heading: 32px;
+  --nav-height: 70px;
+  --border-radius: 8px;
+  --section-padding: 100px;
+  --max-width: 1400px;
   --transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
   background-color: var(--bg);
   color: var(--text);
   font-family: var(--font-sans);
+  font-size: var(--fz-lg);
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  counter-reset: section;
+}
+
+.mdui-toolbar {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px) !important;
+  border-bottom: 1px solid var(--border) !important;
+  height: var(--nav-height) !important;
+  padding: 0 50px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 30px; /* 요소 간 간격 추가 */
+  justify-content: flex-start !important;
+}
+
+.mdui-toolbar-spacer {
+  flex-grow: 1;
+}
+
+.right-group {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.custom-nav {
+  display: flex;
+  gap: 20px;
+}
+
+.custom-nav-item {
+  color: var(--text-light);
+  font-size: var(--fz-md);
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.custom-nav-item:hover,
+.custom-nav-item.active {
+  color: var(--accent);
+  background-color: var(--accent-light);
+}
+/* 햄버거 + 로고 + 메뉴 묶음 */
+.toolbar-left-group {
+  display: flex;
+  align-items: center;
+  gap: 40px; /* 로고와 메뉴 사이 간격 */
+}
+
+/* 🔥 툴바 내 로고 스타일 - 크고 굵게! */
+.site-title {
+  font-size: 24px;
+  font-weight: 700;
+  /* color: var(--accent); */
+  font-family: var(--font-sans);
+  letter-spacing: -0.02em;
+  color: #ff4081 !important; /* 분홍색 (핑크 500) */
+}
+
+/* 로고 호버 효과 */
+.site-title:hover {
+  color: var(--accent-hover);
+  transition: var(--transition);
+  cursor: pointer;
+  color: #ff4081 !important; /* 분홍색 (핑크 500) */
+}
+
+/* 네비게이션 메뉴 */
+.custom-nav {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+/* 페이지 제목 카드만 숨기기 (사이드바는 유지) */
+.mdui-card-primary-title,
+.mdui-card-primary-subtitle,
+.mdui-card-primary.mdui-ripple,
+.mdui-m-x-0.mdui-m-t-4 {
+  display: none !important;
 }
 
 .numbered-heading {
+    font-family: __Black_Han_Sans_1e1a52,__Black_Han_Sans_Fallback_1e1a52 !important;
+    font-style: normal !important;
     display: inline-block;
     margin: 0 auto 60px auto;
     font-size: 44px !important;
@@ -186,6 +297,11 @@ body {
     color: #000000;
     letter-spacing: 0.02em;
     text-transform: uppercase;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    position: relative;
+    white-space: nowrap;
     border-bottom: 3px solid #000000 !important;
     padding-bottom: 8px;
 }
@@ -203,7 +319,7 @@ body {
     max-width: 1000px;
     margin: 0 auto;
     text-align: center;
-    padding: 100px 0;
+    padding: var(--section-padding) 0;
 }
 
 .info-item {
@@ -238,6 +354,9 @@ body {
     font-weight: 600;
     color: #000000;
     margin-bottom: 4px;
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .info-value {
@@ -245,13 +364,30 @@ body {
     color: #000000;
     line-height: 1.5;
     font-weight: 500;
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
+/* 반응형 디자인 */
 @media (max-width: 768px) {
+    .custom-nav {
+        display: none;
+    }
+    
+    .mdui-toolbar {
+        padding: 0 25px !important;
+    }
+    
+    .mdui-toolbar .mdui-typo-headline {
+        font-size: 24px !important;
+    }
+    
     .about-info-grid {
         grid-template-columns: 1fr;
         gap: 25px;
     }   
+    
     .numbered-heading {
         font-size: 36px !important;
     }
@@ -263,8 +399,11 @@ body {
         gap: 25px 30px;
     }
 }
+
 </style>
 
+<!-- Main Content -->
+<div class="main">
 <section id="about" class="about-section">
     <h2 class="numbered-heading">ABOUT ME</h2>
     <div class="about-info-grid">
@@ -336,7 +475,91 @@ body {
         </div>
     </div>
 </section>
+</div>
 
+<script>
+// 페이지 로드 후 네비게이션 메뉴 동적 추가
+
+document.addEventListener('DOMContentLoaded', function () {
+  const toolbar = document.querySelector('.mdui-toolbar');
+  if (toolbar) {
+    const spacer = document.querySelector('.mdui-toolbar-spacer') ||
+                   toolbar.querySelector('div[class*=spacer]');
+
+    // 로고
+    const siteTitle = document.createElement('div');
+    siteTitle.className = 'site-title';
+    siteTitle.textContent = "Goeun's Space";
+
+    // 오른쪽 네비 메뉴
+    const navMenu = document.createElement('div');
+    navMenu.className = 'custom-nav';
+    navMenu.innerHTML = `
+      <a class="custom-nav-item active" onclick="scrollToSection('about')">About me</a>
+      <a class="custom-nav-item" onclick="scrollToSection('skills')">Skills</a>
+      <a class="custom-nav-item" onclick="scrollToSection('projects')">Projects</a>
+      <a class="custom-nav-item" onclick="scrollToSection('contact')">Contact</a>
+    `;
+
+    // 오른쪽 그룹: 네비 + 검색
+    const rightGroup = document.createElement('div');
+    rightGroup.className = 'right-group';
+    rightGroup.style.display = 'flex';
+    rightGroup.style.alignItems = 'center';
+    rightGroup.style.gap = '24px';
+    rightGroup.appendChild(navMenu);
+
+    // 검색 버튼도 오른쪽 그룹에 포함
+    const search = toolbar.querySelector('a[href="/search/"]');
+    if (search) rightGroup.appendChild(search);
+
+    // 햄버거 다음에 로고 추가
+    const menuButton = toolbar.querySelector('button');
+    if (menuButton) toolbar.insertBefore(siteTitle, menuButton.nextSibling);
+
+    // spacer 뒤에 오른쪽 그룹 삽입
+    if (spacer) toolbar.insertBefore(rightGroup, spacer.nextSibling);
+  }
+  });
+
+
+
+
+// 섹션 스크롤
+function scrollToSection(sectionId) {
+  const element = document.getElementById(sectionId);
+  if (element) {
+    element.scrollIntoView({
+      behavior: 'smooth'
+    });
+  }
+}
+
+// 스크롤 시 네비게이션 업데이트
+window.addEventListener('scroll', function() {
+  const sections = ['about', 'skills', 'projects', 'contact'];
+  const navItems = document.querySelectorAll('.custom-nav-item');
+  
+  let current = '';
+  sections.forEach(section => {
+    const element = document.getElementById(section);
+    if (element) {
+      const rect = element.getBoundingClientRect();
+      if (rect.top <= 150 && rect.bottom >= 150) {
+        current = section;
+      }
+    }
+  });
+  
+  // 네비게이션 업데이트
+  navItems.forEach((item, index) => {
+    item.classList.remove('active');
+    if (sections[index] === current) {
+      item.classList.add('active');
+    }
+  });
+});
+</script>
 
 </main>
         
