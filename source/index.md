@@ -416,6 +416,27 @@ body {
         height: 40px;
     }
 }
+@media (max-width: 768px) {
+    .skill-row {
+        grid-template-columns: 1fr !important; /* 1컬럼 */
+        text-align: center !important;
+        gap: 15px !important;
+    }
+
+    .skill-icon {
+        margin: 0 auto !important;
+    }
+
+    .skill-category-name {
+        font-size: 18px !important;
+        font-weight: 600 !important;
+    }
+
+    .skill-tags {
+        justify-content: center !important;
+        max-width: 100% !important;
+    }
+}
 </style>
 
 <!-- Main Content -->
