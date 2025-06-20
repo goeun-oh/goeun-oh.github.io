@@ -46,7 +46,6 @@
     }
     
     .numbered-heading::before {
-        content: '🔗';
         margin-right: 20px;
         font-size: 40px;
     }
