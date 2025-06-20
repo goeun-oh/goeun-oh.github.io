@@ -10,7 +10,6 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap');
 
-```
     * {
         margin: 0;
         padding: 0;
@@ -129,7 +128,6 @@
         }
     }
 </style>
-```
 
 </head>
 <body>
@@ -137,7 +135,6 @@
         <section id="about" class="about-section">
             <h2 class="numbered-heading">ABOUT ME</h2>
 
-```
         <div class="about-info-grid">
             <div class="info-item">
                 <div class="info-icon">
@@ -213,7 +210,6 @@
         </div>
     </section>
 </div>
-```
 
 </body>
 </html>
