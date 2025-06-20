@@ -55,37 +55,49 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   counter-reset: section;
+  padding-top: var(--nav-height);
 }
 
-/* 🔥 기존 MDUI 툴바 스타일 오버라이드 - 통합된 모습으로 */
-.mdui-toolbar {
-  background-color: rgba(255, 255, 255, 0.95) !important;
-  backdrop-filter: blur(10px) !important;
-  border-bottom: 1px solid var(--border) !important;
-  height: var(--nav-height) !important;
-  padding: 0 50px !important;
-  display: flex !important;
-  justify-content: space-between !important;
-  align-items: center !important;
-}
-
-/* 툴바 내 로고 스타일 개선 */
-.mdui-toolbar .mdui-typo-headline {
-  font-size: 24px !important;
-  font-weight: 700 !important;
-  color: var(--accent) !important;
-  font-family: var(--font-sans) !important;
-  letter-spacing: -0.02em !important;
-}
-
-/* 툴바 내 네비게이션 메뉴 추가 */
-.custom-nav {
+/* 🔥 통합 Header - 사진과 같은 구조 */
+.unified-header {
   display: flex;
-  gap: 30px;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  padding: 0 50px;
+  width: 100%;
+  height: var(--nav-height);
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  transition: var(--transition);
+}
+
+/* 로고 스타일 */
+.unified-header .logo a {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+  font-family: var(--font-sans);
+  letter-spacing: -0.02em;
+}
+
+.unified-header .logo a:hover {
+  color: var(--accent-hover);
+  transition: var(--transition);
+}
+
+/* 네비게이션 메뉴 */
+.nav-menu {
+  display: flex;
+  gap: 40px;
   align-items: center;
 }
 
-.custom-nav-item {
+.nav-item {
   color: var(--text-light);
   text-decoration: none;
   font-size: var(--fz-md);
@@ -96,13 +108,70 @@ body {
   cursor: pointer;
 }
 
-.custom-nav-item:hover,
-.custom-nav-item.active {
-  color: var(--accent) !important;
+.nav-item:hover,
+.nav-item.active {
+  color: var(--accent);
   background-color: var(--accent-light);
 }
 
-/* 페이지 제목 카드만 숨기기 (사이드바는 유지) */
+/* 모바일 햄버거 메뉴 */
+.mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.mobile-menu-toggle span {
+  width: 24px;
+  height: 2px;
+  background-color: var(--text);
+  margin: 3px 0;
+  transition: var(--transition);
+}
+
+/* 모바일 메뉴 */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  top: var(--nav-height);
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  padding: 20px;
+  z-index: 999;
+}
+
+.mobile-nav.active {
+  display: block;
+}
+
+.mobile-nav-item {
+  display: block;
+  color: var(--text-light);
+  text-decoration: none;
+  font-size: var(--fz-lg);
+  font-weight: 500;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.mobile-nav-item:hover,
+.mobile-nav-item.active {
+  color: var(--accent);
+}
+
+.mobile-nav-item:last-child {
+  border-bottom: none;
+}
+
+/* 기존 MDUI 스타일 숨기기 */
+.mdui-toolbar,
+.mdui-appbar,
 .mdui-card-primary-title,
 .mdui-card-primary-subtitle,
 .mdui-card-primary.mdui-ripple,
@@ -194,12 +263,16 @@ body {
 
 /* 반응형 디자인 */
 @media (max-width: 768px) {
-    .custom-nav {
+    .nav-menu {
         display: none;
     }
     
-    .mdui-toolbar {
-        padding: 0 25px !important;
+    .mobile-menu-toggle {
+        display: flex;
+    }
+    
+    .unified-header {
+        padding: 0 25px;
     }
     
     .about-info-grid {
@@ -220,6 +293,36 @@ body {
 }
 
 </style>
+
+<!-- 🔥 통합된 Header (사진과 같은 구조) -->
+<header class="unified-header">
+  <div class="logo">
+    <a href="/">Goeun's Space</a>
+  </div>
+  
+  <!-- 데스크톱 네비게이션 -->
+  <nav class="nav-menu">
+    <a class="nav-item active" onclick="scrollToSection('about')">About me</a>
+    <a class="nav-item" onclick="scrollToSection('skills')">Skills</a>
+    <a class="nav-item" onclick="scrollToSection('projects')">Projects</a>
+    <a class="nav-item" onclick="scrollToSection('contact')">Contact</a>
+  </nav>
+  
+  <!-- 모바일 햄버거 메뉴 -->
+  <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</header>
+
+<!-- 모바일 네비게이션 -->
+<nav class="mobile-nav" id="mobileNav">
+  <a class="mobile-nav-item active" onclick="scrollToSection('about'); toggleMobileMenu()">About me</a>
+  <a class="mobile-nav-item" onclick="scrollToSection('skills'); toggleMobileMenu()">Skills</a>
+  <a class="mobile-nav-item" onclick="scrollToSection('projects'); toggleMobileMenu()">Projects</a>
+  <a class="mobile-nav-item" onclick="scrollToSection('contact'); toggleMobileMenu()">Contact</a>
+</nav>
 
 <!-- Main Content -->
 <div class="main">
@@ -297,25 +400,11 @@ body {
 </div>
 
 <script>
-// 페이지 로드 후 네비게이션 메뉴 동적 추가
-document.addEventListener('DOMContentLoaded', function() {
-    // 기존 툴바에 네비게이션 메뉴 추가
-    const toolbar = document.querySelector('.mdui-toolbar');
-    if (toolbar) {
-        // 네비게이션 메뉴 생성
-        const navMenu = document.createElement('div');
-        navMenu.className = 'custom-nav';
-        navMenu.innerHTML = `
-            <a class="custom-nav-item active" onclick="scrollToSection('about')">About me</a>
-            <a class="custom-nav-item" onclick="scrollToSection('skills')">Skills</a>
-            <a class="custom-nav-item" onclick="scrollToSection('projects')">Projects</a>
-            <a class="custom-nav-item" onclick="scrollToSection('contact')">Contact</a>
-        `;
-        
-        // 툴바에 추가
-        toolbar.appendChild(navMenu);
-    }
-});
+// 모바일 메뉴 토글
+function toggleMobileMenu() {
+  const mobileNav = document.getElementById('mobileNav');
+  mobileNav.classList.toggle('active');
+}
 
 // 섹션 스크롤
 function scrollToSection(sectionId) {
@@ -330,7 +419,8 @@ function scrollToSection(sectionId) {
 // 스크롤 시 네비게이션 업데이트
 window.addEventListener('scroll', function() {
   const sections = ['about', 'skills', 'projects', 'contact'];
-  const navItems = document.querySelectorAll('.custom-nav-item');
+  const navItems = document.querySelectorAll('.nav-item');
+  const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
   
   let current = '';
   sections.forEach(section => {
@@ -343,8 +433,16 @@ window.addEventListener('scroll', function() {
     }
   });
   
-  // 네비게이션 업데이트
+  // 데스크톱 네비게이션 업데이트
   navItems.forEach((item, index) => {
+    item.classList.remove('active');
+    if (sections[index] === current) {
+      item.classList.add('active');
+    }
+  });
+  
+  // 모바일 네비게이션 업데이트
+  mobileNavItems.forEach((item, index) => {
     item.classList.remove('active');
     if (sections[index] === current) {
       item.classList.add('active');
