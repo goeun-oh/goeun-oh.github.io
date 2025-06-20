@@ -41,8 +41,8 @@
 <meta property="og:site_name">
 <meta property="og:description" content="@import url(&#39;https:&#x2F;&#x2F;fonts.googleapis.com&#x2F;css2?family&#x3D;Inter:wght@300;400;500;600;700&amp;family&#x3D;JetBrains+Mono:wght@400;500;600&amp;display&#x3D;swap&#39;);  * {   margin: 0;   padding: 0;   box-sizing: border-box;">
 <meta property="og:locale" content="ko_KR">
-<meta property="article:published_time" content="2025-06-20T15:42:50.168Z">
-<meta property="article:modified_time" content="2025-06-20T15:42:50.168Z">
+<meta property="article:published_time" content="2025-06-20T15:46:48.120Z">
+<meta property="article:modified_time" content="2025-06-20T15:46:48.120Z">
 <meta property="article:author" content="고은">
 <meta property="article:tag" content="개발자, 포트폴리오, 웹개발, 프론트엔드, 백엔드">
 <meta name="twitter:card" content="summary">
@@ -137,7 +137,7 @@
     </div>
     <div class="mdui-card-primary-subtitle mdui-typo">
         
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-21 12:42<br>Updated: 2025-06-21 12:42'}" datetime="2025-06-20T15:42:50.168Z">2025-06-21</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-21 12:46<br>Updated: 2025-06-21 12:46'}" datetime="2025-06-20T15:46:48.120Z">2025-06-21</time>
         <span>-</span>
         
             <span>index.html</span>
@@ -562,6 +562,27 @@ body {
     .skills-icon {
         width: 40px;
         height: 40px;
+    }
+}
+@media (max-width: 768px) {
+    .skill-row {
+        grid-template-columns: 1fr !important; /* 1컬럼 */
+        text-align: center !important;
+        gap: 15px !important;
+    }
+
+    .skill-icon {
+        margin: 0 auto !important;
+    }
+
+    .skill-category-name {
+        font-size: 18px !important;
+        font-weight: 600 !important;
+    }
+
+    .skill-tags {
+        justify-content: center !important;
+        max-width: 100% !important;
     }
 }
 </style>
