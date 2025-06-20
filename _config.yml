@@ -98,7 +98,8 @@ ignore:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 theme: m
-
+theme_config:
+  max_width: 1200px
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
