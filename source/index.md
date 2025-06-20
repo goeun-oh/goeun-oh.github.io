@@ -75,7 +75,7 @@ body {
   transition: var(--transition);
 }
 
-/* Hero Section */
+/* 🔥 Hero Section 복구! */
 .hero {
   display: flex;
   justify-content: center;
@@ -181,6 +181,7 @@ body {
     max-width: 1000px;
     margin: 0 auto;
     text-align: center;
+    padding: var(--section-padding) 0;
 }
 
 .info-item {
@@ -255,6 +256,20 @@ body {
     <a href="/">Goeun's Space</a>
   </div>
 </header>
+
+<!-- 🔥 Hero Section 복구! -->
+<section class="hero">
+  <div class="hero-content">
+    <p class="intro">안녕하세요!</p>
+    <h1>Goeun Oh</h1>
+    <h2>Frontend Developer</h2>
+    <p class="description">
+      사용자 경험을 중시하는 프론트엔드 개발자입니다.<br>
+      깔끔하고 직관적인 웹 애플리케이션을 만듭니다.
+    </p>
+    <a href="#about" class="cta-button">더 알아보기</a>
+  </div>
+</section>
 
 <!-- Main Content -->
 <div class="main">
