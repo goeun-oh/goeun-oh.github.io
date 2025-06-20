@@ -70,13 +70,19 @@ body {
   align-items: center !important;
 }
 
-/* 툴바 내 로고 스타일 개선 */
+/* 🔥 툴바 내 로고 스타일 - 크고 굵게! */
 .mdui-toolbar .mdui-typo-headline {
-  font-size: 24px !important;
+  font-size: 28px !important;
   font-weight: 700 !important;
   color: var(--accent) !important;
   font-family: var(--font-sans) !important;
   letter-spacing: -0.02em !important;
+}
+
+/* 로고 호버 효과 */
+.mdui-toolbar .mdui-typo-headline:hover {
+  color: var(--accent-hover) !important;
+  transition: var(--transition) !important;
 }
 
 /* 툴바 내 네비게이션 메뉴 추가 */
@@ -201,6 +207,10 @@ body {
     
     .mdui-toolbar {
         padding: 0 25px !important;
+    }
+    
+    .mdui-toolbar .mdui-typo-headline {
+        font-size: 24px !important;
     }
     
     .about-info-grid {
