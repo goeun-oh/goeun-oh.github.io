@@ -10,6 +10,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap');
 
+
     * {
         margin: 0;
         padding: 0;
@@ -39,6 +40,9 @@
         color: #000000;
         letter-spacing: -0.02em;
         text-transform: uppercase;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
     }
     
     .numbered-heading::before {
@@ -92,18 +96,22 @@
     
     .info-label {
         font-size: 16px;
-        font-weight: 400;
+        font-weight: 600;
         color: #000000;
         margin-bottom: 4px;
         letter-spacing: -0.01em;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
     
     .info-value {
         font-size: 16px;
         color: #000000;
         line-height: 1.5;
-        font-weight: 400;
+        font-weight: 500;
         letter-spacing: -0.01em;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
     
     @media (max-width: 768px) {
@@ -114,10 +122,20 @@
         
         .numbered-heading {
             font-size: 36px;
+            font-weight: 900;
+            -webkit-text-stroke: 0.5px #000000;
         }
         
         .numbered-heading:after {
             width: 100px;
+        }
+        
+        .info-label {
+            font-weight: 700;
+        }
+        
+        .info-value {
+            font-weight: 600;
         }
     }
 
@@ -129,11 +147,13 @@
     }
 </style>
 
+
 </head>
 <body>
     <div class="container">
         <section id="about" class="about-section">
             <h2 class="numbered-heading">ABOUT ME</h2>
+
 
         <div class="about-info-grid">
             <div class="info-item">
@@ -210,6 +230,7 @@
         </div>
     </section>
 </div>
+
 
 </body>
 </html>
