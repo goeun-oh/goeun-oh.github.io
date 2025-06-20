@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ko" >
+<head>
+    <meta charset="utf-8">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+
+
+    <link rel="dns-prefetch" //cdn.jsdelivr.net>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.2/dist/css/mdui.min.css">
+
+
+
+
+
+<meta name="theme-color" content="#3F51B5">
+
+
+<style>
+    html,body{scroll-behavior:smooth;min-height:100vh}
+    blockquote>strong>a{word-break:break-all}
+    .mdui-hoverable:hover,.mdui-hoverable:focus{-webkit-box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12) !important;box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12) !important;}
+    .mdui-card-primary-title a{text-decoration:none !important}
+    .page-number{display:none !important}
+    .mdui-container-fluid{transition:opacity .4s}
+    
+        body{background-color: #f6f6f6}
+
+    
+</style>
+    
+    <title></title>
+    <link rel="canonical" href="https://www.goeun-oh.com/blog/">
+    <meta name="description" content="끊임없이 배우고 성장하는 개발자 고은의 포트폴리오입니다.">
+<meta property="og:type" content="website">
+<meta property="og:title">
+<meta property="og:url" content="https://www.goeun-oh.com/blog/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="끊임없이 배우고 성장하는 개발자 고은의 포트폴리오입니다.">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:author" content="고은">
+<meta property="article:tag" content="개발자, 포트폴리오, 웹개발, 프론트엔드, 백엔드">
+<meta name="twitter:card" content="summary">
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body class="mdui-theme-primary-indigo mdui-theme-accent-pink mdui-appbar-with-toolbar ">
+    <div class="mdui-theme-layout-light">
+    <header id="appbar" class="mdui-appbar mdui-appbar-fixed mdui-shadow-0 mdui-appbar-scroll-hide">
+    <div class="mdui-toolbar">
+        <button mdui-drawer="{target: '.mdui-drawer'}" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon material-icons">menu</i></button>
+        <a href="/" class="mdui-typo-title"></a>
+        <div class="mdui-toolbar-spacer"></div>
+        
+        <a href="/search/" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon material-icons">search</i></a>
+        
+    </div>
+</header>
+    <aside class="mdui-drawer mdui-drawer-close">
+    <nav class="mdui-list" mdui-collapse="{accordion: true}">
+        <a href="#" class="mdui-list-item mdui-ripple h-card">
+            <div class="mdui-list-item-avatar">
+                
+                <i class="mdui-color-theme-primary mdui-icon material-icons">person</i>
+                
+            </div>
+            <div class="mdui-list-item-content p-name">고은</div>
+            <span style="display:none" class="u-url u-uid">https://www.goeun-oh.com</span>
+        </a>
+        <div class="mdui-divider"></div>
+        
+        <a href="/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
+            <div class="mdui-list-item-content">홈</div>
+        </a>
+        
+        <div class="mdui-collapse-item">
+            <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">inbox</i>
+                <div class="mdui-list-item-content">아카이브</div>
+                <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+            </div>
+            <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                <a class="mdui-list-item mdui-ripple m-link" href="/archives/2025/06/">6월 2025</a>
+            </div>
+        </div>
+        
+        <div class="mdui-collapse-item">
+            <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">apps</i>
+                <div class="mdui-list-item-content">카테고리</div>
+                <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+            </div>
+            <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                
+            </div>
+        </div>
+        
+        <a href="/tags/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">local_offer</i>
+            <div class="mdui-list-item-content">태그</div>
+        </a>
+        
+    </nav>
+    <div class="mdui-divider"></div>
+    <footer class="mdui-m-l-2 mdui-m-t-1 mdui-typo mdui-text-color-theme-disabled">
+        <p class="mdui-m-b-0">
+            <p>끊임없이 배우고 성장하는 개발자</p>
+<br>
+            © 2024 - 
+            2025 고은<br>
+            
+            Hosted on <a href="/" rel="noreferrer"
+                target="_blank">GitHub Pages</a><br>
+            
+            Powered by <a href="https://hexo.io/" rel="noreferrer" target="_blank">Hexo</a><br>
+            
+            Theme - <a href="https://github.com/kwaa/hexo-theme-m" rel="noreferrer" target="_blank"
+                mdui-tooltip="{position:'right', content: 'by 藍+85CD'}">M</a></p>
+            
+    </footer>
+</aside>
+    </div>
+    <div class="mdui-container-fluid mdui-center" style="max-width:1200px">
+        <section class="h-feed mdui-theme-layout-light mdui-color-transparent">
+    <a href="https://www.goeun-oh.com" class="p-name u-url" style="display:none"></a>
+    
+        <article class="h-entry mdui-card mdui-hoverable mdui-shadow-1 mdui-m-y-2" style="opacity: 1; border-radius: 4px"
+>
+    
+    <div class="mdui-card-primary mdui-ripple">
+    <div class="mdui-card-primary-title">
+        <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" href="/2025/06/20/hello-world/"></a>
+        <a class="p-author h-card" style="display:none" href="https://www.goeun-oh.com">고은</a>
+        
+    </div>
+    <div class="mdui-card-primary-subtitle mdui-typo">
+        
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-20 07:33<br>Updated: 2025-06-20 08:23'}" datetime="2025-06-20T10:33:27.555Z">2025-06-20</time>
+        <span>-</span>
+        
+            <a href="/2025/06/20/hello-world/">2025/06/20/hello-world/</a>
+        
+    </div>
+</div>
+    
+    
+    <div class="mdui-divider"></div>
+    <div class="mdui-card-content mdui-typo">
+        
+        <div class="p-summary" style="display:none"></div>
+        <main class="e-content">
+
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me Demo</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap');
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+        font-family: 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+        background-color: #ffffff;
+        color: #000000;
+        line-height: 1.6;
+        padding: 40px 20px;
+        font-weight: 400;
+    }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .numbered-heading {
+        font-family: __Black_Han_Sans_1e1a52,__Black_Han_Sans_Fallback_1e1a52 !important;
+        font-style: normal !important;
+        display: inline-block;
+        margin: 0 auto 60px auto;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 60px !important;
+        font-size: 44px !important;
+        font-weight: 800 !important;
+        color: #000000;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+        position: relative;
+        white-space: nowrap;
+        flex-wrap: nowrap;
+        border-bottom: 3px solid #000000 !important;
+        padding-bottom: 8px;
+    }
+.about-info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px 40px;
+    max-width: 1000px;
+    margin: 0 auto; /* 추가: 가운데 정렬 */
+}
+@media (max-width: 768px) {
+        .about-info-grid {
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }   
+        .numbered-heading {
+            font-size: 36px;
+        }
+        .numbered-heading::before,
+        .numbered-heading:after {
+            width: 50px;
+        }
+    }
+.about-section {
+  max-width: 1000px;
+  margin: 0 auto; /* 섹션 자체를 가운데 정렬 */
+  text-align: center; /* center에서 left로 변경 */
+}
+.about-info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px 40px;
+    max-width: 1000px;
+    margin: 0 auto; /* 추가: 가운데 정렬 */
+    text-align: left;
+}
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px; /* 기존 0에서 여백 추가 */
+    background: #ffffff; /* 또는 #fafafa */
+    border: 1px solid #e5e7eb; /* 경계선 추가 */
+    border-radius: 8px; /* 둥근 모서리 */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* 가벼운 그림자 */
+    transition: all 0.2s ease; /* 호버 효과를 위한 트랜지션 */
+}
+.info-icon {
+    width: 24px;
+    height: 24px;
+    color: #000000;
+    flex-shrink: 0;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.info-content {
+    flex: 1;
+}
+.info-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.info-value {
+    font-size: 16px;
+    color: #000000;
+    line-height: 1.5;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+@media (max-width: 1024px) and (min-width: 769px) {
+    .about-info-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px 30px;
+    }
+}
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <section id="about" class="about-section">
+            <h2 class="numbered-heading">ABOUT ME</h2>
+        <div class="about-info-grid">
+            <div class="info-item">
+                <div class="info-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </div>
+                <div class="info-content">
+                    <div class="info-label">이름</div>
+                    <div class="info-value">오고은</div>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                    </svg>
+                </div>
+                <div class="info-content">
+                    <div class="info-label">생년월일</div>
+                    <div class="info-value">98.01.10</div>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                </div>
+                <div class="info-content">
+                    <div class="info-label">위치</div>
+                    <div class="info-value">경기도 용인시</div>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                    </svg>
+                </div>
+                <div class="info-content">
+                    <div class="info-label">연락처</div>
+                    <div class="info-value">010-7251-3263</div>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                </div>
+                <div class="info-content">
+                    <div class="info-label">이메일</div>
+                    <div class="info-value">qw433812@gmail.com</div>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
+                    </svg>
+                </div>
+                <div class="info-content">
+                    <div class="info-label">학력</div>
+                    <div class="info-value">아주대학교 (전자공학과)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+</body>
+</html>
+</main>
+        
+        <blockquote class="mdui-m-x-0 mdui-m-t-4">
+    <strong>
+        Author: <a href="#">고은</a><br>
+        URL: <a href="https://www.goeun-oh.com/2025/06/20/hello-world/">https://www.goeun-oh.com/2025/06/20/hello-world/</a><br>
+        
+            라이선스
+        
+    </strong>
+</blockquote>
+        
+    </div>
+    
+</article>
+
+    
+    
+</section>
+
+    </div>
+    <a href="#" class="mdui-fab mdui-fab-fixed mdui-hidden-xs mdui-color-theme-accent mdui-ripple"><i class="mdui-icon material-icons">keyboard_arrow_up</i></a>
+
+<script src="https://cdn.jsdelivr.net/npm/mdui@1.0.2/dist/js/mdui.min.js"></script>
+
+
+<script>
+    var $ = mdui.$;
+    function init(){
+        //
+    }
+    window.addEventListener("load", () => {
+        //
+        init()
+    }, {once: true});
+</script>
+
+</body>
+</html>
