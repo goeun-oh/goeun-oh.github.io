@@ -2,7 +2,7 @@ name: Deploy Hexo
 
 on:
   push:
-    branches: [ main ]  # 또는 master
+    branches: [ main ]
 
 jobs:
   deploy:
@@ -11,7 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
       with:
-        submodules: true
+        submodules: false  # 👈 서브모듈 비활성화
         
     - name: Setup Node.js
       uses: actions/setup-node@v3
