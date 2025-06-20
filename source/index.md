@@ -220,27 +220,59 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* 반응형 디자인 */
+
 @media (max-width: 768px) {
     .custom-nav {
         display: none;
     }
     
     .mdui-toolbar {
-        padding: 0 25px !important;
+        padding: 0 15px !important; /* 패딩 줄임 */
+        height: 60px !important; /* 높이도 조금 줄임 */
     }
     
-    .mdui-toolbar .mdui-typo-headline {
-        font-size: 24px !important;
+    /* 🔥 모바일에서 로고 스타일 수정 */
+    .site-title {
+        font-size: 18px !important; /* 폰트 크기 줄임 */
+        font-weight: 700 !important;
+        margin-left: 15px !important; /* 햄버거와 간격 */
+        white-space: nowrap !important; /* 텍스트 줄바꿈 방지 */
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        max-width: calc(100vw - 120px) !important; /* 최대 너비 제한 */
+    }
+    
+    /* 햄버거 메뉴 버튼 크기 조정 */
+    .mdui-toolbar button {
+        min-width: 40px !important;
+        padding: 8px !important;
+    }
+    
+    /* 오른쪽 검색 버튼도 크기 조정 */
+    .right-group {
+        gap: 12px !important;
+    }
+    
+    .numbered-heading {
+        font-size: 28px !important; /* 모바일에서 제목도 더 작게 */
     }
     
     .about-info-grid {
-        grid-template-columns: 1fr;
-        gap: 25px;
-    }   
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+        padding: 0 15px !important;
+    }
+}
+
+/* 아주 작은 화면 (320px 이하) */
+@media (max-width: 375px) {
+    .site-title {
+        font-size: 16px !important;
+        max-width: calc(100vw - 100px) !important;
+    }
     
-    .numbered-heading {
-        font-size: 36px !important;
+    .mdui-toolbar {
+        padding: 0 10px !important;
     }
 }
 
