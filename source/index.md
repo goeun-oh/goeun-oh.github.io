@@ -220,49 +220,44 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-
 @media (max-width: 768px) {
+    /* 🔥 네비게이션 메뉴 완전히 숨기기 */
     .custom-nav {
-        display: none;
+        display: none !important;
+    }
+    
+    /* 🔥 검색 버튼도 숨기기 (선택사항) */
+    .right-group {
+        display: none !important;
     }
     
     .mdui-toolbar {
-        padding: 0 15px !important; /* 패딩 줄임 */
-        height: 60px !important; /* 높이도 조금 줄임 */
+        padding: 0 20px !important;
+        justify-content: space-between !important; /* 햄버거와 로고 양쪽 배치 */
     }
     
-    /* 🔥 모바일에서 로고 스타일 수정 */
+    /* 🔥 로고 스타일 - 여유있게 */
     .site-title {
-        font-size: 18px !important; /* 폰트 크기 줄임 */
+        font-size: 22px !important;
         font-weight: 700 !important;
-        margin-left: 15px !important; /* 햄버거와 간격 */
-        white-space: nowrap !important; /* 텍스트 줄바꿈 방지 */
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-        max-width: calc(100vw - 120px) !important; /* 최대 너비 제한 */
-    }
-    
-    /* 햄버거 메뉴 버튼 크기 조정 */
-    .mdui-toolbar button {
-        min-width: 40px !important;
-        padding: 8px !important;
-    }
-    
-    /* 오른쪽 검색 버튼도 크기 조정 */
-    .right-group {
-        gap: 12px !important;
+        white-space: nowrap !important;
+        flex: 1 !important;
+        text-align: center !important; /* 가운데 정렬 */
+        margin: 0 20px !important;
     }
     
     .numbered-heading {
-        font-size: 28px !important; /* 모바일에서 제목도 더 작게 */
+        font-size: 32px !important;
     }
     
     .about-info-grid {
         grid-template-columns: 1fr !important;
         gap: 20px !important;
-        padding: 0 15px !important;
+        padding: 0 20px !important;
     }
 }
+
+
 
 /* 아주 작은 화면 (320px 이하) */
 @media (max-width: 375px) {
