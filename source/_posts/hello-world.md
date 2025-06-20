@@ -34,6 +34,7 @@
     .numbered-heading {
         display: flex;
         align-items: center;
+        justify-content: center;
         margin-bottom: 60px;
         font-size: 48px;
         font-weight: 900;
@@ -43,17 +44,23 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-rendering: optimizeLegibility;
+        position: relative;
     }
     
     .numbered-heading::before {
-        margin-right: 20px;
-        font-size: 40px;
+        content: '';
+        display: block;
+        width: 150px;
+        height: 2px;
+        margin-right: 30px;
+        background-color: #e5e7eb;
+        border-radius: 1px;
     }
     
     .numbered-heading:after {
         content: '';
         display: block;
-        width: 200px;
+        width: 150px;
         height: 2px;
         margin-left: 30px;
         background-color: #e5e7eb;
@@ -121,20 +128,16 @@
         
         .numbered-heading {
             font-size: 36px;
-            font-weight: 900;
-            -webkit-text-stroke: 0.5px #000000;
+        }
+        
+        .numbered-heading::before {
+            width: 80px;
+            margin-right: 20px;
         }
         
         .numbered-heading:after {
-            width: 100px;
-        }
-        
-        .info-label {
-            font-weight: 700;
-        }
-        
-        .info-value {
-            font-weight: 600;
+            width: 80px;
+            margin-left: 20px;
         }
     }
 
@@ -229,7 +232,6 @@
         </div>
     </section>
 </div>
-
 
 </body>
 </html>
