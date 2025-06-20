@@ -10,7 +10,6 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap');
 
-
     * {
         margin: 0;
         padding: 0;
@@ -45,26 +44,30 @@
         -moz-osx-font-smoothing: grayscale;
         text-rendering: optimizeLegibility;
         position: relative;
+        white-space: nowrap;
+        flex-wrap: nowrap;
     }
     
     .numbered-heading::before {
         content: '';
         display: block;
-        width: 150px;
+        width: 100px;
         height: 2px;
-        margin-right: 30px;
+        margin-right: 20px;
         background-color: #e5e7eb;
         border-radius: 1px;
+        flex-shrink: 0;
     }
     
     .numbered-heading:after {
         content: '';
         display: block;
-        width: 150px;
+        width: 100px;
         height: 2px;
-        margin-left: 30px;
+        margin-left: 20px;
         background-color: #e5e7eb;
         border-radius: 1px;
+        flex-shrink: 0;
     }
     
     .about-info-grid {
@@ -149,13 +152,11 @@
     }
 </style>
 
-
 </head>
 <body>
     <div class="container">
         <section id="about" class="about-section">
             <h2 class="numbered-heading">ABOUT ME</h2>
-
 
         <div class="about-info-grid">
             <div class="info-item">
