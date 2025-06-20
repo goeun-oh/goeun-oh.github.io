@@ -429,7 +429,20 @@ body {
   max-width: 900px;
   text-align: center;
 }
-
+.about-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 40px;
+    align-items: start;
+}
+.about-right {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .about-inner {
   display: grid;
   grid-template-columns: 3fr 2fr;
@@ -570,54 +583,115 @@ body {
 
 .about-pic {
   position: relative;
-  max-width: 300px;
+  max-width: 280px;
   margin: 0 auto;
 }
+        .about-pic .wrapper {
+            box-shadow: 0 10px 30px -15px rgba(26, 32, 44, 0.1);
+            transition: var(--transition);
+            display: block;
+            position: relative;
+            width: 100%;
+            border-radius: var(--border-radius);
+            background-color: var(--accent);
+        }
 
-.about-pic .wrapper {
-  box-shadow: 0 10px 30px -15px rgba(26, 32, 44, 0.1);
-  transition: var(--transition);
-  display: block;
-  position: relative;
-  width: 100%;
-  border-radius: var(--border-radius);
-  background-color: var(--accent);
-}
+        .about-pic .wrapper:hover {
+            box-shadow: 0 20px 30px -15px rgba(26, 32, 44, 0.2);
+            transform: translate(-10px, -10px);
+        }
 
-.about-pic .wrapper:hover {
-  box-shadow: 0 20px 30px -15px rgba(26, 32, 44, 0.2);
-  transform: translate(-10px, -10px);
-}
+        .about-pic .wrapper:hover:after {
+            transform: translate(10px, 10px);
+        }
 
-.about-pic .wrapper:hover:after {
-  transform: translate(10px, 10px);
-}
+        .about-pic .wrapper:after {
+            content: '';
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--accent);
+            top: 20px;
+            left: 20px;
+            z-index: -1;
+            transition: var(--transition);
+            border-radius: var(--border-radius);
+        }
 
-.about-pic .wrapper:after {
-  content: '';
-  display: block;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border: 2px solid var(--accent);
-  top: 20px;
-  left: 20px;
-  z-index: -1;
-  transition: var(--transition);
-  border-radius: var(--border-radius);
-}
+        .about-pic .img {
+            position: relative;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            width: 100%;
+            height: auto;
+            vertical-align: middle;
+            object-fit: cover;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #3182ce, #2c5282);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+        }
 
-.about-pic .img {
-  position: relative;
-  border-radius: var(--border-radius);
-  transition: var(--transition);
-  width: 100%;
-  height: auto;
-  vertical-align: middle;
-  object-fit: cover;
-  aspect-ratio: 1;
-  background-color: var(--bg-light);
-}
+        /* 모바일 대응 */
+        @media (max-width: 768px) {
+            .about-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                text-align: left;
+            }
+            
+            .about-basic-info {
+                text-align: left;
+                margin-bottom: 40px; /* 모바일에서 적당한 여백 */
+            }
+            
+            .about-subjects {
+                text-align: left;
+            }
+            
+            .info-item {
+                justify-content: flex-start;
+            }
+
+            .numbered-heading:after {
+                width: 100px;
+            }
+
+            .subjects-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .category-subjects {
+                gap: 8px; /* 간격 줄임 */
+            }
+            
+            .subject-item {
+                min-width: 140px; /* 최소 너비 늘림 */
+                flex: 0 1 calc(50% - 4px); /* 강제로 2개씩 배치 */
+                font-size: var(--fz-xs);
+                padding: 6px 8px;
+            }
+            
+            .subject-name {
+                font-size: var(--fz-xs); /* 과목명 폰트 크기 줄임 */
+            }
+            
+            .subject-grade {
+                font-size: 10px; /* 성적 폰트 더 작게 */
+                padding: 1px 4px; /* 성적 패딩 줄임 */
+            }
+
+            .about-right {
+                justify-content: center;
+                margin-top: 30px;
+            }
+        }
+
 
 /* Skills Grid Section */
 .skills-section {
@@ -1135,32 +1209,38 @@ body {
 <!-- About Section - 수정된 버전 -->
 <section id="about" class="about-section section">
   <h2 class="numbered-heading">About Me</h2>
-  
-  <!-- 첫 번째 문단과 사진을 나란히 -->
-  <div class="about-top">
-    <div class="about-text-left">
-      <p>
-        안녕하세요! 저는 효율적이고 혁신적인 디지털 시스템을 설계하는 것에 열정을 가진 
-        디지털회로 설계 엔지니어입니다.
-      </p>
-    </div>
+  <div class="about-container">
+            <!-- 1열 1행: 기본정보 -->
+            <div class="about-basic-info">
+                <div class="info-section">
+                    <h3>기본정보</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">이름:</span>
+                            <span class="info-value">오고은</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">최종학력:</span>
+                            <span class="info-value">아주대학교 학사 졸업</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">학과:</span>
+                            <span class="info-value">전자공학과</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">어학 점수:</span>
+                            <span class="info-value">IM2</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    <div class="about-right">
     <div class="about-pic">
       <div class="wrapper">
         <img src="images/profile.jpg" alt="고은 프로필 사진" class="img">
       </div>
     </div>
   </div>
-  <!-- 나머지 문단들 가운데 정렬 -->
-  <div class="about-bottom">
-    <p>
-      FPGA, ASIC 설계부터 시스템 최적화까지 다양한 하드웨어 설계 기술을 익히며, 
-      항상 더 나은 성능과 효율성을 추구합니다. 첨단 기술과 창의적 사고를 결합하여 
-      미래 지향적인 디지털 솔루션을 개발하고 싶습니다.
-    </p>
-    <p>
-      최근에는 저전력 설계와 고성능 프로세서 아키텍처에 특히 관심을 가지고 
-      다양한 프로젝트를 진행하고 있습니다.
-    </p>
   </div>
 </section>
   <!-- Skills Section -->
