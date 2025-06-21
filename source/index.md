@@ -293,14 +293,11 @@ body {
 }
 
 .skill-row {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 40px 100px 1fr;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 40px;
-  padding: 20px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.7);
+  gap: 20px;
+  margin-bottom: 24px;
 }
 
 @media (max-width: 768px) {
