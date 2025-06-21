@@ -355,8 +355,16 @@ body {
 
 .skill-tag {
   white-space: nowrap !important;
-  font-size: 14px !important;
-  padding: 6px 12px !important;
+  font-size: 0.875rem !important;
+  padding-top: 0.25rem !important;
+  padding-right: 0.75rem !important;
+  padding-bottom: 0.25rem !important;
+  padding-left: 0.75rem !important;
+  border-top-left-radius: 0.5rem !important;
+  border-top-right-radius: 0.5rem !important;
+  border-bottom-right-radius: 0.5rem !important;
+  border-bottom-left-radius: 0.5rem !important;
+  font_weight: 500 !important;
   flex-shrink: 0;
 }
 
