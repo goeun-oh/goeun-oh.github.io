@@ -298,6 +298,8 @@ body {
   align-items: center;
   gap: 20px;
   margin-bottom: 24px;
+    /* ✅ 왼쪽 여백 주기 */
+  padding-left: 20px;
 }
 
 @media (max-width: 768px) {
