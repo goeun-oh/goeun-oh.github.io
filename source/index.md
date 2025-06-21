@@ -288,6 +288,7 @@ body {
         }
 skill-row {
   overflow-x: auto !important;
+  display: grid !important;
 }
 
 
