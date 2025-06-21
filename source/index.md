@@ -377,9 +377,6 @@ body {
   justify-content: center;
   gap: 10px 12px;
 }
-.skill-tags.langauge-row{
-  justify-content: start !important;
-}
 /* ✅ skill-tags 영역을 grid로 변환 */
 .skill-tags.language-row,
 .skill-tags.tools-row {
