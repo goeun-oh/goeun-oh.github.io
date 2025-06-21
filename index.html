@@ -41,8 +41,8 @@
 <meta property="og:site_name">
 <meta property="og:description" content="@import url(&#39;https:&#x2F;&#x2F;fonts.googleapis.com&#x2F;css2?family&#x3D;Inter:wght@300;400;500;600;700&amp;family&#x3D;JetBrains+Mono:wght@400;500;600&amp;display&#x3D;swap&#39;);  * {   margin: 0;   padding: 0;   box-sizing: border-box;">
 <meta property="og:locale" content="ko_KR">
-<meta property="article:published_time" content="2025-06-20T15:50:50.928Z">
-<meta property="article:modified_time" content="2025-06-20T15:50:50.928Z">
+<meta property="article:published_time" content="2025-06-21T06:18:10.842Z">
+<meta property="article:modified_time" content="2025-06-21T06:18:10.842Z">
 <meta property="article:author" content="고은">
 <meta property="article:tag" content="개발자, 포트폴리오, 웹개발, 프론트엔드, 백엔드">
 <meta name="twitter:card" content="summary">
@@ -137,7 +137,7 @@
     </div>
     <div class="mdui-card-primary-subtitle mdui-typo">
         
-        <time class="dt-published" mdui-tooltip="{content:'投稿日：2025-06-21 12:50<br>編集日：2025-06-21 12:50'}" datetime="2025-06-20T15:50:50.928Z">2025-06-21</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-21 03:18<br>Updated: 2025-06-21 03:18'}" datetime="2025-06-21T06:18:10.842Z">2025-06-21</time>
         <span>-</span>
         
             <span>index.html</span>
@@ -434,6 +434,10 @@ body {
             text-align: center;
             padding-bottom: 100px;  /* 아래쪽만 padding */
         }
+skill-row {
+  overflow-x: auto !important;
+}
+
 
 @media (max-width: 768px) {
     .skills-container {
@@ -478,22 +482,21 @@ body {
         margin: 0 !important;
     }
 
-    .skill-tags {
-        display: flex !important;
-        flex-wrap: wrap !important;
-        gap: 8px !important;
-        justify-content: center !important;
-    }
+.skill-tags {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  padding-bottom: 4px;
+}
 
-    .skill-tag {
-        padding: 8px 16px !important;
-        border-radius: 20px !important;
-        font-size: 13px !important;
-        font-weight: 500 !important;
-        color: white !important;
-        transition: all 0.2s ease !important;
-        cursor: pointer !important;
-    }
+.skill-tag {
+  white-space: nowrap !important;
+  font-size: 14px !important;
+  padding: 6px 12px !important;
+  flex-shrink: 0;
+}
 
     .skills-title {
         font-size: 36px !important;
@@ -577,6 +580,10 @@ body {
         justify-content: center !important;
         max-width: 100% !important;
     }
+    .skill-tag {
+    font-size: 12px !important;
+    padding: 5px 10px !important;
+  }
 }
 </style>
 
@@ -798,12 +805,13 @@ window.addEventListener('scroll', function() {
 });
 </script>
 
+
 </main>
         
         <blockquote class="mdui-m-x-0 mdui-m-t-4">
     <strong>
-        著者：<a href="#">고은</a><br>
-        リンク：<a href="https://www.goeun-oh.com/index.html">https://www.goeun-oh.com/index.html</a><br>
+        Author: <a href="#">고은</a><br>
+        URL: <a href="https://www.goeun-oh.com/index.html">https://www.goeun-oh.com/index.html</a><br>
         
             라이선스
         
