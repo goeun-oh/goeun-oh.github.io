@@ -365,16 +365,41 @@ skill-row {
     width: 24px;
     height: 24px;
 }
-.skill-tags.language-row,
+  
+/* ✅ PC 화면: 한 줄 + 중앙 정렬 */
+.skill-tags.language-row {
+  display: flex !important;
+  flex-wrap: nowrap !important;       /* 줄바꿈 방지 */
+  justify-content: center !important; /* 가운데 정렬 */
+  gap: 10px;
+  overflow-x: visible !important;
+  white-space: nowrap !important;
+}
+
+/* ✅ 모바일 환경에서는 좌우 스크롤 */
+@media (max-width: 768px) {
+  .skill-tags.language-row,
+  .skill-tags.tools-row {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    justify-content: flex-start !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .skill-tags.language-row::-webkit-scrollbar,
+  .skill-tags.tools-row::-webkit-scrollbar {
+    display: none;
+  }
+}
+/* ✅ Tools도 동일하게 하고 싶다면 아래 추가 */
 .skill-tags.tools-row {
   display: flex !important;
-  flex-wrap: nowrap !important;         /* 줄바꿈 안 되게 */
-  overflow-x: auto !important;          /* 넘치면 스크롤 */
-  white-space: nowrap !important;       /* 텍스트도 줄바꿈 안되게 */
-  justify-content: flex-start !important;
-  gap: 10px !important;
-  padding: 4px 0;
-  scrollbar-width: none;                /* Firefox 스크롤 숨기기 */
+  flex-wrap: nowrap !important;
+  justify-content: center !important;
+  gap: 10px;
+  overflow-x: visible !important;
+  white-space: nowrap !important;
 }
 
 .skill-tags.language-row::-webkit-scrollbar,
