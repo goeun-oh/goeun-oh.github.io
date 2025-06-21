@@ -382,7 +382,7 @@ body {
 .skill-tags.tools-row {
   display: grid !important;
   grid-template-columns: repeat(auto-fit, minmax(120px, auto)) !important;
-  justify-content: left !important;
+  justify-content: flex-start !important; /* 왼쪽 정렬 */
   gap: 12px 16px !important;
   padding: 12px 0;
 }
