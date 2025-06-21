@@ -286,6 +286,10 @@ body {
             text-align: center;
             padding-bottom: 100px;  /* 아래쪽만 padding */
         }
+skill-row {
+  overflow-x: auto !important;
+}
+
 
 @media (max-width: 768px) {
     .skills-container {
@@ -330,22 +334,21 @@ body {
         margin: 0 !important;
     }
 
-    .skill-tags {
-        display: flex !important;
-        flex-wrap: wrap !important;
-        gap: 8px !important;
-        justify-content: center !important;
-    }
+.skill-tags {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  padding-bottom: 4px;
+}
 
-    .skill-tag {
-        padding: 8px 16px !important;
-        border-radius: 20px !important;
-        font-size: 13px !important;
-        font-weight: 500 !important;
-        color: white !important;
-        transition: all 0.2s ease !important;
-        cursor: pointer !important;
-    }
+.skill-tag {
+  white-space: nowrap !important;
+  font-size: 14px !important;
+  padding: 6px 12px !important;
+  flex-shrink: 0;
+}
 
     .skills-title {
         font-size: 36px !important;
@@ -429,6 +432,10 @@ body {
         justify-content: center !important;
         max-width: 100% !important;
     }
+    .skill-tag {
+    font-size: 12px !important;
+    padding: 5px 10px !important;
+  }
 }
 </style>
 
