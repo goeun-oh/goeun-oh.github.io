@@ -41,8 +41,8 @@
 <meta property="og:site_name">
 <meta property="og:description" content="@import url(&#39;https:&#x2F;&#x2F;fonts.googleapis.com&#x2F;css2?family&#x3D;Inter:wght@300;400;500;600;700&amp;family&#x3D;JetBrains+Mono:wght@400;500;600&amp;display&#x3D;swap&#39;);  * {   margin: 0;   padding: 0;   box-sizing: border-box;">
 <meta property="og:locale" content="ko_KR">
-<meta property="article:published_time" content="2025-06-21T06:34:04.821Z">
-<meta property="article:modified_time" content="2025-06-21T06:34:04.821Z">
+<meta property="article:published_time" content="2025-06-21T06:39:51.651Z">
+<meta property="article:modified_time" content="2025-06-21T06:39:51.651Z">
 <meta property="article:author" content="고은">
 <meta property="article:tag" content="개발자, 포트폴리오, 웹개발, 프론트엔드, 백엔드">
 <meta name="twitter:card" content="summary">
@@ -137,7 +137,7 @@
     </div>
     <div class="mdui-card-primary-subtitle mdui-typo">
         
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-21 03:34<br>Updated: 2025-06-21 03:34'}" datetime="2025-06-21T06:34:04.821Z">2025-06-21</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-21 03:39<br>Updated: 2025-06-21 03:39'}" datetime="2025-06-21T06:39:51.651Z">2025-06-21</time>
         <span>-</span>
         
             <span>index.html</span>
@@ -514,11 +514,10 @@ skill-row {
     height: 24px;
 }
   
-/* ✅ PC 화면: 한 줄 + 중앙 정렬 */
 .skill-tags.language-row {
   display: flex !important;
-  flex-wrap: nowrap !important;       /* 줄바꿈 방지 */
-  justify-content: center !important; /* 가운데 정렬 */
+  flex-wrap: nowrap !important;
+  justify-content: center !important;
   gap: 10px;
   overflow-x: visible !important;
   white-space: nowrap !important;
@@ -540,11 +539,10 @@ skill-row {
     display: none;
   }
 }
-/* ✅ Tools도 동일하게 하고 싶다면 아래 추가 */
 .skill-tags.tools-row {
   display: flex !important;
   flex-wrap: nowrap !important;
-  justify-content: center !important;
+  justify-content: center !important; /* 이거 빠졌거나 덮였을 가능성 있음 */
   gap: 10px;
   overflow-x: visible !important;
   white-space: nowrap !important;
@@ -556,8 +554,8 @@ skill-row {
 }
 
 .skill-tag {
-  flex-shrink: 0 !important;            /* 줄어들지 않게 */
-  white-space: nowrap !important;       /* 텍스트 한 줄 유지 */
+  flex-shrink: 0 !important;
+  white-space: nowrap !important;
   padding: 6px 12px !important;
   font-size: 14px !important;
 }
