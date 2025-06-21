@@ -279,18 +279,29 @@ body {
 }
 
 
-        .skills-section {
-            background:rgb(245, 245, 145);
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-            padding-bottom: 100px;  /* 아래쪽만 padding */
-        }
-skill-row {
-  overflow-x: auto !important;
-  display: grid !important;
+.skills-section {
+    background:rgb(245, 245, 145);
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    padding-bottom: 100px;  /* 아래쪽만 padding */
+}
+.skill-category-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2d3748;
 }
 
+.skill-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 40px;
+  padding: 20px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.7);
+}
 
 @media (max-width: 768px) {
     .skills-container {
@@ -357,7 +368,12 @@ skill-row {
     width: 24px;
     height: 24px;
 }
-  
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 12px;
+}
 /* ✅ skill-tags 영역을 grid로 변환 */
 .skill-tags.language-row,
 .skill-tags.tools-row {
@@ -391,14 +407,12 @@ skill-row {
 .skill-tag {
   display: inline-block;
   white-space: nowrap;
-  padding: 8px 14px;
+  padding: 6px 12px;
   font-size: 14px;
+  background: #ccc;
+  border-radius: 16px;
   font-weight: 500;
-  border-radius: 20px;
-  text-align: center;
-  background-color: #ccc; /* 기본 배경. nth-child로 색 덮어씀 */
 }
-
 
 /* Language Skills - 사진과 같은 색상 */
 .language-row .skill-tag:nth-child(1) { background: #4a90e2; } /* Verilog */
