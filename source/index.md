@@ -436,15 +436,6 @@ body {
   display: none;                        /* 크롬 스크롤 숨기기 */
 }
 
-.skill-tag {
-  display: inline-block;
-  white-space: nowrap;
-  padding: 6px 12px;
-  font-size: 14px;
-  background: #ccc;
-  border-radius: 16px;
-  font-weight: 500;
-}
 
 /* Language Skills - 사진과 같은 색상 */
 .language-row .skill-tag:nth-child(1) { background: #4a90e2; } /* Verilog */
