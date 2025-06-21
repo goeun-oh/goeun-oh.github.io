@@ -366,39 +366,30 @@ skill-row {
     height: 24px;
 }
   
-.skill-tags.language-row {
-  display: flex !important;
-  flex-wrap: nowrap !important;
+/* ✅ skill-tags 영역을 grid로 변환 */
+.skill-tags.language-row,
+.skill-tags.tools-row {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(120px, auto)) !important;
   justify-content: center !important;
-  gap: 10px;
-  overflow-x: visible !important;
-  white-space: nowrap !important;
+  gap: 12px 16px !important;
+  padding: 12px 0;
 }
 
-/* ✅ 모바일 환경에서는 좌우 스크롤 */
 @media (max-width: 768px) {
   .skill-tags.language-row,
   .skill-tags.tools-row {
-    flex-wrap: nowrap !important;
-    overflow-x: auto !important;
-    justify-content: flex-start !important;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)) !important;
+    justify-content: center !important;
+    padding: 8px;
   }
 
-  .skill-tags.language-row::-webkit-scrollbar,
-  .skill-tags.tools-row::-webkit-scrollbar {
-    display: none;
+  .skill-tag {
+    font-size: 13px;
+    padding: 6px 10px;
   }
 }
-.skill-tags.tools-row {
-  display: flex !important;
-  flex-wrap: nowrap !important;
-  justify-content: center !important; /* 이거 빠졌거나 덮였을 가능성 있음 */
-  gap: 10px;
-  overflow-x: visible !important;
-  white-space: nowrap !important;
-}
+
 
 .skill-tags.language-row::-webkit-scrollbar,
 .skill-tags.tools-row::-webkit-scrollbar {
@@ -406,11 +397,16 @@ skill-row {
 }
 
 .skill-tag {
-  flex-shrink: 0 !important;
-  white-space: nowrap !important;
-  padding: 6px 12px !important;
-  font-size: 14px !important;
+  display: inline-block;
+  white-space: nowrap;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 20px;
+  text-align: center;
+  background-color: #ccc; /* 기본 배경. nth-child로 색 덮어씀 */
 }
+
 
 /* Language Skills - 사진과 같은 색상 */
 .language-row .skill-tag:nth-child(1) { background: #4a90e2; } /* Verilog */
