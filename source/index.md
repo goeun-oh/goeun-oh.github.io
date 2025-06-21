@@ -365,6 +365,29 @@ skill-row {
     width: 24px;
     height: 24px;
 }
+.skill-tags.language-row,
+.skill-tags.tools-row {
+  display: flex !important;
+  flex-wrap: nowrap !important;         /* 줄바꿈 안 되게 */
+  overflow-x: auto !important;          /* 넘치면 스크롤 */
+  white-space: nowrap !important;       /* 텍스트도 줄바꿈 안되게 */
+  justify-content: flex-start !important;
+  gap: 10px !important;
+  padding: 4px 0;
+  scrollbar-width: none;                /* Firefox 스크롤 숨기기 */
+}
+
+.skill-tags.language-row::-webkit-scrollbar,
+.skill-tags.tools-row::-webkit-scrollbar {
+  display: none;                        /* 크롬 스크롤 숨기기 */
+}
+
+.skill-tag {
+  flex-shrink: 0 !important;            /* 줄어들지 않게 */
+  white-space: nowrap !important;       /* 텍스트 한 줄 유지 */
+  padding: 6px 12px !important;
+  font-size: 14px !important;
+}
 
 /* Language Skills - 사진과 같은 색상 */
 .language-row .skill-tag:nth-child(1) { background: #4a90e2; } /* Verilog */
@@ -432,10 +455,6 @@ skill-row {
         justify-content: center !important;
         max-width: 100% !important;
     }
-    .skill-tag {
-    font-size: 12px !important;
-    padding: 5px 10px !important;
-  }
 }
 </style>
 
