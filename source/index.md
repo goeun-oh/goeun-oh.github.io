@@ -594,9 +594,9 @@ body {
         </div>
     </div>
 </section>
+
 <script>
 // 페이지 로드 후 네비게이션 메뉴 동적 추가
-
 document.addEventListener('DOMContentLoaded', function () {
   const toolbar = document.querySelector('.mdui-toolbar');
   if (toolbar) {
