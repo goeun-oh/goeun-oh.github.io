@@ -334,15 +334,6 @@ skill-row {
         margin: 0 !important;
     }
 
-.skill-tags {
-  display: flex !important;
-  flex-wrap: nowrap !important;
-  overflow-x: auto !important;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  padding-bottom: 4px;
-}
-
 .skill-tag {
   white-space: nowrap !important;
   font-size: 14px !important;
