@@ -375,6 +375,18 @@ body {
     width: 24px;
     height: 24px;
 }
+.skill-icon{
+  width: 50px !important;
+  height: 50px !important;
+  margin: 0 auto !important;
+  background: #fff !important;
+  border: 2px solid #ddd !important;
+  border-radius: 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #666 !important;
+}
 .skill-tags {
   display: flex;
   flex-wrap: wrap;
