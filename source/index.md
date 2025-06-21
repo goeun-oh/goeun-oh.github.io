@@ -302,8 +302,8 @@ body {
   padding-left: 20px;
 }
 .skills-container {
-  padding-left: 24px;  /* 또는 margin-left */
-  padding-right: 24px; /* 균형 맞추려면 우측도 */
+  padding-left: 24px !important;  /* 또는 margin-left */
+  padding-right: 24px !important; /* 균형 맞추려면 우측도 */
 }
 
 @media (max-width: 768px) {
