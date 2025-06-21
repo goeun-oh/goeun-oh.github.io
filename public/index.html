@@ -41,8 +41,8 @@
 <meta property="og:site_name">
 <meta property="og:description" content="@import url(&#39;https:&#x2F;&#x2F;fonts.googleapis.com&#x2F;css2?family&#x3D;Inter:wght@300;400;500;600;700&amp;family&#x3D;JetBrains+Mono:wght@400;500;600&amp;display&#x3D;swap&#39;);  * {   margin: 0;   padding: 0;   box-sizing: border-box;">
 <meta property="og:locale" content="ko_KR">
-<meta property="article:published_time" content="2025-06-20T15:10:36.745Z">
-<meta property="article:modified_time" content="2025-06-20T15:10:36.745Z">
+<meta property="article:published_time" content="2025-06-21T10:04:56.487Z">
+<meta property="article:modified_time" content="2025-06-21T10:04:56.487Z">
 <meta property="article:author" content="고은">
 <meta property="article:tag" content="개발자, 포트폴리오, 웹개발, 프론트엔드, 백엔드">
 <meta name="twitter:card" content="summary">
@@ -137,7 +137,7 @@
     </div>
     <div class="mdui-card-primary-subtitle mdui-typo">
         
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-21 12:10<br>Updated: 2025-06-21 12:10'}" datetime="2025-06-20T15:10:36.745Z">2025-06-21</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-21 07:04<br>Updated: 2025-06-21 07:04'}" datetime="2025-06-21T10:04:56.487Z">2025-06-21</time>
         <span>-</span>
         
             <span>index.html</span>
@@ -206,6 +206,10 @@ body {
 }
 
 .mdui-toolbar {
+  position: fixed!important;
+  width: 100%;
+  top: 0 !important;
+  z-index: 1000 !important; /* 다른 요소 위에 표시 */
   background-color: rgba(255, 255, 255, 0.95) !important;
   backdrop-filter: blur(10px) !important;
   border-bottom: 1px solid var(--border) !important;
@@ -368,27 +372,54 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* 반응형 디자인 */
 @media (max-width: 768px) {
+    /* 🔥 네비게이션 메뉴 완전히 숨기기 */
     .custom-nav {
-        display: none;
+        display: none !important;
+    }
+    
+    /* 🔥 검색 버튼도 숨기기 (선택사항) */
+    .right-group {
+        display: none !important;
     }
     
     .mdui-toolbar {
-        padding: 0 25px !important;
+        padding: 0 20px !important;
+        justify-content: space-between !important; /* 햄버거와 로고 양쪽 배치 */
     }
     
-    .mdui-toolbar .mdui-typo-headline {
-        font-size: 24px !important;
+    /* 🔥 로고 스타일 - 여유있게 */
+    .site-title {
+        font-size: 22px !important;
+        font-weight: 700 !important;
+        white-space: nowrap !important;
+        flex: 1 !important;
+        text-align: center !important; /* 가운데 정렬 */
+        margin: 0 20px !important;
+    }
+    
+    .numbered-heading {
+        font-size: 32px !important;
     }
     
     .about-info-grid {
-        grid-template-columns: 1fr;
-        gap: 25px;
-    }   
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+        padding: 0 20px !important;
+    }
+}
+
+
+
+/* 아주 작은 화면 (320px 이하) */
+@media (max-width: 375px) {
+    .site-title {
+        font-size: 16px !important;
+        max-width: calc(100vw - 100px) !important;
+    }
     
-    .numbered-heading {
-        font-size: 36px !important;
+    .mdui-toolbar {
+        padding: 0 10px !important;
     }
 }
 
@@ -400,88 +431,159 @@ body {
 }
 
 
-        .skills-section {
-            background:rgb(245, 245, 145);
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-            padding-bottom: 100px;  /* 아래쪽만 padding */
-        }
+.skills-section {
+    background:rgb(245, 245, 145);
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    padding-bottom: 100px;  /* 아래쪽만 padding */
+}
+.skill-category-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2d3748;
+}
 
-        .skills-title {
-            display: inline-flex;
-            align-items: center;
-            gap: 15px;
-            font-size: 48px;
-            font-weight: 800;
-            color: #2d3748;
-            margin-bottom: 60px;
-            text-transform: uppercase;
-            letter-spacing: 0.02em;
-            text-decoration: underline;
-            text-decoration-thickness: 4px;
-            text-underline-offset: 8px;
-        }
-
-        .skills-icon {
-            width: 40px;
-            height: 40px;
-            color: #2d3748;
-        }
-
-        .skills-container {
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            width: 1000px;
-            align-items: center;
-            margin: 0 auto;  /* 👈 이미 있어야 하는데... */
-        }
 .skill-row {
-    display: grid;
-    grid-template-columns: 80px 120px 1fr;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 20px;
-    padding: 15px;
-    background: rgba(255, 255, 255, 0.7);
-    border-radius: 12px;
-    text-align: left;
+  display: grid;
+  grid-template-columns: 40px 100px auto;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 24px;
+    /* ✅ 왼쪽 여백 주기 */
+  padding-left: 20px;
+}
+.skills-container {
+  padding-left: 24px !important;  /* 또는 margin-left */
+  padding-right: 24px !important; /* 균형 맞추려면 우측도 */
+}
+.skill-tag {
+  white-space: nowrap !important;
+  font-size: 0.875rem !important;
+  padding-top: 0.25rem !important;
+  padding-right: 0.75rem !important;
+  padding-bottom: 0.25rem !important;
+  padding-left: 0.75rem !important;
+  border-top-left-radius: 0.5rem !important;
+  border-top-right-radius: 0.5rem !important;
+  border-bottom-right-radius: 0.5rem !important;
+  border-bottom-left-radius: 0.5rem !important;
+  font-weight: 500 !important;
+  flex-shrink: 0;
+  width: auto !important;
 }
 
-.skill-row:last-child {
-    margin-bottom: 0;
-}
+@media (max-width: 768px) {
+    .skills-container {
+        width: calc(100% - 20px) !important;
+        margin: 0 10px !important;
+        padding: 20px !important;
+        box-sizing: border-box !important;
+    }
 
-.skill-icon {
-    width: 50px;
-    height: 50px;
-    background: #fff;
-    border: 2px solid #ddd;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #666;
+    .skill-row {
+        display: grid !important;
+        grid-template-columns: 1fr !important; /* 세로로 쌓기 */
+        text-align: center !important;
+        gap: 10px !important;
+        margin-bottom: 30px !important;
+        padding: 16px !important;
+        background: rgba(255, 255, 255, 0.7) !important;
+        border-radius: 12px !important;
+    }
+
+    .skill-row:last-child {
+        margin-bottom: 0 !important;
+    }
+
+    .skill-icon {
+        width: 50px !important;
+        height: 50px !important;
+        margin: 0 auto !important;
+        background: #fff !important;
+        border: 2px solid #ddd !important;
+        border-radius: 10px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        color: #666 !important;
+    }
+
+    .skill-category-name {
+        font-size: 16px !important;
+        font-weight: 600 !important;
+        color: #2d3748 !important;
+        margin: 0 !important;
+    }
+    .skills-title {
+        font-size: 36px !important;
+        margin-bottom: 40px !important;
+    }
+}
+.skills-icon {
+    width: 40px;
+    height: 40px;
+    color: #2d3748;
 }
 
 .skill-icon svg {
     width: 24px;
     height: 24px;
 }
-
-.skill-category-name {
-    font-size: 18px;
-    font-weight: 600;
-    color: #2d3748;
+.skill-icon{
+  width: 50px !important;
+  height: 50px !important;
+  margin: 0 auto !important;
+  background: #fff !important;
+  border: 2px solid #ddd !important;
+  border-radius: 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #666 !important;
 }
-
 .skill-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 12px;
 }
+/* ✅ skill-tags 영역을 grid로 변환 */
+.skill-tags.language-row,
+.skill-tags.tools-row {
+  /* display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(120px, auto)) !important; */
+  justify-content: start !important; /* 왼쪽 정렬 */
+  gap: 12px 16px !important;
+  padding: 12px 0;
+}
+
+@media (max-width: 768px) {
+  .skill-tags.language-row,
+  .skill-tags.tools-row {
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)) !important;
+    justify-content: center !important;
+    padding: 8px;
+  }
+
+  .skill-tag {
+    white-space: normal !important;   /* ✅ 줄바꿈 허용 */
+    word-break: break-word !important;/* ✅ 단어 중간에라도 끊어서 줄바꿈 */
+    min-width: 60px !important;       /* ✅ 최소 너비 확보 */
+    max-width: 100% !important;       /* ✅ 너무 커지지 않도록 제한 */
+    text-align: center !important;    /* ✅ 가운데 정렬 */
+    padding: 6px 8px !important;      /* ✅ 내부 여백 조금 줄이기 */
+    box-sizing: border-box;
+  }
+}
+
+
+.skill-tags.language-row::-webkit-scrollbar,
+.skill-tags.tools-row::-webkit-scrollbar {
+  display: none;                        /* 크롬 스크롤 숨기기 */
+}
+
+
 /* Language Skills - 사진과 같은 색상 */
 .language-row .skill-tag:nth-child(1) { background: #4a90e2; } /* Verilog */
 .language-row .skill-tag:nth-child(2) { background: #50c878; } /* SystemVerilog */
@@ -496,16 +598,7 @@ body {
 .tools-row .skill-tag:nth-child(4) { background: #ff6b6b; } /* PsPice */
 .tools-row .skill-tag:nth-child(5) { background: #ffa500; } /* Synopsys Verdi */
 .tools-row .skill-tag:nth-child(6) { background: #20b2aa; } /* Synopsys VCS */
-/* 👈 이거 추가해야 함! */
-.skill-tag {
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 500;
-    color: white;
-    transition: all 0.2s ease;
-    cursor: pointer;
-}
+
 
 .skill-tag:hover {
     transform: translateY(-1px);
@@ -535,6 +628,27 @@ body {
     .skills-icon {
         width: 40px;
         height: 40px;
+    }
+}
+@media (max-width: 768px) {
+    .skill-row {
+        grid-template-columns: 1fr !important; /* 1컬럼 */
+        text-align: center !important;
+        gap: 15px !important;
+    }
+
+    .skill-icon {
+        margin: 0 auto !important;
+    }
+
+    .skill-category-name {
+        font-size: 18px !important;
+        font-weight: 600 !important;
+    }
+
+    .skill-tags {
+        justify-content: center !important;
+        max-width: 100% !important;
     }
 }
 </style>
@@ -614,25 +728,22 @@ body {
 <!-- Skills Section -->
 <section id="skills" class="skills-section">
     <h2 class="numbered-heading">
-        <svg viewBox="0 0 24 24" fill="currentColor" style="width: 40px; height: 40px;">
-            <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0L19.2 12l-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
-        </svg>
         SKILLS
     </h2>
     <div class="skills-container">
         <div class="skill-row">
             <div class="skill-icon">
-                <svg viewBox="0 0 24 24" fill="currentColor">
+                <svg viewBox="0 0 24 24" fill="currentColor">Add commentMore actions
                     <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0L19.2 12l-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
                 </svg>
             </div>
             <div class="skill-category-name">Language</div>
             <div class="skill-tags language-row">
-                <span class="skill-tag">Verilog</span>
-                <span class="skill-tag">SystemVerilog</span>
-                <span class="skill-tag">Python</span>
-                <span class="skill-tag">Java</span>
-                <span class="skill-tag">C</span>
+                <div class="skill-tag">Verilog</div>
+                <div class="skill-tag">SystemVerilog</div>
+                <div class="skill-tag">Python</div>
+                <div class="skill-tag">Java</div>
+                <div class="skill-tag">C</div>
             </div>
         </div>
         <div class="skill-row">
@@ -653,9 +764,9 @@ body {
         </div>
     </div>
 </section>
+
 <script>
 // 페이지 로드 후 네비게이션 메뉴 동적 추가
-
 document.addEventListener('DOMContentLoaded', function () {
   const toolbar = document.querySelector('.mdui-toolbar');
   if (toolbar) {
@@ -666,6 +777,18 @@ document.addEventListener('DOMContentLoaded', function () {
     const siteTitle = document.createElement('div');
     siteTitle.className = 'site-title';
     siteTitle.textContent = "Goeun's Space";
+    
+    // 🔥 모바일에서 스타일 직접 적용
+    if (window.innerWidth <= 768) {
+        siteTitle.style.fontSize = '20px';
+        siteTitle.style.whiteSpace = 'nowrap';
+        siteTitle.style.overflow = 'visible';
+        siteTitle.style.textOverflow = 'unset';
+        siteTitle.style.maxWidth = 'none';
+        siteTitle.style.flex = '1';
+        siteTitle.style.textAlign = 'center';
+        siteTitle.style.margin = '0 15px';
+    }
 
     // 오른쪽 네비 메뉴
     const navMenu = document.createElement('div');
@@ -678,11 +801,19 @@ document.addEventListener('DOMContentLoaded', function () {
     `;
 
     // 오른쪽 그룹: 네비 + 검색
+
     const rightGroup = document.createElement('div');
     rightGroup.className = 'right-group';
     rightGroup.style.display = 'flex';
     rightGroup.style.alignItems = 'center';
     rightGroup.style.gap = '24px';
+    
+    // 🔥 모바일에서는 네비게이션 숨기기
+    if (window.innerWidth <= 768) {
+        navMenu.style.display = 'none';
+        // 검색 버튼도 숨기고 싶다면:
+        // rightGroup.style.display = 'none';
+    }
     rightGroup.appendChild(navMenu);
 
     // 검색 버튼도 오른쪽 그룹에 포함
@@ -736,6 +867,7 @@ window.addEventListener('scroll', function() {
   });
 });
 </script>
+
 
 </main>
         

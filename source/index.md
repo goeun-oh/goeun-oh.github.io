@@ -298,7 +298,7 @@ body {
 
 .skill-row {
   display: grid;
-  grid-template-columns: 40px 100px 1fr;
+  grid-template-columns: 40px 100px auto;
   align-items: center;
   gap: 20px;
   margin-bottom: 24px;
@@ -308,6 +308,21 @@ body {
 .skills-container {
   padding-left: 24px !important;  /* 또는 margin-left */
   padding-right: 24px !important; /* 균형 맞추려면 우측도 */
+}
+.skill-tag {
+  white-space: nowrap !important;
+  font-size: 0.875rem !important;
+  padding-top: 0.25rem !important;
+  padding-right: 0.75rem !important;
+  padding-bottom: 0.25rem !important;
+  padding-left: 0.75rem !important;
+  border-top-left-radius: 0.5rem !important;
+  border-top-right-radius: 0.5rem !important;
+  border-bottom-right-radius: 0.5rem !important;
+  border-bottom-left-radius: 0.5rem !important;
+  font-weight: 500 !important;
+  flex-shrink: 0;
+  width: auto !important;
 }
 
 @media (max-width: 768px) {
@@ -352,32 +367,16 @@ body {
         color: #2d3748 !important;
         margin: 0 !important;
     }
-
-.skill-tag {
-  white-space: nowrap !important;
-  font-size: 0.875rem !important;
-  padding-top: 0.25rem !important;
-  padding-right: 0.75rem !important;
-  padding-bottom: 0.25rem !important;
-  padding-left: 0.75rem !important;
-  border-top-left-radius: 0.5rem !important;
-  border-top-right-radius: 0.5rem !important;
-  border-bottom-right-radius: 0.5rem !important;
-  border-bottom-left-radius: 0.5rem !important;
-  font_weight: 500 !important;
-  flex-shrink: 0;
-}
-
     .skills-title {
         font-size: 36px !important;
         margin-bottom: 40px !important;
     }
 }
-        .skills-icon {
-            width: 40px;
-            height: 40px;
-            color: #2d3748;
-        }
+.skills-icon {
+    width: 40px;
+    height: 40px;
+    color: #2d3748;
+}
 
 .skill-icon svg {
     width: 24px;
@@ -404,8 +403,8 @@ body {
 /* ✅ skill-tags 영역을 grid로 변환 */
 .skill-tags.language-row,
 .skill-tags.tools-row {
-  display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(120px, auto)) !important;
+  /* display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(120px, auto)) !important; */
   justify-content: start !important; /* 왼쪽 정렬 */
   gap: 12px 16px !important;
   padding: 12px 0;
@@ -592,11 +591,11 @@ body {
             </div>
             <div class="skill-category-name">Language</div>
             <div class="skill-tags language-row">
-                <span class="skill-tag">Verilog</span>
-                <span class="skill-tag">SystemVerilog</span>
-                <span class="skill-tag">Python</span>
-                <span class="skill-tag">Java</span>
-                <span class="skill-tag">C</span>
+                <div class="skill-tag">Verilog</div>
+                <div class="skill-tag">SystemVerilog</div>
+                <div class="skill-tag">Python</div>
+                <div class="skill-tag">Java</div>
+                <div class="skill-tag">C</div>
             </div>
         </div>
         <div class="skill-row">
