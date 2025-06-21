@@ -366,11 +366,10 @@ skill-row {
     height: 24px;
 }
   
-/* ✅ PC 화면: 한 줄 + 중앙 정렬 */
 .skill-tags.language-row {
   display: flex !important;
-  flex-wrap: nowrap !important;       /* 줄바꿈 방지 */
-  justify-content: center !important; /* 가운데 정렬 */
+  flex-wrap: nowrap !important;
+  justify-content: center !important;
   gap: 10px;
   overflow-x: visible !important;
   white-space: nowrap !important;
@@ -392,11 +391,10 @@ skill-row {
     display: none;
   }
 }
-/* ✅ Tools도 동일하게 하고 싶다면 아래 추가 */
 .skill-tags.tools-row {
   display: flex !important;
   flex-wrap: nowrap !important;
-  justify-content: center !important;
+  justify-content: center !important; /* 이거 빠졌거나 덮였을 가능성 있음 */
   gap: 10px;
   overflow-x: visible !important;
   white-space: nowrap !important;
@@ -408,8 +406,8 @@ skill-row {
 }
 
 .skill-tag {
-  flex-shrink: 0 !important;            /* 줄어들지 않게 */
-  white-space: nowrap !important;       /* 텍스트 한 줄 유지 */
+  flex-shrink: 0 !important;
+  white-space: nowrap !important;
   padding: 6px 12px !important;
   font-size: 14px !important;
 }
