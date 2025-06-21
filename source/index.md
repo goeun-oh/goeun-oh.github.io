@@ -58,6 +58,9 @@ body {
 }
 
 .mdui-toolbar {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1000 !important; /* 다른 요소 위에 표시 */
   background-color: rgba(255, 255, 255, 0.95) !important;
   backdrop-filter: blur(10px) !important;
   border-bottom: 1px solid var(--border) !important;
