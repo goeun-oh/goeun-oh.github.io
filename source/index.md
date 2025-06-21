@@ -382,7 +382,7 @@ body {
 .skill-tags.tools-row {
   display: grid !important;
   grid-template-columns: repeat(auto-fit, minmax(120px, auto)) !important;
-  justify-content: center !important;
+  justify-content: left !important;
   gap: 12px 16px !important;
   padding: 12px 0;
 }
