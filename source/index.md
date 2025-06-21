@@ -392,8 +392,13 @@ body {
   }
 
   .skill-tag {
-    font-size: 13px;
-    padding: 5px 10px;
+    white-space: normal !important;   /* ✅ 줄바꿈 허용 */
+    word-break: break-word !important;/* ✅ 단어 중간에라도 끊어서 줄바꿈 */
+    min-width: 60px !important;       /* ✅ 최소 너비 확보 */
+    max-width: 100% !important;       /* ✅ 너무 커지지 않도록 제한 */
+    text-align: center !important;    /* ✅ 가운데 정렬 */
+    padding: 6px 8px !important;      /* ✅ 내부 여백 조금 줄이기 */
+    box-sizing: border-box;
   }
 }
 
