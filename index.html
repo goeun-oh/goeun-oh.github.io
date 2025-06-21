@@ -41,8 +41,8 @@
 <meta property="og:site_name">
 <meta property="og:description" content="@import url(&#39;https:&#x2F;&#x2F;fonts.googleapis.com&#x2F;css2?family&#x3D;Inter:wght@300;400;500;600;700&amp;family&#x3D;JetBrains+Mono:wght@400;500;600&amp;display&#x3D;swap&#39;);  * {   margin: 0;   padding: 0;   box-sizing: border-box;">
 <meta property="og:locale" content="ko_KR">
-<meta property="article:published_time" content="2025-06-21T06:54:32.895Z">
-<meta property="article:modified_time" content="2025-06-21T06:54:32.895Z">
+<meta property="article:published_time" content="2025-06-21T07:00:42.843Z">
+<meta property="article:modified_time" content="2025-06-21T07:00:42.843Z">
 <meta property="article:author" content="고은">
 <meta property="article:tag" content="개발자, 포트폴리오, 웹개발, 프론트엔드, 백엔드">
 <meta name="twitter:card" content="summary">
@@ -137,7 +137,7 @@
     </div>
     <div class="mdui-card-primary-subtitle mdui-typo">
         
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-21 03:54<br>Updated: 2025-06-21 03:54'}" datetime="2025-06-21T06:54:32.895Z">2025-06-21</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-21 04:00<br>Updated: 2025-06-21 04:00'}" datetime="2025-06-21T07:00:42.843Z">2025-06-21</time>
         <span>-</span>
         
             <span>index.html</span>
@@ -427,18 +427,29 @@ body {
 }
 
 
-        .skills-section {
-            background:rgb(245, 245, 145);
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-            padding-bottom: 100px;  /* 아래쪽만 padding */
-        }
-skill-row {
-  overflow-x: auto !important;
-  display: grid !important;
+.skills-section {
+    background:rgb(245, 245, 145);
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    padding-bottom: 100px;  /* 아래쪽만 padding */
+}
+.skill-category-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2d3748;
 }
 
+.skill-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 40px;
+  padding: 20px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.7);
+}
 
 @media (max-width: 768px) {
     .skills-container {
@@ -505,7 +516,12 @@ skill-row {
     width: 24px;
     height: 24px;
 }
-  
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 12px;
+}
 /* ✅ skill-tags 영역을 grid로 변환 */
 .skill-tags.language-row,
 .skill-tags.tools-row {
@@ -539,14 +555,12 @@ skill-row {
 .skill-tag {
   display: inline-block;
   white-space: nowrap;
-  padding: 8px 14px;
+  padding: 6px 12px;
   font-size: 14px;
+  background: #ccc;
+  border-radius: 16px;
   font-weight: 500;
-  border-radius: 20px;
-  text-align: center;
-  background-color: #ccc; /* 기본 배경. nth-child로 색 덮어씀 */
 }
-
 
 /* Language Skills - 사진과 같은 색상 */
 .language-row .skill-tag:nth-child(1) { background: #4a90e2; } /* Verilog */
