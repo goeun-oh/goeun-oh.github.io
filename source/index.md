@@ -315,9 +315,9 @@ body {
         display: grid !important;
         grid-template-columns: 1fr !important; /* 세로로 쌓기 */
         text-align: center !important;
-        gap: 15px !important;
+        gap: 10px !important;
         margin-bottom: 30px !important;
-        padding: 20px !important;
+        padding: 16px !important;
         background: rgba(255, 255, 255, 0.7) !important;
         border-radius: 12px !important;
     }
@@ -340,7 +340,7 @@ body {
     }
 
     .skill-category-name {
-        font-size: 18px !important;
+        font-size: 16px !important;
         font-weight: 600 !important;
         color: #2d3748 !important;
         margin: 0 !important;
@@ -394,7 +394,7 @@ body {
 
   .skill-tag {
     font-size: 13px;
-    padding: 6px 10px;
+    padding: 5px 10px;
   }
 }
 
