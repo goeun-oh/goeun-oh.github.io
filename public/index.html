@@ -41,8 +41,8 @@
 <meta property="og:site_name">
 <meta property="og:description" content="@import url(&#39;https:&#x2F;&#x2F;fonts.googleapis.com&#x2F;css2?family&#x3D;Inter:wght@300;400;500;600;700&amp;family&#x3D;JetBrains+Mono:wght@400;500;600&amp;display&#x3D;swap&#39;);  * {   margin: 0;   padding: 0;   box-sizing: border-box;">
 <meta property="og:locale" content="ko_KR">
-<meta property="article:published_time" content="2025-06-21T10:04:56.487Z">
-<meta property="article:modified_time" content="2025-06-21T10:04:56.487Z">
+<meta property="article:published_time" content="2025-06-22T11:35:18.289Z">
+<meta property="article:modified_time" content="2025-06-22T11:35:18.289Z">
 <meta property="article:author" content="고은">
 <meta property="article:tag" content="개발자, 포트폴리오, 웹개발, 프론트엔드, 백엔드">
 <meta name="twitter:card" content="summary">
@@ -137,7 +137,7 @@
     </div>
     <div class="mdui-card-primary-subtitle mdui-typo">
         
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-21 07:04<br>Updated: 2025-06-21 07:04'}" datetime="2025-06-21T10:04:56.487Z">2025-06-21</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-22 08:35<br>Updated: 2025-06-22 08:35'}" datetime="2025-06-22T11:35:18.289Z">2025-06-22</time>
         <span>-</span>
         
             <span>index.html</span>
@@ -651,6 +651,272 @@ body {
         max-width: 100% !important;
     }
 }
+
+/* Projects Section Styles */
+.projects-section {
+    background: #f8fafc;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    padding: var(--section-padding) 0;
+}
+
+.filter-section {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.filter-checkbox {
+    margin: 0 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.1rem;
+    color: #2c3e50;
+}
+
+.filter-checkbox input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #ff4081;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+    padding: 0 20px;
+}
+
+.project-card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    border: 1px solid #e0e0e0;
+    position: relative;
+    overflow: hidden;
+    text-align: left;
+}
+
+.project-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #e74c3c, #f39c12);
+}
+
+.project-card:nth-child(2)::before {
+    background: linear-gradient(90deg, #3498db, #2ecc71);
+}
+
+.project-card:nth-child(3)::before {
+    background: linear-gradient(90deg, #9b59b6, #e67e22);
+}
+
+.project-card:nth-child(4)::before {
+    background: linear-gradient(90deg, #1abc9c, #16a085);
+}
+
+.project-card:nth-child(5)::before {
+    background: linear-gradient(90deg, #f1c40f, #e67e22);
+}
+
+.project-card:nth-child(6)::before {
+    background: linear-gradient(90deg, #e74c3c, #c0392b);
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.project-title {
+    background: #e74c3c;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.project-card:nth-child(2) .project-title {
+    background: #ff4081;
+}
+
+.project-card:nth-child(3) .project-title {
+    background: #9b59b6;
+}
+
+.project-card:nth-child(4) .project-title {
+    background: #1abc9c;
+}
+
+.project-card:nth-child(5) .project-title {
+    background: #f1c40f;
+    color: #333;
+}
+
+.project-card:nth-child(6) .project-title {
+    background: #e74c3c;
+}
+
+.project-date {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.project-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin: 15px 0;
+    line-height: 1.4;
+}
+
+.project-description {
+    margin-bottom: 20px;
+}
+
+.project-description ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.project-description li {
+    margin-bottom: 8px;
+    padding-left: 20px;
+    position: relative;
+    color: #555;
+    font-size: 0.95rem;
+}
+
+.project-description li::before {
+    content: "•";
+    color: #ff4081;
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+.project-link {
+    display: inline-block;
+    color: #ff4081;
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    padding: 5px 0;
+    border-bottom: 1px solid transparent;
+    transition: border-bottom-color 0.3s ease;
+}
+
+.project-link:hover {
+    border-bottom-color: #ff4081;
+}
+
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.tech-tag {
+    background: #f8f9fa;
+    color: #495057;
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    border: 1px solid #dee2e6;
+    font-weight: 500;
+}
+
+.project-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: #2c3e50;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #34495e;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: #ecf0f1;
+    color: #2c3e50;
+    border: 1px solid #bdc3c7;
+}
+
+.btn-secondary:hover {
+    background: #d5dbdb;
+    transform: translateY(-2px);
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 0 10px;
+    }
+    
+    .project-card {
+        padding: 20px;
+    }
+    
+    .project-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+    
+    .project-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .btn {
+        justify-content: center;
+        text-align: center;
+    }
+    
+    .tech-stack {
+        justify-content: center;
+    }
+}
 </style>
 
 <!-- Main Content -->
@@ -764,6 +1030,188 @@ body {
         </div>
     </div>
 </section>
+<!-- Projects Section -->
+<section id="projects" class="projects-section">
+    <h2 class="numbered-heading">PROJECTS</h2>
+    
+    <div class="filter-section">
+        <label class="filter-checkbox">
+            <input type="checkbox" id="filter-projects" checked>
+            주요 프로젝트만 보기
+        </label>
+    </div>
+    
+    <div class="projects-grid">
+        <!-- Project 1: react-bulk-form -->
+        <div class="project-card">
+            <div class="project-header">
+                <span class="project-title">react-bulk-form</span>
+                <span class="project-date">2025.03</span>
+            </div>
+            <h3 class="project-name">Form 상태의 일괄 관리를 위한 간단한 React 라이브러리</h3>
+            <div class="project-description">
+                <ul>
+                    <li>Form 필드 간의 요통성 편성 기반의 통합 절차의 일괄 관리</li>
+                    <li>Form 노드 필드 단위의 상태 추적</li>
+                    <li>Form 상태에 따른 컴포넌트 세이별 단계의 부가적인 인터페이스 최소화</li>
+                </ul>
+            </div>
+            <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/react-bulk-form" class="project-link">
+                https://www.npmjs.com/package/react-bulk-form
+            </a>
+            <div class="tech-stack">
+                <span class="tech-tag">TypeScript</span>
+                <span class="tech-tag">React</span>
+            </div>
+            <div class="project-buttons">
+                <a href="#" class="btn btn-primary">📖 README</a>
+            </div>
+        </div>
+
+        <!-- Project 2: IT 엘도라도 블로그 -->
+        <div class="project-card">
+            <div class="project-header">
+                <span class="project-title">IT 엘도라도 (블로그)</span>
+                <span class="project-date">2024.09 (1人 개인 프로젝트)</span>
+            </div>
+            <h3 class="project-name">Notion API/DB와 연동하여 개발한 개인 블로그</h3>
+            <div class="project-description">
+                <ul>
+                    <li>티스토리 블로그에서의 불편함을 해소하고자 직접 개발</li>
+                    <li>별도의 데이터베이스 서버 없이 Notion API/DB와 연동하여 개발</li>
+                    <li>감성 연간 최적화(SEO) 고도화 및 검색 마이그레이션 등의 기능</li>
+                    <li>무한 스크롤, 방문/조회 수 추적, 댓글/좋아요 등의 커뮤니티 기능 개발</li>
+                </ul>
+            </div>
+            <a target="_blank" rel="noopener" href="https://it-eldorado.com" class="project-link">
+                https://it-eldorado.com
+            </a>
+            <div class="tech-stack">
+                <span class="tech-tag">TypeScript</span>
+                <span class="tech-tag">Next.js</span>
+                <span class="tech-tag">Zustand</span>
+                <span class="tech-tag">React-Query</span>
+                <span class="tech-tag">Tailwind CSS</span>
+                <span class="tech-tag">Notion</span>
+                <span class="tech-tag">Vercel</span>
+            </div>
+            <div class="project-buttons">
+                <a href="#" class="btn btn-primary">📖 README</a>
+            </div>
+        </div>
+
+        <!-- Project 3: FOSSLight Hub Lite -->
+        <div class="project-card">
+            <div class="project-header">
+                <span class="project-title">FOSSLight Hub Lite</span>
+                <span class="project-date">2023.09 - 2023.12 (2人 팀 프로젝트)</span>
+            </div>
+            <h3 class="project-name">LG 전자의 FOSSLight Hub 웹사이트를 사용자 기능 중심으로 리모델링한 웹사이트</h3>
+            <div class="project-description">
+                <ul>
+                    <li>LG 전자에서 라이선스 어디 사용자를 위한 간소화 버전의 웹사이트 개발을 요청</li>
+                    <li>기존 FOSSLight Hub 프로젝트의 환경에 특사시 기존 사용자들의 접근성 화면</li>
+                    <li>내부 UI 웹이 리신시 서클 취득 서비스 화 시 자상하들의 안내성 화인</li>
+                    <li>URL 위리 라이터피어 연동하는 정보/빌더 기능 및 모의 발기/단기 기능 구현</li>
+                    <li>전반적인 UI/UX를 새롭게 설계하여 종합적인 사용성 개선</li>
+                </ul>
+            </div>
+            <div class="tech-stack">
+                <span class="tech-tag">TypeScript</span>
+                <span class="tech-tag">Next.js</span>
+                <span class="tech-tag">Recoil</span>
+                <span class="tech-tag">React-Query</span>
+                <span class="tech-tag">React-Hook-Form</span>
+                <span class="tech-tag">Tailwind CSS</span>
+            </div>
+            <div class="project-buttons">
+                <a href="#" class="btn btn-primary">📖 README</a>
+                <a href="#" class="btn btn-secondary">🎥 영상</a>
+            </div>
+        </div>
+
+        <!-- Project 4: 메이플스토리의 아이템이 찾아는 조건으로 경매장에 올리곤을 떼 일일펄을 받어보기 위한 웹사이트 -->
+        <div class="project-card">
+            <div class="project-header">
+                <span class="project-title">메이플 경매장 올리기</span>
+                <span class="project-date">2023.08 - 2023.09 (2人 팀 프로젝트)</span>
+            </div>
+            <h3 class="project-name">메이플스토리의 아이템이 찾아는 조건으로 경매장에 올리곤을 떼 일일펄을 받아보기 위한 웹사이트</h3>
+            <div class="project-description">
+                <ul>
+                    <li>메이플스토리 특정 아이템의 확정적인 아이템이 찾아하여 개발</li>
+                    <li>Nexus의 React 18 기반의 Next.js 13 업을 및 측위</li>
+                    <li>React-Query, React-Hook-Form을 활용하여 API 요청 및 입력 폼 처리</li>
+                    <li>Next.js 서버를 리페삼 프밗시를 활용하여 IP 노출 및 CORS 문제 해결</li>
+                </ul>
+            </div>
+            <a target="_blank" rel="noopener" href="https://maplealimi.com" class="project-link">
+                https://maplealimi.com
+            </a>
+            <div class="tech-stack">
+                <span class="tech-tag">TypeScript</span>
+                <span class="tech-tag">Next.js</span>
+                <span class="tech-tag">Recoil</span>
+                <span class="tech-tag">React-Query</span>
+                <span class="tech-tag">React-Hook-Form</span>
+                <span class="tech-tag">Sass</span>
+                <span class="tech-tag">Tailwind CSS</span>
+                <span class="tech-tag">Vercel</span>
+            </div>
+            <div class="project-buttons">
+                <a href="#" class="btn btn-primary">📖 README</a>
+                <a href="#" class="btn btn-secondary">🖥 이미지</a>
+            </div>
+        </div>
+
+        <!-- Project 5: 우는 노래 부우자? -->
+        <div class="project-card">
+            <div class="project-header">
+                <span class="project-title">우는 노래 부우자?</span>
+                <span class="project-date">2022.10 (1人 개인 프로젝트)</span>
+            </div>
+            <h3 class="project-name">ㄴ괄퇴을 즐기는 사람이 고종 부르면 노괘를 러반찮게 관리하는 사이트</h3>
+            <div class="project-description">
+                <ul>
+                    <li>• 노래방에서 과려서 어떤 노래를 부를지 고민하는 사람들을 위한 서비스</li>
+                    <li>• 남/여 기준시 연평곞 서치인 API 화이니딩롲적 아리솮니 프러닛</li>
+                    <li>• 위밀여 모적 흰 노래와 활용된 ㅋ구분 체계와 체분법현대학명 시스토리 일어반다</li>
+                </ul>
+            </div>
+            <div class="tech-stack">
+                <span class="tech-tag">HTML</span>
+                <span class="tech-tag">CSS</span>
+                <span class="tech-tag">JavaScript</span>
+            </div>
+            <div class="project-buttons">
+                <a href="#" class="btn btn-primary">📖 README</a>
+            </div>
+        </div>
+
+        <!-- Project 6: 독특하게 사랑하기 (React-Native) -->
+        <div class="project-card">
+            <div class="project-header">
+                <span class="project-title">독특하게 사랑하기 (React-Native)</span>
+                <span class="project-date">2022.02 (1人 개인 프로젝트)</span>
+            </div>
+            <h3 class="project-name">분장한 시행 사용한 노그 능구에 연네울 비니저 정시 개선행들프</h3>
+            <div class="project-description">
+                <ul>
+                    <li>분장한 시행 사용한 노그 능구에 연네울 비니저 정시 개선행들프</li>
+                    <li>React Nitve 기반의 모바일 펍플쇭 결화</li>
+                    <li>노규 접 받다 무드파트 관벅 관점과 감정을 더해 있는 성능 최적화</li>
+                </ul>
+            </div>
+            <div class="tech-stack">
+                <span class="tech-tag">React-Native</span>
+                <span class="tech-tag">JavaScript</span>
+            </div>
+            <div class="project-buttons">
+                <a href="#" class="btn btn-primary">📖 README</a>
+            </div>
+        </div>
+    </div>
+</section>
 
 <script>
 // 페이지 로드 후 네비게이션 메뉴 동적 추가
@@ -865,6 +1313,29 @@ window.addEventListener('scroll', function() {
       item.classList.add('active');
     }
   });
+});
+
+// 프로젝트 필터 기능
+document.addEventListener('DOMContentLoaded', function() {
+    const filterCheckbox = document.getElementById('filter-projects');
+    const projectCards = document.querySelectorAll('.project-card');
+    
+    if (filterCheckbox) {
+        filterCheckbox.addEventListener('change', function() {
+            projectCards.forEach((card, index) => {
+                if (this.checked) {
+                    // 주요 프로젝트만 보기 (처음 4개만 표시)
+                    card.style.display = index < 4 ? 'block' : 'none';
+                } else {
+                    // 모든 프로젝트 보기
+                    card.style.display = 'block';
+                }
+            });
+        });
+        
+        // 초기값 설정
+        filterCheckbox.dispatchEvent(new Event('change'));
+    }
 });
 </script>
 
