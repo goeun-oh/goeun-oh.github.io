@@ -885,14 +885,12 @@ body {
 <!-- Projects Section -->
 <section id="projects" class="projects-section">
     <h2 class="numbered-heading">PROJECTS</h2>
-    
     <div class="filter-section">
         <label class="filter-checkbox">
             <input type="checkbox" id="filter-projects" checked>
             주요 프로젝트만 보기
         </label>
     </div>
-    
     <div class="projects-grid">
         <!-- Project 1: react-bulk-form -->
         <div class="project-card">
@@ -908,9 +906,6 @@ body {
                     <li>Form 상태에 따른 컴포넌트 세이별 단계의 부가적인 인터페이스 최소화</li>
                 </ul>
             </div>
-            <a href="https://www.npmjs.com/package/react-bulk-form" class="project-link">
-                https://www.npmjs.com/package/react-bulk-form
-            </a>
             <div class="tech-stack">
                 <span class="tech-tag">TypeScript</span>
                 <span class="tech-tag">React</span>
@@ -919,7 +914,6 @@ body {
                 <a href="#" class="btn btn-primary">📖 README</a>
             </div>
         </div>
-
         <!-- Project 2: IT 엘도라도 블로그 -->
         <div class="project-card">
             <div class="project-header">
@@ -935,9 +929,6 @@ body {
                     <li>무한 스크롤, 방문/조회 수 추적, 댓글/좋아요 등의 커뮤니티 기능 개발</li>
                 </ul>
             </div>
-            <a href="https://it-eldorado.com" class="project-link">
-                https://it-eldorado.com
-            </a>
             <div class="tech-stack">
                 <span class="tech-tag">TypeScript</span>
                 <span class="tech-tag">Next.js</span>
@@ -951,7 +942,6 @@ body {
                 <a href="#" class="btn btn-primary">📖 README</a>
             </div>
         </div>
-
         <!-- Project 3: FOSSLight Hub Lite -->
         <div class="project-card">
             <div class="project-header">
@@ -981,7 +971,6 @@ body {
                 <a href="#" class="btn btn-secondary">🎥 영상</a>
             </div>
         </div>
-
         <!-- Project 4: 메이플스토리의 아이템이 찾아는 조건으로 경매장에 올리곤을 떼 일일펄을 받어보기 위한 웹사이트 -->
         <div class="project-card">
             <div class="project-header">
@@ -997,9 +986,6 @@ body {
                     <li>Next.js 서버를 리페삼 프밗시를 활용하여 IP 노출 및 CORS 문제 해결</li>
                 </ul>
             </div>
-            <a href="https://maplealimi.com" class="project-link">
-                https://maplealimi.com
-            </a>
             <div class="tech-stack">
                 <span class="tech-tag">TypeScript</span>
                 <span class="tech-tag">Next.js</span>
