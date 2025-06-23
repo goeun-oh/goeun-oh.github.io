@@ -32,20 +32,29 @@
     
 </style>
     
-    <title>포트폴리오 | </title>
-    <link rel="canonical" href="https://www.goeun-oh.com/portfolio/">
-    <meta name="description" content="# 🚀 개발자 고은의 포트폴리오  안녕하세요! 끊임없이 배우고 성장하는 개발자 **고은**입니다.  ## 💻 기술 스택  ### Frontend - **HTML5** &#x2F; **CSS3** &#x2F; **JavaScript (ES6+)** - **React.js** - 컴포넌트 기반 사용자 인터페이스 구축 - **Vue.js** - 반응형 웹 애플리케이션 개발">
-<meta property="og:type" content="website">
-<meta property="og:title" content="포트폴리오">
-<meta property="og:url" content="https://www.goeun-oh.com/portfolio/index.html">
+    <title>6. SW Stack과 모듈화 | </title>
+    <link rel="canonical" href="https://www.goeun-oh.com/2025/06/23/cortex-m-software-stack/">
+    <meta name="description" content="SW Stack과 모듈화이번 포스트에서는 ARM 레포지토리에서 실제로 다룬 SW Stack 개념과 폴더 분리를 통한 모듈화 방법을 알아본다. 📁 폴더 분리의 필요성GPIO 관련 기능 분리기존에 main.c에 모든 코드가 집중되어 있던 것을 GPIO 관련된 기능들을 따로 분리한다. 분리 전 문제점:  모든 코드가 main.c에 집중 기능별 구분이 어려움 재">
+<meta property="og:type" content="article">
+<meta property="og:title" content="6. SW Stack과 모듈화">
+<meta property="og:url" content="https://www.goeun-oh.com/2025/06/23/cortex-m-software-stack/index.html">
 <meta property="og:site_name">
-<meta property="og:description" content="# 🚀 개발자 고은의 포트폴리오  안녕하세요! 끊임없이 배우고 성장하는 개발자 **고은**입니다.  ## 💻 기술 스택  ### Frontend - **HTML5** &#x2F; **CSS3** &#x2F; **JavaScript (ES6+)** - **React.js** - 컴포넌트 기반 사용자 인터페이스 구축 - **Vue.js** - 반응형 웹 애플리케이션 개발">
+<meta property="og:description" content="SW Stack과 모듈화이번 포스트에서는 ARM 레포지토리에서 실제로 다룬 SW Stack 개념과 폴더 분리를 통한 모듈화 방법을 알아본다. 📁 폴더 분리의 필요성GPIO 관련 기능 분리기존에 main.c에 모든 코드가 집중되어 있던 것을 GPIO 관련된 기능들을 따로 분리한다. 분리 전 문제점:  모든 코드가 main.c에 집중 기능별 구분이 어려움 재">
 <meta property="og:locale" content="ko_KR">
-<meta property="article:published_time" content="2024-01-20T01:00:00.000Z">
-<meta property="article:modified_time" content="2025-06-17T14:33:05.684Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/goeun-oh/ARM/main/0619/0.GPIO_BTN_%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0.md%7B237EF5FA-4218-4683-8031-73F87911D2AB%7D.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/goeun-oh/ARM/main/0619/0.GPIO_BTN_%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0.md%7BC210C9A6-E664-471B-8447-DBD93432D92B%7D.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/goeun-oh/ARM/main/0619/0.GPIO_BTN_%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0.mdimage-1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/goeun-oh/ARM/main/0619/0.GPIO_BTN_%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0.mdimage.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/goeun-oh/ARM/main/0619/0.GPIO_BTN_%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0.md%7B7AD34572-2C74-4F83-A793-2E73188AF847%7D.png">
+<meta property="article:published_time" content="2025-06-22T15:00:00.000Z">
+<meta property="article:modified_time" content="2025-06-23T12:10:07.767Z">
 <meta property="article:author" content="고은">
-<meta property="article:tag" content="하드웨어 개발자, Verilog, RISC-V, Cortex-M, AXI4, FPGA, 임베디드, 포트폴리오">
+<meta property="article:tag" content="모듈화">
+<meta property="article:tag" content="SW Stack">
+<meta property="article:tag" content="폴더분리">
+<meta property="article:tag" content="계층구조">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/goeun-oh/ARM/main/0619/0.GPIO_BTN_%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0.md%7B237EF5FA-4218-4683-8031-73F87911D2AB%7D.png">
 <meta name="generator" content="Hexo 7.3.0"></head>
 <body class="mdui-theme-primary-indigo mdui-theme-accent-pink mdui-appbar-with-toolbar ">
     <div class="mdui-theme-layout-light">
@@ -386,22 +395,25 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
     </div>
     <div class="mdui-container-fluid mdui-center" style="max-width:1200px">
-        
-<article class="h-entry mdui-card mdui-hoverable mdui-shadow-1 mdui-m-y-2" style="opacity: 1; border-radius: 4px"
+        <article class="h-entry mdui-card mdui-hoverable mdui-shadow-1 mdui-m-y-2" style="opacity: 1; border-radius: 4px"
 >
     
     <div class="mdui-card-primary mdui-ripple">
     <div class="mdui-card-primary-title">
-        <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" >포트폴리오</a>
+        <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" >6. SW Stack과 모듈화</a>
         <a class="p-author h-card" style="display:none" href="https://www.goeun-oh.com">고은</a>
+        
+        <small> <a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/">Cortex-M</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/ARM/">ARM</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/ARM/Embedded/">Embedded</a></small>
         
     </div>
     <div class="mdui-card-primary-subtitle mdui-typo">
         
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2024-01-20 10:00<br>Updated: 2025-06-17 11:33'}" datetime="2024-01-20T01:00:00.000Z">2024-01-20</time>
+        <span><a class="tag-none-link" href="/tags/SW-Stack/" rel="tag">SW Stack</a> <a class="tag-none-link" href="/tags/%EA%B3%84%EC%B8%B5%EA%B5%AC%EC%A1%B0/" rel="tag">계층구조</a> <a class="tag-none-link" href="/tags/%EB%AA%A8%EB%93%88%ED%99%94/" rel="tag">모듈화</a> <a class="tag-none-link" href="/tags/%ED%8F%B4%EB%8D%94%EB%B6%84%EB%A6%AC/" rel="tag">폴더분리</a></span>
+        <span>-</span>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 09:10'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
-            <span>portfolio/index.html</span>
+            <span>2025/06/23/cortex-m-software-stack/</span>
         
     </div>
 </div>
@@ -411,468 +423,121 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="mdui-card-content mdui-typo">
         
         <div class="p-summary" style="display:none"></div>
-        <main class="e-content">
-# 🚀 개발자 고은의 포트폴리오
-
-안녕하세요! 끊임없이 배우고 성장하는 개발자 **고은**입니다.
-
-## 💻 기술 스택
-
-### Frontend
-- **HTML5** / **CSS3** / **JavaScript (ES6+)**
-- **React.js** - 컴포넌트 기반 사용자 인터페이스 구축
-- **Vue.js** - 반응형 웹 애플리케이션 개발
-- **TypeScript** - 타입 안전성을 위한 정적 타이핑
-
-### Backend
-- **Node.js** / **Express.js** - 서버 사이드 개발
-- **Python** / **Django** - 웹 프레임워크
-- **RESTful API** 설계 및 구현
-
-### Database
-- **MongoDB** - NoSQL 데이터베이스
-- **MySQL** / **PostgreSQL** - 관계형 데이터베이스
-
-### Tools & Others
-- **Git** / **GitHub** - 버전 관리
-- **Docker** - 컨테이너화
-- **AWS** - 클라우드 서비스
-- **VS Code** - 개발 환경
-
----
-
-## 🎯 프로젝트 포트폴리오
-
-<style>
-.projects-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 30px;
-  margin: 40px 0;
-}
-
-.project-card {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 30px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.project-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
-  border-color: #3182ce;
-}
-
-.project-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-.project-card.react::before {
-  background: linear-gradient(135deg, #61dafb 0%, #21759b 100%);
-}
-
-.project-card.blog::before {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-.project-card.future::before {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-}
-
-.project-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.project-icon {
-  font-size: 2.5rem;
-  margin-right: 15px;
-}
-
-.project-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #2d3748;
-  margin: 0;
-}
-
-.project-subtitle {
-  color: #718096;
-  font-size: 0.9rem;
-  margin: 5px 0 0 0;
-}
-
-.project-description {
-  color: #4a5568;
-  line-height: 1.6;
-  margin: 20px 0;
-  font-size: 1rem;
-}
-
-.tech-stack {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 20px 0;
-}
-
-.tech-tag {
-  background: #edf2f7;
-  color: #4a5568;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 500;
-  border: 1px solid #e2e8f0;
-}
-
-.tech-tag.react {
-  background: #e6fffa;
-  color: #065f46;
-  border-color: #a7f3d0;
-}
-
-.tech-tag.web {
-  background: #fef5e7;
-  color: #92400e;
-  border-color: #fbbf24;
-}
-
-.tech-tag.tools {
-  background: #f0f9ff;
-  color: #1e40af;
-  border-color: #93c5fd;
-}
-
-.project-features {
-  margin: 20px 0;
-}
-
-.features-list {
-  list-style: none;
-  padding: 0;
-  margin: 10px 0;
-}
-
-.features-list li {
-  color: #4a5568;
-  margin: 8px 0;
-  padding-left: 20px;
-  position: relative;
-  font-size: 0.9rem;
-}
-
-.features-list li::before {
-  content: '✓';
-  position: absolute;
-  left: 0;
-  color: #38a169;
-  font-weight: bold;
-}
-
-.project-actions {
-  display: flex;
-  gap: 15px;
-  margin-top: 25px;
-  padding-top: 20px;
-  border-top: 1px solid #e2e8f0;
-}
-
-.btn {
-  padding: 12px 20px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.9rem;
-  transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  border: none;
-  cursor: pointer;
-}
-
-.btn-primary {
-  background: #3182ce;
-  color: white;
-}
-
-.btn-primary:hover {
-  background: #2c5282;
-  transform: translateY(-2px);
-}
-
-.btn-secondary {
-  background: transparent;
-  color: #3182ce;
-  border: 2px solid #3182ce;
-}
-
-.btn-secondary:hover {
-  background: #3182ce;
-  color: white;
-}
-
-.btn-disabled {
-  background: #e2e8f0;
-  color: #a0aec0;
-  cursor: not-allowed;
-}
-
-.btn-disabled:hover {
-  transform: none;
-}
-
-.project-status {
-  display: inline-block;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 15px;
-}
-
-.status-completed {
-  background: #c6f6d5;
-  color: #22543d;
-}
-
-.status-ongoing {
-  background: #bee3f8;
-  color: #2a4365;
-}
-
-.status-planned {
-  background: #fed7d7;
-  color: #742a2a;
-}
-
-@media (max-width: 768px) {
-  .projects-container {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  
-  .project-actions {
-    flex-direction: column;
-  }
-  
-  .btn {
-    text-align: center;
-    justify-content: center;
-  }
-}
-</style>
-
-<div class="projects-container">
-
-<!-- React Todo App Project -->
-<div class="project-card react">
-  <div class="project-status status-completed">완료</div>
-  <div class="project-header">
-    <div class="project-icon">⚛️</div>
-    <div>
-      <h3 class="project-title">React Todo App</h3>
-      <p class="project-subtitle">할일 관리 애플리케이션</p>
-    </div>
-  </div>
-  
-  <p class="project-description">
-    React를 활용한 첫 번째 프로젝트로, 컴포넌트 기반 개발과 상태 관리의 기초를 학습했습니다. 
-    사용자 친화적인 인터페이스로 할일을 효율적으로 관리할 수 있습니다.
-  </p>
-  
-  <div class="tech-stack">
-    <span class="tech-tag react">React</span>
-    <span class="tech-tag web">JavaScript</span>
-    <span class="tech-tag web">CSS3</span>
-    <span class="tech-tag tools">Local Storage</span>
-  </div>
-  
-  <div class="project-features">
-    <strong>주요 기능:</strong>
-    <ul class="features-list">
-      <li>할일 추가, 수정, 삭제</li>
-      <li>완료/미완료 상태 토글</li>
-      <li>필터링 (전체/활성/완료)</li>
-      <li>데이터 영속성</li>
-      <li>반응형 디자인</li>
-    </ul>
-  </div>
-  
-  <div class="project-actions">
-    <a href="/projects/#react-todo-app" class="btn btn-primary">
-      📋 상세보기
-    </a>
-    <a href="https://github.com/goeun-oh" class="btn btn-secondary" target="_blank">
-      💻 GitHub
-    </a>
-  </div>
-</div>
-
-<!-- Portfolio Blog Project -->
-<div class="project-card blog">
-  <div class="project-status status-ongoing">진행중</div>
-  <div class="project-header">
-    <div class="project-icon">📝</div>
-    <div>
-      <h3 class="project-title">개인 포트폴리오 블로그</h3>
-      <p class="project-subtitle">정적 사이트 기반 포트폴리오</p>
-    </div>
-  </div>
-  
-  <p class="project-description">
-    Hexo 정적 사이트 생성기를 활용하여 구축한 개인 포트폴리오 및 기술 블로그입니다. 
-    개발 경험과 학습 내용을 체계적으로 정리하고 공유합니다.
-  </p>
-  
-  <div class="tech-stack">
-    <span class="tech-tag tools">Hexo</span>
-    <span class="tech-tag web">Markdown</span>
-    <span class="tech-tag tools">GitHub Pages</span>
-    <span class="tech-tag web">YAML</span>
-  </div>
-  
-  <div class="project-features">
-    <strong>주요 특징:</strong>
-    <ul class="features-list">
-      <li>SEO 최적화</li>
-      <li>자동 배포 시스템</li>
-      <li>모바일 최적화</li>
-      <li>태그 및 카테고리 분류</li>
-      <li>빠른 로딩 속도</li>
-    </ul>
-  </div>
-  
-  <div class="project-actions">
-    <a href="/projects/#portfolio-blog" class="btn btn-primary">
-      📋 상세보기
-    </a>
-    <a href="https://goeun-oh.github.io" class="btn btn-secondary" target="_blank">
-      🌐 사이트 보기
-    </a>
-  </div>
-</div>
-
-<!-- Future Project -->
-<div class="project-card future">
-  <div class="project-status status-planned">계획중</div>
-  <div class="project-header">
-    <div class="project-icon">🚀</div>
-    <div>
-      <h3 class="project-title">풀스택 웹 애플리케이션</h3>
-      <p class="project-subtitle">사용자 관리 시스템</p>
-    </div>
-  </div>
-  
-  <p class="project-description">
-    React와 Node.js를 활용한 풀스택 웹 애플리케이션 개발 프로젝트입니다. 
-    백엔드 개발과 데이터베이스 연동 경험을 쌓을 예정입니다.
-  </p>
-  
-  <div class="tech-stack">
-    <span class="tech-tag react">React</span>
-    <span class="tech-tag web">Node.js</span>
-    <span class="tech-tag tools">Express</span>
-    <span class="tech-tag tools">MongoDB</span>
-  </div>
-  
-  <div class="project-features">
-    <strong>계획된 기능:</strong>
-    <ul class="features-list">
-      <li>사용자 인증 시스템</li>
-      <li>RESTful API 설계</li>
-      <li>실시간 기능 구현</li>
-      <li>데이터베이스 연동</li>
-      <li>관리자 대시보드</li>
-    </ul>
-  </div>
-  
-  <div class="project-actions">
-    <a href="/projects/#fullstack-project" class="btn btn-disabled">
-      🔮 개발 예정
-    </a>
-    <a href="#" class="btn btn-disabled">
-      💻 준비중
-    </a>
-  </div>
-</div>
-
-</div>
-
----
-
-## 🌱 현재 학습 중
-
-- **Next.js** - React 기반 풀스택 프레임워크
-- **GraphQL** - API 쿼리 언어
-- **Kubernetes** - 컨테이너 오케스트레이션
-- **Machine Learning** - 인공지능 기초
-
-## 📈 개발 철학
-
-**지속적인 학습과 성장**을 추구합니다. 새로운 기술을 배우는 것을 두려워하지 않으며, 실패를 통해 더 나은 개발자가 되고자 합니다.
-
-**사용자 중심 개발**을 지향합니다. 기술적 완성도뿐만 아니라 사용자 경험과 접근성을 고려한 개발을 중요하게 생각합니다.
-
-**협업과 소통**을 중시합니다. 코드 리뷰와 문서화를 통해 팀과 함께 성장하는 개발자가 되고자 합니다.
-
-## 🏆 성취 및 목표
-
-### 2024년 성취
-- ✅ React 기초 마스터
-- ✅ 첫 번째 개인 프로젝트 완성
-- ✅ 포트폴리오 사이트 구축
-- ✅ Git/GitHub 워크플로우 습득
-
-### 2025년 목표
-- 🎯 풀스택 개발 역량 구축
-- 🎯 팀 프로젝트 참여
-- 🎯 오픈소스 기여
-- 🎯 기술 블로그 꾸준한 포스팅
-
-## 📞 다음 단계는?
-
-새로운 프로젝트나 협업 기회에 대해 이야기하고 싶으시다면 언제든 연락해주세요. 
-항상 흥미로운 프로젝트와 새로운 기회에 열려있습니다.
-
-## 📫 연락처
-
-- **Email**: your.email@example.com
-- **GitHub**: [github.com/goeun-oh](https://github.com/goeun-oh)
-- **LinkedIn**: 추후 업데이트 예정
-- **Blog**: [goeun-oh.github.io](https://goeun-oh.github.io)
-
----
-
-*"코드로 세상을 더 나은 곳으로 만들고 싶습니다."*
-
-## 📚 추가 정보
-
-- 🗂️ **[전체 프로젝트 보기](/projects/)** - 모든 프로젝트의 상세 정보
-- 📝 **[기술 블로그](/blog/)** - 개발 관련 학습 내용과 경험 공유
-- 👨‍💻 **[About Me](/about/)** - 개발자로서의 여정과 가치관
-
+        <main class="e-content"><h1 id="SW-Stack과-모듈화"><a href="#SW-Stack과-모듈화" class="headerlink" title="SW Stack과 모듈화"></a>SW Stack과 모듈화</h1><p>이번 포스트에서는 ARM 레포지토리에서 실제로 다룬 SW Stack 개념과 폴더 분리를 통한 모듈화 방법을 알아본다.</p>
+<h2 id="📁-폴더-분리의-필요성"><a href="#📁-폴더-분리의-필요성" class="headerlink" title="📁 폴더 분리의 필요성"></a>📁 폴더 분리의 필요성</h2><h3 id="GPIO-관련-기능-분리"><a href="#GPIO-관련-기능-분리" class="headerlink" title="GPIO 관련 기능 분리"></a>GPIO 관련 기능 분리</h3><p>기존에 main.c에 모든 코드가 집중되어 있던 것을 GPIO 관련된 기능들을 따로 분리한다.</p>
+<p><strong>분리 전 문제점:</strong></p>
+<ul>
+<li>모든 코드가 main.c에 집중</li>
+<li>기능별 구분이 어려움</li>
+<li>재사용성 낮음</li>
+<li>유지보수 어려움</li>
+</ul>
+<p><strong>분리 후 장점:</strong></p>
+<ul>
+<li>기능별 명확한 구분</li>
+<li>코드 재사용 가능</li>
+<li>유지보수 용이</li>
+<li>협업 효율성 향상</li>
+</ul>
+<h2 id="🏗️-SW-Stack-개념"><a href="#🏗️-SW-Stack-개념" class="headerlink" title="🏗️ SW Stack 개념"></a>🏗️ SW Stack 개념</h2><h3 id="SW의-흐름과-계층-구조"><a href="#SW의-흐름과-계층-구조" class="headerlink" title="SW의 흐름과 계층 구조"></a>SW의 흐름과 계층 구조</h3><p>SW의 흐름은 위에서 아래로 진행된다. SW가 HW를 제어하는 계층적 구조다.</p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0619/0.GPIO_BTN_%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0.md%7B237EF5FA-4218-4683-8031-73F87911D2AB%7D.png" alt="SW Stack 구조"class="mdui-img-rounded" loading="lazy"></figure>
+<h3 id="SW-Stack-구조도"><a href="#SW-Stack-구조도" class="headerlink" title="SW Stack 구조도"></a>SW Stack 구조도</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">+------------------------+</span><br><span class="line">|         SW            |</span><br><span class="line">|  +-----------------+  |</span><br><span class="line">|  |     main        |  |  ← System 초기화, Application 실행</span><br><span class="line">|  |  +-----------+  |  |</span><br><span class="line">|  |  |Application|  |  |  ← 비즈니스 로직 처리</span><br><span class="line">|  |  +-----------+  |  |</span><br><span class="line">|  |  |  Driver   |  |  |  ← 하드웨어 추상화 계층</span><br><span class="line">|  |  +-----------+  |  |</span><br><span class="line">|  |  | Interface |  |  |  ← 하드웨어 직접 제어</span><br><span class="line">|  |  +-----------+  |  |</span><br><span class="line">|  +-----------------+  |</span><br><span class="line">+------------------------+</span><br><span class="line">+------------------------+</span><br><span class="line">|         HW            |  ← 실제 하드웨어</span><br><span class="line">+------------------------+</span><br></pre></td></tr></table></figure>
+
+<h3 id="각-계층의-역할"><a href="#각-계층의-역할" class="headerlink" title="각 계층의 역할"></a>각 계층의 역할</h3><p><strong>main 계층:</strong></p>
+<ul>
+<li><code>system</code> 초기화</li>
+<li><code>application</code> 실행 기능 외에는 고려하지 않는다</li>
+</ul>
+<p><strong>Application 계층:</strong></p>
+<ul>
+<li>실제 애플리케이션 로직 구현</li>
+<li>비즈니스 요구사항 처리</li>
+</ul>
+<p><strong>Driver 계층:</strong></p>
+<ul>
+<li>하드웨어 추상화</li>
+<li>재사용 가능한 기능 제공</li>
+</ul>
+<p><strong>Interface 계층:</strong></p>
+<ul>
+<li>하드웨어 직접 제어</li>
+<li>레지스터 수준 접근</li>
+</ul>
+<h2 id="🚫-잘못된-접근-방식"><a href="#🚫-잘못된-접근-방식" class="headerlink" title="🚫 잘못된 접근 방식"></a>🚫 잘못된 접근 방식</h2><h3 id="Application에서-Interface-직접-접근-문제"><a href="#Application에서-Interface-직접-접근-문제" class="headerlink" title="Application에서 Interface 직접 접근 문제"></a>Application에서 Interface 직접 접근 문제</h3><p>Application에서 바로 GPIO(Interface)로 접근하는 것은 지양해야 한다.</p>
+<p><strong>문제점:</strong></p>
+<ul>
+<li>GPIO는 하드웨어에 가까운 부분이기 때문에, Application에서 직접 접근하는 것은 좋지 않다</li>
+<li>단지 Driver만 수정하면 되는 것이 Interface까지 수정해야 되어 번거로워진다</li>
+</ul>
+<h3 id="네트워크-스택-예시"><a href="#네트워크-스택-예시" class="headerlink" title="네트워크 스택 예시"></a>네트워크 스택 예시</h3><p>인터넷의 ‘software stack’에서도 동일한 원칙이 적용된다.</p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0619/0.GPIO_BTN_%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0.md%7BC210C9A6-E664-471B-8447-DBD93432D92B%7D.png" alt="네트워크 스택 예시"class="mdui-img-rounded" loading="lazy"></figure>
+<p>Application에서 바로 MAC이나 PHY에 접근하지 않는다.</p>
+<h2 id="💡-올바른-설계-원칙"><a href="#💡-올바른-설계-원칙" class="headerlink" title="💡 올바른 설계 원칙"></a>💡 올바른 설계 원칙</h2><h3 id="인접한-Layer를-통한-통신"><a href="#인접한-Layer를-통한-통신" class="headerlink" title="인접한 Layer를 통한 통신"></a>인접한 Layer를 통한 통신</h3><p><strong>핵심 원칙:</strong> Application에서 인접한 Layer는 Driver다.</p>
+<p><strong>인접한 Layer를 통해 메시지를 송수신해야 한다</strong></p>
+<p>이렇게 만들어야 재사용성이 좋다.</p>
+<h2 id="🔧-실제-적용-GPIO-버튼-추가"><a href="#🔧-실제-적용-GPIO-버튼-추가" class="headerlink" title="🔧 실제 적용: GPIO 버튼 추가"></a>🔧 실제 적용: GPIO 버튼 추가</h2><h3 id="기존-문제상황"><a href="#기존-문제상황" class="headerlink" title="기존 문제상황"></a>기존 문제상황</h3><p>기존의 LED Shifter 기능에서 BTN 기능을 추가하여 BTN을 누르면 LED가 반대 방향으로 SHIFT 하도록 하려고 했다.</p>
+<p>하지만 기존에 구현했던 것은 버튼을 누르고 있을 때 LED가 멈추는 문제가 있었다.</p>
+<h3 id="BTN-기능-추가를-위한-SW-Stack"><a href="#BTN-기능-추가를-위한-SW-Stack" class="headerlink" title="BTN 기능 추가를 위한 SW Stack"></a>BTN 기능 추가를 위한 SW Stack</h3><figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0619/0.GPIO_BTN_%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0.mdimage-1.png" alt="BTN 기능 SW Stack"class="mdui-img-rounded" loading="lazy"></figure>
+<h3 id="ap-main-계층-추가"><a href="#ap-main-계층-추가" class="headerlink" title="ap_main 계층 추가"></a>ap_main 계층 추가</h3><p><code>ap_main</code>을 만들어서 SW Stack Layer를 하나 더 추가한다.</p>
+<p><code>main.c</code>의 기능:</p>
+<ul>
+<li><code>system</code> 초기화</li>
+<li><code>application</code> 실행 기능 외에는 고려하지 않는다</li>
+</ul>
+<h2 id="🔘-버튼-하드웨어-이해"><a href="#🔘-버튼-하드웨어-이해" class="headerlink" title="🔘 버튼 하드웨어 이해"></a>🔘 버튼 하드웨어 이해</h2><h3 id="BTN-Push-Switch-Tact-Switch-분석"><a href="#BTN-Push-Switch-Tact-Switch-분석" class="headerlink" title="BTN(Push Switch, Tact Switch) 분석"></a>BTN(Push Switch, Tact Switch) 분석</h3><p>Schematic으로 우리가 가진 BTN이 HW적으로 어떤 형태인지 알 수 있다.</p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0619/0.GPIO_BTN_%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0.mdimage.png" alt="버튼 회로도"class="mdui-img-rounded" loading="lazy"></figure>
+<p>BTN이 Pullup 되어있다:</p>
+<ul>
+<li>BTN이 눌리지 않은 상태: <code>3.3V</code> (HIGH)</li>
+<li>BTN이 눌린 상태: <code>0V</code> (LOW)</li>
+</ul>
+<h3 id="Chattering-Bounce-현상"><a href="#Chattering-Bounce-현상" class="headerlink" title="Chattering(Bounce) 현상"></a>Chattering(Bounce) 현상</h3><p>이상적으로 0 또는 1로 변화하면 완벽하지만 노이즈가 껴서 Chattering(Bounce) 현상이 발생한다.</p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0619/0.GPIO_BTN_%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0.md%7B7AD34572-2C74-4F83-A793-2E73188AF847%7D.png" alt="Chattering 현상"class="mdui-img-rounded" loading="lazy"></figure>
+<p>이러한 Noise 또한 고려하면서 코드를 짜야한다. (debounce 코드를 작성해야한다)</p>
+<h2 id="🔍-버튼-상태-감지-구현"><a href="#🔍-버튼-상태-감지-구현" class="headerlink" title="🔍 버튼 상태 감지 구현"></a>🔍 버튼 상태 감지 구현</h2><h3 id="버튼-상태-정의"><a href="#버튼-상태-정의" class="headerlink" title="버튼 상태 정의"></a>버튼 상태 정의</h3><p><strong>BTN의 상태:</strong></p>
+<ol>
+<li>Button Normal 상태: RELEASED(<code>1</code>) 상태</li>
+<li>Button Push: PUSHED(<code>0</code>) 상태</li>
+</ol>
+<h3 id="GPIO-READ-함수-구현"><a href="#GPIO-READ-함수-구현" class="headerlink" title="GPIO READ 함수 구현"></a>GPIO READ 함수 구현</h3><p>버튼의 상태를 받고 싶다. <code>Button_GetState()</code>: 버튼의 상태를 받아오는 함수</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">uint32_t</span> <span class="title function_">GPIO_ReadPin</span><span class="params">(GPIO_TypeDef *GPIOx, <span class="type">uint32_t</span> pinNum)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ((GPIOx -&gt; IDR &amp; (<span class="number">1U</span> &lt;&lt; pinNum))? <span class="number">1</span>:<span class="number">0</span>); <span class="comment">//0이면 0이나가고, 0이 아닌 값이면 1이나간다</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Button-Get-State-함수"><a href="#Button-Get-State-함수" class="headerlink" title="Button Get State 함수"></a>Button Get State 함수</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">button_state_t</span> <span class="title function_">Button_GetState</span><span class="params">()</span>&#123;</span><br><span class="line"> <span class="type">static</span> <span class="type">uint32_t</span> prevState = RELEASED; <span class="comment">//전원을 처음에 넣으면 초기값이 HIGH</span></span><br><span class="line"> <span class="type">uint32_t</span> curState;</span><br><span class="line"> curState= GPIO_ReadPin(GPIOC, <span class="number">13</span>);</span><br><span class="line"></span><br><span class="line"> <span class="comment">//처음 누른 경우</span></span><br><span class="line"> <span class="keyword">if</span> ((prevState == RELEASED) &amp;&amp; (curState == PUSHED))&#123;</span><br><span class="line">  prevState = PUSHED;</span><br><span class="line">  <span class="keyword">return</span> ACT_PUSHED;</span><br><span class="line"> &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((prevState == PUSHED) &amp;&amp;(curState == RELEASE))&#123;</span><br><span class="line">  prevState = RELEASED;</span><br><span class="line">  <span class="keyword">return</span> ACT_RELEASED;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">return</span> NO_ACT;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>static 변수 사용 이유:</strong></p>
+<ul>
+<li>Scope를 벗어나도 메모리 공간이 반환되지 않는다</li>
+<li>메모리 재할당을 안하니 이전 값이 계속 유지된다</li>
+</ul>
+<h2 id="💻-C언어의-한계"><a href="#💻-C언어의-한계" class="headerlink" title="💻 C언어의 한계"></a>💻 C언어의 한계</h2><h3 id="Edge-Detect의-한계"><a href="#Edge-Detect의-한계" class="headerlink" title="Edge Detect의 한계"></a>Edge Detect의 한계</h3><ul>
+<li>C언어 코드만으로는 edge detect 하는게 없다</li>
+<li>C언어로 CLK edge 동기화를 할 수 없다</li>
+</ul>
+<p>이러한 한계 때문에 소프트웨어적으로 상태 변화를 감지해야 한다.</p>
+<h2 id="📋-정리"><a href="#📋-정리" class="headerlink" title="📋 정리"></a>📋 정리</h2><p>이번 포스트에서는 SW Stack과 모듈화의 중요성을 다뤘다:</p>
+<ol>
+<li><strong>폴더 분리</strong>: GPIO 관련 기능을 별도로 분리</li>
+<li><strong>SW Stack</strong>: 계층적 구조로 소프트웨어 설계</li>
+<li><strong>올바른 접근</strong>: 인접한 Layer를 통한 통신</li>
+<li><strong>실제 적용</strong>: 버튼 기능 추가 사례</li>
+<li><strong>하드웨어 이해</strong>: Chattering 현상과 대응</li>
+</ol>
+<p><strong>핵심 원칙:</strong></p>
+<ul>
+<li>Application에서 Interface로 직접 접근 금지</li>
+<li>인접한 계층을 통한 통신</li>
+<li>재사용성을 고려한 모듈화</li>
+<li>하드웨어 특성을 고려한 소프트웨어 설계</li>
+</ul>
+<p>다음 포스트에서는 STM32CubeIDE를 활용한 고급 초기환경 설정을 알아보겠다.</p>
+<hr>
+<p><strong>이전 포스트</strong>: <a href="/posts/cortex-m-code-improvement-project">5-4. 코드 개선 과정 - 실제 프로젝트 적용</a><br><strong>다음 포스트</strong>: <a href="/posts/cortex-m-advanced-setup">7. 고급 초기환경 설정</a></p>
 </main>
         
         <blockquote class="mdui-m-x-0 mdui-m-t-4">
     <strong>
         Author: <a href="#">고은</a><br>
-        URL: <a href="https://www.goeun-oh.com/portfolio/index.html">https://www.goeun-oh.com/portfolio/index.html</a><br>
+        URL: <a href="https://www.goeun-oh.com/2025/06/23/cortex-m-software-stack/">https://www.goeun-oh.com/2025/06/23/cortex-m-software-stack/</a><br>
         
             라이선스
         
@@ -883,6 +548,23 @@ document.addEventListener('DOMContentLoaded', function() {
     
 </article>
 
+<nav class="mdui-theme-layout-light mdui-color-transparent mdui-row mdui-m-b-2">
+    
+        <div class="mdui-col-xs-12 mdui-m-b-2">
+            <a class="extend prev mdui-btn mdui-ripple mdui-float-left mdui-text-truncate" rel="prev"
+                style="max-width: 100%" href="/2025/06/23/cortex-m-project-setup/">
+                <i class="mdui-icon mdui-icon-left material-icons">arrow_back</i>2. STM32CubeIDE 프로젝트 생성
+            </a>
+        </div>
+    
+        <div class="mdui-col-xs-12">
+            <a class="extend next mdui-btn mdui-ripple mdui-float-right mdui-text-truncate" rel="next"
+                style="max-width: 100%" href="/2025/06/20/hello-world/">
+                <i class="mdui-icon mdui-icon-right material-icons">arrow_forward</i>
+            </a>
+        </div>
+    
+</nav>
 
     </div>
     <a href="#" class="mdui-fab mdui-fab-fixed mdui-hidden-xs mdui-color-theme-accent mdui-ripple"><i class="mdui-icon material-icons">keyboard_arrow_up</i></a>

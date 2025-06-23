@@ -32,19 +32,21 @@
     
 </style>
     
-    <title>포트폴리오 | </title>
-    <link rel="canonical" href="https://www.goeun-oh.com/portfolio/">
-    <meta name="description" content="# 🚀 개발자 고은의 포트폴리오  안녕하세요! 끊임없이 배우고 성장하는 개발자 **고은**입니다.  ## 💻 기술 스택  ### Frontend - **HTML5** &#x2F; **CSS3** &#x2F; **JavaScript (ES6+)** - **React.js** - 컴포넌트 기반 사용자 인터페이스 구축 - **Vue.js** - 반응형 웹 애플리케이션 개발">
-<meta property="og:type" content="website">
-<meta property="og:title" content="포트폴리오">
-<meta property="og:url" content="https://www.goeun-oh.com/portfolio/index.html">
+    <title>Cortex-M 초기환경 세팅 가이드 | </title>
+    <link rel="canonical" href="https://www.goeun-oh.com/2025/06/23/cortex-m-initial-setup-guide/">
+    <meta name="description" content="Cortex-M 초기환경 세팅 가이드STM32F411 Nucleo-64 보드를 사용하여 초기환경 설정부터 고급 기능까지 단계별로 정리한다. 📚 학습 로드맵이 가이드는 총 7개의 주요 섹션으로 구성되어 있으며, 각 섹션은 독립적인 포스트로 작성되어 있다. 1️⃣ STM32 보드 소개 STM32F411RE Nucleo-64 보드 스펙 소개 핀 맵과 LED 연">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cortex-M 초기환경 세팅 가이드">
+<meta property="og:url" content="https://www.goeun-oh.com/2025/06/23/cortex-m-initial-setup-guide/index.html">
 <meta property="og:site_name">
-<meta property="og:description" content="# 🚀 개발자 고은의 포트폴리오  안녕하세요! 끊임없이 배우고 성장하는 개발자 **고은**입니다.  ## 💻 기술 스택  ### Frontend - **HTML5** &#x2F; **CSS3** &#x2F; **JavaScript (ES6+)** - **React.js** - 컴포넌트 기반 사용자 인터페이스 구축 - **Vue.js** - 반응형 웹 애플리케이션 개발">
+<meta property="og:description" content="Cortex-M 초기환경 세팅 가이드STM32F411 Nucleo-64 보드를 사용하여 초기환경 설정부터 고급 기능까지 단계별로 정리한다. 📚 학습 로드맵이 가이드는 총 7개의 주요 섹션으로 구성되어 있으며, 각 섹션은 독립적인 포스트로 작성되어 있다. 1️⃣ STM32 보드 소개 STM32F411RE Nucleo-64 보드 스펙 소개 핀 맵과 LED 연">
 <meta property="og:locale" content="ko_KR">
-<meta property="article:published_time" content="2024-01-20T01:00:00.000Z">
-<meta property="article:modified_time" content="2025-06-17T14:33:05.684Z">
+<meta property="article:published_time" content="2025-06-22T15:00:00.000Z">
+<meta property="article:modified_time" content="2025-06-23T11:51:04.342Z">
 <meta property="article:author" content="고은">
-<meta property="article:tag" content="하드웨어 개발자, Verilog, RISC-V, Cortex-M, AXI4, FPGA, 임베디드, 포트폴리오">
+<meta property="article:tag" content="STM32">
+<meta property="article:tag" content="초기환경">
+<meta property="article:tag" content="가이드">
 <meta name="twitter:card" content="summary">
 <meta name="generator" content="Hexo 7.3.0"></head>
 <body class="mdui-theme-primary-indigo mdui-theme-accent-pink mdui-appbar-with-toolbar ">
@@ -386,22 +388,25 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
     </div>
     <div class="mdui-container-fluid mdui-center" style="max-width:1200px">
-        
-<article class="h-entry mdui-card mdui-hoverable mdui-shadow-1 mdui-m-y-2" style="opacity: 1; border-radius: 4px"
+        <article class="h-entry mdui-card mdui-hoverable mdui-shadow-1 mdui-m-y-2" style="opacity: 1; border-radius: 4px"
 >
     
     <div class="mdui-card-primary mdui-ripple">
     <div class="mdui-card-primary-title">
-        <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" >포트폴리오</a>
+        <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" >Cortex-M 초기환경 세팅 가이드</a>
         <a class="p-author h-card" style="display:none" href="https://www.goeun-oh.com">고은</a>
+        
+        <small> <a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/">Cortex-M</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/ARM/">ARM</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/ARM/Embedded/">Embedded</a></small>
         
     </div>
     <div class="mdui-card-primary-subtitle mdui-typo">
         
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2024-01-20 10:00<br>Updated: 2025-06-17 11:33'}" datetime="2024-01-20T01:00:00.000Z">2024-01-20</time>
+        <span><a class="tag-none-link" href="/tags/STM32/" rel="tag">STM32</a> <a class="tag-none-link" href="/tags/%EA%B0%80%EC%9D%B4%EB%93%9C/" rel="tag">가이드</a> <a class="tag-none-link" href="/tags/%EC%B4%88%EA%B8%B0%ED%99%98%EA%B2%BD/" rel="tag">초기환경</a></span>
+        <span>-</span>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 08:51'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
-            <span>portfolio/index.html</span>
+            <span>2025/06/23/cortex-m-initial-setup-guide/</span>
         
     </div>
 </div>
@@ -411,468 +416,72 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="mdui-card-content mdui-typo">
         
         <div class="p-summary" style="display:none"></div>
-        <main class="e-content">
-# 🚀 개발자 고은의 포트폴리오
-
-안녕하세요! 끊임없이 배우고 성장하는 개발자 **고은**입니다.
-
-## 💻 기술 스택
-
-### Frontend
-- **HTML5** / **CSS3** / **JavaScript (ES6+)**
-- **React.js** - 컴포넌트 기반 사용자 인터페이스 구축
-- **Vue.js** - 반응형 웹 애플리케이션 개발
-- **TypeScript** - 타입 안전성을 위한 정적 타이핑
-
-### Backend
-- **Node.js** / **Express.js** - 서버 사이드 개발
-- **Python** / **Django** - 웹 프레임워크
-- **RESTful API** 설계 및 구현
-
-### Database
-- **MongoDB** - NoSQL 데이터베이스
-- **MySQL** / **PostgreSQL** - 관계형 데이터베이스
-
-### Tools & Others
-- **Git** / **GitHub** - 버전 관리
-- **Docker** - 컨테이너화
-- **AWS** - 클라우드 서비스
-- **VS Code** - 개발 환경
-
----
-
-## 🎯 프로젝트 포트폴리오
-
-<style>
-.projects-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 30px;
-  margin: 40px 0;
-}
-
-.project-card {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 30px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.project-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
-  border-color: #3182ce;
-}
-
-.project-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-.project-card.react::before {
-  background: linear-gradient(135deg, #61dafb 0%, #21759b 100%);
-}
-
-.project-card.blog::before {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-.project-card.future::before {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-}
-
-.project-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.project-icon {
-  font-size: 2.5rem;
-  margin-right: 15px;
-}
-
-.project-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #2d3748;
-  margin: 0;
-}
-
-.project-subtitle {
-  color: #718096;
-  font-size: 0.9rem;
-  margin: 5px 0 0 0;
-}
-
-.project-description {
-  color: #4a5568;
-  line-height: 1.6;
-  margin: 20px 0;
-  font-size: 1rem;
-}
-
-.tech-stack {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 20px 0;
-}
-
-.tech-tag {
-  background: #edf2f7;
-  color: #4a5568;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 500;
-  border: 1px solid #e2e8f0;
-}
-
-.tech-tag.react {
-  background: #e6fffa;
-  color: #065f46;
-  border-color: #a7f3d0;
-}
-
-.tech-tag.web {
-  background: #fef5e7;
-  color: #92400e;
-  border-color: #fbbf24;
-}
-
-.tech-tag.tools {
-  background: #f0f9ff;
-  color: #1e40af;
-  border-color: #93c5fd;
-}
-
-.project-features {
-  margin: 20px 0;
-}
-
-.features-list {
-  list-style: none;
-  padding: 0;
-  margin: 10px 0;
-}
-
-.features-list li {
-  color: #4a5568;
-  margin: 8px 0;
-  padding-left: 20px;
-  position: relative;
-  font-size: 0.9rem;
-}
-
-.features-list li::before {
-  content: '✓';
-  position: absolute;
-  left: 0;
-  color: #38a169;
-  font-weight: bold;
-}
-
-.project-actions {
-  display: flex;
-  gap: 15px;
-  margin-top: 25px;
-  padding-top: 20px;
-  border-top: 1px solid #e2e8f0;
-}
-
-.btn {
-  padding: 12px 20px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.9rem;
-  transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  border: none;
-  cursor: pointer;
-}
-
-.btn-primary {
-  background: #3182ce;
-  color: white;
-}
-
-.btn-primary:hover {
-  background: #2c5282;
-  transform: translateY(-2px);
-}
-
-.btn-secondary {
-  background: transparent;
-  color: #3182ce;
-  border: 2px solid #3182ce;
-}
-
-.btn-secondary:hover {
-  background: #3182ce;
-  color: white;
-}
-
-.btn-disabled {
-  background: #e2e8f0;
-  color: #a0aec0;
-  cursor: not-allowed;
-}
-
-.btn-disabled:hover {
-  transform: none;
-}
-
-.project-status {
-  display: inline-block;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 15px;
-}
-
-.status-completed {
-  background: #c6f6d5;
-  color: #22543d;
-}
-
-.status-ongoing {
-  background: #bee3f8;
-  color: #2a4365;
-}
-
-.status-planned {
-  background: #fed7d7;
-  color: #742a2a;
-}
-
-@media (max-width: 768px) {
-  .projects-container {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  
-  .project-actions {
-    flex-direction: column;
-  }
-  
-  .btn {
-    text-align: center;
-    justify-content: center;
-  }
-}
-</style>
-
-<div class="projects-container">
-
-<!-- React Todo App Project -->
-<div class="project-card react">
-  <div class="project-status status-completed">완료</div>
-  <div class="project-header">
-    <div class="project-icon">⚛️</div>
-    <div>
-      <h3 class="project-title">React Todo App</h3>
-      <p class="project-subtitle">할일 관리 애플리케이션</p>
-    </div>
-  </div>
-  
-  <p class="project-description">
-    React를 활용한 첫 번째 프로젝트로, 컴포넌트 기반 개발과 상태 관리의 기초를 학습했습니다. 
-    사용자 친화적인 인터페이스로 할일을 효율적으로 관리할 수 있습니다.
-  </p>
-  
-  <div class="tech-stack">
-    <span class="tech-tag react">React</span>
-    <span class="tech-tag web">JavaScript</span>
-    <span class="tech-tag web">CSS3</span>
-    <span class="tech-tag tools">Local Storage</span>
-  </div>
-  
-  <div class="project-features">
-    <strong>주요 기능:</strong>
-    <ul class="features-list">
-      <li>할일 추가, 수정, 삭제</li>
-      <li>완료/미완료 상태 토글</li>
-      <li>필터링 (전체/활성/완료)</li>
-      <li>데이터 영속성</li>
-      <li>반응형 디자인</li>
-    </ul>
-  </div>
-  
-  <div class="project-actions">
-    <a href="/projects/#react-todo-app" class="btn btn-primary">
-      📋 상세보기
-    </a>
-    <a href="https://github.com/goeun-oh" class="btn btn-secondary" target="_blank">
-      💻 GitHub
-    </a>
-  </div>
-</div>
-
-<!-- Portfolio Blog Project -->
-<div class="project-card blog">
-  <div class="project-status status-ongoing">진행중</div>
-  <div class="project-header">
-    <div class="project-icon">📝</div>
-    <div>
-      <h3 class="project-title">개인 포트폴리오 블로그</h3>
-      <p class="project-subtitle">정적 사이트 기반 포트폴리오</p>
-    </div>
-  </div>
-  
-  <p class="project-description">
-    Hexo 정적 사이트 생성기를 활용하여 구축한 개인 포트폴리오 및 기술 블로그입니다. 
-    개발 경험과 학습 내용을 체계적으로 정리하고 공유합니다.
-  </p>
-  
-  <div class="tech-stack">
-    <span class="tech-tag tools">Hexo</span>
-    <span class="tech-tag web">Markdown</span>
-    <span class="tech-tag tools">GitHub Pages</span>
-    <span class="tech-tag web">YAML</span>
-  </div>
-  
-  <div class="project-features">
-    <strong>주요 특징:</strong>
-    <ul class="features-list">
-      <li>SEO 최적화</li>
-      <li>자동 배포 시스템</li>
-      <li>모바일 최적화</li>
-      <li>태그 및 카테고리 분류</li>
-      <li>빠른 로딩 속도</li>
-    </ul>
-  </div>
-  
-  <div class="project-actions">
-    <a href="/projects/#portfolio-blog" class="btn btn-primary">
-      📋 상세보기
-    </a>
-    <a href="https://goeun-oh.github.io" class="btn btn-secondary" target="_blank">
-      🌐 사이트 보기
-    </a>
-  </div>
-</div>
-
-<!-- Future Project -->
-<div class="project-card future">
-  <div class="project-status status-planned">계획중</div>
-  <div class="project-header">
-    <div class="project-icon">🚀</div>
-    <div>
-      <h3 class="project-title">풀스택 웹 애플리케이션</h3>
-      <p class="project-subtitle">사용자 관리 시스템</p>
-    </div>
-  </div>
-  
-  <p class="project-description">
-    React와 Node.js를 활용한 풀스택 웹 애플리케이션 개발 프로젝트입니다. 
-    백엔드 개발과 데이터베이스 연동 경험을 쌓을 예정입니다.
-  </p>
-  
-  <div class="tech-stack">
-    <span class="tech-tag react">React</span>
-    <span class="tech-tag web">Node.js</span>
-    <span class="tech-tag tools">Express</span>
-    <span class="tech-tag tools">MongoDB</span>
-  </div>
-  
-  <div class="project-features">
-    <strong>계획된 기능:</strong>
-    <ul class="features-list">
-      <li>사용자 인증 시스템</li>
-      <li>RESTful API 설계</li>
-      <li>실시간 기능 구현</li>
-      <li>데이터베이스 연동</li>
-      <li>관리자 대시보드</li>
-    </ul>
-  </div>
-  
-  <div class="project-actions">
-    <a href="/projects/#fullstack-project" class="btn btn-disabled">
-      🔮 개발 예정
-    </a>
-    <a href="#" class="btn btn-disabled">
-      💻 준비중
-    </a>
-  </div>
-</div>
-
-</div>
-
----
-
-## 🌱 현재 학습 중
-
-- **Next.js** - React 기반 풀스택 프레임워크
-- **GraphQL** - API 쿼리 언어
-- **Kubernetes** - 컨테이너 오케스트레이션
-- **Machine Learning** - 인공지능 기초
-
-## 📈 개발 철학
-
-**지속적인 학습과 성장**을 추구합니다. 새로운 기술을 배우는 것을 두려워하지 않으며, 실패를 통해 더 나은 개발자가 되고자 합니다.
-
-**사용자 중심 개발**을 지향합니다. 기술적 완성도뿐만 아니라 사용자 경험과 접근성을 고려한 개발을 중요하게 생각합니다.
-
-**협업과 소통**을 중시합니다. 코드 리뷰와 문서화를 통해 팀과 함께 성장하는 개발자가 되고자 합니다.
-
-## 🏆 성취 및 목표
-
-### 2024년 성취
-- ✅ React 기초 마스터
-- ✅ 첫 번째 개인 프로젝트 완성
-- ✅ 포트폴리오 사이트 구축
-- ✅ Git/GitHub 워크플로우 습득
-
-### 2025년 목표
-- 🎯 풀스택 개발 역량 구축
-- 🎯 팀 프로젝트 참여
-- 🎯 오픈소스 기여
-- 🎯 기술 블로그 꾸준한 포스팅
-
-## 📞 다음 단계는?
-
-새로운 프로젝트나 협업 기회에 대해 이야기하고 싶으시다면 언제든 연락해주세요. 
-항상 흥미로운 프로젝트와 새로운 기회에 열려있습니다.
-
-## 📫 연락처
-
-- **Email**: your.email@example.com
-- **GitHub**: [github.com/goeun-oh](https://github.com/goeun-oh)
-- **LinkedIn**: 추후 업데이트 예정
-- **Blog**: [goeun-oh.github.io](https://goeun-oh.github.io)
-
----
-
-*"코드로 세상을 더 나은 곳으로 만들고 싶습니다."*
-
-## 📚 추가 정보
-
-- 🗂️ **[전체 프로젝트 보기](/projects/)** - 모든 프로젝트의 상세 정보
-- 📝 **[기술 블로그](/blog/)** - 개발 관련 학습 내용과 경험 공유
-- 👨‍💻 **[About Me](/about/)** - 개발자로서의 여정과 가치관
-
+        <main class="e-content"><h1 id="Cortex-M-초기환경-세팅-가이드"><a href="#Cortex-M-초기환경-세팅-가이드" class="headerlink" title="Cortex-M 초기환경 세팅 가이드"></a>Cortex-M 초기환경 세팅 가이드</h1><p>STM32F411 Nucleo-64 보드를 사용하여 초기환경 설정부터 고급 기능까지 단계별로 정리한다.</p>
+<h2 id="📚-학습-로드맵"><a href="#📚-학습-로드맵" class="headerlink" title="📚 학습 로드맵"></a>📚 학습 로드맵</h2><p>이 가이드는 총 7개의 주요 섹션으로 구성되어 있으며, 각 섹션은 독립적인 포스트로 작성되어 있다.</p>
+<h3 id="1️⃣-STM32-보드-소개"><a href="#1️⃣-STM32-보드-소개" class="headerlink" title="1️⃣ STM32 보드 소개"></a>1️⃣ <a href="/posts/cortex-m-board-introduction">STM32 보드 소개</a></h3><ul>
+<li>STM32F411RE Nucleo-64 보드 스펙 소개</li>
+<li>핀 맵과 LED 연결 확인</li>
+<li>System Architecture 이해</li>
+<li>RCC의 역할과 저전력 설계 개념</li>
+</ul>
+<h3 id="2️⃣-STM32CubeIDE-프로젝트-생성"><a href="#2️⃣-STM32CubeIDE-프로젝트-생성" class="headerlink" title="2️⃣ STM32CubeIDE 프로젝트 생성"></a>2️⃣ <a href="/posts/cortex-m-project-setup">STM32CubeIDE 프로젝트 생성</a></h3><ul>
+<li>STM32CubeIDE 기본 프로젝트 설정</li>
+<li>RCC 클럭 설정 (HSI vs HSE)</li>
+<li>SYS 디버깅 설정</li>
+<li>GPIO 기본 설정</li>
+</ul>
+<h3 id="3️⃣-개발-환경-구성"><a href="#3️⃣-개발-환경-구성" class="headerlink" title="3️⃣ 개발 환경 구성"></a>3️⃣ <a href="/posts/cortex-m-development-environment">개발 환경 구성</a></h3><ul>
+<li>STM32CubeCLT 설치 및 설정</li>
+<li>컴파일러와 링커 도구 확인</li>
+<li>프로젝트 매니저 설정</li>
+<li>빌드 환경 구성</li>
+</ul>
+<h3 id="4️⃣-바텀부터-LED-제어하기"><a href="#4️⃣-바텀부터-LED-제어하기" class="headerlink" title="4️⃣ 바텀부터 LED 제어하기"></a>4️⃣ <a href="/posts/cortex-m-led-control-basics">바텀부터 LED 제어하기</a></h3><ul>
+<li>레지스터 직접 제어를 통한 LED 제어</li>
+<li>RCC 클럭 설정 실습</li>
+<li>GPIO 모드 레지스터 설정</li>
+<li>LED Toggle 구현</li>
+</ul>
+<h3 id="5️⃣-코드-개선-과정"><a href="#5️⃣-코드-개선-과정" class="headerlink" title="5️⃣ 코드 개선 과정"></a>5️⃣ <a href="/posts/cortex-m-code-improvement">코드 개선 과정</a></h3><ul>
+<li>Define을 활용한 가독성 향상</li>
+<li>범용적 설계를 위한 베이스 주소 정의</li>
+<li>구조체 사용의 중요성과 장점</li>
+<li>최종 개선된 코드 구현</li>
+</ul>
+<h3 id="6️⃣-SW-Stack과-모듈화"><a href="#6️⃣-SW-Stack과-모듈화" class="headerlink" title="6️⃣ SW Stack과 모듈화"></a>6️⃣ <a href="/posts/cortex-m-software-stack">SW Stack과 모듈화</a></h3><ul>
+<li>SW Stack 개념과 계층 구조</li>
+<li>인접 Layer를 통한 통신 원칙</li>
+<li>폴더 구조 분리와 모듈화</li>
+<li>Driver 패턴 구현</li>
+</ul>
+<h3 id="7️⃣-고급-초기환경-설정"><a href="#7️⃣-고급-초기환경-설정" class="headerlink" title="7️⃣ 고급 초기환경 설정"></a>7️⃣ <a href="/posts/cortex-m-advanced-setup">고급 초기환경 설정</a></h3><ul>
+<li>STM32CubeIDE를 활용한 고급 설정</li>
+<li>Timer 설정과 인터럽트 구성</li>
+<li>실제 프로젝트 환경 구성</li>
+<li>프로덕션 레벨 설정</li>
+</ul>
+<h2 id="🎯-학습-목표"><a href="#🎯-학습-목표" class="headerlink" title="🎯 학습 목표"></a>🎯 학습 목표</h2><p>이 가이드를 통해 다음을 습득할 수 있다:</p>
+<ul>
+<li><strong>기초</strong>: STM32 하드웨어 구조와 레지스터 이해</li>
+<li><strong>실습</strong>: 레지스터 직접 제어를 통한 하드웨어 제어</li>
+<li><strong>설계</strong>: 구조체와 모듈화를 통한 코드 개선</li>
+<li><strong>아키텍처</strong>: SW Stack을 고려한 체계적인 코드 구조</li>
+<li><strong>도구</strong>: STM32CubeIDE와 개발 도구 활용</li>
+</ul>
+<h2 id="💡-추천-학습-순서"><a href="#💡-추천-학습-순서" class="headerlink" title="💡 추천 학습 순서"></a>💡 추천 학습 순서</h2><ol>
+<li><strong>순차 학습</strong>: 1번부터 7번까지 순서대로 학습하는 것을 권장한다</li>
+<li><strong>실습 중심</strong>: 각 섹션의 코드를 직접 작성하고 테스트해본다</li>
+<li><strong>응용</strong>: 기본 LED 제어를 다른 GPIO 제어로 확장해본다</li>
+<li><strong>복습</strong>: 구조체와 모듈화 개념은 반복 학습이 중요하다</li>
+</ol>
+<hr>
+<p><em>각 섹션의 링크를 클릭하여 상세 내용을 확인할 수 있다.</em></p>
 </main>
         
         <blockquote class="mdui-m-x-0 mdui-m-t-4">
     <strong>
         Author: <a href="#">고은</a><br>
-        URL: <a href="https://www.goeun-oh.com/portfolio/index.html">https://www.goeun-oh.com/portfolio/index.html</a><br>
+        URL: <a href="https://www.goeun-oh.com/2025/06/23/cortex-m-initial-setup-guide/">https://www.goeun-oh.com/2025/06/23/cortex-m-initial-setup-guide/</a><br>
         
             라이선스
         
@@ -883,6 +492,23 @@ document.addEventListener('DOMContentLoaded', function() {
     
 </article>
 
+<nav class="mdui-theme-layout-light mdui-color-transparent mdui-row mdui-m-b-2">
+    
+        <div class="mdui-col-xs-12 mdui-m-b-2">
+            <a class="extend prev mdui-btn mdui-ripple mdui-float-left mdui-text-truncate" rel="prev"
+                style="max-width: 100%" href="/2025/06/23/cortex-m-led-control-basics/">
+                <i class="mdui-icon mdui-icon-left material-icons">arrow_back</i>4. 바텀부터 LED 제어하기
+            </a>
+        </div>
+    
+        <div class="mdui-col-xs-12">
+            <a class="extend next mdui-btn mdui-ripple mdui-float-right mdui-text-truncate" rel="next"
+                style="max-width: 100%" href="/2025/06/23/cortex-m-project-setup/">
+                <i class="mdui-icon mdui-icon-right material-icons">arrow_forward</i>2. STM32CubeIDE 프로젝트 생성
+            </a>
+        </div>
+    
+</nav>
 
     </div>
     <a href="#" class="mdui-fab mdui-fab-fixed mdui-hidden-xs mdui-color-theme-accent mdui-ripple"><i class="mdui-icon material-icons">keyboard_arrow_up</i></a>

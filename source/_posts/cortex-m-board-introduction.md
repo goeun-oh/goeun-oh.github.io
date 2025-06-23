@@ -3,8 +3,7 @@ title: 1. STM32 보드 소개
 date: 2025-06-23
 categories:
   - Cortex-M
-  - ARM
-  - Embedded
+  - setup
 tags:
   - STM32F411
   - Nucleo-64
@@ -14,9 +13,9 @@ layout: post
 
 # STM32 보드 소개
 
-이번 포스트에서는 우리가 사용할 STM32F411RE Nucleo-64 보드의 스펙과 하드웨어 구조를 자세히 알아본다.
+이번 포스트에서는 STM32F411RE Nucleo-64 보드의 스펙과 하드웨어 구조를 자세히 알아본다.
 
-## 📱 사용 보드: STM32F411RE Nucleo-64
+## 사용 보드: STM32F411RE Nucleo-64
 
 ![Nucleo-64 보드](https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/Nucleo-64_board.png)
 
@@ -31,20 +30,20 @@ layout: post
 - **Maximum CPU Speed**: 100MHz
 - **ART Accelerator**: 고성능 액세스 지원
 
-> 💡 **중요**: 임베디드 개발에서 보드 스펙을 정확히 아는 것은 개발의 첫걸음이다!
+> **중요**: 임베디드 개발에서 보드 스펙을 정확히 아는 것은 개발의 첫걸음이다!
 
 ![STM32F411RE MCU](https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/F411RE_MCU.png)
 
 ### 보드 특징
 
-이 보드는 **고성능 액세스 라인**에 속하며, 다음과 같은 특징을 가진다:
+해당 보드는 **고성능 액세스 라인**에 속하며, 다음과 같은 특징을 가진다:
 
 - **ARM Cortex-M4 core with DSP and FPU**
 - **512KB Flash memory**
 - **100MHz CPU**
 - **ART Accelerator** (고성능 메모리 액세스)
 
-## 🔌 핀 구성과 LED 연결
+## 핀 구성과 LED 연결
 
 ### User LD2 (사용자 LED)
 
@@ -61,15 +60,15 @@ layout: post
 
 **중요한 핀 맵 정보:**
 
-![핀 맵](https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/image-2.png)
-
+![핀 맵](https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/{85A1DDEE-E018-4060-BD48-E751FC36DF63}.png)
 - 같은 행의 핀들은 내부적으로 연결되어 있다
 - 암/수 커넥터의 차이만 있을 뿐 전기적으로는 동일하다
 - PA5 핀은 GPIO Output으로 설정하여 LED를 제어할 수 있다
 
-> 📌 **팁**: 핀 맵은 개발 과정에서 지속적으로 참조해야 하므로 별도로 저장해두는 것이 좋다.
+![핀 맵](https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/image-2.png)
+> **팁**: 핀 맵은 개발 과정에서 지속적으로 참조해야 하므로 별도로 저장해두는 것이 좋다.
 
-## 🏗️ System Architecture
+## System Architecture
 
 STM32F411의 시스템 구조를 이해하는 것은 효율적인 프로그래밍의 기초가 된다.
 
@@ -93,15 +92,10 @@ STM32F411의 시스템 구조를 이해하는 것은 효율적인 프로그래�
 - 시스템의 모든 클럭을 관리한다
 - 각 주변장치에 선택적으로 클럭을 공급한다
 
-## ⚡ RCC의 역할과 저전력 설계
-
-![RCC 구조](https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/RCC.png)
-
+## RCC의 역할과 저전력 설계
 ### RCC의 중요성
 
-**RCC (Reset & Clock Control)**는 STM32의 핵심 구성 요소 중 하나다:
-
-![RCC 상세](https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/RCC2.png)
+**RCC (Reset & Clock Control)** 는 STM32의 핵심 구성 요소 중 하나다:
 
 - **클럭 관리**: HCLK, APB CLK, AHB CLK를 각 버스에 제공한다
 - **선택적 공급**: 사용하는 주변장치에만 클럭을 공급한다
@@ -120,7 +114,7 @@ ARM Core는 저전력으로 설계되어 있어 다음과 같은 특징을 가�
 2. 나머지 GPIO (B, C, D 등)는 사용하지 않으면 클럭을 공급하지 않는다
 3. 결과적으로 불필요한 전력 소모를 방지할 수 있다
 
-## 🔍 GPIO 메모리 맵
+## GPIO 메모리 맵
 
 ### GPIOA 메모리 맵 구조
 
@@ -137,7 +131,7 @@ ARM Core는 저전력으로 설계되어 있어 다음과 같은 특징을 가�
   - IDR (0x10): Input data register
   - ODR (0x14): Output data register
 
-## 📋 정리
+## 정리
 
 이번 포스트에서는 STM32F411RE Nucleo-64 보드의 기본 사양과 하드웨어 구조를 살펴보았다:
 

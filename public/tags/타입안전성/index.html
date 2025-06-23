@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="ko" >
+<head>
+    <meta charset="utf-8">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+
+
+    <link rel="dns-prefetch" //cdn.jsdelivr.net>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.2/dist/css/mdui.min.css">
+
+
+
+
+
+<meta name="theme-color" content="#3F51B5">
+
+
+<style>
+    html,body{scroll-behavior:smooth;min-height:100vh}
+    blockquote>strong>a{word-break:break-all}
+    .mdui-hoverable:hover,.mdui-hoverable:focus{-webkit-box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12) !important;box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12) !important;}
+    .mdui-card-primary-title a{text-decoration:none !important}
+    .page-number{display:none !important}
+    .mdui-container-fluid{transition:opacity .4s}
+    
+        body{background-color: #f6f6f6}
+
+    
+</style>
+    
+    <title>태그: 타입안전성 | </title>
+    <link rel="canonical" href="https://www.goeun-oh.com/tags/%ED%83%80%EC%9E%85%EC%95%88%EC%A0%84%EC%84%B1/">
+    <meta name="description" content="하드웨어 설계부터 임베디드 시스템까지, 끊임없이 배우고 성장하기">
+<meta property="og:type" content="website">
+<meta property="og:title">
+<meta property="og:url" content="https://www.goeun-oh.com/tags/%ED%83%80%EC%9E%85%EC%95%88%EC%A0%84%EC%84%B1/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="하드웨어 설계부터 임베디드 시스템까지, 끊임없이 배우고 성장하기">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:author" content="고은">
+<meta property="article:tag" content="하드웨어 개발자, Verilog, RISC-V, Cortex-M, AXI4, FPGA, 임베디드, 포트폴리오">
+<meta name="twitter:card" content="summary">
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body class="mdui-theme-primary-indigo mdui-theme-accent-pink mdui-appbar-with-toolbar ">
+    <div class="mdui-theme-layout-light">
+    <header id="appbar" class="mdui-appbar mdui-appbar-fixed mdui-shadow-0 mdui-appbar-scroll-hide">
+    <div class="mdui-toolbar">
+        <button mdui-drawer="{target: '.mdui-drawer'}" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon material-icons">menu</i></button>
+        <a href="/" class="mdui-typo-title"></a>
+        <div class="mdui-toolbar-spacer"></div>
+        
+        <a href="/search/" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon material-icons">search</i></a>
+        
+    </div>
+</header>
+    <style>
+.submenu-level-2 {
+    padding-left: 32px !important;
+}
+.submenu-level-3 {
+    padding-left: 56px !important;
+    font-size: 0.9em;
+}
+</style>
+
+<aside class="mdui-drawer mdui-drawer-close">
+    <nav class="mdui-list" mdui-collapse="{accordion: false}">
+        <a href="#" class="mdui-list-item mdui-ripple h-card">
+            <div class="mdui-list-item-avatar">
+                
+                <i class="mdui-color-theme-primary mdui-icon material-icons">person</i>
+                
+            </div>
+            <div class="mdui-list-item-content p-name">고은</div>
+            <span style="display:none" class="u-url u-uid">https://www.goeun-oh.com</span>
+        </a>
+        <div class="mdui-divider"></div>
+        
+        <a href="/search/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">search</i>
+            <div class="mdui-list-item-content">검색</div>
+        </a>
+        
+        <a href="/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
+            <div class="mdui-list-item-content">홈</div>
+        </a>
+        
+    <!-- 프로세서 아키텍처 -->
+    <div class="mdui-collapse-item">
+        <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">memory</i>
+            <div class="mdui-list-item-content">💻 프로세서 아키텍처</div>
+            <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+        </div>
+        <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+            
+            <!-- RISC-V 그룹 헤더 -->
+            <div class="mdui-list-item submenu-level-2" style="background-color: #f5f5f5;">
+                <i class="mdui-list-item-icon mdui-icon material-icons">computer</i>
+                <div class="mdui-list-item-content"><strong>RISC-V</strong></div>
+            </div>
+            
+            <!-- RISC-V 세부 항목들 -->
+            <a href="/categories/RISC-V/basic/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">기초 개념</div>
+            </a>
+            <a href="/categories/RISC-V/instruction/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">명령어 세트</div>
+            </a>
+            <a href="/categories/RISC-V/assembly/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">어셈블리 프로그래밍</div>
+            </a>
+            
+            <!-- Cortex-M 그룹 헤더 -->
+            <div class="mdui-list-item submenu-level-2" style="background-color: #f5f5f5; margin-top: 8px;">
+                <i class="mdui-list-item-icon mdui-icon material-icons">memory</i>
+                <div class="mdui-list-item-content"><strong>Cortex-M</strong></div>
+            </div>
+            
+            <!-- Cortex-M 세부 항목들 -->
+            <a href="/categories/Cortex-M/setup/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">초기환경 세팅</div>
+            </a>
+            <a href="/categories/Cortex-M/peripheral/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">주변장치 제어</div>
+            </a>
+            <a href="/categories/Cortex-M/interrupt/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">인터럽트 처리</div>
+            </a>
+            <a href="/categories/Cortex-M/rtos/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">RTOS 활용</div>
+            </a>
+            
+        </div>
+    </div>
+
+    <!-- 통신 프로토콜 -->
+    <div class="mdui-collapse-item">
+        <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">device_hub</i>
+            <div class="mdui-list-item-content">🔌 통신 프로토콜</div>
+            <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+        </div>
+        <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+            
+            <!-- 버스 프로토콜 그룹 -->
+            <div class="mdui-list-item submenu-level-2" style="background-color: #f5f5f5;">
+                <i class="mdui-list-item-icon mdui-icon material-icons">settings_ethernet</i>
+                <div class="mdui-list-item-content"><strong>버스 프로토콜</strong></div>
+            </div>
+            <a href="/categories/APB/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">APB Protocol</div>
+            </a>
+            <a href="/categories/APB/basic/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ APB 기초</div>
+            </a>
+            
+            <!-- 시리얼 통신 그룹 -->
+            <div class="mdui-list-item submenu-level-2" style="background-color: #f5f5f5; margin-top: 8px;">
+                <i class="mdui-list-item-icon mdui-icon material-icons">cable</i>
+                <div class="mdui-list-item-content"><strong>시리얼 통신</strong></div>
+            </div>
+            <a href="/categories/UART/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">UART</div>
+            </a>
+            <a href="/categories/UART/basic/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ UART 기초</div>
+            </a>
+            <a href="/categories/UART/config/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ 설정 및 사용</div>
+            </a>
+            
+            <a href="/categories/I2C/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">I2C</div>
+            </a>
+            <a href="/categories/I2C/protocol/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ 프로토콜 분석</div>
+            </a>
+            <a href="/categories/I2C/implementation/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ 구현 방법</div>
+            </a>
+            
+            <a href="/categories/SPI/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">SPI</div>
+            </a>
+            <a href="/categories/SPI/basics/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ SPI 기초</div>
+            </a>
+            <a href="/categories/SPI/modes/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ 동작 모드</div>
+            </a>
+            
+        </div>
+    </div>
+
+    <!-- HDL & 설계 -->
+    <div class="mdui-collapse-item">
+        <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">electrical_services</i>
+            <div class="mdui-list-item-content">⚡ HDL & 설계</div>
+            <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+        </div>
+        <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+            
+            <!-- Verilog 그룹 -->
+            <div class="mdui-list-item submenu-level-2" style="background-color: #f5f5f5;">
+                <i class="mdui-list-item-icon mdui-icon material-icons">code</i>
+                <div class="mdui-list-item-content"><strong>Verilog</strong></div>
+            </div>
+            <a href="/categories/Verilog/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">Verilog 기초</div>
+            </a>
+            <a href="/categories/Verilog/syntax/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ 문법 및 구조</div>
+            </a>
+            <a href="/categories/Verilog/modules/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ 모듈 설계</div>
+            </a>
+            <a href="/categories/Verilog/testbench/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ 테스트벤치</div>
+            </a>
+            
+            <!-- FPGA 설계 그룹 -->
+            <div class="mdui-list-item submenu-level-2" style="background-color: #f5f5f5; margin-top: 8px;">
+                <i class="mdui-list-item-icon mdui-icon material-icons">developer_board</i>
+                <div class="mdui-list-item-content"><strong>FPGA 설계</strong></div>
+            </div>
+            <a href="/categories/FPGA/basics/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">FPGA 기초</div>
+            </a>
+            <a href="/categories/FPGA/synthesis/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ 합성 과정</div>
+            </a>
+            <a href="/categories/FPGA/timing/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ 타이밍 분석</div>
+            </a>
+            
+            <!-- 검증 그룹 -->
+            <div class="mdui-list-item submenu-level-2" style="background-color: #f5f5f5; margin-top: 8px;">
+                <i class="mdui-list-item-icon mdui-icon material-icons">verified</i>
+                <div class="mdui-list-item-content"><strong>설계 검증</strong></div>
+            </div>
+            <a href="/categories/Verification/uvm/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">UVM 기초</div>
+            </a>
+            <a href="/categories/Verification/systemverilog/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ SystemVerilog</div>
+            </a>
+            
+        </div>
+    </div>
+
+    
+    <div class="mdui-collapse-item">
+        <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">inbox</i>
+            <div class="mdui-list-item-content">아카이브</div>
+            <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+        </div>
+        <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+            <a class="mdui-list-item mdui-ripple m-link" href="/archives/2025/06/">6월 2025</a>
+        </div>
+    </div>
+    
+    <!-- 태그 및 기타 메뉴들을 포함하는 드롭다운 -->
+    <div class="mdui-collapse-item">
+        <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">local_offer</i>
+            <div class="mdui-list-item-content">태그</div>
+            <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+        </div>
+        <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+            
+            <!-- 커스텀 메뉴들 -->
+            <a href="/categories/RISC-V/" class="mdui-list-item mdui-ripple m">
+                <i class="mdui-list-item-icon mdui-icon material-icons">memory</i>
+                <div class="mdui-list-item-content">💻 RISC-V</div>
+            </a>
+            
+            <!-- 커스텀 메뉴들 -->
+            <a href="/categories/Cortex-M/" class="mdui-list-item mdui-ripple m">
+                <i class="mdui-list-item-icon mdui-icon material-icons">developer_board</i>
+                <div class="mdui-list-item-content">🖥️ Cortex-M</div>
+            </a>
+            
+            <!-- 커스텀 메뉴들 -->
+            <a href="/categories/APB/" class="mdui-list-item mdui-ripple m">
+                <i class="mdui-list-item-icon mdui-icon material-icons">device_hub</i>
+                <div class="mdui-list-item-content">📡 APB Protocol</div>
+            </a>
+            
+            <!-- 커스텀 메뉴들 -->
+            <a href="/categories/Verilog/" class="mdui-list-item mdui-ripple m">
+                <i class="mdui-list-item-icon mdui-icon material-icons">electrical_services</i>
+                <div class="mdui-list-item-content">⚡ Verilog</div>
+            </a>
+            
+            <!-- 커스텀 메뉴들 -->
+            <a href="/categories/UART/" class="mdui-list-item mdui-ripple m">
+                <i class="mdui-list-item-icon mdui-icon material-icons">cable</i>
+                <div class="mdui-list-item-content">🔌 UART</div>
+            </a>
+            
+            <!-- 커스텀 메뉴들 -->
+            <a href="/categories/I2C/" class="mdui-list-item mdui-ripple m">
+                <i class="mdui-list-item-icon mdui-icon material-icons">sync_alt</i>
+                <div class="mdui-list-item-content">🔄 I2C</div>
+            </a>
+            
+            <!-- 커스텀 메뉴들 -->
+            <a href="/categories/SPI/" class="mdui-list-item mdui-ripple m">
+                <i class="mdui-list-item-icon mdui-icon material-icons">timeline</i>
+                <div class="mdui-list-item-content">📊 SPI</div>
+            </a>
+            
+        </div>
+    </div>
+    
+</nav>
+<div class="mdui-divider"></div>
+<footer class="mdui-m-l-2 mdui-m-t-1 mdui-typo mdui-text-color-theme-disabled">
+    <p class="mdui-m-b-0">
+        <p>임베디드 시스템과 하드웨어 설계</p>
+<br>
+        © 2024 - 
+        2025 고은<br>
+        
+        Hosted on <a href="/" rel="noreferrer"
+            target="_blank">GitHub Pages</a><br>
+        
+        Powered by <a href="https://hexo.io/" rel="noreferrer" target="_blank">Hexo</a><br>
+        
+        Theme - <a href="https://github.com/kwaa/hexo-theme-m" rel="noreferrer" target="_blank"
+            mdui-tooltip="{position:'right', content: 'by 藍+85CD'}">M</a></p>
+        
+</footer>
+
+</aside>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+        // 중첩된 collapse가 제대로 작동하도록 초기화
+        var collapseElements = document.querySelectorAll('.mdui-collapse-item');
+        collapseElements.forEach(function(element) {
+            if (window.mdui && mdui.Collapse) {
+                new mdui.Collapse(element);
+            }
+        });
+    }, 100);
+});
+</script>
+    </div>
+    <div class="mdui-container-fluid mdui-center" style="max-width:1200px">
+        <section class="h-feed mdui-theme-layout-light mdui-color-transparent">
+    <a href="https://www.goeun-oh.com" class="p-name u-url" style="display:none"></a>
+    
+        <article class="h-entry mdui-card mdui-hoverable mdui-shadow-1 mdui-m-y-2" style="opacity: 1; border-radius: 4px"
+>
+    
+    <div class="mdui-card-primary mdui-ripple">
+    <div class="mdui-card-primary-title">
+        <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" href="/2025/06/23/cortex-m-code-improvement-struct/">5-2. 코드 개선 과정 - 구조체 활용</a>
+        <a class="p-author h-card" style="display:none" href="https://www.goeun-oh.com">고은</a>
+        
+        <small> <a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/">Cortex-M</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/ARM/">ARM</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/ARM/Embedded/">Embedded</a></small>
+        
+    </div>
+    <div class="mdui-card-primary-subtitle mdui-typo">
+        
+        <span><a class="tag-none-link" href="/tags/%EA%B5%AC%EC%A1%B0%EC%B2%B4/" rel="tag">구조체</a> <a class="tag-none-link" href="/tags/%EB%AA%A8%EB%93%88%ED%99%94/" rel="tag">모듈화</a> <a class="tag-none-link" href="/tags/%EC%BD%94%EB%93%9C%EA%B0%9C%EC%84%A0/" rel="tag">코드개선</a> <a class="tag-none-link" href="/tags/%ED%83%80%EC%9E%85%EC%95%88%EC%A0%84%EC%84%B1/" rel="tag">타입안전성</a></span>
+        <span>-</span>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 09:10'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <span>-</span>
+        
+            <span>2025/06/23/cortex-m-code-improvement-struct/</span>
+        
+    </div>
+</div>
+    
+    
+    <div class="mdui-divider"></div>
+    <div class="mdui-card-content mdui-typo">
+        
+        <div class="p-summary" style="display:none"></div>
+        <main class="e-content"><h1 id="코드-개선-과정-구조체-활용"><a href="#코드-개선-과정-구조체-활용" class="headerlink" title="코드 개선 과정 - 구조체 활용"></a>코드 개선 과정 - 구조체 활용</h1><p>이번 포스트에서는 Define 방식의 한계를 극복하고 구조체를 활용하여 더욱 체계적이고 재사용 가능한 코드를 만드는 방법을 다룬다.</p>
+<h2 id="🚨-Define-방식의-한계"><a href="#🚨-Define-방식의-한계" class="headerlink" title="🚨 Define 방식의 한계"></a>🚨 Define 방식의 한계</h2><h3 id="기존-Define-방식의-문제점"><a href="#기존-Define-방식의-문제점" class="headerlink" title="기존 Define 방식의 문제점"></a>기존 Define 방식의 문제점</h3><p>이전 포스트에서 개선한 코드도 여전히 다음과 같은 문제가 있다:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 문제가 있는 방식 - 반복적이고 비효율적</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA_MODER   *(volatile uint32_t *)(GPIOA_BASE + 0x00)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA_OTYPER  *(volatile uint32_t *)(GPIOA_BASE + 0x04)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA_OSPEEDR *(volatile uint32_t *)(GPIOA_BASE + 0x08)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA_PUPDR   *(volatile uint32_t *)(GPIOA_BASE + 0x0C)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA_IDR     *(volatile uint32_t *)(GPIOA_BASE + 0x10)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA_ODR     *(volatile uint32_t *)(GPIOA_BASE + 0x14)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA_BSRR    *(volatile uint32_t *)(GPIOA_BASE + 0x18)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA_LCKR    *(volatile uint32_t *)(GPIOA_BASE + 0x1C)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA_AFRL    *(volatile uint32_t *)(GPIOA_BASE + 0x20)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA_AFRH    *(volatile uint32_t *)(GPIOA_BASE + 0x24)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// GPIOB에 대해서도 동일하게 반복</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOB_MODER   *(volatile uint32_t *)(GPIOB_BASE + 0x00)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOB_OTYPER  *(volatile uint32_t *)(GPIOB_BASE + 0x04)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOB_OSPEEDR *(volatile uint32_t *)(GPIOB_BASE + 0x08)</span></span><br><span class="line"><span class="comment">// ... 계속 반복</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// GPIOC, GPIOD, GPIOE... 모두 동일하게 반복해야 함</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>주요 문제점:</strong></p>
+<ol>
+<li><strong>반복적 정의</strong>: 각 GPIO마다 동일한 패턴 반복</li>
+<li><strong>확장성 부족</strong>: 새 GPIO 추가 시 많은 코드 작성 필요</li>
+<li><strong>유지보수 어려움</strong>: 레지스터 구조 변경 시 모든 정의 수정 필요</li>
+<li><strong>타입 안전성 없음</strong>: 컴파일러가 잘못된 사용을 감지하기 어려움</li>
+</ol>
+<h2 id="📦-구조체-사용의-중요성"><a href="#📦-구조체-사용의-중요성" class="headerlink" title="📦 구조체 사용의 중요성"></a>📦 구조체 사용의 중요성</h2><h3 id="구조체를-사용한-해결책"><a href="#구조체를-사용한-해결책" class="headerlink" title="구조체를 사용한 해결책"></a>구조체를 사용한 해결책</h3><p>하나의 구조체 정의로 모든 GPIO에 적용할 수 있다:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// GPIO 레지스터 구조체 정의</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">   <span class="keyword">volatile</span> <span class="type">uint32_t</span> MODER;      <span class="comment">// 0x00 - Mode register</span></span><br><span class="line">   <span class="keyword">volatile</span> <span class="type">uint32_t</span> OTYPER;     <span class="comment">// 0x04 - Output type register  </span></span><br><span class="line">   <span class="keyword">volatile</span> <span class="type">uint32_t</span> OSPEEDR;    <span class="comment">// 0x08 - Output speed register</span></span><br><span class="line">   <span class="keyword">volatile</span> <span class="type">uint32_t</span> PUPDR;      <span class="comment">// 0x0C - Pull-up/pull-down register</span></span><br><span class="line">   <span class="keyword">volatile</span> <span class="type">uint32_t</span> IDR;        <span class="comment">// 0x10 - Input data register</span></span><br><span class="line">   <span class="keyword">volatile</span> <span class="type">uint32_t</span> ODR;        <span class="comment">// 0x14 - Output data register</span></span><br><span class="line">   <span class="keyword">volatile</span> <span class="type">uint32_t</span> BSRR;       <span class="comment">// 0x18 - Bit set/reset register</span></span><br><span class="line">   <span class="keyword">volatile</span> <span class="type">uint32_t</span> LCKR;       <span class="comment">// 0x1C - Configuration lock register</span></span><br><span class="line">   <span class="keyword">volatile</span> <span class="type">uint32_t</span> AFR[<span class="number">2</span>];     <span class="comment">// 0x20, 0x24 - Alternate function registers (AFRL, AFRH)</span></span><br><span class="line">&#125;GPIO_TypeDef;</span><br></pre></td></tr></table></figure>
+
+<h3 id="구조체-멤버-설명"><a href="#구조체-멤버-설명" class="headerlink" title="구조체 멤버 설명"></a>구조체 멤버 설명</h3><p><strong>주요 레지스터별 용도:</strong></p>
+<p><strong>MODER (Mode Register)</strong></p>
+<ul>
+<li>각 핀의 모드 설정 (Input&#x2F;Output&#x2F;AF&#x2F;Analog)</li>
+<li>2비트씩 할당 (핀 0: [1:0], 핀 1: [3:2], …)</li>
+</ul>
+<p><strong>OTYPER (Output Type Register)</strong>  </p>
+<ul>
+<li>Output 타입 설정 (Push-pull&#x2F;Open-drain)</li>
+<li>1비트씩 할당</li>
+</ul>
+<p><strong>ODR (Output Data Register)</strong></p>
+<ul>
+<li>출력 데이터 설정</li>
+<li>1비트씩 할당 (1: High, 0: Low)</li>
+</ul>
+<p><strong>IDR (Input Data Register)</strong></p>
+<ul>
+<li>입력 데이터 읽기</li>
+<li>읽기 전용 레지스터</li>
+</ul>
+<p><strong>BSRR (Bit Set&#x2F;Reset Register)</strong></p>
+<ul>
+<li>원자적 비트 설정&#x2F;리셋</li>
+<li>상위 16비트: Reset, 하위 16비트: Set</li>
+</ul>
+<p><strong>AFR[2] (Alternate Function Register)</strong></p>
+<ul>
+<li>대체 기능 설정</li>
+<li>AFR[0]: 핀 0-7, AFR[1]: 핀 8-15</li>
+</ul>
+<h2 id="🎯-구조체-포인터-정의"><a href="#🎯-구조체-포인터-정의" class="headerlink" title="🎯 구조체 포인터 정의"></a>🎯 구조체 포인터 정의</h2><h3 id="각-GPIO를-구조체-포인터로-정의"><a href="#각-GPIO를-구조체-포인터로-정의" class="headerlink" title="각 GPIO를 구조체 포인터로 정의"></a>각 GPIO를 구조체 포인터로 정의</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 구조체 포인터로 각 GPIO 정의</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA ((GPIO_TypeDef *)(GPIOA_BASE))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOB ((GPIO_TypeDef *)(GPIOB_BASE))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOC ((GPIO_TypeDef *)(GPIOC_BASE))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOD ((GPIO_TypeDef *)(GPIOD_BASE))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOE ((GPIO_TypeDef *)(GPIOE_BASE))</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="포인터-타입-캐스팅-이해"><a href="#포인터-타입-캐스팅-이해" class="headerlink" title="포인터 타입 캐스팅 이해"></a>포인터 타입 캐스팅 이해</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA ((GPIO_TypeDef *)(GPIOA_BASE))</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>동작 원리:</strong></p>
+<ol>
+<li><code>GPIOA_BASE</code>: 32비트 정수 주소값</li>
+<li><code>(GPIO_TypeDef *)</code>: GPIO_TypeDef 구조체 포인터로 타입 캐스팅</li>
+<li><code>GPIOA-&gt;MODER</code>: 구조체 멤버 접근 연산자 사용</li>
+</ol>
+<p><strong>메모리 매핑:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">GPIOA_BASE (0x40020000) ──┐</span><br><span class="line">                          │</span><br><span class="line">                          ▼</span><br><span class="line">┌─────────────────────────────┐</span><br><span class="line">│ MODER    (0x40020000)      │ ← GPIOA-&gt;MODER</span><br><span class="line">│ OTYPER   (0x40020004)      │ ← GPIOA-&gt;OTYPER  </span><br><span class="line">│ OSPEEDR  (0x40020008)      │ ← GPIOA-&gt;OSPEEDR</span><br><span class="line">│ PUPDR    (0x4002000C)      │ ← GPIOA-&gt;PUPDR</span><br><span class="line">│ IDR      (0x40020010)      │ ← GPIOA-&gt;IDR</span><br><span class="line">│ ODR      (0x40020014)      │ ← GPIOA-&gt;ODR</span><br><span class="line">│ BSRR     (0x40020018)      │ ← GPIOA-&gt;BSRR</span><br><span class="line">│ LCKR     (0x4002001C)      │ ← GPIOA-&gt;LCKR</span><br><span class="line">│ AFR[0]   (0x40020020)      │ ← GPIOA-&gt;AFR[0]</span><br><span class="line">│ AFR[1]   (0x40020024)      │ ← GPIOA-&gt;AFR[1]</span><br><span class="line">└─────────────────────────────┘</span><br></pre></td></tr></table></figure>
+
+<h2 id="🚀-구조체를-사용한-최종-코드"><a href="#🚀-구조체를-사용한-최종-코드" class="headerlink" title="🚀 구조체를 사용한 최종 코드"></a>🚀 구조체를 사용한 최종 코드</h2><h3 id="완성된-코드"><a href="#완성된-코드" class="headerlink" title="완성된 코드"></a>완성된 코드</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdint.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stm32f411xe.h&quot;</span>  <span class="comment">// STM32 표준 헤더 파일</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 베이스 주소 정의</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PERIPH_BASE (0x40000000UL)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> AHB1PERIPH_OFFSET (0x20000UL)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> AHB1PERIPH_BASE (PERIPH_BASE + AHB1PERIPH_OFFSET)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA_BASE (AHB1PERIPH_BASE + 0x0000UL)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> RCC_AHB1ENR *(volatile uint32_t *)0x40023830</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// GPIO 구조체 정의</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">   <span class="keyword">volatile</span> <span class="type">uint32_t</span> MODER;</span><br><span class="line">   <span class="keyword">volatile</span> <span class="type">uint32_t</span> OTYPER;</span><br><span class="line">   <span class="keyword">volatile</span> <span class="type">uint32_t</span> OSPEEDR;</span><br><span class="line">   <span class="keyword">volatile</span> <span class="type">uint32_t</span> PUPDR;</span><br><span class="line">   <span class="keyword">volatile</span> <span class="type">uint32_t</span> IDR;</span><br><span class="line">   <span class="keyword">volatile</span> <span class="type">uint32_t</span> ODR;</span><br><span class="line">   <span class="keyword">volatile</span> <span class="type">uint32_t</span> BSRR;</span><br><span class="line">   <span class="keyword">volatile</span> <span class="type">uint32_t</span> LCKR;</span><br><span class="line">   <span class="keyword">volatile</span> <span class="type">uint32_t</span> AFR[<span class="number">2</span>];</span><br><span class="line">&#125;GPIO_TypeDef;</span><br><span class="line"></span><br><span class="line"><span class="comment">// GPIO 포인터 정의</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA ((GPIO_TypeDef *)(GPIOA_BASE))</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">delay</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">   <span class="comment">/*1. Enable clock access to GPIOA */</span></span><br><span class="line">   RCC_AHB1ENR |= (<span class="number">1U</span> &lt;&lt; <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">   <span class="comment">/*2. Set PA5 as output pin */</span></span><br><span class="line">   GPIOA-&gt;MODER |= (<span class="number">1U</span> &lt;&lt; <span class="number">10</span>);</span><br><span class="line">   GPIOA-&gt;MODER &amp;= ~(<span class="number">1U</span> &lt;&lt; <span class="number">11</span>);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">   &#123;</span><br><span class="line">      <span class="comment">/*3. Set PA5 high */</span></span><br><span class="line">      GPIOA-&gt;ODR |= (<span class="number">1U</span> &lt;&lt; <span class="number">5</span>);</span><br><span class="line">      delay();</span><br><span class="line">      </span><br><span class="line">      <span class="comment">/*4. Set PA5 low */</span></span><br><span class="line">      GPIOA-&gt;ODR &amp;= ~(<span class="number">1U</span> &lt;&lt; <span class="number">5</span>);</span><br><span class="line">      delay();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">delay</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i&lt;<span class="number">100000</span>; i++)&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="✨-구조체-사용의-장점"><a href="#✨-구조체-사용의-장점" class="headerlink" title="✨ 구조체 사용의 장점"></a>✨ 구조체 사용의 장점</h2><h3 id="1-간결성과-재사용성"><a href="#1-간결성과-재사용성" class="headerlink" title="1. 간결성과 재사용성"></a>1. 간결성과 재사용성</h3><p><strong>Before (Define 방식):</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 각 GPIO마다 개별 정의 필요 (40줄 이상)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA_ODR *(volatile uint32_t *)(GPIOA_BASE + 0x14)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOB_ODR *(volatile uint32_t *)(GPIOB_BASE + 0x14)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOC_ODR *(volatile uint32_t *)(GPIOC_BASE + 0x14)</span></span><br><span class="line"><span class="comment">// ... 계속</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>After (구조체 방식):</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 하나의 구조체로 모든 GPIO 커버 (10줄)</span></span><br><span class="line">GPIOA-&gt;ODR</span><br><span class="line">GPIOB-&gt;ODR  </span><br><span class="line">GPIOC-&gt;ODR</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-확장성"><a href="#2-확장성" class="headerlink" title="2. 확장성"></a>2. 확장성</h3><p>새로운 GPIO 포트 추가가 매우 쉽다:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 새 GPIO 추가 (단 한 줄!)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOF ((GPIO_TypeDef *)(GPIOF_BASE))</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 즉시 모든 레지스터 사용 가능</span></span><br><span class="line">GPIOF-&gt;MODER = <span class="number">0x12345678</span>;</span><br><span class="line">GPIOF-&gt;ODR |= (<span class="number">1U</span> &lt;&lt; <span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-타입-안전성"><a href="#3-타입-안전성" class="headerlink" title="3. 타입 안전성"></a>3. 타입 안전성</h3><p>IDE와 컴파일러가 타입 검사를 수행한다:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 잘못된 사용 시 컴파일 에러 발생</span></span><br><span class="line">GPIOA-&gt;INVALID_REGISTER = <span class="number">0</span>;  <span class="comment">// 컴파일 에러!</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// IDE에서 자동완성 지원</span></span><br><span class="line">GPIOA-&gt;  <span class="comment">// 여기서 자동완성으로 사용 가능한 멤버들을 보여줌</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-가독성-향상"><a href="#4-가독성-향상" class="headerlink" title="4. 가독성 향상"></a>4. 가독성 향상</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 구조체 멤버 접근이 더 직관적</span></span><br><span class="line">GPIOA-&gt;MODER |= (<span class="number">1U</span> &lt;&lt; <span class="number">10</span>);   <span class="comment">// 명확한 의미</span></span><br><span class="line">GPIOA-&gt;ODR ^= (<span class="number">1U</span> &lt;&lt; <span class="number">5</span>);      <span class="comment">// 토글 의미 명확</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="💡-핵심-개념-정리"><a href="#💡-핵심-개념-정리" class="headerlink" title="💡 핵심 개념 정리"></a>💡 핵심 개념 정리</h2><h3 id="구조체와-메모리-매핑의-관계"><a href="#구조체와-메모리-매핑의-관계" class="headerlink" title="구조체와 메모리 매핑의 관계"></a>구조체와 메모리 매핑의 관계</h3><p>구조체는 메모리에 연속적으로 배치된다:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">   <span class="keyword">volatile</span> <span class="type">uint32_t</span> MODER;    <span class="comment">// +0x00</span></span><br><span class="line">   <span class="keyword">volatile</span> <span class="type">uint32_t</span> OTYPER;   <span class="comment">// +0x04</span></span><br><span class="line">   <span class="keyword">volatile</span> <span class="type">uint32_t</span> OSPEEDR;  <span class="comment">// +0x08</span></span><br><span class="line">   <span class="comment">// ...</span></span><br><span class="line">&#125;GPIO_TypeDef;</span><br></pre></td></tr></table></figure>
+
+<p>이는 STM32의 실제 하드웨어 레지스터 배치와 정확히 일치한다.</p>
+<h3 id="volatile-키워드의-지속적-중요성"><a href="#volatile-키워드의-지속적-중요성" class="headerlink" title="volatile 키워드의 지속적 중요성"></a>volatile 키워드의 지속적 중요성</h3><p>구조체에서도 <code>volatile</code>은 여전히 중요하다:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">volatile</span> <span class="type">uint32_t</span> MODER;  <span class="comment">// 컴파일러 최적화 방지</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>이유:</strong></p>
+<ul>
+<li>하드웨어 레지스터는 언제든지 값이 변경될 수 있다</li>
+<li>컴파일러가 레지스터 읽기를 건너뛰지 않도록 한다</li>
+</ul>
+<h2 id="📋-정리"><a href="#📋-정리" class="headerlink" title="📋 정리"></a>📋 정리</h2><p>이번 포스트에서는 구조체를 활용한 코드 개선을 다뤘다:</p>
+<ol>
+<li><strong>Define 방식의 한계</strong>: 반복적이고 확장성 부족</li>
+<li><strong>구조체 정의</strong>: 하나의 구조체로 모든 GPIO 커버</li>
+<li><strong>포인터 활용</strong>: 타입 캐스팅을 통한 메모리 매핑</li>
+<li><strong>장점 확인</strong>: 간결성, 확장성, 타입 안전성, 가독성</li>
+</ol>
+<p><strong>핵심 개선 효과:</strong></p>
+<ul>
+<li>코드량 80% 감소</li>
+<li>새 GPIO 추가 시간 90% 단축</li>
+<li>컴파일 시 타입 안전성 확보</li>
+<li>IDE 자동완성 지원</li>
+</ul>
+<p>다음 포스트에서는 구조체의 고급 활용법과 성능 분석을 알아보겠다.</p>
+<hr>
+<p><strong>이전 포스트</strong>: <a href="/posts/cortex-m-code-improvement-basic">5-1. 코드 개선 과정 - Define과 베이스 주소</a><br><strong>다음 포스트</strong>: <a href="/posts/cortex-m-code-improvement-advanced">5-3. 코드 개선 과정 - 고급 기법과 성능</a></p>
+</main>
+        
+        <blockquote class="mdui-m-x-0 mdui-m-t-4">
+    <strong>
+        Author: <a href="#">고은</a><br>
+        URL: <a href="https://www.goeun-oh.com/2025/06/23/cortex-m-code-improvement-struct/">https://www.goeun-oh.com/2025/06/23/cortex-m-code-improvement-struct/</a><br>
+        
+            라이선스
+        
+    </strong>
+</blockquote>
+        
+    </div>
+    
+</article>
+
+    
+    
+</section>
+
+    </div>
+    <a href="#" class="mdui-fab mdui-fab-fixed mdui-hidden-xs mdui-color-theme-accent mdui-ripple"><i class="mdui-icon material-icons">keyboard_arrow_up</i></a>
+
+<script src="https://cdn.jsdelivr.net/npm/mdui@1.0.2/dist/js/mdui.min.js"></script>
+
+
+<script>
+    var $ = mdui.$;
+    function init(){
+        //
+    }
+    window.addEventListener("load", () => {
+        //
+        init()
+    }, {once: true});
+</script>
+
+</body>
+</html>
