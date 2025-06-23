@@ -42,6 +42,11 @@
         <link rel=alternate type="application/rss+xml" href="<%= url_for(theme.url.rss) || '#' %>">
 <% }} %>
 
+<!-- Google Fonts 추가 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+
 <style>
     html,body{scroll-behavior:smooth;min-height:100vh}
     blockquote>strong>a{word-break:break-all}
@@ -52,4 +57,190 @@
     <% if(theme.m.css) { %>
         <%- theme.m.css %>
     <% } %>
+    
+    /* 가독성 개선 CSS */
+    body {
+        font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    }
+    
+    /* 본문 텍스트 크기 및 줄 간격 대폭 개선 */
+    .mdui-card-content {
+        font-size: 17px !important;
+        line-height: 1.8 !important;
+        color: #333;
+        word-break: keep-all;
+        word-wrap: break-word;
+        padding: 2em !important;
+    }
+    
+    .mdui-card-content p {
+        margin-bottom: 1.4em;
+        font-size: 17px;
+        line-height: 1.8;
+    }
+    
+    /* 제목 크기 및 여백 조정 */
+    .mdui-card-content h1 {
+        font-size: 2.4em !important;
+        margin: 1.8em 0 1.2em 0;
+        font-weight: 700;
+        color: #2c3e50;
+        border-bottom: 3px solid #3498db;
+        padding-bottom: 0.5em;
+    }
+    
+    .mdui-card-content h2 {
+        font-size: 2.0em !important;
+        margin: 1.6em 0 1.0em 0;
+        font-weight: 600;
+        color: #34495e;
+        border-left: 4px solid #3498db;
+        padding-left: 0.8em;
+    }
+    
+    .mdui-card-content h3 {
+        font-size: 1.6em !important;
+        margin: 1.4em 0 0.8em 0;
+        font-weight: 600;
+        color: #2c3e50;
+    }
+    
+    .mdui-card-content h4 {
+        font-size: 1.3em !important;
+        margin: 1.2em 0 0.6em 0;
+        font-weight: 600;
+        color: #34495e;
+    }
+    
+    /* 리스트 스타일 개선 */
+    .mdui-card-content ul, .mdui-card-content ol {
+        margin: 1.5em 0;
+        padding-left: 2.2em;
+    }
+    
+    .mdui-card-content li {
+        margin-bottom: 0.8em;
+        line-height: 1.8;
+        font-size: 16px;
+    }
+    
+    /* 코드 블록 스타일 개선 */
+    .mdui-card-content pre {
+        background: #f8f9fa !important;
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        padding: 1.5em !important;
+        margin: 2em 0;
+        overflow-x: auto;
+        font-size: 15px;
+        line-height: 1.6;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .mdui-card-content code {
+        background: #f1f3f4;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-size: 0.9em;
+        color: #d73a49;
+        font-weight: 500;
+    }
+    
+    .mdui-card-content pre code {
+        background: none;
+        padding: 0;
+        color: inherit;
+        font-weight: normal;
+    }
+    
+    /* 인라인 코드 스타일 강화 */
+    .mdui-card-content p code, .mdui-card-content li code {
+        background: #fff2f2;
+        color: #d73a49;
+        font-weight: 600;
+        border: 1px solid #ffebee;
+    }
+    
+    /* 이미지 스타일 개선 */
+    .mdui-card-content img {
+        max-width: 100%;
+        height: auto;
+        margin: 2em auto;
+        display: block;
+        border-radius: 10px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        border: 1px solid #eee;
+    }
+    
+    /* 표 스타일 개선 */
+    .mdui-card-content table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 2em 0;
+        font-size: 15px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    
+    .mdui-card-content th,
+    .mdui-card-content td {
+        border: 1px solid #ddd;
+        padding: 15px;
+        text-align: left;
+    }
+    
+    .mdui-card-content th {
+        background: #f5f7fa;
+        font-weight: 600;
+        color: #2c3e50;
+        border-bottom: 2px solid #3498db;
+    }
+    
+    .mdui-card-content tr:nth-child(even) {
+        background: #f9f9f9;
+    }
+    
+    /* 블록 인용문 스타일 개선 */
+    .mdui-card-content blockquote {
+        border-left: 5px solid #3498db;
+        margin: 2em 0;
+        padding: 1.2em 1.8em;
+        background: #f8f9ff;
+        border-radius: 0 8px 8px 0;
+        font-style: italic;
+        color: #555;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    
+    /* 카드 스타일 개선 */
+    .mdui-card {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+        border-radius: 12px !important;
+        margin-bottom: 2em;
+    }
+    
+    /* 모바일 반응형 스타일 */
+    @media (max-width: 768px) {
+        .mdui-card-content {
+            font-size: 16px !important;
+            padding: 1.5em !important;
+        }
+        
+        .mdui-card-content p {
+            font-size: 16px;
+        }
+        
+        .mdui-card-content h1 {
+            font-size: 2.0em !important;
+        }
+        
+        .mdui-card-content h2 {
+            font-size: 1.7em !important;
+        }
+        
+        .mdui-card-content h3 {
+            font-size: 1.4em !important;
+        }
+    }
 </style>
