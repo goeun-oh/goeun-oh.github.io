@@ -41,70 +41,46 @@ appbar:
   search: true
   rss: false
 
-# 기술 블로그용 사이드바 설정 (대분류별 그룹핑)
+# 기술 블로그용 사이드바 설정 (단순하고 명확하게)
 drawer:
   avatar: 
   toc: true
   search: true
   home: true
-  archives: false
-  categories: true  # 카테고리 기능 활성화 (접을 수 있는 메뉴)
-  tags: false
+  archives: true   # 기본 아카이브 활성화
+  categories: false # 카테고리는 커스텀으로 대체
+  tags: true       # 태그 활성화
   links: false
   rss: false
   custom:
-    "💻 프로세서 아키텍처":
-      href: "/categories/"
-      class: "material-icons"
-      content: "memory"
-    "--- RISC-V":
+    "💻 RISC-V":
       href: "/categories/RISC-V/"
       class: "material-icons"
-      content: "chevron_right"
-    "--- ARM Cortex-M":
+      content: "memory"
+    "🖥️ Cortex-M":
       href: "/categories/Cortex-M/"
       class: "material-icons"
-      content: "chevron_right"
-    "🔌 통신 프로토콜":
-      href: "/categories/"
-      class: "material-icons"
-      content: "device_hub"
-    "--- APB Protocol":
+      content: "developer_board"
+    "📡 APB Protocol":
       href: "/categories/APB/"
       class: "material-icons"
-      content: "chevron_right"
-    "--- UART":
-      href: "/categories/UART/"
-      class: "material-icons"
-      content: "chevron_right"
-    "--- I2C":
-      href: "/categories/I2C/"
-      class: "material-icons"
-      content: "chevron_right"
-    "--- SPI":
-      href: "/categories/SPI/"
-      class: "material-icons"
-      content: "chevron_right"
-    "⚡ HDL & 설계":
-      href: "/categories/"
-      class: "material-icons"
-      content: "electrical_services"
-    "--- Verilog 기초":
+      content: "device_hub"
+    "⚡ Verilog":
       href: "/categories/Verilog/"
       class: "material-icons"
-      content: "chevron_right"
-    "📚 블로그 메뉴":
-      href: "/archives/"
+      content: "electrical_services"
+    "🔌 UART":
+      href: "/categories/UART/"
       class: "material-icons"
-      content: "menu_book"
-    "--- 전체 아카이브":
-      href: "/archives/"
+      content: "cable"
+    "🔄 I2C":
+      href: "/categories/I2C/"
       class: "material-icons"
-      content: "archive"
-    "--- 태그 목록":
-      href: "/tags/"
+      content: "sync_alt"
+    "📊 SPI":
+      href: "/categories/SPI/"
       class: "material-icons"
-      content: "local_offer"
+      content: "timeline"
 
 footer:
   since: 2024
