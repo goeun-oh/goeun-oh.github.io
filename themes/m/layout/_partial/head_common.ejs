@@ -217,85 +217,52 @@ document.addEventListener('DOMContentLoaded', function() {
                 box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3) !important;
             }
             
-            /* 목차 스타일 개선 */
+            /* 목차 스타일 - 스크린샷처럼 심플하게 */
             #table-of-contents {
-                background: linear-gradient(135deg, #f8f9ff 0%, #fff 100%) !important;
-                border: 2px solid #e3f2fd !important;
-                border-radius: 16px !important;
-                padding: 2em !important;
-                margin: 0 0 3em 0 !important;
-                box-shadow: 0 8px 30px rgba(52, 152, 219, 0.12) !important;
-                position: relative !important;
-                overflow: hidden !important;
-            }
-            
-            #table-of-contents::before {
-                content: '' !important;
-                position: absolute !important;
-                top: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
-                height: 4px !important;
-                background: linear-gradient(90deg, #3498db, #2980b9, #3498db) !important;
-                background-size: 200% 100% !important;
-                animation: shimmer 3s ease-in-out infinite !important;
-            }
-            
-            @keyframes shimmer {
-                0%, 100% { background-position: 200% 0; }
-                50% { background-position: -200% 0; }
+                background: #fff !important;
+                border: 1px solid #e0e0e0 !important;
+                border-radius: 8px !important;
+                padding: 1.5em !important;
+                margin: 0 0 2.5em 0 !important;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.05) !important;
             }
             
             .toc-header {
                 display: flex !important;
                 justify-content: space-between !important;
                 align-items: center !important;
-                margin-bottom: 1.5em !important;
-                padding-bottom: 1em !important;
-                border-bottom: 2px solid #e8f4fd !important;
+                margin-bottom: 1em !important;
+                padding-bottom: 0.8em !important;
+                border-bottom: 1px solid #e0e0e0 !important;
             }
             
             .toc-header h3 {
                 margin: 0 !important;
-                color: #2c3e50 !important;
-                font-size: 1.3em !important;
-                font-weight: 700 !important;
+                color: #333 !important;
+                font-size: 1.1em !important;
+                font-weight: 600 !important;
                 border: none !important;
                 padding: 0 !important;
-                display: flex !important;
-                align-items: center !important;
-                gap: 0.5em !important;
-            }
-            
-            .toc-header h3::before {
-                content: '📋' !important;
-                font-size: 1.2em !important;
             }
             
             .toc-toggle {
-                background: linear-gradient(135deg, #3498db, #2980b9) !important;
+                background: #52a9ff !important;
                 color: white !important;
                 border: none !important;
-                padding: 0.5em 1em !important;
-                border-radius: 20px !important;
-                font-size: 0.85em !important;
-                font-weight: 600 !important;
+                padding: 0.3em 0.8em !important;
+                border-radius: 12px !important;
+                font-size: 0.8em !important;
+                font-weight: 500 !important;
                 cursor: pointer !important;
-                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-                box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3) !important;
+                transition: background 0.3s ease !important;
             }
             
             .toc-toggle:hover {
-                transform: translateY(-2px) !important;
-                box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4) !important;
-            }
-            
-            .toc-toggle:active {
-                transform: translateY(0) !important;
+                background: #2196f3 !important;
             }
             
             .toc-nav {
-                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                transition: all 0.3s ease !important;
             }
             
             .toc-list {
@@ -305,57 +272,40 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             .toc-item {
-                margin: 0.5em 0 !important;
-                line-height: 1.6 !important;
+                margin: 0 !important;
+                line-height: 1.4 !important;
             }
             
+            /* h1 제목만 표시 */
             .toc-level-1 { 
-                font-weight: 700 !important; 
-                font-size: 1.05em !important;
+                display: block !important;
             }
-            .toc-level-2 { 
-                padding-left: 1.2em !important; 
-                font-weight: 600 !important; 
-            }
-            .toc-level-3 { 
-                padding-left: 2.4em !important; 
-                font-weight: 500 !important;
-            }
-            .toc-level-4 { 
-                padding-left: 3.6em !important; 
-                font-size: 0.95em !important; 
-            }
-            .toc-level-5, .toc-level-6 { 
-                padding-left: 4.8em !important; 
-                font-size: 0.9em !important; 
+            .toc-level-2, .toc-level-3, .toc-level-4, .toc-level-5, .toc-level-6 { 
+                display: none !important;
             }
             
             .toc-link {
-                color: #34495e !important;
+                color: #52a9ff !important;
                 text-decoration: none !important;
-                padding: 0.4em 0.8em !important;
-                border-radius: 8px !important;
+                padding: 0.6em 0 !important;
                 display: block !important;
-                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-                border-left: 3px solid transparent !important;
-                position: relative !important;
+                font-size: 0.95em !important;
+                font-weight: 500 !important;
+                border-bottom: 1px solid #f5f5f5 !important;
+                transition: color 0.3s ease !important;
+            }
+            
+            .toc-item:last-child .toc-link {
+                border-bottom: none !important;
             }
             
             .toc-link:hover {
-                background: linear-gradient(135deg, #e8f4fd, #f0f8ff) !important;
-                color: #2980b9 !important;
-                border-left-color: #3498db !important;
-                transform: translateX(4px) !important;
-                box-shadow: 0 2px 8px rgba(52, 152, 219, 0.15) !important;
+                color: #2196f3 !important;
             }
             
             .toc-link.active {
-                background: linear-gradient(135deg, #3498db, #2980b9) !important;
-                color: white !important;
+                color: #2196f3 !important;
                 font-weight: 600 !important;
-                border-left-color: #2c3e50 !important;
-                transform: translateX(4px) !important;
-                box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3) !important;
             }
             
             /* 본문 스타일 개선 */
