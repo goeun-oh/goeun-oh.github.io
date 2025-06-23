@@ -1,0 +1,234 @@
+---
+title: 2. STM32CubeIDE 프로젝트 생성
+date: 2025-06-23
+categories:
+  - Cortex-M
+  - ARM
+  - Embedded
+tags:
+  - STM32CubeIDE
+  - 프로젝트설정
+  - RCC
+  - GPIO
+layout: post
+---
+
+# STM32CubeIDE 프로젝트 생성
+
+이번 포스트에서는 STM32CubeIDE를 사용하여 새 프로젝트를 생성하고 기본적인 설정을 진행한다.
+
+## 🚀 기본 프로젝트 설정
+
+### 프로젝트 생성 단계
+
+**1. STM32CubeIDE 실행**
+- STM32CubeIDE를 실행한다
+- "File → New → STM32 Project" 선택
+
+**2. MCU 선택**
+- Target Selection에서 **STM32F411RE** 검색 및 선택
+- Nucleo-64 보드 선택
+
+**3. 프로젝트 설정**
+- 프로젝트 이름을 입력한다
+- 저장 위치를 지정한다
+- "Finish"를 클릭하여 프로젝트를 생성한다
+
+> 💡 **팁**: 프로젝트 이름은 영문과 숫자, 언더스코어만 사용하는 것이 좋다.
+
+## ⚙️ RCC (클럭) 설정
+
+클럭 설정은 STM32 개발에서 가장 중요한 초기 설정 중 하나다.
+
+### 클럭 소스 이해
+
+**내부 클럭 (HSI - High Speed Internal)**
+- **주파수**: 16MHz 고정
+- **특징**: 
+  - 외부 크리스털이 필요 없다
+  - 온도나 전압 변화에 영향을 받을 수 있다
+  - 정확도가 외부 클럭보다 낮다
+
+**외부 클럭 (HSE - High Speed External)**
+- **주파수**: 8MHz (우리 보드 기준)
+- **특징**:
+  - 외부 크리스털 오실레이터를 사용한다
+  - 높은 정확도와 안정성을 제공한다
+  - 정밀한 타이밍이 필요한 애플리케이션에 적합하다
+
+### RCC 설정 방법
+
+**1. Clock Configuration 탭으로 이동**
+
+**2. HSE 설정**
+```
+RCC → High Speed Clock (HSE) → Crystal/Ceramic Resonator 선택
+```
+
+**3. PLL 설정**
+- HSE(8MHz)를 PLL 회로를 통해 100MHz로 증폭한다
+- 이 과정을 통해 시스템 클럭을 최대 성능으로 설정할 수 있다
+
+**4. 최종 클럭 설정**
+- **HCLK**: 100MHz (시스템 클럭)
+- **APB1**: 50MHz (저속 주변장치)
+- **APB2**: 100MHz (고속 주변장치)
+- **Timer Clock**: 100MHz
+
+> 📌 **중요**: PLL을 사용하면 저주파수 입력을 고주파수로 변환하여 시스템 성능을 최대화할 수 있다.
+
+## 🔧 SYS (시스템) 설정
+
+### Debug 설정
+
+디버깅을 위한 시스템 설정을 진행한다.
+
+**Debug 인터페이스 선택:**
+```
+SYS → Debug → Serial Wire 선택
+```
+
+**Serial Wire Debug (SWD)의 장점:**
+- **핀 수 절약**: JTAG 대비 적은 핀 사용 (SWDIO, SWCLK만 필요)
+- **고속 디버깅**: 효율적인 디버깅 인터페이스 제공
+- **실시간 추적**: 실시간으로 프로그램 실행 상태를 모니터링할 수 있다
+
+> 🔍 **참고**: SWD는 ARM Cortex-M 시리즈에서 표준으로 사용되는 디버깅 인터페이스다.
+
+## 📍 GPIO 설정
+
+### PA5 핀을 Output으로 설정
+
+User LD2를 제어하기 위해 PA5 핀을 GPIO Output으로 설정한다.
+
+**설정 단계:**
+
+**1. Pinout & Configuration 탭에서 PA5 핀 찾기**
+
+**2. PA5 클릭 후 GPIO_Output 선택**
+
+**3. GPIO 설정 확인**
+- **GPIO output level**: Low (초기값)
+- **GPIO mode**: Output Push Pull
+- **GPIO Pull-up/Pull-down**: No pull-up and no pull-down
+- **Maximum output speed**: Low
+
+### GPIO 모드 설명
+
+**Output Type 옵션:**
+
+**Push Pull**
+- 기본 설정으로 대부분의 용도에 적합하다
+- HIGH/LOW 양방향으로 확실한 신호를 출력한다
+- LED 제어에 적합하다
+
+**Open Drain**
+- 주로 I2C 통신이나 와이어드 OR 로직에 사용한다
+- HIGH 임피던스 상태와 LOW만 출력할 수 있다
+
+**Pull-up/Pull-down 옵션:**
+- **No pull**: 외부 풀업/풀다운 저항을 사용할 때
+- **Pull-up**: 내부 풀업 저항 사용
+- **Pull-down**: 내부 풀다운 저항 사용
+
+## 📊 설정 결과 확인
+
+### Clock Tree 확인
+
+Clock Configuration 탭에서 최종 클럭 설정을 확인할 수 있다:
+
+- **Input**: HSE 8MHz
+- **PLL**: x12.5 (8MHz × 12.5 = 100MHz)
+- **SYSCLK**: 100MHz
+- **AHB**: 100MHz
+- **APB1**: 50MHz (÷2)
+- **APB2**: 100MHz (÷1)
+
+### GPIO 설정 확인
+
+Pinout view에서 다음을 확인할 수 있다:
+- PA5가 **녹색**으로 표시된다 (GPIO_Output으로 설정됨)
+- 핀 라벨이 **GPIO_Output**으로 변경된다
+
+## 💾 코드 생성 준비
+
+### Project Manager 설정
+
+**1. Project Manager 탭으로 이동**
+
+**2. Code Generator 설정**
+```
+Code Generator → 
+"Generate peripheral initialization as a pair of '.c/.h' files per peripheral" 선택
+```
+
+**이 설정의 장점:**
+- 각 주변장치별로 별도의 .c/.h 파일이 생성된다
+- 코드 구조가 명확해진다
+- 유지보수가 용이하다
+
+**3. 프로젝트 생성**
+- 톱니바퀴 아이콘(Generate Code)을 클릭한다
+- 코드 생성이 완료되면 프로젝트가 열린다
+
+## 📁 생성된 파일 구조
+
+코드 생성 후 다음과 같은 파일들이 만들어진다:
+
+```
+Project/
+├── Core/
+│   ├── Inc/
+│   │   ├── main.h
+│   │   ├── stm32f4xx_hal_conf.h
+│   │   └── stm32f4xx_it.h
+│   └── Src/
+│       ├── main.c              ← 메인 함수
+│       ├── stm32f4xx_hal_msp.c ← MSP 초기화
+│       ├── stm32f4xx_it.c      ← 인터럽트 핸들러
+│       └── system_stm32f4xx.c  ← 시스템 초기화
+├── Drivers/
+│   ├── CMSIS/
+│   └── STM32F4xx_HAL_Driver/
+└── ...
+```
+
+## 🧪 간단한 테스트 코드
+
+생성된 main.c에 LED 제어 코드를 추가해보자:
+
+```c
+/* USER CODE BEGIN WHILE */
+while (1)
+{
+    /* USER CODE END WHILE */
+    
+    // LED ON
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+    HAL_Delay(500);  // 0.5초 대기
+    
+    // LED OFF
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+    HAL_Delay(500);  // 0.5초 대기
+    
+    /* USER CODE BEGIN 3 */
+}
+/* USER CODE END 3 */
+```
+
+## 📋 정리
+
+이번 포스트에서는 STM32CubeIDE를 사용한 프로젝트 생성과 기본 설정을 다뤘다:
+
+1. **프로젝트 생성**: MCU 선택과 기본 설정
+2. **RCC 설정**: HSE 8MHz → 100MHz PLL 설정
+3. **SYS 설정**: Serial Wire Debug 인터페이스 설정
+4. **GPIO 설정**: PA5를 Output으로 설정
+5. **코드 생성**: 주변장치별 파일 분리 설정
+
+다음 포스트에서는 개발에 필요한 도구들을 설치하고 빌드 환경을 구성해보겠다.
+
+---
+
+**이전 포스트**: [1. STM32 보드 소개](/posts/cortex-m-board-introduction)  
+**다음 포스트**: [3. 개발 환경 구성](/posts/cortex-m-development-environment)
