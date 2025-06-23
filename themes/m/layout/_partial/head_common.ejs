@@ -59,22 +59,16 @@
     <% } %>
 </style>
 
-<!-- 블로그 포스트 페이지에서만 실행되는 스크립트 -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // .e-content 요소가 존재하고, 포트폴리오 페이지가 아닌 경우에만 적용
     const hasEContent = document.querySelector('.e-content');
     const isHomePage = window.location.pathname === '/' || window.location.pathname === '/index.html';
     
     if (hasEContent && !isHomePage) {
-        // 목차 생성 함수
-                // 기존 JavaScript 코드에서 createContentTOC() 함수 호출 전에 이 코드들을 추가하세요:
-
-        // 카테고리별 게시글 목차 데이터
         const categoryPosts = {
             'Cortex-M': [
-                { title: '1. STM32 보드 소개', url: '/2025/06/23/cortex-m-board-introduction/' },
-                { title: '2. STM32CubeIDE 프로젝트 생성', url: '/2025/06/23/cortex-m-project-setup/' },
+                { title: '1. STM32 보드 소개', url: '/2025/06/23/0.cortex-m-board-introduction/' },
+                { title: '2. STM32CubeIDE 프로젝트 생성', url: '/2025/06/23/1.cortex-m-project-setup/' },
                 { title: '3. Cortex-M 초기환경 세팅 가이드', url: '/2025/06/23/cortex-m-initial-setup-guide/' },
                 { title: '4. 바텀부터 LED 제어하기', url: '/2025/06/23/cortex-m-led-control-basics/' },
                 { title: '5-1. 코드 개선 과정 - Define과 베이스 주소', url: '/2025/06/23/cortex-m-code-improvement-basic/' },
@@ -87,19 +81,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
         function detectCurrentCategory() {
             const currentPath = window.location.pathname;
-            
-            // Cortex-M 카테고리 페이지이거나 cortex-m 포스트인 경우
-            if (currentPath.includes('/categories/Cortex-M/') || 
-                currentPath.includes('cortex-m') || 
-                currentPath.toLowerCase().includes('cortex')) {
+            if (currentPath.includes('/2025/') && currentPath.includes('cortex-m')) {
                 return 'Cortex-M';
             }
-            
             return null;
         }
 
-        // 카테고리 목차 생성
         function createCategoryTOC() {
+            if (document.getElementById('category-series-nav')) {
+                return;
+            }
+            
             const currentCategory = detectCurrentCategory();
             if (!currentCategory || !categoryPosts[currentCategory]) return;
             
@@ -123,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <li class="series-item ${isCurrentPost ? 'current' : ''}">
                         <span class="series-number">${postNumber}</span>
                         ${isCurrentPost ? 
-                            `<span class="series-title current-title">${post.title} (현재)</span>` :
+                            `<span class="series-title current-title">${post.title} <span class="current-badge">현재</span></span>` :
                             `<a href="${post.url}" class="series-link">${post.title}</a>`
                         }
                     </li>
@@ -136,20 +128,16 @@ document.addEventListener('DOMContentLoaded', function() {
             content.insertAdjacentHTML('afterbegin', tocHTML);
         }
 
-        // 함수 호출을 다음과 같이 수정:
-        setTimeout(() => {
-            createCategoryTOC();  // 이 줄을 추가
-            createTOC();          // 기존 createTOC() 호출 전에
-            initTOCToggle();
-            initTOCHighlight();
-        }, 100);
         function createTOC() {
+            if (document.getElementById('table-of-contents')) {
+                return;
+            }
+            
             const content = document.querySelector('.e-content');
             const headings = content.querySelectorAll('h1, h2, h3, h4, h5, h6');
             
-            if (headings.length < 2) return; // 헤딩이 2개 미만이면 목차 생성 안함
+            if (headings.length < 2) return;
             
-            // 각 헤딩에 ID 추가
             headings.forEach((heading, index) => {
                 if (!heading.id) {
                     const text = heading.textContent.trim();
@@ -160,8 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
             
-            // 목차 HTML 생성
-            let tocHTML = '<div id="table-of-contents"><div class="toc-header"><h3>📑 목차</h3><button id="toc-toggle" class="toc-toggle">접기</button></div><nav class="toc-nav"><ul class="toc-list">';
+            let tocHTML = '<div id="table-of-contents"><div class="toc-header"><h3>📑 이 글의 목차</h3><button id="toc-toggle" class="toc-toggle">접기</button></div><nav class="toc-nav"><ul class="toc-list">';
             
             headings.forEach((heading) => {
                 const level = parseInt(heading.tagName.charAt(1));
@@ -175,11 +162,14 @@ document.addEventListener('DOMContentLoaded', function() {
             
             tocHTML += '</ul></nav></div>';
             
-            // 목차를 본문 앞에 삽입
-            content.insertAdjacentHTML('afterbegin', tocHTML);
+            const seriesNav = document.getElementById('category-series-nav');
+            if (seriesNav) {
+                seriesNav.insertAdjacentHTML('afterend', tocHTML);
+            } else {
+                content.insertAdjacentHTML('afterbegin', tocHTML);
+            }
         }
         
-        // 목차 토글 기능
         function initTOCToggle() {
             const toggleBtn = document.getElementById('toc-toggle');
             const tocNav = document.querySelector('.toc-nav');
@@ -197,7 +187,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        // 스크롤 시 현재 섹션 하이라이트
         function initTOCHighlight() {
             const tocLinks = document.querySelectorAll('.toc-link');
             const headings = document.querySelectorAll('.e-content h1, .e-content h2, .e-content h3, .e-content h4, .e-content h5, .e-content h6');
@@ -220,23 +209,16 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             window.addEventListener('scroll', updateActiveLink);
-            updateActiveLink(); // 초기 호출
+            updateActiveLink();
         }
         
-        // 블로그 포스트 전용 CSS 적용
         const postStyles = document.createElement('style');
-        postStyles.textContent = `
-            /* 블로그 포스트 내용에만 적용되는 가독성 개선 CSS */
-            
-            /* 카드 컨테이너 자체에 여백 추가 */
-            .mdui-card-content.mdui-typo {
+        postStyles.textContent = `.mdui-card-content.mdui-typo {
                 padding: 3em 4em !important;
                 max-width: 900px !important;
                 margin: 0 auto !important;
             }
-            /* 기존 CSS 스타일에 이 코드들을 추가하세요: */
-
-            /* 카테고리 시리즈 네비게이션 */
+            
             #category-series-nav {
                 background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
                 color: white !important;
@@ -245,7 +227,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 margin: 0 0 2em 0 !important;
                 box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3) !important;
             }
-
+            
             .series-header {
                 display: flex !important;
                 justify-content: space-between !important;
@@ -254,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 border-bottom: 2px solid rgba(255,255,255,0.3) !important;
                 padding-bottom: 1em !important;
             }
-
+            
             .series-header h3 {
                 margin: 0 !important;
                 font-size: 1.4em !important;
@@ -263,7 +245,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 padding: 0 !important;
                 color: white !important;
             }
-
+            
             .series-progress {
                 background: rgba(255,255,255,0.2) !important;
                 padding: 0.5em 1em !important;
@@ -271,7 +253,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 font-size: 0.9em !important;
                 font-weight: 500 !important;
             }
-
+            
             .series-list {
                 list-style: none !important;
                 padding: 0 !important;
@@ -279,7 +261,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 display: grid !important;
                 gap: 0.8em !important;
             }
-
+            
             .series-item {
                 display: flex !important;
                 align-items: center !important;
@@ -289,18 +271,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 transition: all 0.3s ease !important;
                 border: 1px solid rgba(255,255,255,0.2) !important;
             }
-
+            
             .series-item:hover {
                 background: rgba(255,255,255,0.2) !important;
                 transform: translateX(5px) !important;
             }
-
+            
             .series-item.current {
                 background: rgba(255,255,255,0.25) !important;
                 border-color: rgba(255,255,255,0.5) !important;
                 transform: scale(1.02) !important;
             }
-
+            
             .series-number {
                 background: rgba(255,255,255,0.9) !important;
                 color: #667eea !important;
@@ -315,7 +297,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 margin-right: 1em !important;
                 flex-shrink: 0 !important;
             }
-
+            
             .series-link {
                 color: white !important;
                 text-decoration: none !important;
@@ -324,48 +306,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 line-height: 1.4 !important;
                 flex: 1 !important;
             }
-
+            
             .series-link:hover {
                 color: #fff !important;
             }
-
+            
             .current-title {
                 color: white !important;
                 font-weight: 600 !important;
                 font-size: 0.95em !important;
                 line-height: 1.4 !important;
+                flex: 1 !important;
             }
-
-            /* 모바일 반응형 */
-            @media (max-width: 768px) {
-                #category-series-nav {
-                    padding: 1.5em !important;
-                    margin: 0 0 1.5em 0 !important;
-                }
-                
-                .series-header {
-                    flex-direction: column !important;
-                    gap: 0.5em !important;
-                    text-align: center !important;
-                }
-                
-                .series-item {
-                    padding: 0.8em !important;
-                }
-                
-                .series-number {
-                    width: 25px !important;
-                    height: 25px !important;
-                    font-size: 0.8em !important;
-                    margin-right: 0.8em !important;
-                }
-                
-                .series-link,
-                .current-title {
-                    font-size: 0.9em !important;
-                }
+            
+            .current-badge {
+                background: #28a745 !important;
+                color: white !important;
+                padding: 0.2em 0.6em !important;
+                border-radius: 12px !important;
+                font-size: 0.7em !important;
+                font-weight: 600 !important;
+                margin-left: 1em !important;
             }
-            /* 목차 스타일 */
+            
             #table-of-contents {
                 background: #f8f9ff !important;
                 border: 2px solid #e3f2fd !important;
@@ -373,7 +336,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 padding: 1.5em !important;
                 margin: 0 0 3em 0 !important;
                 box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
-                position: relative !important;
             }
             
             .toc-header {
@@ -425,29 +387,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 line-height: 1.4 !important;
             }
             
-            .toc-level-1 {
-                font-weight: 600 !important;
-            }
-            
-            .toc-level-2 {
-                padding-left: 1em !important;
-                font-weight: 500 !important;
-            }
-            
-            .toc-level-3 {
-                padding-left: 2em !important;
-            }
-            
-            .toc-level-4 {
-                padding-left: 3em !important;
-                font-size: 0.9em !important;
-            }
-            
-            .toc-level-5,
-            .toc-level-6 {
-                padding-left: 4em !important;
-                font-size: 0.85em !important;
-            }
+            .toc-level-1 { font-weight: 600 !important; }
+            .toc-level-2 { padding-left: 1em !important; font-weight: 500 !important; }
+            .toc-level-3 { padding-left: 2em !important; }
+            .toc-level-4 { padding-left: 3em !important; font-size: 0.9em !important; }
+            .toc-level-5, .toc-level-6 { padding-left: 4em !important; font-size: 0.85em !important; }
             
             .toc-link {
                 color: #34495e !important;
@@ -478,13 +422,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 padding: 0 !important;
             }
             
-            .e-content,
-            .e-content p,
-            .e-content div,
-            .e-content span,
-            .e-content li,
-            .e-content td,
-            .e-content th {
+            .e-content, .e-content p, .e-content div, .e-content span, .e-content li, .e-content td, .e-content th {
                 font-size: 17px !important;
                 line-height: 1.8 !important;
                 color: #333 !important;
@@ -533,8 +471,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 scroll-margin-top: 100px !important;
             }
             
-            .e-content h5,
-            .e-content h6 {
+            .e-content h5, .e-content h6 {
                 font-size: 1.1em !important;
                 margin: 1em 0 0.5em 0 !important;
                 font-weight: 600 !important;
@@ -542,8 +479,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 scroll-margin-top: 100px !important;
             }
             
-            .e-content ul, 
-            .e-content ol {
+            .e-content ul, .e-content ol {
                 margin: 1.5em 0 !important;
                 padding-left: 2.2em !important;
             }
@@ -582,8 +518,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 font-weight: normal !important;
             }
             
-            .e-content p code, 
-            .e-content li code {
+            .e-content p code, .e-content li code {
                 background: #fff2f2 !important;
                 color: #d73a49 !important;
                 font-weight: 600 !important;
@@ -610,8 +545,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 overflow: hidden !important;
             }
             
-            .e-content th,
-            .e-content td {
+            .e-content th, .e-content td {
                 border: 1px solid #ddd !important;
                 padding: 15px !important;
                 text-align: left !important;
@@ -667,17 +601,41 @@ document.addEventListener('DOMContentLoaded', function() {
                 font-style: italic !important;
             }
             
-            /* 태블릿 반응형 */
             @media (max-width: 1024px) {
                 .mdui-card-content.mdui-typo {
                     padding: 2.5em 3em !important;
                 }
             }
             
-            /* 모바일 반응형 */
             @media (max-width: 768px) {
                 .mdui-card-content.mdui-typo {
                     padding: 2em 2em !important;
+                }
+                
+                #category-series-nav {
+                    padding: 1.5em !important;
+                    margin: 0 0 1.5em 0 !important;
+                }
+                
+                .series-header {
+                    flex-direction: column !important;
+                    gap: 0.5em !important;
+                    text-align: center !important;
+                }
+                
+                .series-item {
+                    padding: 0.8em !important;
+                }
+                
+                .series-number {
+                    width: 25px !important;
+                    height: 25px !important;
+                    font-size: 0.8em !important;
+                    margin-right: 0.8em !important;
+                }
+                
+                .series-link, .current-title {
+                    font-size: 0.9em !important;
                 }
                 
                 #table-of-contents {
@@ -690,54 +648,26 @@ document.addEventListener('DOMContentLoaded', function() {
                     gap: 0.5em !important;
                 }
                 
-                .toc-level-2 {
-                    padding-left: 0.5em !important;
-                }
+                .toc-level-2 { padding-left: 0.5em !important; }
+                .toc-level-3 { padding-left: 1em !important; }
+                .toc-level-4 { padding-left: 1.5em !important; }
+                .toc-level-5, .toc-level-6 { padding-left: 2em !important; }
                 
-                .toc-level-3 {
-                    padding-left: 1em !important;
-                }
-                
-                .toc-level-4 {
-                    padding-left: 1.5em !important;
-                }
-                
-                .toc-level-5,
-                .toc-level-6 {
-                    padding-left: 2em !important;
-                }
-                
-                .e-content,
-                .e-content p,
-                .e-content div,
-                .e-content span,
-                .e-content li {
+                .e-content, .e-content p, .e-content div, .e-content span, .e-content li {
                     font-size: 16px !important;
                 }
                 
-                .e-content h1 {
-                    font-size: 2.0em !important;
-                }
-                
-                .e-content h2 {
-                    font-size: 1.7em !important;
-                }
-                
-                .e-content h3 {
-                    font-size: 1.4em !important;
-                }
+                .e-content h1 { font-size: 2.0em !important; }
+                .e-content h2 { font-size: 1.7em !important; }
+                .e-content h3 { font-size: 1.4em !important; }
                 
                 .e-content pre {
                     padding: 1em !important;
                     font-size: 14px !important;
                 }
                 
-                .e-content table {
-                    font-size: 14px !important;
-                }
-                
-                .e-content th,
-                .e-content td {
+                .e-content table { font-size: 14px !important; }
+                .e-content th, .e-content td {
                     padding: 10px !important;
                     font-size: 14px !important;
                 }
@@ -748,11 +678,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     padding: 1.5em 1.5em !important;
                 }
                 
-                .e-content,
-                .e-content p,
-                .e-content div,
-                .e-content span,
-                .e-content li {
+                .e-content, .e-content p, .e-content div, .e-content span, .e-content li {
                     font-size: 15px !important;
                 }
                 
@@ -767,7 +693,6 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         document.head.appendChild(postStyles);
         
-        // 목차 생성 및 기능 초기화
         setTimeout(() => {
             createCategoryTOC();
             createTOC();
