@@ -39,93 +39,11 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // .e-content 요소가 존재하고, 포트폴리오 페이지가 아닌 경우에만 적용
     const hasEContent = document.querySelector('.e-content');
     const isHomePage = window.location.pathname === '/' || window.location.pathname === '/index.html';
-
-        function createTOC() {
-            if (document.getElementById('table-of-contents')) {
-                return;
-            }
-            
-            const content = document.querySelector('.e-content');
-            const headings = content.querySelectorAll('h1, h2, h3, h4, h5, h6');
-            
-            if (headings.length < 2) return;
-            
-            headings.forEach((heading, index) => {
-                if (!heading.id) {
-                    const text = heading.textContent.trim();
-                    const id = 'heading-' + index + '-' + text.toLowerCase()
-                        .replace(/[^\w\s-가-힣]/g, '')
-                        .replace(/\s+/g, '-');
-                    heading.id = id;
-                }
-            });
-            
-            let tocHTML = '<div id="table-of-contents"><div class="toc-header"><h3>📑 이 글의 목차</h3><button id="toc-toggle" class="toc-toggle">접기</button></div><nav class="toc-nav"><ul class="toc-list">';
-            
-            headings.forEach((heading) => {
-                const level = parseInt(heading.tagName.charAt(1));
-                const text = heading.textContent.trim();
-                const id = heading.id;
-                
-                tocHTML += `<li class="toc-item toc-level-${level}">
-                    <a href="#${id}" class="toc-link">${text}</a>
-                </li>`;
-            });
-            
-            tocHTML += '</ul></nav></div>';
-            
-            const seriesNav = document.getElementById('category-series-nav');
-            if (seriesNav) {
-                seriesNav.insertAdjacentHTML('afterend', tocHTML);
-            } else {
-                content.insertAdjacentHTML('afterbegin', tocHTML);
-            }
-        }
         
-        function initTOCToggle() {
-            const toggleBtn = document.getElementById('toc-toggle');
-            const tocNav = document.querySelector('.toc-nav');
-            
-            if (toggleBtn && tocNav) {
-                toggleBtn.addEventListener('click', function() {
-                    if (tocNav.style.display === 'none') {
-                        tocNav.style.display = 'block';
-                        toggleBtn.textContent = '접기';
-                    } else {
-                        tocNav.style.display = 'none';
-                        toggleBtn.textContent = '펼치기';
-                    }
-                });
-            }
-        }
-        
-        function initTOCHighlight() {
-            const tocLinks = document.querySelectorAll('.toc-link');
-            const headings = document.querySelectorAll('.e-content h1, .e-content h2, .e-content h3, .e-content h4, .e-content h5, .e-content h6');
-            
-            function updateActiveLink() {
-                let current = '';
-                headings.forEach(heading => {
-                    const rect = heading.getBoundingClientRect();
-                    if (rect.top <= 100) {
-                        current = heading.id;
-                    }
-                });
-                
-                tocLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === '#' + current) {
-                        link.classList.add('active');
-                    }
-                });
-            }
-            
-            window.addEventListener('scroll', updateActiveLink);
-            updateActiveLink();
-        }
-        
+		if (hasEContent && !isHomePage) {
         const postStyles = document.createElement('style');
         postStyles.textContent = `.mdui-card-content.mdui-typo {
                 padding: 3em 4em !important;
@@ -607,11 +525,6 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         document.head.appendChild(postStyles);
         
-        setTimeout(() => {
-            createTOC();
-            initTOCToggle();
-            initTOCHighlight();
-        }, 100);
     }
 });
 </script>
@@ -626,7 +539,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <meta property="og:description" content="Cortex-M 초기환경 세팅 가이드STM32F411 Nucleo-64 보드를 사용하여 초기환경 설정부터 고급 기능까지 단계별로 정리한다. 📚 학습 로드맵이 가이드는 총 7개의 주요 섹션으로 구성되어 있으며, 각 섹션은 독립적인 포스트로 작성되어 있다. 1️⃣ STM32 보드 소개 STM32F411RE Nucleo-64 보드 스펙 소개 핀 맵과 LED 연">
 <meta property="og:locale" content="ko_KR">
 <meta property="article:published_time" content="2025-06-22T15:00:00.000Z">
-<meta property="article:modified_time" content="2025-06-23T15:02:46.556Z">
+<meta property="article:modified_time" content="2025-06-23T15:13:07.521Z">
 <meta property="article:author" content="고은">
 <meta property="article:tag" content="STM32">
 <meta property="article:tag" content="초기환경">
@@ -987,7 +900,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <span><a class="tag-none-link" href="/tags/STM32/" rel="tag">STM32</a> <a class="tag-none-link" href="/tags/%EA%B0%80%EC%9D%B4%EB%93%9C/" rel="tag">가이드</a> <a class="tag-none-link" href="/tags/%EC%B4%88%EA%B8%B0%ED%99%98%EA%B2%BD/" rel="tag">초기환경</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 12:02'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 12:13'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/cortex-m-initial-setup-guide/</span>
