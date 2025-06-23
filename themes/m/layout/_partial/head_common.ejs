@@ -42,11 +42,6 @@
         <link rel=alternate type="application/rss+xml" href="<%= url_for(theme.url.rss) || '#' %>">
 <% }} %>
 
-<!-- Google Fonts 추가 -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
-
 <style>
     html,body{scroll-behavior:smooth;min-height:100vh}
     blockquote>strong>a{word-break:break-all}
@@ -57,253 +52,273 @@
     <% if(theme.m.css) { %>
         <%- theme.m.css %>
     <% } %>
-    
-    /* 블로그 포스트 내용에만 적용되는 가독성 개선 CSS */
-    
-    /* 포스트 콘텐츠 영역에만 적용 - e-content 클래스 */
-    .e-content {
-        font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-    }
-    
-    .e-content,
-    .e-content p,
-    .e-content div,
-    .e-content span,
-    .e-content li,
-    .e-content td,
-    .e-content th {
-        font-size: 17px !important;
-        line-height: 1.8 !important;
-        color: #333 !important;
-        word-break: keep-all !important;
-        word-wrap: break-word !important;
-    }
-    
-    /* 포스트 본문 문단 스타일 */
-    .e-content p {
-        margin-bottom: 1.4em !important;
-        font-size: 17px !important;
-    }
-    
-    /* 포스트 제목들 */
-    .e-content h1 {
-        font-size: 2.4em !important;
-        margin: 1.8em 0 1.2em 0 !important;
-        font-weight: 700 !important;
-        color: #2c3e50 !important;
-        border-bottom: 3px solid #3498db !important;
-        padding-bottom: 0.5em !important;
-    }
-    
-    .e-content h2 {
-        font-size: 2.0em !important;
-        margin: 1.6em 0 1.0em 0 !important;
-        font-weight: 600 !important;
-        color: #34495e !important;
-        border-left: 4px solid #3498db !important;
-        padding-left: 0.8em !important;
-    }
-    
-    .e-content h3 {
-        font-size: 1.6em !important;
-        margin: 1.4em 0 0.8em 0 !important;
-        font-weight: 600 !important;
-        color: #2c3e50 !important;
-    }
-    
-    .e-content h4 {
-        font-size: 1.3em !important;
-        margin: 1.2em 0 0.6em 0 !important;
-        font-weight: 600 !important;
-        color: #34495e !important;
-    }
-    
-    /* 포스트 리스트 스타일 */
-    .e-content ul, 
-    .e-content ol {
-        margin: 1.5em 0 !important;
-        padding-left: 2.2em !important;
-    }
-    
-    .e-content li {
-        margin-bottom: 0.8em !important;
-        font-size: 16px !important;
-        line-height: 1.8 !important;
-    }
-    
-    /* 포스트 코드 블록 스타일 */
-    .e-content pre {
-        background: #f8f9fa !important;
-        border: 1px solid #e9ecef !important;
-        border-radius: 8px !important;
-        padding: 1.5em !important;
-        margin: 2em 0 !important;
-        overflow-x: auto !important;
-        font-size: 15px !important;
-        line-height: 1.6 !important;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
-    }
-    
-    .e-content code {
-        background: #f1f3f4 !important;
-        padding: 3px 8px !important;
-        border-radius: 4px !important;
-        font-size: 0.9em !important;
-        color: #d73a49 !important;
-        font-weight: 500 !important;
-    }
-    
-    .e-content pre code {
-        background: none !important;
-        padding: 0 !important;
-        color: inherit !important;
-        font-weight: normal !important;
-    }
-    
-    /* 포스트 인라인 코드 스타일 */
-    .e-content p code, 
-    .e-content li code {
-        background: #fff2f2 !important;
-        color: #d73a49 !important;
-        font-weight: 600 !important;
-        border: 1px solid #ffebee !important;
-    }
-    
-    /* 포스트 이미지 스타일 */
-    .e-content img {
-        max-width: 100% !important;
-        height: auto !important;
-        margin: 2em auto !important;
-        display: block !important;
-        border-radius: 10px !important;
-        box-shadow: 0 6px 20px rgba(0,0,0,0.15) !important;
-        border: 1px solid #eee !important;
-    }
-    
-    /* 포스트 표 스타일 */
-    .e-content table {
-        width: 100% !important;
-        border-collapse: collapse !important;
-        margin: 2em 0 !important;
-        font-size: 15px !important;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
-        border-radius: 8px !important;
-        overflow: hidden !important;
-    }
-    
-    .e-content th,
-    .e-content td {
-        border: 1px solid #ddd !important;
-        padding: 15px !important;
-        text-align: left !important;
-        font-size: 15px !important;
-        line-height: 1.6 !important;
-    }
-    
-    .e-content th {
-        background: #f5f7fa !important;
-        font-weight: 600 !important;
-        color: #2c3e50 !important;
-        border-bottom: 2px solid #3498db !important;
-    }
-    
-    .e-content tr:nth-child(even) {
-        background: #f9f9f9 !important;
-    }
-    
-    .e-content tr:hover {
-        background: #f5f5f5 !important;
-    }
-    
-    /* 포스트 블록 인용문 */
-    .e-content blockquote {
-        border-left: 5px solid #3498db !important;
-        margin: 2em 0 !important;
-        padding: 1.2em 1.8em !important;
-        background: #f8f9ff !important;
-        border-radius: 0 8px 8px 0 !important;
-        font-style: italic !important;
-        color: #555 !important;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05) !important;
-    }
-    
-    /* 포스트 링크 스타일 */
-    .e-content a {
-        color: #3498db !important;
-        text-decoration: none !important;
-        border-bottom: 1px solid transparent !important;
-        transition: all 0.3s ease !important;
-    }
-    
-    .e-content a:hover {
-        color: #2980b9 !important;
-        border-bottom-color: #2980b9 !important;
-    }
-    
-    /* 강조 텍스트 */
-    .e-content strong {
-        color: #2c3e50 !important;
-        font-weight: 700 !important;
-    }
-    
-    .e-content em {
-        color: #34495e !important;
-        font-style: italic !important;
-    }
-    
-    /* 모바일 반응형 - 포스트 콘텐츠만 */
-    @media (max-width: 768px) {
-        .e-content,
-        .e-content p,
-        .e-content div,
-        .e-content span,
-        .e-content li {
-            font-size: 16px !important;
-        }
-        
-        .e-content h1 {
-            font-size: 2.0em !important;
-        }
-        
-        .e-content h2 {
-            font-size: 1.7em !important;
-        }
-        
-        .e-content h3 {
-            font-size: 1.4em !important;
-        }
-        
-        .e-content pre {
-            padding: 1em !important;
-            font-size: 14px !important;
-        }
-        
-        .e-content table {
-            font-size: 14px !important;
-        }
-        
-        .e-content th,
-        .e-content td {
-            padding: 10px !important;
-            font-size: 14px !important;
-        }
-    }
-    
-    @media (max-width: 480px) {
-        .e-content,
-        .e-content p,
-        .e-content div,
-        .e-content span,
-        .e-content li {
-            font-size: 15px !important;
-        }
-        
-        .e-content h1 {
-            font-size: 1.8em !important;
-        }
-        
-        .e-content h2 {
-            font-size: 1.5em !important;
-        }
-    }
 </style>
+
+<!-- 블로그 포스트 페이지에서만 실행되는 스크립트 -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // URL에 날짜 패턴이 있으면 블로그 포스트로 판단 (예: /2025/06/23/)
+    const isPostPage = /\/\d{4}\/\d{2}\/\d{2}\//.test(window.location.pathname);
+    
+    if (isPostPage) {
+        // Google Fonts 추가
+        const googleFontsLink = document.createElement('link');
+        googleFontsLink.rel = 'preconnect';
+        googleFontsLink.href = 'https://fonts.googleapis.com';
+        document.head.appendChild(googleFontsLink);
+        
+        const googleFontsLink2 = document.createElement('link');
+        googleFontsLink2.rel = 'preconnect';
+        googleFontsLink2.href = 'https://fonts.gstatic.com';
+        googleFontsLink2.crossOrigin = 'anonymous';
+        document.head.appendChild(googleFontsLink2);
+        
+        const fontLink = document.createElement('link');
+        fontLink.href = 'https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap';
+        fontLink.rel = 'stylesheet';
+        document.head.appendChild(fontLink);
+        
+        // 블로그 포스트 전용 CSS 적용
+        const postStyles = document.createElement('style');
+        postStyles.textContent = `
+            /* 블로그 포스트 내용에만 적용되는 가독성 개선 CSS */
+            
+            .e-content {
+                font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+            }
+            
+            .e-content,
+            .e-content p,
+            .e-content div,
+            .e-content span,
+            .e-content li,
+            .e-content td,
+            .e-content th {
+                font-size: 17px !important;
+                line-height: 1.8 !important;
+                color: #333 !important;
+                word-break: keep-all !important;
+                word-wrap: break-word !important;
+            }
+            
+            .e-content p {
+                margin-bottom: 1.4em !important;
+                font-size: 17px !important;
+            }
+            
+            .e-content h1 {
+                font-size: 2.4em !important;
+                margin: 1.8em 0 1.2em 0 !important;
+                font-weight: 700 !important;
+                color: #2c3e50 !important;
+                border-bottom: 3px solid #3498db !important;
+                padding-bottom: 0.5em !important;
+            }
+            
+            .e-content h2 {
+                font-size: 2.0em !important;
+                margin: 1.6em 0 1.0em 0 !important;
+                font-weight: 600 !important;
+                color: #34495e !important;
+                border-left: 4px solid #3498db !important;
+                padding-left: 0.8em !important;
+            }
+            
+            .e-content h3 {
+                font-size: 1.6em !important;
+                margin: 1.4em 0 0.8em 0 !important;
+                font-weight: 600 !important;
+                color: #2c3e50 !important;
+            }
+            
+            .e-content h4 {
+                font-size: 1.3em !important;
+                margin: 1.2em 0 0.6em 0 !important;
+                font-weight: 600 !important;
+                color: #34495e !important;
+            }
+            
+            .e-content ul, 
+            .e-content ol {
+                margin: 1.5em 0 !important;
+                padding-left: 2.2em !important;
+            }
+            
+            .e-content li {
+                margin-bottom: 0.8em !important;
+                font-size: 16px !important;
+                line-height: 1.8 !important;
+            }
+            
+            .e-content pre {
+                background: #f8f9fa !important;
+                border: 1px solid #e9ecef !important;
+                border-radius: 8px !important;
+                padding: 1.5em !important;
+                margin: 2em 0 !important;
+                overflow-x: auto !important;
+                font-size: 15px !important;
+                line-height: 1.6 !important;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+            }
+            
+            .e-content code {
+                background: #f1f3f4 !important;
+                padding: 3px 8px !important;
+                border-radius: 4px !important;
+                font-size: 0.9em !important;
+                color: #d73a49 !important;
+                font-weight: 500 !important;
+            }
+            
+            .e-content pre code {
+                background: none !important;
+                padding: 0 !important;
+                color: inherit !important;
+                font-weight: normal !important;
+            }
+            
+            .e-content p code, 
+            .e-content li code {
+                background: #fff2f2 !important;
+                color: #d73a49 !important;
+                font-weight: 600 !important;
+                border: 1px solid #ffebee !important;
+            }
+            
+            .e-content img {
+                max-width: 100% !important;
+                height: auto !important;
+                margin: 2em auto !important;
+                display: block !important;
+                border-radius: 10px !important;
+                box-shadow: 0 6px 20px rgba(0,0,0,0.15) !important;
+                border: 1px solid #eee !important;
+            }
+            
+            .e-content table {
+                width: 100% !important;
+                border-collapse: collapse !important;
+                margin: 2em 0 !important;
+                font-size: 15px !important;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+                border-radius: 8px !important;
+                overflow: hidden !important;
+            }
+            
+            .e-content th,
+            .e-content td {
+                border: 1px solid #ddd !important;
+                padding: 15px !important;
+                text-align: left !important;
+                font-size: 15px !important;
+                line-height: 1.6 !important;
+            }
+            
+            .e-content th {
+                background: #f5f7fa !important;
+                font-weight: 600 !important;
+                color: #2c3e50 !important;
+                border-bottom: 2px solid #3498db !important;
+            }
+            
+            .e-content tr:nth-child(even) {
+                background: #f9f9f9 !important;
+            }
+            
+            .e-content tr:hover {
+                background: #f5f5f5 !important;
+            }
+            
+            .e-content blockquote {
+                border-left: 5px solid #3498db !important;
+                margin: 2em 0 !important;
+                padding: 1.2em 1.8em !important;
+                background: #f8f9ff !important;
+                border-radius: 0 8px 8px 0 !important;
+                font-style: italic !important;
+                color: #555 !important;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.05) !important;
+            }
+            
+            .e-content a {
+                color: #3498db !important;
+                text-decoration: none !important;
+                border-bottom: 1px solid transparent !important;
+                transition: all 0.3s ease !important;
+            }
+            
+            .e-content a:hover {
+                color: #2980b9 !important;
+                border-bottom-color: #2980b9 !important;
+            }
+            
+            .e-content strong {
+                color: #2c3e50 !important;
+                font-weight: 700 !important;
+            }
+            
+            .e-content em {
+                color: #34495e !important;
+                font-style: italic !important;
+            }
+            
+            @media (max-width: 768px) {
+                .e-content,
+                .e-content p,
+                .e-content div,
+                .e-content span,
+                .e-content li {
+                    font-size: 16px !important;
+                }
+                
+                .e-content h1 {
+                    font-size: 2.0em !important;
+                }
+                
+                .e-content h2 {
+                    font-size: 1.7em !important;
+                }
+                
+                .e-content h3 {
+                    font-size: 1.4em !important;
+                }
+                
+                .e-content pre {
+                    padding: 1em !important;
+                    font-size: 14px !important;
+                }
+                
+                .e-content table {
+                    font-size: 14px !important;
+                }
+                
+                .e-content th,
+                .e-content td {
+                    padding: 10px !important;
+                    font-size: 14px !important;
+                }
+            }
+            
+            @media (max-width: 480px) {
+                .e-content,
+                .e-content p,
+                .e-content div,
+                .e-content span,
+                .e-content li {
+                    font-size: 15px !important;
+                }
+                
+                .e-content h1 {
+                    font-size: 1.8em !important;
+                }
+                
+                .e-content h2 {
+                    font-size: 1.5em !important;
+                }
+            }
+        `;
+        document.head.appendChild(postStyles);
+    }
+});
+</script>
