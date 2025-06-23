@@ -1,63 +1,586 @@
-/* 목차에서 불필요한 요소들 숨기기 */
-#table-of-contents .toc-header,
-#table-of-contents h3,
-#table-of-contents .toc-toggle,
-.toc-header,
-.toc-toggle {
-display: none !important;
-}
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
 
-/* 목차 스타일 - 완전 심플하게 */
-#table-of-contents {
-padding: 1.5em 0 !important;
-margin: 0 0 2.5em 0 !important;
-background: none !important;
-border: none !important;
-box-shadow: none !important;
-}
+<% if(theme.head.preload) { theme.head.preload.forEach(function(content) { %>
+<link rel=“preload” <%- content %>>
+<% })} if(theme.head.preconnect) { theme.head.preconnect.forEach(function(content) { %>
+<link rel=“preconnect” <%- content %>>
+<% })} if(theme.head.prefetch) { theme.head.prefetch.forEach(function(content) { %>
+<link rel=“prefetch” <%- content %>>
+<% })} if(theme.head.dns_prefetch) { theme.head.dns_prefetch.forEach(function(content) { %>
+<link rel=“dns-prefetch” <%- content %>>
+<% })} if(theme.head.stylesheet) { theme.head.stylesheet.forEach(function(content) { %>
+<link rel=“stylesheet” <%- content %>>
+<% })} %>
 
-.toc-nav {
-display: block !important;
-opacity: 1 !important;
-max-height: none !important;
-}
+<%- css(theme.vendors.mdui_css) %>
 
-.toc-list {
-list-style: none !important;
-padding: 0 !important;
-margin: 0 !important;
-}
+<% if(config.prismjs.enable) { %>
+<%- css(theme.vendors.prism_theme) %>
+<% if(config.prismjs.line_numbers) { %>
+<%- css(theme.vendors.prism_line_numbers) %>
+<% } %>
+<% } %>
 
-.toc-item {
-margin: 0 !important;
-line-height: 1.6 !important;
-}
+<% if(theme.head.favicon) { %>
 
-/* h1 제목만 표시 */
-.toc-level-1 {
-display: block !important;
-}
-.toc-level-2, .toc-level-3, .toc-level-4, .toc-level-5, .toc-level-6 {
-display: none !important;
-}
+<link rel="icon shortcut" href="<%= theme.head.favicon %>">
+<% } if(theme.head.high_res_icon) { %>
+<link rel="icon" type="image/png" href="<%= theme.head.high_res_icon %>">
+<% } if(theme.head.apple_touch_icon) { %>
+<link rel="apple-touch-icon" href="<%= url_for(theme.head.apple_touch_icon) %>">
+<% } if(theme.head.theme_color) { %>
+<meta name="theme-color" content="<%= theme.head.theme_color %>">
+<% } if(theme.plugins.pwa == true) { if(theme.vendors.webmanifest) { %>
+    <link rel="manifest" href='<%- theme.vendors.webmanifest %>'>
+    <% } else { %>
+    <link rel="manifest" href="<%= url_for('/manifest.webmanifest') %>">
+<% }} if (theme.url.rss && config.feed){ %>
+    <% if(config.feed.type == "atom"){ %>
+        <link rel=alternate type="application/atom+xml" href="<%= url_for(theme.url.rss) || '#' %>">
+    <% } else if(config.feed.type == "rss2") { %>
+        <link rel=alternate type="application/rss+xml" href="<%= url_for(theme.url.rss) || '#' %>">
+<% }} %>
 
-.toc-link {
-color: #52a9ff !important;
-text-decoration: none !important;
-padding: 0.5em 0 !important;
-display: block !important;
-font-size: 0.95em !important;
-font-weight: 500 !important;
-transition: color 0.3s ease !important;
-border: none !important;
-background: none !important;
-}
+<!-- Google Fonts 최적화 -->
 
-.toc-link:hover {
-color: #2196f3 !important;
-}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-.toc-link.active {
-color: #2196f3 !important;
-font-weight: 600 !important;
-}
+<style>
+    /* 기본 스타일 */
+    html, body {
+        scroll-behavior: smooth;
+        min-height: 100vh;
+    }
+    
+    blockquote > strong > a {
+        word-break: break-all;
+    }
+    
+    .mdui-hoverable:hover, .mdui-hoverable:focus {
+        box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12) !important;
+    }
+    
+    .mdui-card-primary-title a {
+        text-decoration: none !important;
+    }
+    
+    .page-number {
+        display: none !important;
+    }
+    
+    .mdui-container-fluid {
+        transition: opacity .4s;
+    }
+    
+    <% if(theme.m.css) { %>
+        <%- theme.m.css %>
+    <% } %>
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const hasEContent = document.querySelector('.e-content');
+    const isHomePage = window.location.pathname === '/' || window.location.pathname === '/index.html';
+        
+    if (hasEContent && !isHomePage) {
+        const postStyles = document.createElement('style');
+        postStyles.textContent = `
+            /* 레이아웃 스타일 */
+            .mdui-card-content.mdui-typo {
+                padding: 3em 4em !important;
+                max-width: 900px !important;
+                margin: 0 auto !important;
+            }
+            
+            /* 시리즈 네비게이션 스타일 */
+            #category-series-nav {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+                color: white !important;
+                border-radius: 16px !important;
+                padding: 2.5em !important;
+                margin: 0 0 2.5em 0 !important;
+                box-shadow: 0 12px 40px rgba(102, 126, 234, 0.25) !important;
+                border: 1px solid rgba(255,255,255,0.1) !important;
+            }
+            
+            .series-header {
+                display: flex !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                margin-bottom: 1.8em !important;
+                border-bottom: 2px solid rgba(255,255,255,0.25) !important;
+                padding-bottom: 1.2em !important;
+            }
+            
+            .series-header h3 {
+                margin: 0 !important;
+                font-size: 1.5em !important;
+                font-weight: 700 !important;
+                border: none !important;
+                padding: 0 !important;
+                color: white !important;
+                text-shadow: 0 1px 2px rgba(0,0,0,0.1) !important;
+            }
+            
+            .series-progress {
+                background: rgba(255,255,255,0.2) !important;
+                padding: 0.6em 1.2em !important;
+                border-radius: 25px !important;
+                font-size: 0.9em !important;
+                font-weight: 600 !important;
+                backdrop-filter: blur(10px) !important;
+            }
+            
+            .series-list {
+                list-style: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                display: grid !important;
+                gap: 1em !important;
+            }
+            
+            .series-item {
+                display: flex !important;
+                align-items: center !important;
+                background: rgba(255,255,255,0.12) !important;
+                border-radius: 12px !important;
+                padding: 1.2em !important;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                border: 1px solid rgba(255,255,255,0.15) !important;
+                backdrop-filter: blur(10px) !important;
+            }
+            
+            .series-item:hover {
+                background: rgba(255,255,255,0.2) !important;
+                transform: translateX(8px) translateY(-2px) !important;
+                box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+            }
+            
+            .series-item.current {
+                background: rgba(255,255,255,0.25) !important;
+                border-color: rgba(255,255,255,0.4) !important;
+                transform: scale(1.02) !important;
+                box-shadow: 0 8px 30px rgba(0,0,0,0.2) !important;
+            }
+            
+            .series-number {
+                background: rgba(255,255,255,0.95) !important;
+                color: #667eea !important;
+                width: 35px !important;
+                height: 35px !important;
+                border-radius: 50% !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                font-weight: 700 !important;
+                font-size: 0.95em !important;
+                margin-right: 1.2em !important;
+                flex-shrink: 0 !important;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+            }
+            
+            .series-link {
+                color: white !important;
+                text-decoration: none !important;
+                font-weight: 500 !important;
+                font-size: 1em !important;
+                line-height: 1.5 !important;
+                flex: 1 !important;
+                opacity: 0.95 !important;
+            }
+            
+            .series-link:hover {
+                color: #fff !important;
+                opacity: 1 !important;
+            }
+            
+            .current-title {
+                color: white !important;
+                font-weight: 600 !important;
+                font-size: 1em !important;
+                line-height: 1.5 !important;
+                flex: 1 !important;
+            }
+            
+            .current-badge {
+                background: linear-gradient(135deg, #28a745, #20c997) !important;
+                color: white !important;
+                padding: 0.3em 0.8em !important;
+                border-radius: 15px !important;
+                font-size: 0.75em !important;
+                font-weight: 600 !important;
+                margin-left: 1em !important;
+                box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3) !important;
+            }
+            
+            /* 목차에서만 불필요한 요소들 숨기기 - 구체적으로 타겟팅 */
+            #table-of-contents .toc-header {
+                display: none !important;
+            }
+
+            #table-of-contents .toc-toggle {
+                display: none !important;
+            }
+
+            /* 목차 스타일 - 완전 심플하게 */
+            #table-of-contents {
+                padding: 1.5em 0 !important;
+                margin: 0 0 2.5em 0 !important;
+                background: none !important;
+                border: none !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+            }
+
+            #table-of-contents .toc-nav {
+                display: block !important;
+                opacity: 1 !important;
+                max-height: none !important;
+            }
+
+            #table-of-contents .toc-list {
+                list-style: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            #table-of-contents .toc-item {
+                margin: 0 !important;
+                line-height: 1.6 !important;
+            }
+
+            /* h1 제목만 표시 */
+            #table-of-contents .toc-level-1 { 
+                display: block !important;
+            }
+            #table-of-contents .toc-level-2, 
+            #table-of-contents .toc-level-3, 
+            #table-of-contents .toc-level-4, 
+            #table-of-contents .toc-level-5, 
+            #table-of-contents .toc-level-6 { 
+                display: none !important;
+            }
+
+            #table-of-contents .toc-link {
+                color: #52a9ff !important;
+                text-decoration: none !important;
+                padding: 0.5em 0 !important;
+                display: block !important;
+                font-size: 0.95em !important;
+                font-weight: 500 !important;
+                transition: color 0.3s ease !important;
+                border: none !important;
+                background: none !important;
+                border-bottom: none !important;
+            }
+
+            #table-of-contents .toc-link:hover {
+                color: #2196f3 !important;
+                background: none !important;
+                transform: none !important;
+                box-shadow: none !important;
+            }
+
+            #table-of-contents .toc-link.active {
+                color: #2196f3 !important;
+                font-weight: 600 !important;
+                background: none !important;
+            }
+            
+            /* 본문 스타일 개선 */
+            .e-content {
+                font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+                padding: 0 !important;
+            }
+            
+            .e-content, .e-content p, .e-content div, .e-content span, .e-content li, .e-content td, .e-content th {
+                font-size: 17px !important;
+                line-height: 1.8 !important;
+                color: #2c3e50 !important;
+                word-break: keep-all !important;
+                word-wrap: break-word !important;
+            }
+            
+            .e-content p {
+                margin-bottom: 1.6em !important;
+                font-size: 17px !important;
+            }
+            
+            .e-content h1 {
+                font-size: 2.5em !important;
+                margin: 2em 0 1.2em 0 !important;
+                font-weight: 800 !important;
+                color: #2c3e50 !important;
+                border-bottom: 4px solid #3498db !important;
+                padding-bottom: 0.6em !important;
+                scroll-margin-top: 100px !important;
+                position: relative !important;
+            }
+            
+            .e-content h1::before {
+                content: '' !important;
+                position: absolute !important;
+                bottom: -4px !important;
+                left: 0 !important;
+                width: 60px !important;
+                height: 4px !important;
+                background: linear-gradient(90deg, #e74c3c, #f39c12) !important;
+                border-radius: 2px !important;
+            }
+            
+            .e-content h2 {
+                font-size: 2.1em !important;
+                margin: 1.8em 0 1em 0 !important;
+                font-weight: 700 !important;
+                color: #34495e !important;
+                border-left: 5px solid #3498db !important;
+                padding-left: 1em !important;
+                scroll-margin-top: 100px !important;
+                background: linear-gradient(135deg, rgba(52, 152, 219, 0.05), transparent) !important;
+                padding: 0.5em 0 0.5em 1em !important;
+                border-radius: 0 8px 8px 0 !important;
+            }
+            
+            .e-content h3 {
+                font-size: 1.7em !important;
+                margin: 1.6em 0 0.8em 0 !important;
+                font-weight: 600 !important;
+                color: #2c3e50 !important;
+                scroll-margin-top: 100px !important;
+                position: relative !important;
+            }
+            
+            .e-content h3::before {
+                content: '▶' !important;
+                color: #3498db !important;
+                margin-right: 0.5em !important;
+                font-size: 0.8em !important;
+            }
+            
+            .e-content h4, .e-content h5, .e-content h6 {
+                font-weight: 600 !important;
+                color: #34495e !important;
+                scroll-margin-top: 100px !important;
+            }
+            
+            .e-content h4 { font-size: 1.4em !important; margin: 1.4em 0 0.7em 0 !important; }
+            .e-content h5 { font-size: 1.2em !important; margin: 1.2em 0 0.6em 0 !important; }
+            .e-content h6 { font-size: 1.1em !important; margin: 1em 0 0.5em 0 !important; }
+            
+            /* 코드 스타일 개선 */
+            .e-content pre {
+                background: linear-gradient(135deg, #1e1e1e, #2d2d2d) !important;
+                border: 1px solid #404040 !important;
+                border-radius: 12px !important;
+                padding: 2em !important;
+                margin: 2.5em 0 !important;
+                overflow-x: auto !important;
+                font-family: 'JetBrains Mono', 'Consolas', monospace !important;
+                font-size: 15px !important;
+                line-height: 1.6 !important;
+                box-shadow: 0 8px 30px rgba(0,0,0,0.3) !important;
+                position: relative !important;
+            }
+            
+            .e-content pre::before {
+                content: '' !important;
+                position: absolute !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                height: 3px !important;
+                background: linear-gradient(90deg, #e74c3c, #f39c12, #2ecc71, #3498db) !important;
+                border-radius: 12px 12px 0 0 !important;
+            }
+            
+            .e-content code {
+                background: linear-gradient(135deg, #fff2f2, #ffebee) !important;
+                padding: 4px 10px !important;
+                border-radius: 6px !important;
+                font-family: 'JetBrains Mono', 'Consolas', monospace !important;
+                font-size: 0.9em !important;
+                color: #d73a49 !important;
+                font-weight: 600 !important;
+                border: 1px solid #ffcdd2 !important;
+            }
+            
+            .e-content pre code {
+                background: none !important;
+                padding: 0 !important;
+                color: #f8f8f2 !important;
+                font-weight: normal !important;
+                border: none !important;
+            }
+            
+            /* 기타 스타일 개선 */
+            .e-content ul, .e-content ol {
+                margin: 1.8em 0 !important;
+                padding-left: 2.5em !important;
+            }
+            
+            .e-content li {
+                margin-bottom: 1em !important;
+                font-size: 16px !important;
+                line-height: 1.8 !important;
+            }
+            
+            .e-content img {
+                max-width: 100% !important;
+                height: auto !important;
+                margin: 2.5em auto !important;
+                display: block !important;
+                border-radius: 12px !important;
+                box-shadow: 0 12px 40px rgba(0,0,0,0.15) !important;
+                border: 1px solid #e8e8e8 !important;
+                transition: transform 0.3s ease !important;
+            }
+            
+            .e-content img:hover {
+                transform: scale(1.02) !important;
+            }
+            
+            .e-content table {
+                width: 100% !important;
+                border-collapse: collapse !important;
+                margin: 2.5em 0 !important;
+                font-size: 15px !important;
+                box-shadow: 0 8px 30px rgba(0,0,0,0.1) !important;
+                border-radius: 12px !important;
+                overflow: hidden !important;
+                background: white !important;
+            }
+            
+            .e-content th {
+                background: linear-gradient(135deg, #f5f7fa, #c3cfe2) !important;
+                font-weight: 700 !important;
+                color: #2c3e50 !important;
+                border-bottom: 3px solid #3498db !important;
+                padding: 18px !important;
+            }
+            
+            .e-content td {
+                border: 1px solid #e8e8e8 !important;
+                padding: 15px !important;
+                transition: background 0.3s ease !important;
+            }
+            
+            .e-content tr:nth-child(even) {
+                background: #f9f9f9 !important;
+            }
+            
+            .e-content tr:hover {
+                background: #f0f8ff !important;
+            }
+            
+            .e-content blockquote {
+                border-left: 6px solid #3498db !important;
+                margin: 2.5em 0 !important;
+                padding: 1.5em 2em !important;
+                background: linear-gradient(135deg, #f8f9ff, #fff) !important;
+                border-radius: 0 12px 12px 0 !important;
+                font-style: italic !important;
+                color: #555 !important;
+                box-shadow: 0 4px 20px rgba(52, 152, 219, 0.1) !important;
+                position: relative !important;
+            }
+            
+            .e-content blockquote::before {
+                content: '"' !important;
+                font-size: 4em !important;
+                color: #3498db !important;
+                position: absolute !important;
+                top: -10px !important;
+                left: 15px !important;
+                opacity: 0.3 !important;
+                font-family: serif !important;
+            }
+            
+            .e-content a {
+                color: #3498db !important;
+                text-decoration: none !important;
+                border-bottom: 2px solid transparent !important;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                font-weight: 500 !important;
+            }
+            
+            .e-content a:hover {
+                color: #2980b9 !important;
+                border-bottom-color: #2980b9 !important;
+                background: rgba(52, 152, 219, 0.1) !important;
+                padding: 2px 4px !important;
+                border-radius: 4px !important;
+            }
+            
+            .e-content strong {
+                color: #2c3e50 !important;
+                font-weight: 700 !important;
+                background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), transparent) !important;
+                padding: 2px 4px !important;
+                border-radius: 4px !important;
+            }
+            
+            /* 반응형 디자인 개선 */
+            @media (max-width: 1024px) {
+                .mdui-card-content.mdui-typo {
+                    padding: 2.5em 3em !important;
+                }
+            }
+            
+            @media (max-width: 768px) {
+                .mdui-card-content.mdui-typo {
+                    padding: 2em 2em !important;
+                }
+                
+                #category-series-nav {
+                    padding: 1.5em !important;
+                    border-radius: 12px !important;
+                }
+                
+                .series-header {
+                    flex-direction: column !important;
+                    gap: 1em !important;
+                    text-align: center !important;
+                }
+                
+                .series-item {
+                    padding: 1em !important;
+                }
+                
+                .series-number {
+                    width: 30px !important;
+                    height: 30px !important;
+                    font-size: 0.85em !important;
+                }
+                
+                .e-content h1 { font-size: 2.2em !important; }
+                .e-content h2 { font-size: 1.8em !important; }
+                .e-content h3 { font-size: 1.5em !important; }
+                
+                .e-content pre {
+                    padding: 1.2em !important;
+                    font-size: 14px !important;
+                }
+            }
+            
+            @media (max-width: 480px) {
+                .mdui-card-content.mdui-typo {
+                    padding: 1.5em 1.5em !important;
+                }
+                
+                .e-content, .e-content p {
+                    font-size: 16px !important;
+                }
+                
+                .e-content h1 { font-size: 2em !important; }
+                .e-content h2 { font-size: 1.6em !important; }
+                .e-content h3 { font-size: 1.3em !important; }
+            }
+        `;
+        document.head.appendChild(postStyles);
+    }
+});
+</script>
