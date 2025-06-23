@@ -3,7 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: "Goeun's Space"
+title: ''
 subtitle: '하드웨어와 임베디드 개발을 정리하는 블로그입니다'
 description: '하드웨어 설계부터 임베디드 시스템까지, 끊임없이 배우고 성장하기'
 keywords: '하드웨어 개발자, Verilog, RISC-V, Cortex-M, AXI4, FPGA, 임베디드, 포트폴리오'
@@ -68,26 +68,7 @@ index_generator:
 
 # Category & Tag
 default_category: uncategorized
-category_map:
-  embedded: "임베디드 시스템"
-  cortex-m: "Cortex-M"
-  risc-v: "RISC-V"
-  verilog: "Verilog"
-  axi: "AXI 프로토콜"
-  fpga: "FPGA"
-  hardware: "하드웨어 설계"
-  projects: "프로젝트"
-tag_map:
-  cortex-m4: "Cortex-M4"
-  cortex-m0: "Cortex-M0+"
-  risc-v: "RISC-V"
-  verilog: "Verilog"
-  systemverilog: "SystemVerilog"
-  axi4-lite: "AXI4-Lite"
-  axi4-full: "AXI4-Full"
-  vivado: "Vivado"
-  fpga: "FPGA"
-  soc: "SoC"
+
 # Metadata elements
 ## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
 meta_generator: true
@@ -118,14 +99,26 @@ ignore:
 theme: m
 theme_config:
   max_width: 1200px
-  menu:
-  홈: /
-  블로그: /blog
-  아카이브: /archives
-  카테고리: /categories
-  태그: /tags
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
+# Hexo M Theme Configuration
+# Header
+#menu:
+#  포트폴리오: /
+#  블로그: /blog
+#  카테고리: /categories  
+#  아카이브: /archives
+#  소개: /about
+
+menu:
+  Home: /
+  RISC-V: /categories/RISC-V/
+  Cortex-M: /categories/Cortex-M/
+  APB: /categories/APB/
+  UART: /categories/UART/
+  I2C: /categories/I2C/
+  SPI: /categories/SPI/
+
 deploy:
   type: git
   repo: https://github.com/goeun-oh/goeun-oh.github.io.git

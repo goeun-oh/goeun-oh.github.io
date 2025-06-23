@@ -2,10 +2,18 @@
 # Theme: https://github.com/theme-M/hexo-theme-M
 
 # Header
+#menu:
+#  포트폴리오: /
+#  프로젝트: /archives
+#  소개: /about
 menu:
-  포트폴리오: /
-  프로젝트: /archives
-  소개: /about
+  Home: /
+  RISC-V: /categories/RISC-V/
+  Cortex-M: /categories/Cortex-M/
+  APB: /categories/APB/
+  UART: /categories/UART/
+  I2C: /categories/I2C/
+  SPI: /categories/SPI/
 
 # Content
 excerpt_link: 더 읽기
@@ -111,6 +119,11 @@ seo:
 # Favicon
 favicon: /favicon.ico
 
+# 커스텀 CSS/JS 파일 추가
+custom_file_path:
+  head: source/css/custom.css
+  footer: source/js/custom.js
+  
 # Math
 math:
   enable: false
