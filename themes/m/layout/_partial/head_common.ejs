@@ -58,189 +58,215 @@
         <%- theme.m.css %>
     <% } %>
     
-    /* 가독성 개선 CSS */
-    body {
+    /* 가독성 개선 CSS - 매우 높은 우선순위 */
+    * {
         font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
     }
     
-    /* 본문 텍스트 크기 및 줄 간격 대폭 개선 */
-    .mdui-card-content {
+    /* 모든 본문 텍스트 크기 강제 변경 */
+    body, html, div, p, span, li, td, th, a, strong, em {
+        font-size: 18px !important;
+        line-height: 1.9 !important;
+        font-family: 'Noto Sans KR', sans-serif !important;
+    }
+    
+    /* 카드 내용 전체 */
+    .mdui-card .mdui-card-content,
+    .mdui-card-content,
+    .mdui-card .mdui-card-content *,
+    .mdui-card-content * {
+        font-size: 18px !important;
+        line-height: 1.9 !important;
+        color: #333 !important;
+        word-break: keep-all !important;
+        word-wrap: break-word !important;
+    }
+    
+    /* 모든 문단 스타일 */
+    p, .mdui-card-content p, .mdui-card p {
+        margin-bottom: 1.5em !important;
+        font-size: 18px !important;
+        line-height: 1.9 !important;
+        color: #333 !important;
+    }
+    
+    /* 제목들 강제 크기 변경 */
+    h1, .mdui-card-content h1, .mdui-card h1 {
+        font-size: 2.5em !important;
+        margin: 2em 0 1.3em 0 !important;
+        font-weight: 700 !important;
+        color: #2c3e50 !important;
+        border-bottom: 3px solid #3498db !important;
+        padding-bottom: 0.5em !important;
+    }
+    
+    h2, .mdui-card-content h2, .mdui-card h2 {
+        font-size: 2.1em !important;
+        margin: 1.7em 0 1.1em 0 !important;
+        font-weight: 600 !important;
+        color: #34495e !important;
+        border-left: 5px solid #3498db !important;
+        padding-left: 0.8em !important;
+    }
+    
+    h3, .mdui-card-content h3, .mdui-card h3 {
+        font-size: 1.7em !important;
+        margin: 1.5em 0 0.9em 0 !important;
+        font-weight: 600 !important;
+        color: #2c3e50 !important;
+    }
+    
+    h4, .mdui-card-content h4, .mdui-card h4 {
+        font-size: 1.4em !important;
+        margin: 1.3em 0 0.7em 0 !important;
+        font-weight: 600 !important;
+        color: #34495e !important;
+    }
+    
+    /* 리스트 스타일 강제 적용 */
+    ul, ol, .mdui-card-content ul, .mdui-card-content ol {
+        margin: 1.8em 0 !important;
+        padding-left: 2.5em !important;
+    }
+    
+    li, .mdui-card-content li {
+        margin-bottom: 1em !important;
+        line-height: 1.9 !important;
         font-size: 17px !important;
-        line-height: 1.8 !important;
-        color: #333;
-        word-break: keep-all;
-        word-wrap: break-word;
-        padding: 2em !important;
+        color: #333 !important;
     }
     
-    .mdui-card-content p {
-        margin-bottom: 1.4em;
-        font-size: 17px;
-        line-height: 1.8;
-    }
-    
-    /* 제목 크기 및 여백 조정 */
-    .mdui-card-content h1 {
-        font-size: 2.4em !important;
-        margin: 1.8em 0 1.2em 0;
-        font-weight: 700;
-        color: #2c3e50;
-        border-bottom: 3px solid #3498db;
-        padding-bottom: 0.5em;
-    }
-    
-    .mdui-card-content h2 {
-        font-size: 2.0em !important;
-        margin: 1.6em 0 1.0em 0;
-        font-weight: 600;
-        color: #34495e;
-        border-left: 4px solid #3498db;
-        padding-left: 0.8em;
-    }
-    
-    .mdui-card-content h3 {
-        font-size: 1.6em !important;
-        margin: 1.4em 0 0.8em 0;
-        font-weight: 600;
-        color: #2c3e50;
-    }
-    
-    .mdui-card-content h4 {
-        font-size: 1.3em !important;
-        margin: 1.2em 0 0.6em 0;
-        font-weight: 600;
-        color: #34495e;
-    }
-    
-    /* 리스트 스타일 개선 */
-    .mdui-card-content ul, .mdui-card-content ol {
-        margin: 1.5em 0;
-        padding-left: 2.2em;
-    }
-    
-    .mdui-card-content li {
-        margin-bottom: 0.8em;
-        line-height: 1.8;
-        font-size: 16px;
-    }
-    
-    /* 코드 블록 스타일 개선 */
-    .mdui-card-content pre {
+    /* 코드 블록 강제 스타일 */
+    pre, .mdui-card-content pre {
         background: #f8f9fa !important;
-        border: 1px solid #e9ecef;
-        border-radius: 8px;
-        padding: 1.5em !important;
-        margin: 2em 0;
-        overflow-x: auto;
-        font-size: 15px;
-        line-height: 1.6;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        border: 2px solid #e9ecef !important;
+        border-radius: 10px !important;
+        padding: 2em !important;
+        margin: 2.5em 0 !important;
+        overflow-x: auto !important;
+        font-size: 16px !important;
+        line-height: 1.7 !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15) !important;
     }
     
-    .mdui-card-content code {
-        background: #f1f3f4;
-        padding: 3px 8px;
-        border-radius: 4px;
-        font-size: 0.9em;
-        color: #d73a49;
-        font-weight: 500;
+    code, .mdui-card-content code {
+        background: #f1f3f4 !important;
+        padding: 4px 10px !important;
+        border-radius: 5px !important;
+        font-size: 0.9em !important;
+        color: #d73a49 !important;
+        font-weight: 600 !important;
+        border: 1px solid #e1e4e8 !important;
     }
     
-    .mdui-card-content pre code {
-        background: none;
-        padding: 0;
-        color: inherit;
-        font-weight: normal;
+    pre code, .mdui-card-content pre code {
+        background: none !important;
+        padding: 0 !important;
+        color: inherit !important;
+        font-weight: normal !important;
+        border: none !important;
     }
     
-    /* 인라인 코드 스타일 강화 */
-    .mdui-card-content p code, .mdui-card-content li code {
-        background: #fff2f2;
-        color: #d73a49;
-        font-weight: 600;
-        border: 1px solid #ffebee;
+    /* 표 스타일 강제 적용 */
+    table, .mdui-card-content table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        margin: 2.5em 0 !important;
+        font-size: 16px !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1) !important;
+        border-radius: 10px !important;
+        overflow: hidden !important;
     }
     
-    /* 이미지 스타일 개선 */
-    .mdui-card-content img {
-        max-width: 100%;
-        height: auto;
-        margin: 2em auto;
-        display: block;
-        border-radius: 10px;
-        box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-        border: 1px solid #eee;
+    th, td, .mdui-card-content th, .mdui-card-content td {
+        border: 1px solid #ddd !important;
+        padding: 18px !important;
+        text-align: left !important;
+        font-size: 16px !important;
+        line-height: 1.6 !important;
     }
     
-    /* 표 스타일 개선 */
-    .mdui-card-content table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 2em 0;
-        font-size: 15px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        border-radius: 8px;
-        overflow: hidden;
+    th, .mdui-card-content th {
+        background: #f5f7fa !important;
+        font-weight: 700 !important;
+        color: #2c3e50 !important;
+        border-bottom: 3px solid #3498db !important;
     }
     
-    .mdui-card-content th,
-    .mdui-card-content td {
-        border: 1px solid #ddd;
-        padding: 15px;
-        text-align: left;
-    }
-    
-    .mdui-card-content th {
-        background: #f5f7fa;
-        font-weight: 600;
-        color: #2c3e50;
-        border-bottom: 2px solid #3498db;
-    }
-    
-    .mdui-card-content tr:nth-child(even) {
-        background: #f9f9f9;
-    }
-    
-    /* 블록 인용문 스타일 개선 */
-    .mdui-card-content blockquote {
-        border-left: 5px solid #3498db;
-        margin: 2em 0;
-        padding: 1.2em 1.8em;
-        background: #f8f9ff;
-        border-radius: 0 8px 8px 0;
-        font-style: italic;
-        color: #555;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-    
-    /* 카드 스타일 개선 */
-    .mdui-card {
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+    /* 이미지 스타일 */
+    img, .mdui-card-content img {
+        max-width: 100% !important;
+        height: auto !important;
+        margin: 2.5em auto !important;
+        display: block !important;
         border-radius: 12px !important;
-        margin-bottom: 2em;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.2) !important;
+        border: 2px solid #eee !important;
     }
     
-    /* 모바일 반응형 스타일 */
+    /* 카드 자체 스타일 */
+    .mdui-card {
+        box-shadow: 0 6px 20px rgba(0,0,0,0.15) !important;
+        border-radius: 15px !important;
+        margin-bottom: 2.5em !important;
+        padding: 0 !important;
+    }
+    
+    .mdui-card-content {
+        padding: 2.5em !important;
+    }
+    
+    /* 블록 인용문 */
+    blockquote, .mdui-card-content blockquote {
+        border-left: 6px solid #3498db !important;
+        margin: 2.5em 0 !important;
+        padding: 1.5em 2em !important;
+        background: #f8f9ff !important;
+        border-radius: 0 10px 10px 0 !important;
+        font-style: italic !important;
+        color: #555 !important;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.08) !important;
+        font-size: 17px !important;
+    }
+    
+    /* 모바일 반응형 */
     @media (max-width: 768px) {
+        body, html, div, p, span, li, td, th, a, strong, em {
+            font-size: 17px !important;
+        }
+        
         .mdui-card-content {
+            padding: 2em !important;
+        }
+        
+        h1, .mdui-card-content h1 {
+            font-size: 2.2em !important;
+        }
+        
+        h2, .mdui-card-content h2 {
+            font-size: 1.9em !important;
+        }
+        
+        h3, .mdui-card-content h3 {
+            font-size: 1.6em !important;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        body, html, div, p, span, li, td, th, a, strong, em {
             font-size: 16px !important;
+        }
+        
+        .mdui-card-content {
             padding: 1.5em !important;
         }
-        
-        .mdui-card-content p {
-            font-size: 16px;
-        }
-        
-        .mdui-card-content h1 {
-            font-size: 2.0em !important;
-        }
-        
-        .mdui-card-content h2 {
-            font-size: 1.7em !important;
-        }
-        
-        .mdui-card-content h3 {
-            font-size: 1.4em !important;
-        }
+    }
+    
+    /* 추가: 컨테이너 너비 조정 */
+    .mdui-container,
+    .mdui-container-fluid {
+        max-width: 900px !important;
+        margin: 0 auto !important;
+        padding: 0 20px !important;
     }
 </style>
