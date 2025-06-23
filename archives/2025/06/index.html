@@ -1047,7 +1047,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
     <div class="mdui-card-primary-subtitle mdui-typo">
         
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 11:54<br>Updated: 2025-06-23 11:54'}" datetime="2025-06-23T14:54:30.034Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 11:56<br>Updated: 2025-06-23 11:56'}" datetime="2025-06-23T14:56:54.055Z">2025-06-23</time>
         <span>-</span>
         
             <a href="/2025/06/23/hello-world/">2025/06/23/hello-world/</a>
@@ -1303,7 +1303,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <span><a class="tag-none-link" href="/tags/Nucleo-64/" rel="tag">Nucleo-64</a> <a class="tag-none-link" href="/tags/STM32F411/" rel="tag">STM32F411</a> <a class="tag-none-link" href="/tags/%ED%95%98%EB%93%9C%EC%9B%A8%EC%96%B4/" rel="tag">하드웨어</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 11:54'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 11:56'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/0.cortex-m-board-introduction/</span>
@@ -1454,7 +1454,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <span><a class="tag-none-link" href="/tags/GPIO/" rel="tag">GPIO</a> <a class="tag-none-link" href="/tags/RCC/" rel="tag">RCC</a> <a class="tag-none-link" href="/tags/STM32CubeIDE/" rel="tag">STM32CubeIDE</a> <a class="tag-none-link" href="/tags/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%84%A4%EC%A0%95/" rel="tag">프로젝트설정</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 11:54'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 11:56'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/1.cortex-m-project-setup/</span>
@@ -1585,12 +1585,6 @@ document.addEventListener('DOMContentLoaded', function() {
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* USER CODE BEGIN WHILE */</span></span><br><span class="line"><span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/* USER CODE END WHILE */</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// LED ON</span></span><br><span class="line">    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);</span><br><span class="line">    HAL_Delay(<span class="number">500</span>);  <span class="comment">// 0.5초 대기</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// LED OFF</span></span><br><span class="line">    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);</span><br><span class="line">    HAL_Delay(<span class="number">500</span>);  <span class="comment">// 0.5초 대기</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* USER CODE BEGIN 3 */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* USER CODE END 3 */</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="정리"><a href="#정리" class="headerlink" title="정리"></a>정리</h2><p>이번 포스트에서는 STM32CubeIDE를 사용한 프로젝트 생성과 기본 설정을 다뤘다:</p>
-<ol>
-<li><strong>프로젝트 생성</strong>: MCU 선택과 기본 설정</li>
-<li><strong>RCC 설정</strong>: HSE 8MHz → 100MHz PLL 설정</li>
-<li><strong>SYS 설정</strong>: Serial Wire Debug 인터페이스 설정</li>
-<li><strong>GPIO 설정</strong>: PA5를 Output으로 설정</li>
-</ol>
 <p>다음 포스트에서는 개발에 필요한 도구들을 설치하고 빌드 환경을 구성해보겠다.</p>
 <hr>
 <p><strong>이전 포스트</strong>: <a href="/2025/06/23/0.cortex-m-board-introduction/">1. STM32 보드 소개</a><br><strong>다음 포스트</strong>: <a href="/2025/06/23/cortex-m-development-environment">3. 개발 환경 구성</a></p>
@@ -1626,7 +1620,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <span><a class="tag-none-link" href="/tags/STM32CubeIDE/" rel="tag">STM32CubeIDE</a> <a class="tag-none-link" href="/tags/Timer/" rel="tag">Timer</a> <a class="tag-none-link" href="/tags/%EA%B3%A0%EA%B8%89%EC%84%A4%EC%A0%95/" rel="tag">고급설정</a> <a class="tag-none-link" href="/tags/%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1/" rel="tag">환경구성</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 11:54'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 11:56'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/cortex-m-advanced-setup/</span>
@@ -1815,7 +1809,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <span><a class="tag-none-link" href="/tags/BSRR/" rel="tag">BSRR</a> <a class="tag-none-link" href="/tags/%EA%B3%A0%EA%B8%89%EA%B8%B0%EB%B2%95/" rel="tag">고급기법</a> <a class="tag-none-link" href="/tags/%EB%B9%84%ED%8A%B8%ED%95%84%EB%93%9C/" rel="tag">비트필드</a> <a class="tag-none-link" href="/tags/%EC%84%B1%EB%8A%A5%EC%B5%9C%EC%A0%81%ED%99%94/" rel="tag">성능최적화</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 11:54'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 11:56'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/cortex-m-code-improvement-advanced/</span>
@@ -1932,7 +1926,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <span><a class="tag-none-link" href="/tags/Define/" rel="tag">Define</a> <a class="tag-none-link" href="/tags/%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81/" rel="tag">리팩토링</a> <a class="tag-none-link" href="/tags/%EB%B2%A0%EC%9D%B4%EC%8A%A4%EC%A3%BC%EC%86%8C/" rel="tag">베이스주소</a> <a class="tag-none-link" href="/tags/%EC%BD%94%EB%93%9C%EA%B0%9C%EC%84%A0/" rel="tag">코드개선</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 11:54'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 11:56'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/cortex-m-code-improvement-basic/</span>
@@ -2069,7 +2063,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <span><a class="tag-none-link" href="/tags/%EA%B5%AC%EC%A1%B0%EC%B2%B4/" rel="tag">구조체</a> <a class="tag-none-link" href="/tags/%EB%AA%A8%EB%93%88%ED%99%94/" rel="tag">모듈화</a> <a class="tag-none-link" href="/tags/%EC%BD%94%EB%93%9C%EA%B0%9C%EC%84%A0/" rel="tag">코드개선</a> <a class="tag-none-link" href="/tags/%ED%83%80%EC%9E%85%EC%95%88%EC%A0%84%EC%84%B1/" rel="tag">타입안전성</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 11:54'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 11:56'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/cortex-m-code-improvement-struct/</span>
@@ -2217,7 +2211,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <span><a class="tag-none-link" href="/tags/STM32/" rel="tag">STM32</a> <a class="tag-none-link" href="/tags/%EA%B0%80%EC%9D%B4%EB%93%9C/" rel="tag">가이드</a> <a class="tag-none-link" href="/tags/%EC%B4%88%EA%B8%B0%ED%99%98%EA%B2%BD/" rel="tag">초기환경</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 11:54'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 11:56'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/cortex-m-initial-setup-guide/</span>
@@ -2322,7 +2316,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <span><a class="tag-none-link" href="/tags/GPIO/" rel="tag">GPIO</a> <a class="tag-none-link" href="/tags/LED%EC%A0%9C%EC%96%B4/" rel="tag">LED제어</a> <a class="tag-none-link" href="/tags/RCC/" rel="tag">RCC</a> <a class="tag-none-link" href="/tags/%EB%A0%88%EC%A7%80%EC%8A%A4%ED%84%B0/" rel="tag">레지스터</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 11:54'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 11:56'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/cortex-m-led-control-basics/</span>
@@ -2460,7 +2454,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <span><a class="tag-none-link" href="/tags/SW-Stack/" rel="tag">SW Stack</a> <a class="tag-none-link" href="/tags/%EA%B3%84%EC%B8%B5%EA%B5%AC%EC%A1%B0/" rel="tag">계층구조</a> <a class="tag-none-link" href="/tags/%EB%AA%A8%EB%93%88%ED%99%94/" rel="tag">모듈화</a> <a class="tag-none-link" href="/tags/%ED%8F%B4%EB%8D%94%EB%B6%84%EB%A6%AC/" rel="tag">폴더분리</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 11:54'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 11:56'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/cortex-m-software-stack/</span>
