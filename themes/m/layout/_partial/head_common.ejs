@@ -217,52 +217,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3) !important;
             }
             
-            /* 목차 스타일 - 스크린샷처럼 심플하게 */
+            /* 목차 스타일 - 완전 심플하게 */
             #table-of-contents {
-                background: #fff !important;
-                border: 1px solid #e0e0e0 !important;
-                border-radius: 8px !important;
-                padding: 1.5em !important;
+                padding: 1.5em 0 !important;
                 margin: 0 0 2.5em 0 !important;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.05) !important;
-            }
-            
-            .toc-header {
-                display: flex !important;
-                justify-content: space-between !important;
-                align-items: center !important;
-                margin-bottom: 1em !important;
-                padding-bottom: 0.8em !important;
-                border-bottom: 1px solid #e0e0e0 !important;
-            }
-            
-            .toc-header h3 {
-                margin: 0 !important;
-                color: #333 !important;
-                font-size: 1.1em !important;
-                font-weight: 600 !important;
-                border: none !important;
-                padding: 0 !important;
-            }
-            
-            .toc-toggle {
-                background: #52a9ff !important;
-                color: white !important;
-                border: none !important;
-                padding: 0.3em 0.8em !important;
-                border-radius: 12px !important;
-                font-size: 0.8em !important;
-                font-weight: 500 !important;
-                cursor: pointer !important;
-                transition: background 0.3s ease !important;
-            }
-            
-            .toc-toggle:hover {
-                background: #2196f3 !important;
-            }
-            
-            .toc-nav {
-                transition: all 0.3s ease !important;
             }
             
             .toc-list {
@@ -273,7 +231,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             .toc-item {
                 margin: 0 !important;
-                line-height: 1.4 !important;
+                line-height: 1.6 !important;
             }
             
             /* h1 제목만 표시 */
@@ -287,16 +245,11 @@ document.addEventListener('DOMContentLoaded', function() {
             .toc-link {
                 color: #52a9ff !important;
                 text-decoration: none !important;
-                padding: 0.6em 0 !important;
+                padding: 0.5em 0 !important;
                 display: block !important;
                 font-size: 0.95em !important;
                 font-weight: 500 !important;
-                border-bottom: 1px solid #f5f5f5 !important;
                 transition: color 0.3s ease !important;
-            }
-            
-            .toc-item:last-child .toc-link {
-                border-bottom: none !important;
             }
             
             .toc-link:hover {
