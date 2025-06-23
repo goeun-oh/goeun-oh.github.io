@@ -97,22 +97,65 @@
             <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
         </div>
         <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
-            <a href="/categories/APB/" class="mdui-list-item mdui-ripple m">
+            
+            <!-- 버스 프로토콜 그룹 -->
+            <div class="mdui-list-item submenu-level-2" style="background-color: #f5f5f5;">
+                <i class="mdui-list-item-icon mdui-icon material-icons">settings_ethernet</i>
+                <div class="mdui-list-item-content"><strong>버스 프로토콜</strong></div>
+            </div>
+            <a href="/categories/APB/" class="mdui-list-item mdui-ripple submenu-level-3">
                 <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
                 <div class="mdui-list-item-content">APB Protocol</div>
             </a>
-            <a href="/categories/UART/" class="mdui-list-item mdui-ripple m">
+            <a href="/categories/APB/basic/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ APB 기초</div>
+            </a>
+            
+            <!-- 시리얼 통신 그룹 -->
+            <div class="mdui-list-item submenu-level-2" style="background-color: #f5f5f5; margin-top: 8px;">
+                <i class="mdui-list-item-icon mdui-icon material-icons">cable</i>
+                <div class="mdui-list-item-content"><strong>시리얼 통신</strong></div>
+            </div>
+            <a href="/categories/UART/" class="mdui-list-item mdui-ripple submenu-level-3">
                 <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
                 <div class="mdui-list-item-content">UART</div>
             </a>
-            <a href="/categories/I2C/" class="mdui-list-item mdui-ripple m">
+            <a href="/categories/UART/basic/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ UART 기초</div>
+            </a>
+            <a href="/categories/UART/config/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ 설정 및 사용</div>
+            </a>
+            
+            <a href="/categories/I2C/" class="mdui-list-item mdui-ripple submenu-level-3">
                 <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
                 <div class="mdui-list-item-content">I2C</div>
             </a>
-            <a href="/categories/SPI/" class="mdui-list-item mdui-ripple m">
+            <a href="/categories/I2C/protocol/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ 프로토콜 분석</div>
+            </a>
+            <a href="/categories/I2C/implementation/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ 구현 방법</div>
+            </a>
+            
+            <a href="/categories/SPI/" class="mdui-list-item mdui-ripple submenu-level-3">
                 <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
                 <div class="mdui-list-item-content">SPI</div>
             </a>
+            <a href="/categories/SPI/basics/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ SPI 기초</div>
+            </a>
+            <a href="/categories/SPI/modes/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ 동작 모드</div>
+            </a>
+            
         </div>
     </div>
 
@@ -124,10 +167,61 @@
             <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
         </div>
         <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
-            <a href="/categories/Verilog/" class="mdui-list-item mdui-ripple m">
+            
+            <!-- Verilog 그룹 -->
+            <div class="mdui-list-item submenu-level-2" style="background-color: #f5f5f5;">
+                <i class="mdui-list-item-icon mdui-icon material-icons">code</i>
+                <div class="mdui-list-item-content"><strong>Verilog</strong></div>
+            </div>
+            <a href="/categories/Verilog/" class="mdui-list-item mdui-ripple submenu-level-3">
                 <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
                 <div class="mdui-list-item-content">Verilog 기초</div>
             </a>
+            <a href="/categories/Verilog/syntax/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ 문법 및 구조</div>
+            </a>
+            <a href="/categories/Verilog/modules/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ 모듈 설계</div>
+            </a>
+            <a href="/categories/Verilog/testbench/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ 테스트벤치</div>
+            </a>
+            
+            <!-- FPGA 설계 그룹 -->
+            <div class="mdui-list-item submenu-level-2" style="background-color: #f5f5f5; margin-top: 8px;">
+                <i class="mdui-list-item-icon mdui-icon material-icons">developer_board</i>
+                <div class="mdui-list-item-content"><strong>FPGA 설계</strong></div>
+            </div>
+            <a href="/categories/FPGA/basics/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">FPGA 기초</div>
+            </a>
+            <a href="/categories/FPGA/synthesis/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ 합성 과정</div>
+            </a>
+            <a href="/categories/FPGA/timing/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ 타이밍 분석</div>
+            </a>
+            
+            <!-- 검증 그룹 -->
+            <div class="mdui-list-item submenu-level-2" style="background-color: #f5f5f5; margin-top: 8px;">
+                <i class="mdui-list-item-icon mdui-icon material-icons">verified</i>
+                <div class="mdui-list-item-content"><strong>설계 검증</strong></div>
+            </div>
+            <a href="/categories/Verification/uvm/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">UVM 기초</div>
+            </a>
+            <a href="/categories/Verification/systemverilog/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ SystemVerilog</div>
+            </a>
+            
         </div>
     </div>
 
