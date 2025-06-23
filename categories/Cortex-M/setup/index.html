@@ -899,7 +899,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <span><a class="tag-none-link" href="/tags/Nucleo-64/" rel="tag">Nucleo-64</a> <a class="tag-none-link" href="/tags/STM32F411/" rel="tag">STM32F411</a> <a class="tag-none-link" href="/tags/%ED%95%98%EB%93%9C%EC%9B%A8%EC%96%B4/" rel="tag">하드웨어</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 12:13'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 12:20'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/0.cortex-m-board-introduction/</span>
@@ -1050,7 +1050,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <span><a class="tag-none-link" href="/tags/GPIO/" rel="tag">GPIO</a> <a class="tag-none-link" href="/tags/RCC/" rel="tag">RCC</a> <a class="tag-none-link" href="/tags/STM32CubeIDE/" rel="tag">STM32CubeIDE</a> <a class="tag-none-link" href="/tags/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%84%A4%EC%A0%95/" rel="tag">프로젝트설정</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 12:13'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 12:20'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/1.cortex-m-project-setup/</span>
@@ -1102,7 +1102,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>RCC 클릭</p>
 <p><strong>2. HSE 설정</strong></p>
 <figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/RCC2.png"class="mdui-img-rounded" loading="lazy"></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RCC → High Speed Clock (HSE) → Crystal/Ceramic Resonator 선택</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">RCC → High Speed Clock (HSE) → Crystal/Ceramic Resonator 선택</span><br></pre></td></tr></table></figure>
 
 <p><strong>3. PLL 설정</strong><br><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/image.png"></p>
 <ul>
@@ -1122,7 +1122,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <h2 id="2-SYS-시스템-설정"><a href="#2-SYS-시스템-설정" class="headerlink" title="2. SYS (시스템) 설정"></a>2. SYS (시스템) 설정</h2><h3 id="Debug-설정"><a href="#Debug-설정" class="headerlink" title="Debug 설정"></a>Debug 설정</h3><p>디버깅을 위한 시스템 설정을 진행한다.</p>
 <p><strong>Debug 인터페이스 선택:</strong></p>
 <figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/sys.png"class="mdui-img-rounded" loading="lazy"></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SYS → Debug → Serial Wire 선택</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SYS → Debug → Serial Wire 선택</span><br></pre></td></tr></table></figure>
 
 <p><strong>Serial Wire Debug (SWD)의 장점:</strong></p>
 <ul>
@@ -1178,7 +1178,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li>핀 라벨이 <strong>GPIO_Output</strong>으로 변경된다</li>
 </ul>
 <h2 id="간단한-테스트-코드"><a href="#간단한-테스트-코드" class="headerlink" title="간단한 테스트 코드"></a>간단한 테스트 코드</h2><p>생성된 main.c에 LED 제어 코드를 추가해보자:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* USER CODE BEGIN WHILE */</span></span><br><span class="line"><span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/* USER CODE END WHILE */</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// LED ON</span></span><br><span class="line">    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);</span><br><span class="line">    HAL_Delay(<span class="number">500</span>);  <span class="comment">// 0.5초 대기</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// LED OFF</span></span><br><span class="line">    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);</span><br><span class="line">    HAL_Delay(<span class="number">500</span>);  <span class="comment">// 0.5초 대기</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* USER CODE BEGIN 3 */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* USER CODE END 3 */</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* USER CODE BEGIN WHILE */</span></span><br><span class="line"><span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/* USER CODE END WHILE */</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// LED ON</span></span><br><span class="line">    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);</span><br><span class="line">    HAL_Delay(<span class="number">500</span>);  <span class="comment">// 0.5초 대기</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// LED OFF</span></span><br><span class="line">    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);</span><br><span class="line">    HAL_Delay(<span class="number">500</span>);  <span class="comment">// 0.5초 대기</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* USER CODE BEGIN 3 */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* USER CODE END 3 */</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="정리"><a href="#정리" class="headerlink" title="정리"></a>정리</h2><p>이번 포스트에서는 STM32CubeIDE를 사용한 프로젝트 생성과 기본 설정을 다뤘다:</p>
 <p>다음 포스트에서는 개발에 필요한 도구들을 설치하고 빌드 환경을 구성해보겠다.</p>
