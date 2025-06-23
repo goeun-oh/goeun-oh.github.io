@@ -395,14 +395,14 @@ document.addEventListener('DOMContentLoaded', function() {
         <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" href="/2025/06/22/cortex-m-board-introduction/">1. STM32 보드 소개</a>
         <a class="p-author h-card" style="display:none" href="https://www.goeun-oh.com">고은</a>
         
-        <small> <a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/">Cortex-M</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/ARM/">ARM</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/ARM/Embedded/">Embedded</a></small>
+        <small> <a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/">Cortex-M</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/setup/">setup</a></small>
         
     </div>
     <div class="mdui-card-primary-subtitle mdui-typo">
         
         <span><a class="tag-none-link" href="/tags/Nucleo-64/" rel="tag">Nucleo-64</a> <a class="tag-none-link" href="/tags/STM32F411/" rel="tag">STM32F411</a> <a class="tag-none-link" href="/tags/%ED%95%98%EB%93%9C%EC%9B%A8%EC%96%B4/" rel="tag">하드웨어</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 09:09'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 09:17'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/cortex-m-board-introduction/</span>
@@ -415,8 +415,8 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="mdui-card-content mdui-typo">
         
         <div class="p-summary" style="display:none"></div>
-        <main class="e-content"><h1 id="STM32-보드-소개"><a href="#STM32-보드-소개" class="headerlink" title="STM32 보드 소개"></a>STM32 보드 소개</h1><p>이번 포스트에서는 우리가 사용할 STM32F411RE Nucleo-64 보드의 스펙과 하드웨어 구조를 자세히 알아본다.</p>
-<h2 id="📱-사용-보드-STM32F411RE-Nucleo-64"><a href="#📱-사용-보드-STM32F411RE-Nucleo-64" class="headerlink" title="📱 사용 보드: STM32F411RE Nucleo-64"></a>📱 사용 보드: STM32F411RE Nucleo-64</h2><figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/Nucleo-64_board.png" alt="Nucleo-64 보드"class="mdui-img-rounded" loading="lazy"></figure>
+        <main class="e-content"><h1 id="STM32-보드-소개"><a href="#STM32-보드-소개" class="headerlink" title="STM32 보드 소개"></a>STM32 보드 소개</h1><p>이번 포스트에서는 STM32F411RE Nucleo-64 보드의 스펙과 하드웨어 구조를 자세히 알아본다.</p>
+<h2 id="사용-보드-STM32F411RE-Nucleo-64"><a href="#사용-보드-STM32F411RE-Nucleo-64" class="headerlink" title="사용 보드: STM32F411RE Nucleo-64"></a>사용 보드: STM32F411RE Nucleo-64</h2><figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/Nucleo-64_board.png" alt="Nucleo-64 보드"class="mdui-img-rounded" loading="lazy"></figure>
 <h3 id="핵심-스펙"><a href="#핵심-스펙" class="headerlink" title="핵심 스펙"></a>핵심 스펙</h3><p><strong>STM32F411RE Nucleo-64 보드의 주요 사양은 다음과 같다:</strong></p>
 <ul>
 <li><strong>MCU</strong>: STM32F411RE</li>
@@ -427,17 +427,17 @@ document.addEventListener('DOMContentLoaded', function() {
 <li><strong>ART Accelerator</strong>: 고성능 액세스 지원</li>
 </ul>
 <blockquote>
-<p>💡 <strong>중요</strong>: 임베디드 개발에서 보드 스펙을 정확히 아는 것은 개발의 첫걸음이다!</p>
+<p><strong>중요</strong>: 임베디드 개발에서 보드 스펙을 정확히 아는 것은 개발의 첫걸음이다!</p>
 </blockquote>
 <figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/F411RE_MCU.png" alt="STM32F411RE MCU"class="mdui-img-rounded" loading="lazy"></figure>
-<h3 id="보드-특징"><a href="#보드-특징" class="headerlink" title="보드 특징"></a>보드 특징</h3><p>이 보드는 <strong>고성능 액세스 라인</strong>에 속하며, 다음과 같은 특징을 가진다:</p>
+<h3 id="보드-특징"><a href="#보드-특징" class="headerlink" title="보드 특징"></a>보드 특징</h3><p>해당 보드는 <strong>고성능 액세스 라인</strong>에 속하며, 다음과 같은 특징을 가진다:</p>
 <ul>
 <li><strong>ARM Cortex-M4 core with DSP and FPU</strong></li>
 <li><strong>512KB Flash memory</strong></li>
 <li><strong>100MHz CPU</strong></li>
 <li><strong>ART Accelerator</strong> (고성능 메모리 액세스)</li>
 </ul>
-<h2 id="🔌-핀-구성과-LED-연결"><a href="#🔌-핀-구성과-LED-연결" class="headerlink" title="🔌 핀 구성과 LED 연결"></a>🔌 핀 구성과 LED 연결</h2><h3 id="User-LD2-사용자-LED"><a href="#User-LD2-사용자-LED" class="headerlink" title="User LD2 (사용자 LED)"></a>User LD2 (사용자 LED)</h3><p>우리가 제어할 수 있는 LED는 <strong>User LD2</strong>이다:</p>
+<h2 id="핀-구성과-LED-연결"><a href="#핀-구성과-LED-연결" class="headerlink" title="핀 구성과 LED 연결"></a>핀 구성과 LED 연결</h2><h3 id="User-LD2-사용자-LED"><a href="#User-LD2-사용자-LED" class="headerlink" title="User LD2 (사용자 LED)"></a>User LD2 (사용자 LED)</h3><p>우리가 제어할 수 있는 LED는 <strong>User LD2</strong>이다:</p>
 <figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/image-1.png" alt="LED 연결 구조"class="mdui-img-rounded" loading="lazy"></figure>
 <ul>
 <li><strong>연결 핀</strong>: PA5 (Arduino D13 핀과 동일)</li>
@@ -448,16 +448,17 @@ document.addEventListener('DOMContentLoaded', function() {
 </li>
 </ul>
 <h3 id="핀-맵-이해"><a href="#핀-맵-이해" class="headerlink" title="핀 맵 이해"></a>핀 맵 이해</h3><p><strong>중요한 핀 맵 정보:</strong></p>
-<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/image-2.png" alt="핀 맵"class="mdui-img-rounded" loading="lazy"></figure>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/%7B85A1DDEE-E018-4060-BD48-E751FC36DF63%7D.png" alt="핀 맵"class="mdui-img-rounded" loading="lazy"></figure>
 <ul>
 <li>같은 행의 핀들은 내부적으로 연결되어 있다</li>
 <li>암&#x2F;수 커넥터의 차이만 있을 뿐 전기적으로는 동일하다</li>
 <li>PA5 핀은 GPIO Output으로 설정하여 LED를 제어할 수 있다</li>
 </ul>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/image-2.png" alt="핀 맵"class="mdui-img-rounded" loading="lazy"></figure>
 <blockquote>
-<p>📌 <strong>팁</strong>: 핀 맵은 개발 과정에서 지속적으로 참조해야 하므로 별도로 저장해두는 것이 좋다.</p>
+<p><strong>팁</strong>: 핀 맵은 개발 과정에서 지속적으로 참조해야 하므로 별도로 저장해두는 것이 좋다.</p>
 </blockquote>
-<h2 id="🏗️-System-Architecture"><a href="#🏗️-System-Architecture" class="headerlink" title="🏗️ System Architecture"></a>🏗️ System Architecture</h2><p>STM32F411의 시스템 구조를 이해하는 것은 효율적인 프로그래밍의 기초가 된다.</p>
+<h2 id="System-Architecture"><a href="#System-Architecture" class="headerlink" title="System Architecture"></a>System Architecture</h2><p>STM32F411의 시스템 구조를 이해하는 것은 효율적인 프로그래밍의 기초가 된다.</p>
 <figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/image-6.png" alt="System Architecture"class="mdui-img-rounded" loading="lazy"></figure>
 <h3 id="주요-구성-요소"><a href="#주요-구성-요소" class="headerlink" title="주요 구성 요소"></a>주요 구성 요소</h3><p><strong>1. Core (ARM Cortex-M4)</strong></p>
 <ul>
@@ -479,9 +480,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li>시스템의 모든 클럭을 관리한다</li>
 <li>각 주변장치에 선택적으로 클럭을 공급한다</li>
 </ul>
-<h2 id="⚡-RCC의-역할과-저전력-설계"><a href="#⚡-RCC의-역할과-저전력-설계" class="headerlink" title="⚡ RCC의 역할과 저전력 설계"></a>⚡ RCC의 역할과 저전력 설계</h2><figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/RCC.png" alt="RCC 구조"class="mdui-img-rounded" loading="lazy"></figure>
-<h3 id="RCC의-중요성"><a href="#RCC의-중요성" class="headerlink" title="RCC의 중요성"></a>RCC의 중요성</h3><p>**RCC (Reset &amp; Clock Control)**는 STM32의 핵심 구성 요소 중 하나다:</p>
-<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/RCC2.png" alt="RCC 상세"class="mdui-img-rounded" loading="lazy"></figure>
+<h2 id="RCC의-역할과-저전력-설계"><a href="#RCC의-역할과-저전력-설계" class="headerlink" title="RCC의 역할과 저전력 설계"></a>RCC의 역할과 저전력 설계</h2><h3 id="RCC의-중요성"><a href="#RCC의-중요성" class="headerlink" title="RCC의 중요성"></a>RCC의 중요성</h3><p><strong>RCC (Reset &amp; Clock Control)</strong> 는 STM32의 핵심 구성 요소 중 하나다:</p>
 <ul>
 <li><strong>클럭 관리</strong>: HCLK, APB CLK, AHB CLK를 각 버스에 제공한다</li>
 <li><strong>선택적 공급</strong>: 사용하는 주변장치에만 클럭을 공급한다</li>
@@ -499,7 +498,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li>나머지 GPIO (B, C, D 등)는 사용하지 않으면 클럭을 공급하지 않는다</li>
 <li>결과적으로 불필요한 전력 소모를 방지할 수 있다</li>
 </ol>
-<h2 id="🔍-GPIO-메모리-맵"><a href="#🔍-GPIO-메모리-맵" class="headerlink" title="🔍 GPIO 메모리 맵"></a>🔍 GPIO 메모리 맵</h2><h3 id="GPIOA-메모리-맵-구조"><a href="#GPIOA-메모리-맵-구조" class="headerlink" title="GPIOA 메모리 맵 구조"></a>GPIOA 메모리 맵 구조</h3><p>데이터시트에서 확인할 수 있는 GPIOA의 메모리 맵은 다음과 같다:</p>
+<h2 id="GPIO-메모리-맵"><a href="#GPIO-메모리-맵" class="headerlink" title="GPIO 메모리 맵"></a>GPIO 메모리 맵</h2><h3 id="GPIOA-메모리-맵-구조"><a href="#GPIOA-메모리-맵-구조" class="headerlink" title="GPIOA 메모리 맵 구조"></a>GPIOA 메모리 맵 구조</h3><p>데이터시트에서 확인할 수 있는 GPIOA의 메모리 맵은 다음과 같다:</p>
 <figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/image-4.png" alt="GPIO 메모리 맵"class="mdui-img-rounded" loading="lazy"></figure>
 <ul>
 <li><strong>Base Address</strong>: 0x4002 0000</li>
@@ -513,7 +512,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 </ul>
-<h2 id="📋-정리"><a href="#📋-정리" class="headerlink" title="📋 정리"></a>📋 정리</h2><p>이번 포스트에서는 STM32F411RE Nucleo-64 보드의 기본 사양과 하드웨어 구조를 살펴보았다:</p>
+<h2 id="정리"><a href="#정리" class="headerlink" title="정리"></a>정리</h2><p>이번 포스트에서는 STM32F411RE Nucleo-64 보드의 기본 사양과 하드웨어 구조를 살펴보았다:</p>
 <ol>
 <li><strong>보드 스펙</strong>: ARM Cortex-M4, 512KB Flash, 128KB SRAM, 100MHz</li>
 <li><strong>LED 연결</strong>: PA5 핀에 연결된 User LD2</li>
