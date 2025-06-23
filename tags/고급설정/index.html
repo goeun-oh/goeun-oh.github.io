@@ -899,7 +899,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <span><a class="tag-none-link" href="/tags/STM32CubeIDE/" rel="tag">STM32CubeIDE</a> <a class="tag-none-link" href="/tags/Timer/" rel="tag">Timer</a> <a class="tag-none-link" href="/tags/%EA%B3%A0%EA%B8%89%EC%84%A4%EC%A0%95/" rel="tag">고급설정</a> <a class="tag-none-link" href="/tags/%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1/" rel="tag">환경구성</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 12:20'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 12:23'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/cortex-m-advanced-setup/</span>
@@ -993,7 +993,23 @@ document.addEventListener('DOMContentLoaded', function() {
 <h3 id="설치-확인"><a href="#설치-확인" class="headerlink" title="설치 확인"></a>설치 확인</h3><p>CMD에서 STM32와 Version 확인:</p>
 <figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/Complie_Program.md%7B2EE09E95-4964-4D1B-9DBF-70E5128423D7%7D.png" alt="버전 확인"class="mdui-img-rounded" loading="lazy"></figure>
 <h2 id="📊-생성된-프로젝트-구조"><a href="#📊-생성된-프로젝트-구조" class="headerlink" title="📊 생성된 프로젝트 구조"></a>📊 생성된 프로젝트 구조</h2><h3 id="파일-구조"><a href="#파일-구조" class="headerlink" title="파일 구조"></a>파일 구조</h3><p>STM32CubeIDE가 생성하는 표준 프로젝트 구조:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Project/</span><br><span class="line">├── Core/</span><br><span class="line">│   ├── Inc/</span><br><span class="line">│   │   ├── main.h</span><br><span class="line">│   │   ├── stm32f4xx_hal_conf.h</span><br><span class="line">│   │   ├── stm32f4xx_it.h</span><br><span class="line">│   │   └── gpio.h (설정에 따라 생성)</span><br><span class="line">│   └── Src/</span><br><span class="line">│       ├── main.c</span><br><span class="line">│       ├── stm32f4xx_hal_msp.c</span><br><span class="line">│       ├── stm32f4xx_it.c</span><br><span class="line">│       ├── system_stm32f4xx.c</span><br><span class="line">│       └── gpio.c (설정에 따라 생성)</span><br><span class="line">├── Drivers/</span><br><span class="line">│   ├── CMSIS/</span><br><span class="line">│   └── STM32F4xx_HAL_Driver/</span><br><span class="line">└── Middlewares/ (필요시)</span><br></pre></td></tr></table></figure>
+<pre class="language-none"><code class="language-none">Project&#x2F;
+├── Core&#x2F;
+│   ├── Inc&#x2F;
+│   │   ├── main.h
+│   │   ├── stm32f4xx_hal_conf.h
+│   │   ├── stm32f4xx_it.h
+│   │   └── gpio.h (설정에 따라 생성)
+│   └── Src&#x2F;
+│       ├── main.c
+│       ├── stm32f4xx_hal_msp.c
+│       ├── stm32f4xx_it.c
+│       ├── system_stm32f4xx.c
+│       └── gpio.c (설정에 따라 생성)
+├── Drivers&#x2F;
+│   ├── CMSIS&#x2F;
+│   └── STM32F4xx_HAL_Driver&#x2F;
+└── Middlewares&#x2F; (필요시)</code></pre>
 
 <h3 id="주요-파일-설명"><a href="#주요-파일-설명" class="headerlink" title="주요 파일 설명"></a>주요 파일 설명</h3><p><strong>main.c:</strong></p>
 <ul>

@@ -899,7 +899,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <span><a class="tag-none-link" href="/tags/SW-Stack/" rel="tag">SW Stack</a> <a class="tag-none-link" href="/tags/%EA%B3%84%EC%B8%B5%EA%B5%AC%EC%A1%B0/" rel="tag">계층구조</a> <a class="tag-none-link" href="/tags/%EB%AA%A8%EB%93%88%ED%99%94/" rel="tag">모듈화</a> <a class="tag-none-link" href="/tags/%ED%8F%B4%EB%8D%94%EB%B6%84%EB%A6%AC/" rel="tag">폴더분리</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 12:20'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 12:23'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/cortex-m-software-stack/</span>
@@ -930,7 +930,22 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 <h2 id="🏗️-SW-Stack-개념"><a href="#🏗️-SW-Stack-개념" class="headerlink" title="🏗️ SW Stack 개념"></a>🏗️ SW Stack 개념</h2><h3 id="SW의-흐름과-계층-구조"><a href="#SW의-흐름과-계층-구조" class="headerlink" title="SW의 흐름과 계층 구조"></a>SW의 흐름과 계층 구조</h3><p>SW의 흐름은 위에서 아래로 진행된다. SW가 HW를 제어하는 계층적 구조다.</p>
 <figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0619/0.GPIO_BTN_%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0.md%7B237EF5FA-4218-4683-8031-73F87911D2AB%7D.png" alt="SW Stack 구조"class="mdui-img-rounded" loading="lazy"></figure>
-<h3 id="SW-Stack-구조도"><a href="#SW-Stack-구조도" class="headerlink" title="SW Stack 구조도"></a>SW Stack 구조도</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">+------------------------+</span><br><span class="line">|         SW            |</span><br><span class="line">|  +-----------------+  |</span><br><span class="line">|  |     main        |  |  ← System 초기화, Application 실행</span><br><span class="line">|  |  +-----------+  |  |</span><br><span class="line">|  |  |Application|  |  |  ← 비즈니스 로직 처리</span><br><span class="line">|  |  +-----------+  |  |</span><br><span class="line">|  |  |  Driver   |  |  |  ← 하드웨어 추상화 계층</span><br><span class="line">|  |  +-----------+  |  |</span><br><span class="line">|  |  | Interface |  |  |  ← 하드웨어 직접 제어</span><br><span class="line">|  |  +-----------+  |  |</span><br><span class="line">|  +-----------------+  |</span><br><span class="line">+------------------------+</span><br><span class="line">+------------------------+</span><br><span class="line">|         HW            |  ← 실제 하드웨어</span><br><span class="line">+------------------------+</span><br></pre></td></tr></table></figure>
+<h3 id="SW-Stack-구조도"><a href="#SW-Stack-구조도" class="headerlink" title="SW Stack 구조도"></a>SW Stack 구조도</h3><pre class="language-none"><code class="language-none">+------------------------+
+|         SW            |
+|  +-----------------+  |
+|  |     main        |  |  ← System 초기화, Application 실행
+|  |  +-----------+  |  |
+|  |  |Application|  |  |  ← 비즈니스 로직 처리
+|  |  +-----------+  |  |
+|  |  |  Driver   |  |  |  ← 하드웨어 추상화 계층
+|  |  +-----------+  |  |
+|  |  | Interface |  |  |  ← 하드웨어 직접 제어
+|  |  +-----------+  |  |
+|  +-----------------+  |
++------------------------+
++------------------------+
+|         HW            |  ← 실제 하드웨어
++------------------------+</code></pre>
 
 <h3 id="각-계층의-역할"><a href="#각-계층의-역할" class="headerlink" title="각 계층의 역할"></a>각 계층의 역할</h3><p><strong>main 계층:</strong></p>
 <ul>
@@ -989,9 +1004,25 @@ document.addEventListener('DOMContentLoaded', function() {
 <li>Button Push: PUSHED(<code>0</code>) 상태</li>
 </ol>
 <h3 id="GPIO-READ-함수-구현"><a href="#GPIO-READ-함수-구현" class="headerlink" title="GPIO READ 함수 구현"></a>GPIO READ 함수 구현</h3><p>버튼의 상태를 받고 싶다. <code>Button_GetState()</code>: 버튼의 상태를 받아오는 함수</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">uint32_t</span> <span class="title function_">GPIO_ReadPin</span><span class="params">(GPIO_TypeDef *GPIOx, <span class="type">uint32_t</span> pinNum)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ((GPIOx -&gt; IDR &amp; (<span class="number">1U</span> &lt;&lt; pinNum))? <span class="number">1</span>:<span class="number">0</span>); <span class="comment">//0이면 0이나가고, 0이 아닌 값이면 1이나간다</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="language-c" data-language="c"><code class="language-c"><span class="token class-name">uint32_t</span> <span class="token function">GPIO_ReadPin</span><span class="token punctuation">(</span>GPIO_TypeDef <span class="token operator">*</span>GPIOx<span class="token punctuation">,</span> <span class="token class-name">uint32_t</span> pinNum<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>GPIOx <span class="token operator">-></span> IDR <span class="token operator">&amp;</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> pinNum<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">?</span> <span class="token number">1</span><span class="token operator">:</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//0이면 0이나가고, 0이 아닌 값이면 1이나간다</span>
+<span class="token punctuation">&#125;</span></code></pre>
 
-<h3 id="Button-Get-State-함수"><a href="#Button-Get-State-함수" class="headerlink" title="Button Get State 함수"></a>Button Get State 함수</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">button_state_t</span> <span class="title function_">Button_GetState</span><span class="params">()</span>&#123;</span><br><span class="line"> <span class="type">static</span> <span class="type">uint32_t</span> prevState = RELEASED; <span class="comment">//전원을 처음에 넣으면 초기값이 HIGH</span></span><br><span class="line"> <span class="type">uint32_t</span> curState;</span><br><span class="line"> curState= GPIO_ReadPin(GPIOC, <span class="number">13</span>);</span><br><span class="line"></span><br><span class="line"> <span class="comment">//처음 누른 경우</span></span><br><span class="line"> <span class="keyword">if</span> ((prevState == RELEASED) &amp;&amp; (curState == PUSHED))&#123;</span><br><span class="line">  prevState = PUSHED;</span><br><span class="line">  <span class="keyword">return</span> ACT_PUSHED;</span><br><span class="line"> &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((prevState == PUSHED) &amp;&amp;(curState == RELEASE))&#123;</span><br><span class="line">  prevState = RELEASED;</span><br><span class="line">  <span class="keyword">return</span> ACT_RELEASED;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">return</span> NO_ACT;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Button-Get-State-함수"><a href="#Button-Get-State-함수" class="headerlink" title="Button Get State 함수"></a>Button Get State 함수</h3><pre class="language-c" data-language="c"><code class="language-c"><span class="token class-name">button_state_t</span> <span class="token function">Button_GetState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+ <span class="token keyword">static</span> <span class="token class-name">uint32_t</span> prevState <span class="token operator">=</span> RELEASED<span class="token punctuation">;</span> <span class="token comment">//전원을 처음에 넣으면 초기값이 HIGH</span>
+ <span class="token class-name">uint32_t</span> curState<span class="token punctuation">;</span>
+ curState<span class="token operator">=</span> <span class="token function">GPIO_ReadPin</span><span class="token punctuation">(</span>GPIOC<span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+ <span class="token comment">//처음 누른 경우</span>
+ <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>prevState <span class="token operator">==</span> RELEASED<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>curState <span class="token operator">==</span> PUSHED<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  prevState <span class="token operator">=</span> PUSHED<span class="token punctuation">;</span>
+  <span class="token keyword">return</span> ACT_PUSHED<span class="token punctuation">;</span>
+ <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>prevState <span class="token operator">==</span> PUSHED<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span><span class="token punctuation">(</span>curState <span class="token operator">==</span> RELEASE<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  prevState <span class="token operator">=</span> RELEASED<span class="token punctuation">;</span>
+  <span class="token keyword">return</span> ACT_RELEASED<span class="token punctuation">;</span>
+ <span class="token punctuation">&#125;</span>
+ <span class="token keyword">return</span> NO_ACT<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
 
 <p><strong>static 변수 사용 이유:</strong></p>
 <ul>
