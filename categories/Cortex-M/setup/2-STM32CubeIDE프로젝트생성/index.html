@@ -19,6 +19,11 @@
 <meta name="theme-color" content="#3F51B5">
 
 
+<!-- Google Fonts 추가 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+
 <style>
     html,body{scroll-behavior:smooth;min-height:100vh}
     blockquote>strong>a{word-break:break-all}
@@ -31,23 +36,737 @@
 
     
 </style>
+
+<!-- 블로그 포스트 페이지에서만 실행되는 스크립트 -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // .e-content 요소가 존재하고, 포트폴리오 페이지가 아닌 경우에만 적용
+    const hasEContent = document.querySelector('.e-content');
+    const isHomePage = window.location.pathname === '/' || window.location.pathname === '/index.html';
     
-    <title>2. STM32CubeIDE 프로젝트 생성 | </title>
-    <link rel="canonical" href="https://www.goeun-oh.com/2025/06/23/cortex-m-project-setup/">
-    <meta name="description" content="STM32CubeIDE 프로젝트 생성이번 포스트에서는 STM32CubeIDE를 사용하여 새 프로젝트를 생성하고 기본적인 설정을 진행한다. 🚀 기본 프로젝트 설정프로젝트 생성 단계1. STM32CubeIDE 실행  STM32CubeIDE를 실행한다 “File → New → STM32 Project” 선택  2. MCU 선택  Target Selection에">
-<meta property="og:type" content="article">
-<meta property="og:title" content="2. STM32CubeIDE 프로젝트 생성">
-<meta property="og:url" content="https://www.goeun-oh.com/2025/06/23/cortex-m-project-setup/index.html">
+    if (hasEContent && !isHomePage) {
+        // 목차 생성 함수
+                // 기존 JavaScript 코드에서 createContentTOC() 함수 호출 전에 이 코드들을 추가하세요:
+
+        // 카테고리별 게시글 목차 데이터
+        const categoryPosts = {
+            'Cortex-M': [
+                { title: '1. STM32 보드 소개', url: '/2025/06/23/cortex-m-board-introduction/' },
+                { title: '2. STM32CubeIDE 프로젝트 생성', url: '/2025/06/23/cortex-m-project-setup/' },
+                { title: '3. Cortex-M 초기환경 세팅 가이드', url: '/2025/06/23/cortex-m-initial-setup-guide/' },
+                { title: '4. 바텀부터 LED 제어하기', url: '/2025/06/23/cortex-m-led-control-basics/' },
+                { title: '5-1. 코드 개선 과정 - Define과 베이스 주소', url: '/2025/06/23/cortex-m-code-improvement-basic/' },
+                { title: '5-2. 코드 개선 과정 - 구조체 활용', url: '/2025/06/23/cortex-m-code-improvement-struct/' },
+                { title: '5-3. 코드 개선 과정 - 고급 기법과 성능', url: '/2025/06/23/cortex-m-code-improvement-advanced/' },
+                { title: '6. SW Stack과 모듈화', url: '/2025/06/23/cortex-m-software-stack/' },
+                { title: '7. 고급 초기환경 설정', url: '/2025/06/23/cortex-m-advanced-setup/' }
+            ]
+        };
+
+        function detectCurrentCategory() {
+            const currentPath = window.location.pathname;
+            
+            // Cortex-M 카테고리 페이지이거나 cortex-m 포스트인 경우
+            if (currentPath.includes('/categories/Cortex-M/') || 
+                currentPath.includes('cortex-m') || 
+                currentPath.toLowerCase().includes('cortex')) {
+                return 'Cortex-M';
+            }
+            
+            return null;
+        }
+
+        // 카테고리 목차 생성
+        function createCategoryTOC() {
+            const currentCategory = detectCurrentCategory();
+            if (!currentCategory || !categoryPosts[currentCategory]) return;
+            
+            const posts = categoryPosts[currentCategory];
+            const currentPath = window.location.pathname;
+            
+            let tocHTML = `
+                <div id="category-series-nav">
+                    <div class="series-header">
+                        <h3>📚 ${currentCategory} 시리즈</h3>
+                        <div class="series-progress">총 ${posts.length}편</div>
+                    </div>
+                    <ul class="series-list">
+            `;
+            
+            posts.forEach((post, index) => {
+                const isCurrentPost = currentPath.includes(post.url.split('/').pop());
+                const postNumber = index + 1;
+                
+                tocHTML += `
+                    <li class="series-item ${isCurrentPost ? 'current' : ''}">
+                        <span class="series-number">${postNumber}</span>
+                        ${isCurrentPost ? 
+                            `<span class="series-title current-title">${post.title} (현재)</span>` :
+                            `<a href="${post.url}" class="series-link">${post.title}</a>`
+                        }
+                    </li>
+                `;
+            });
+            
+            tocHTML += `</ul></div>`;
+            
+            const content = document.querySelector('.e-content');
+            content.insertAdjacentHTML('afterbegin', tocHTML);
+        }
+
+        // 함수 호출을 다음과 같이 수정:
+        setTimeout(() => {
+            createCategoryTOC();  // 이 줄을 추가
+            createTOC();          // 기존 createTOC() 호출 전에
+            initTOCToggle();
+            initTOCHighlight();
+        }, 100);
+        function createTOC() {
+            const content = document.querySelector('.e-content');
+            const headings = content.querySelectorAll('h1, h2, h3, h4, h5, h6');
+            
+            if (headings.length < 2) return; // 헤딩이 2개 미만이면 목차 생성 안함
+            
+            // 각 헤딩에 ID 추가
+            headings.forEach((heading, index) => {
+                if (!heading.id) {
+                    const text = heading.textContent.trim();
+                    const id = 'heading-' + index + '-' + text.toLowerCase()
+                        .replace(/[^\w\s-가-힣]/g, '')
+                        .replace(/\s+/g, '-');
+                    heading.id = id;
+                }
+            });
+            
+            // 목차 HTML 생성
+            let tocHTML = '<div id="table-of-contents"><div class="toc-header"><h3>📑 목차</h3><button id="toc-toggle" class="toc-toggle">접기</button></div><nav class="toc-nav"><ul class="toc-list">';
+            
+            headings.forEach((heading) => {
+                const level = parseInt(heading.tagName.charAt(1));
+                const text = heading.textContent.trim();
+                const id = heading.id;
+                
+                tocHTML += `<li class="toc-item toc-level-${level}">
+                    <a href="#${id}" class="toc-link">${text}</a>
+                </li>`;
+            });
+            
+            tocHTML += '</ul></nav></div>';
+            
+            // 목차를 본문 앞에 삽입
+            content.insertAdjacentHTML('afterbegin', tocHTML);
+        }
+        
+        // 목차 토글 기능
+        function initTOCToggle() {
+            const toggleBtn = document.getElementById('toc-toggle');
+            const tocNav = document.querySelector('.toc-nav');
+            
+            if (toggleBtn && tocNav) {
+                toggleBtn.addEventListener('click', function() {
+                    if (tocNav.style.display === 'none') {
+                        tocNav.style.display = 'block';
+                        toggleBtn.textContent = '접기';
+                    } else {
+                        tocNav.style.display = 'none';
+                        toggleBtn.textContent = '펼치기';
+                    }
+                });
+            }
+        }
+        
+        // 스크롤 시 현재 섹션 하이라이트
+        function initTOCHighlight() {
+            const tocLinks = document.querySelectorAll('.toc-link');
+            const headings = document.querySelectorAll('.e-content h1, .e-content h2, .e-content h3, .e-content h4, .e-content h5, .e-content h6');
+            
+            function updateActiveLink() {
+                let current = '';
+                headings.forEach(heading => {
+                    const rect = heading.getBoundingClientRect();
+                    if (rect.top <= 100) {
+                        current = heading.id;
+                    }
+                });
+                
+                tocLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', updateActiveLink);
+            updateActiveLink(); // 초기 호출
+        }
+        
+        // 블로그 포스트 전용 CSS 적용
+        const postStyles = document.createElement('style');
+        postStyles.textContent = `
+            /* 블로그 포스트 내용에만 적용되는 가독성 개선 CSS */
+            
+            /* 카드 컨테이너 자체에 여백 추가 */
+            .mdui-card-content.mdui-typo {
+                padding: 3em 4em !important;
+                max-width: 900px !important;
+                margin: 0 auto !important;
+            }
+            /* 기존 CSS 스타일에 이 코드들을 추가하세요: */
+
+            /* 카테고리 시리즈 네비게이션 */
+            #category-series-nav {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+                color: white !important;
+                border-radius: 12px !important;
+                padding: 2em !important;
+                margin: 0 0 2em 0 !important;
+                box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3) !important;
+            }
+
+            .series-header {
+                display: flex !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                margin-bottom: 1.5em !important;
+                border-bottom: 2px solid rgba(255,255,255,0.3) !important;
+                padding-bottom: 1em !important;
+            }
+
+            .series-header h3 {
+                margin: 0 !important;
+                font-size: 1.4em !important;
+                font-weight: 700 !important;
+                border: none !important;
+                padding: 0 !important;
+                color: white !important;
+            }
+
+            .series-progress {
+                background: rgba(255,255,255,0.2) !important;
+                padding: 0.5em 1em !important;
+                border-radius: 20px !important;
+                font-size: 0.9em !important;
+                font-weight: 500 !important;
+            }
+
+            .series-list {
+                list-style: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                display: grid !important;
+                gap: 0.8em !important;
+            }
+
+            .series-item {
+                display: flex !important;
+                align-items: center !important;
+                background: rgba(255,255,255,0.1) !important;
+                border-radius: 8px !important;
+                padding: 1em !important;
+                transition: all 0.3s ease !important;
+                border: 1px solid rgba(255,255,255,0.2) !important;
+            }
+
+            .series-item:hover {
+                background: rgba(255,255,255,0.2) !important;
+                transform: translateX(5px) !important;
+            }
+
+            .series-item.current {
+                background: rgba(255,255,255,0.25) !important;
+                border-color: rgba(255,255,255,0.5) !important;
+                transform: scale(1.02) !important;
+            }
+
+            .series-number {
+                background: rgba(255,255,255,0.9) !important;
+                color: #667eea !important;
+                width: 30px !important;
+                height: 30px !important;
+                border-radius: 50% !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                font-weight: 700 !important;
+                font-size: 0.9em !important;
+                margin-right: 1em !important;
+                flex-shrink: 0 !important;
+            }
+
+            .series-link {
+                color: white !important;
+                text-decoration: none !important;
+                font-weight: 500 !important;
+                font-size: 0.95em !important;
+                line-height: 1.4 !important;
+                flex: 1 !important;
+            }
+
+            .series-link:hover {
+                color: #fff !important;
+            }
+
+            .current-title {
+                color: white !important;
+                font-weight: 600 !important;
+                font-size: 0.95em !important;
+                line-height: 1.4 !important;
+            }
+
+            /* 모바일 반응형 */
+            @media (max-width: 768px) {
+                #category-series-nav {
+                    padding: 1.5em !important;
+                    margin: 0 0 1.5em 0 !important;
+                }
+                
+                .series-header {
+                    flex-direction: column !important;
+                    gap: 0.5em !important;
+                    text-align: center !important;
+                }
+                
+                .series-item {
+                    padding: 0.8em !important;
+                }
+                
+                .series-number {
+                    width: 25px !important;
+                    height: 25px !important;
+                    font-size: 0.8em !important;
+                    margin-right: 0.8em !important;
+                }
+                
+                .series-link,
+                .current-title {
+                    font-size: 0.9em !important;
+                }
+            }
+            /* 목차 스타일 */
+            #table-of-contents {
+                background: #f8f9ff !important;
+                border: 2px solid #e3f2fd !important;
+                border-radius: 12px !important;
+                padding: 1.5em !important;
+                margin: 0 0 3em 0 !important;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+                position: relative !important;
+            }
+            
+            .toc-header {
+                display: flex !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                margin-bottom: 1em !important;
+                border-bottom: 2px solid #3498db !important;
+                padding-bottom: 0.5em !important;
+            }
+            
+            .toc-header h3 {
+                margin: 0 !important;
+                color: #2c3e50 !important;
+                font-size: 1.2em !important;
+                font-weight: 600 !important;
+                border: none !important;
+                padding: 0 !important;
+            }
+            
+            .toc-toggle {
+                background: #3498db !important;
+                color: white !important;
+                border: none !important;
+                padding: 0.3em 0.8em !important;
+                border-radius: 15px !important;
+                font-size: 0.8em !important;
+                cursor: pointer !important;
+                transition: all 0.3s ease !important;
+            }
+            
+            .toc-toggle:hover {
+                background: #2980b9 !important;
+                transform: scale(1.05) !important;
+            }
+            
+            .toc-nav {
+                transition: all 0.3s ease !important;
+            }
+            
+            .toc-list {
+                list-style: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            
+            .toc-item {
+                margin: 0.3em 0 !important;
+                line-height: 1.4 !important;
+            }
+            
+            .toc-level-1 {
+                font-weight: 600 !important;
+            }
+            
+            .toc-level-2 {
+                padding-left: 1em !important;
+                font-weight: 500 !important;
+            }
+            
+            .toc-level-3 {
+                padding-left: 2em !important;
+            }
+            
+            .toc-level-4 {
+                padding-left: 3em !important;
+                font-size: 0.9em !important;
+            }
+            
+            .toc-level-5,
+            .toc-level-6 {
+                padding-left: 4em !important;
+                font-size: 0.85em !important;
+            }
+            
+            .toc-link {
+                color: #34495e !important;
+                text-decoration: none !important;
+                padding: 0.2em 0.5em !important;
+                border-radius: 4px !important;
+                display: block !important;
+                transition: all 0.3s ease !important;
+                border-left: 3px solid transparent !important;
+            }
+            
+            .toc-link:hover {
+                background: #e8f4fd !important;
+                color: #2980b9 !important;
+                border-left-color: #3498db !important;
+                transform: translateX(3px) !important;
+            }
+            
+            .toc-link.active {
+                background: #3498db !important;
+                color: white !important;
+                font-weight: 600 !important;
+                border-left-color: #2980b9 !important;
+            }
+            
+            .e-content {
+                font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+                padding: 0 !important;
+            }
+            
+            .e-content,
+            .e-content p,
+            .e-content div,
+            .e-content span,
+            .e-content li,
+            .e-content td,
+            .e-content th {
+                font-size: 17px !important;
+                line-height: 1.8 !important;
+                color: #333 !important;
+                word-break: keep-all !important;
+                word-wrap: break-word !important;
+            }
+            
+            .e-content p {
+                margin-bottom: 1.4em !important;
+                font-size: 17px !important;
+            }
+            
+            .e-content h1 {
+                font-size: 2.4em !important;
+                margin: 1.8em 0 1.2em 0 !important;
+                font-weight: 700 !important;
+                color: #2c3e50 !important;
+                border-bottom: 3px solid #3498db !important;
+                padding-bottom: 0.5em !important;
+                scroll-margin-top: 100px !important;
+            }
+            
+            .e-content h2 {
+                font-size: 2.0em !important;
+                margin: 1.6em 0 1.0em 0 !important;
+                font-weight: 600 !important;
+                color: #34495e !important;
+                border-left: 4px solid #3498db !important;
+                padding-left: 0.8em !important;
+                scroll-margin-top: 100px !important;
+            }
+            
+            .e-content h3 {
+                font-size: 1.6em !important;
+                margin: 1.4em 0 0.8em 0 !important;
+                font-weight: 600 !important;
+                color: #2c3e50 !important;
+                scroll-margin-top: 100px !important;
+            }
+            
+            .e-content h4 {
+                font-size: 1.3em !important;
+                margin: 1.2em 0 0.6em 0 !important;
+                font-weight: 600 !important;
+                color: #34495e !important;
+                scroll-margin-top: 100px !important;
+            }
+            
+            .e-content h5,
+            .e-content h6 {
+                font-size: 1.1em !important;
+                margin: 1em 0 0.5em 0 !important;
+                font-weight: 600 !important;
+                color: #34495e !important;
+                scroll-margin-top: 100px !important;
+            }
+            
+            .e-content ul, 
+            .e-content ol {
+                margin: 1.5em 0 !important;
+                padding-left: 2.2em !important;
+            }
+            
+            .e-content li {
+                margin-bottom: 0.8em !important;
+                font-size: 16px !important;
+                line-height: 1.8 !important;
+            }
+            
+            .e-content pre {
+                background: #f8f9fa !important;
+                border: 1px solid #e9ecef !important;
+                border-radius: 8px !important;
+                padding: 1.5em !important;
+                margin: 2em 0 !important;
+                overflow-x: auto !important;
+                font-size: 15px !important;
+                line-height: 1.6 !important;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+            }
+            
+            .e-content code {
+                background: #f1f3f4 !important;
+                padding: 3px 8px !important;
+                border-radius: 4px !important;
+                font-size: 0.9em !important;
+                color: #d73a49 !important;
+                font-weight: 500 !important;
+            }
+            
+            .e-content pre code {
+                background: none !important;
+                padding: 0 !important;
+                color: inherit !important;
+                font-weight: normal !important;
+            }
+            
+            .e-content p code, 
+            .e-content li code {
+                background: #fff2f2 !important;
+                color: #d73a49 !important;
+                font-weight: 600 !important;
+                border: 1px solid #ffebee !important;
+            }
+            
+            .e-content img {
+                max-width: 100% !important;
+                height: auto !important;
+                margin: 2em auto !important;
+                display: block !important;
+                border-radius: 10px !important;
+                box-shadow: 0 6px 20px rgba(0,0,0,0.15) !important;
+                border: 1px solid #eee !important;
+            }
+            
+            .e-content table {
+                width: 100% !important;
+                border-collapse: collapse !important;
+                margin: 2em 0 !important;
+                font-size: 15px !important;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+                border-radius: 8px !important;
+                overflow: hidden !important;
+            }
+            
+            .e-content th,
+            .e-content td {
+                border: 1px solid #ddd !important;
+                padding: 15px !important;
+                text-align: left !important;
+                font-size: 15px !important;
+                line-height: 1.6 !important;
+            }
+            
+            .e-content th {
+                background: #f5f7fa !important;
+                font-weight: 600 !important;
+                color: #2c3e50 !important;
+                border-bottom: 2px solid #3498db !important;
+            }
+            
+            .e-content tr:nth-child(even) {
+                background: #f9f9f9 !important;
+            }
+            
+            .e-content tr:hover {
+                background: #f5f5f5 !important;
+            }
+            
+            .e-content blockquote {
+                border-left: 5px solid #3498db !important;
+                margin: 2em 0 !important;
+                padding: 1.2em 1.8em !important;
+                background: #f8f9ff !important;
+                border-radius: 0 8px 8px 0 !important;
+                font-style: italic !important;
+                color: #555 !important;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.05) !important;
+            }
+            
+            .e-content a {
+                color: #3498db !important;
+                text-decoration: none !important;
+                border-bottom: 1px solid transparent !important;
+                transition: all 0.3s ease !important;
+            }
+            
+            .e-content a:hover {
+                color: #2980b9 !important;
+                border-bottom-color: #2980b9 !important;
+            }
+            
+            .e-content strong {
+                color: #2c3e50 !important;
+                font-weight: 700 !important;
+            }
+            
+            .e-content em {
+                color: #34495e !important;
+                font-style: italic !important;
+            }
+            
+            /* 태블릿 반응형 */
+            @media (max-width: 1024px) {
+                .mdui-card-content.mdui-typo {
+                    padding: 2.5em 3em !important;
+                }
+            }
+            
+            /* 모바일 반응형 */
+            @media (max-width: 768px) {
+                .mdui-card-content.mdui-typo {
+                    padding: 2em 2em !important;
+                }
+                
+                #table-of-contents {
+                    padding: 1em !important;
+                    margin: 0 0 2em 0 !important;
+                }
+                
+                .toc-header {
+                    flex-direction: column !important;
+                    gap: 0.5em !important;
+                }
+                
+                .toc-level-2 {
+                    padding-left: 0.5em !important;
+                }
+                
+                .toc-level-3 {
+                    padding-left: 1em !important;
+                }
+                
+                .toc-level-4 {
+                    padding-left: 1.5em !important;
+                }
+                
+                .toc-level-5,
+                .toc-level-6 {
+                    padding-left: 2em !important;
+                }
+                
+                .e-content,
+                .e-content p,
+                .e-content div,
+                .e-content span,
+                .e-content li {
+                    font-size: 16px !important;
+                }
+                
+                .e-content h1 {
+                    font-size: 2.0em !important;
+                }
+                
+                .e-content h2 {
+                    font-size: 1.7em !important;
+                }
+                
+                .e-content h3 {
+                    font-size: 1.4em !important;
+                }
+                
+                .e-content pre {
+                    padding: 1em !important;
+                    font-size: 14px !important;
+                }
+                
+                .e-content table {
+                    font-size: 14px !important;
+                }
+                
+                .e-content th,
+                .e-content td {
+                    padding: 10px !important;
+                    font-size: 14px !important;
+                }
+            }
+            
+            @media (max-width: 480px) {
+                .mdui-card-content.mdui-typo {
+                    padding: 1.5em 1.5em !important;
+                }
+                
+                .e-content,
+                .e-content p,
+                .e-content div,
+                .e-content span,
+                .e-content li {
+                    font-size: 15px !important;
+                }
+                
+                .e-content h1 {
+                    font-size: 1.8em !important;
+                }
+                
+                .e-content h2 {
+                    font-size: 1.5em !important;
+                }
+            }
+        `;
+        document.head.appendChild(postStyles);
+        
+        // 목차 생성 및 기능 초기화
+        setTimeout(() => {
+            createCategoryTOC();
+            createTOC();
+            initTOCToggle();
+            initTOCHighlight();
+        }, 100);
+    }
+});
+</script>
+    
+    <title>카테고리: 2.STM32CubeIDE프로젝트생성 | </title>
+    <link rel="canonical" href="https://www.goeun-oh.com/categories/Cortex-M/setup/2-STM32CubeIDE%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%83%9D%EC%84%B1/">
+    <meta name="description" content="하드웨어 설계부터 임베디드 시스템까지, 끊임없이 배우고 성장하기">
+<meta property="og:type" content="website">
+<meta property="og:title">
+<meta property="og:url" content="https://www.goeun-oh.com/categories/Cortex-M/setup/2-STM32CubeIDE%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%83%9D%EC%84%B1/index.html">
 <meta property="og:site_name">
-<meta property="og:description" content="STM32CubeIDE 프로젝트 생성이번 포스트에서는 STM32CubeIDE를 사용하여 새 프로젝트를 생성하고 기본적인 설정을 진행한다. 🚀 기본 프로젝트 설정프로젝트 생성 단계1. STM32CubeIDE 실행  STM32CubeIDE를 실행한다 “File → New → STM32 Project” 선택  2. MCU 선택  Target Selection에">
+<meta property="og:description" content="하드웨어 설계부터 임베디드 시스템까지, 끊임없이 배우고 성장하기">
 <meta property="og:locale" content="ko_KR">
-<meta property="article:published_time" content="2025-06-22T15:00:00.000Z">
-<meta property="article:modified_time" content="2025-06-23T11:51:04.342Z">
 <meta property="article:author" content="고은">
-<meta property="article:tag" content="STM32CubeIDE">
-<meta property="article:tag" content="GPIO">
-<meta property="article:tag" content="RCC">
-<meta property="article:tag" content="프로젝트설정">
+<meta property="article:tag" content="하드웨어 개발자, Verilog, RISC-V, Cortex-M, AXI4, FPGA, 임베디드, 포트폴리오">
 <meta name="twitter:card" content="summary">
 <meta name="generator" content="Hexo 7.3.0"></head>
 <body class="mdui-theme-primary-indigo mdui-theme-accent-pink mdui-appbar-with-toolbar ">
@@ -389,25 +1108,28 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
     </div>
     <div class="mdui-container-fluid mdui-center" style="max-width:1200px">
+        <section class="h-feed mdui-theme-layout-light mdui-color-transparent">
+    <a href="https://www.goeun-oh.com" class="p-name u-url" style="display:none"></a>
+    
         <article class="h-entry mdui-card mdui-hoverable mdui-shadow-1 mdui-m-y-2" style="opacity: 1; border-radius: 4px"
 >
     
     <div class="mdui-card-primary mdui-ripple">
     <div class="mdui-card-primary-title">
-        <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" >2. STM32CubeIDE 프로젝트 생성</a>
+        <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" href="/2025/06/22/1.cortex-m-project-setup/">2. STM32CubeIDE 프로젝트 생성</a>
         <a class="p-author h-card" style="display:none" href="https://www.goeun-oh.com">고은</a>
         
-        <small> <a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/">Cortex-M</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/ARM/">ARM</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/ARM/Embedded/">Embedded</a></small>
+        <small> <a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/">Cortex-M</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/setup/">setup</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/setup/2-STM32CubeIDE%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%83%9D%EC%84%B1/">2.STM32CubeIDE프로젝트생성</a></small>
         
     </div>
     <div class="mdui-card-primary-subtitle mdui-typo">
         
         <span><a class="tag-none-link" href="/tags/GPIO/" rel="tag">GPIO</a> <a class="tag-none-link" href="/tags/RCC/" rel="tag">RCC</a> <a class="tag-none-link" href="/tags/STM32CubeIDE/" rel="tag">STM32CubeIDE</a> <a class="tag-none-link" href="/tags/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%84%A4%EC%A0%95/" rel="tag">프로젝트설정</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 08:51'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 09:57'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
-            <span>2025/06/23/cortex-m-project-setup/</span>
+            <span>2025/06/22/1.cortex-m-project-setup/</span>
         
     </div>
 </div>
@@ -564,13 +1286,13 @@ document.addEventListener('DOMContentLoaded', function() {
 </ol>
 <p>다음 포스트에서는 개발에 필요한 도구들을 설치하고 빌드 환경을 구성해보겠다.</p>
 <hr>
-<p><strong>이전 포스트</strong>: <a href="/posts/cortex-m-board-introduction">1. STM32 보드 소개</a><br><strong>다음 포스트</strong>: <a href="/posts/cortex-m-development-environment">3. 개발 환경 구성</a></p>
+<p><strong>이전 포스트</strong>: <a href="/posts/1.STM32%EB%B3%B4%EB%93%9C%EC%86%8C%EA%B0%9C">1. STM32 보드 소개</a><br><strong>다음 포스트</strong>: <a href="/posts/cortex-m-development-environment">3. 개발 환경 구성</a></p>
 </main>
         
         <blockquote class="mdui-m-x-0 mdui-m-t-4">
     <strong>
         Author: <a href="#">고은</a><br>
-        URL: <a href="https://www.goeun-oh.com/2025/06/23/cortex-m-project-setup/">https://www.goeun-oh.com/2025/06/23/cortex-m-project-setup/</a><br>
+        URL: <a href="https://www.goeun-oh.com/2025/06/22/1.cortex-m-project-setup/">https://www.goeun-oh.com/2025/06/22/1.cortex-m-project-setup/</a><br>
         
             라이선스
         
@@ -581,23 +1303,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
 </article>
 
-<nav class="mdui-theme-layout-light mdui-color-transparent mdui-row mdui-m-b-2">
     
-        <div class="mdui-col-xs-12 mdui-m-b-2">
-            <a class="extend prev mdui-btn mdui-ripple mdui-float-left mdui-text-truncate" rel="prev"
-                style="max-width: 100%" href="/2025/06/23/cortex-m-initial-setup-guide/">
-                <i class="mdui-icon mdui-icon-left material-icons">arrow_back</i>Cortex-M 초기환경 세팅 가이드
-            </a>
-        </div>
     
-        <div class="mdui-col-xs-12">
-            <a class="extend next mdui-btn mdui-ripple mdui-float-right mdui-text-truncate" rel="next"
-                style="max-width: 100%" href="/2025/06/23/cortex-m-software-stack/">
-                <i class="mdui-icon mdui-icon-right material-icons">arrow_forward</i>6. SW Stack과 모듈화
-            </a>
-        </div>
-    
-</nav>
+</section>
 
     </div>
     <a href="#" class="mdui-fab mdui-fab-fixed mdui-hidden-xs mdui-color-theme-accent mdui-ripple"><i class="mdui-icon material-icons">keyboard_arrow_up</i></a>
