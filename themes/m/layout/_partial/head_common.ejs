@@ -67,6 +67,87 @@ document.addEventListener('DOMContentLoaded', function() {
     const isHomePage = window.location.pathname === '/' || window.location.pathname === '/index.html';
     
     if (hasEContent && !isHomePage) {
+        // 목차 생성 함수
+        function createTOC() {
+            const content = document.querySelector('.e-content');
+            const headings = content.querySelectorAll('h1, h2, h3, h4, h5, h6');
+            
+            if (headings.length < 2) return; // 헤딩이 2개 미만이면 목차 생성 안함
+            
+            // 각 헤딩에 ID 추가
+            headings.forEach((heading, index) => {
+                if (!heading.id) {
+                    const text = heading.textContent.trim();
+                    const id = 'heading-' + index + '-' + text.toLowerCase()
+                        .replace(/[^\w\s-가-힣]/g, '')
+                        .replace(/\s+/g, '-');
+                    heading.id = id;
+                }
+            });
+            
+            // 목차 HTML 생성
+            let tocHTML = '<div id="table-of-contents"><div class="toc-header"><h3>📑 목차</h3><button id="toc-toggle" class="toc-toggle">접기</button></div><nav class="toc-nav"><ul class="toc-list">';
+            
+            headings.forEach((heading) => {
+                const level = parseInt(heading.tagName.charAt(1));
+                const text = heading.textContent.trim();
+                const id = heading.id;
+                
+                tocHTML += `<li class="toc-item toc-level-${level}">
+                    <a href="#${id}" class="toc-link">${text}</a>
+                </li>`;
+            });
+            
+            tocHTML += '</ul></nav></div>';
+            
+            // 목차를 본문 앞에 삽입
+            content.insertAdjacentHTML('afterbegin', tocHTML);
+        }
+        
+        // 목차 토글 기능
+        function initTOCToggle() {
+            const toggleBtn = document.getElementById('toc-toggle');
+            const tocNav = document.querySelector('.toc-nav');
+            
+            if (toggleBtn && tocNav) {
+                toggleBtn.addEventListener('click', function() {
+                    if (tocNav.style.display === 'none') {
+                        tocNav.style.display = 'block';
+                        toggleBtn.textContent = '접기';
+                    } else {
+                        tocNav.style.display = 'none';
+                        toggleBtn.textContent = '펼치기';
+                    }
+                });
+            }
+        }
+        
+        // 스크롤 시 현재 섹션 하이라이트
+        function initTOCHighlight() {
+            const tocLinks = document.querySelectorAll('.toc-link');
+            const headings = document.querySelectorAll('.e-content h1, .e-content h2, .e-content h3, .e-content h4, .e-content h5, .e-content h6');
+            
+            function updateActiveLink() {
+                let current = '';
+                headings.forEach(heading => {
+                    const rect = heading.getBoundingClientRect();
+                    if (rect.top <= 100) {
+                        current = heading.id;
+                    }
+                });
+                
+                tocLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', updateActiveLink);
+            updateActiveLink(); // 초기 호출
+        }
+        
         // 블로그 포스트 전용 CSS 적용
         const postStyles = document.createElement('style');
         postStyles.textContent = `
@@ -77,6 +158,114 @@ document.addEventListener('DOMContentLoaded', function() {
                 padding: 3em 4em !important;
                 max-width: 900px !important;
                 margin: 0 auto !important;
+            }
+            
+            /* 목차 스타일 */
+            #table-of-contents {
+                background: #f8f9ff !important;
+                border: 2px solid #e3f2fd !important;
+                border-radius: 12px !important;
+                padding: 1.5em !important;
+                margin: 0 0 3em 0 !important;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+                position: relative !important;
+            }
+            
+            .toc-header {
+                display: flex !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                margin-bottom: 1em !important;
+                border-bottom: 2px solid #3498db !important;
+                padding-bottom: 0.5em !important;
+            }
+            
+            .toc-header h3 {
+                margin: 0 !important;
+                color: #2c3e50 !important;
+                font-size: 1.2em !important;
+                font-weight: 600 !important;
+                border: none !important;
+                padding: 0 !important;
+            }
+            
+            .toc-toggle {
+                background: #3498db !important;
+                color: white !important;
+                border: none !important;
+                padding: 0.3em 0.8em !important;
+                border-radius: 15px !important;
+                font-size: 0.8em !important;
+                cursor: pointer !important;
+                transition: all 0.3s ease !important;
+            }
+            
+            .toc-toggle:hover {
+                background: #2980b9 !important;
+                transform: scale(1.05) !important;
+            }
+            
+            .toc-nav {
+                transition: all 0.3s ease !important;
+            }
+            
+            .toc-list {
+                list-style: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            
+            .toc-item {
+                margin: 0.3em 0 !important;
+                line-height: 1.4 !important;
+            }
+            
+            .toc-level-1 {
+                font-weight: 600 !important;
+            }
+            
+            .toc-level-2 {
+                padding-left: 1em !important;
+                font-weight: 500 !important;
+            }
+            
+            .toc-level-3 {
+                padding-left: 2em !important;
+            }
+            
+            .toc-level-4 {
+                padding-left: 3em !important;
+                font-size: 0.9em !important;
+            }
+            
+            .toc-level-5,
+            .toc-level-6 {
+                padding-left: 4em !important;
+                font-size: 0.85em !important;
+            }
+            
+            .toc-link {
+                color: #34495e !important;
+                text-decoration: none !important;
+                padding: 0.2em 0.5em !important;
+                border-radius: 4px !important;
+                display: block !important;
+                transition: all 0.3s ease !important;
+                border-left: 3px solid transparent !important;
+            }
+            
+            .toc-link:hover {
+                background: #e8f4fd !important;
+                color: #2980b9 !important;
+                border-left-color: #3498db !important;
+                transform: translateX(3px) !important;
+            }
+            
+            .toc-link.active {
+                background: #3498db !important;
+                color: white !important;
+                font-weight: 600 !important;
+                border-left-color: #2980b9 !important;
             }
             
             .e-content {
@@ -110,6 +299,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 color: #2c3e50 !important;
                 border-bottom: 3px solid #3498db !important;
                 padding-bottom: 0.5em !important;
+                scroll-margin-top: 100px !important;
             }
             
             .e-content h2 {
@@ -119,6 +309,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 color: #34495e !important;
                 border-left: 4px solid #3498db !important;
                 padding-left: 0.8em !important;
+                scroll-margin-top: 100px !important;
             }
             
             .e-content h3 {
@@ -126,6 +317,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 margin: 1.4em 0 0.8em 0 !important;
                 font-weight: 600 !important;
                 color: #2c3e50 !important;
+                scroll-margin-top: 100px !important;
             }
             
             .e-content h4 {
@@ -133,6 +325,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 margin: 1.2em 0 0.6em 0 !important;
                 font-weight: 600 !important;
                 color: #34495e !important;
+                scroll-margin-top: 100px !important;
+            }
+            
+            .e-content h5,
+            .e-content h6 {
+                font-size: 1.1em !important;
+                margin: 1em 0 0.5em 0 !important;
+                font-weight: 600 !important;
+                color: #34495e !important;
+                scroll-margin-top: 100px !important;
             }
             
             .e-content ul, 
@@ -273,6 +475,33 @@ document.addEventListener('DOMContentLoaded', function() {
                     padding: 2em 2em !important;
                 }
                 
+                #table-of-contents {
+                    padding: 1em !important;
+                    margin: 0 0 2em 0 !important;
+                }
+                
+                .toc-header {
+                    flex-direction: column !important;
+                    gap: 0.5em !important;
+                }
+                
+                .toc-level-2 {
+                    padding-left: 0.5em !important;
+                }
+                
+                .toc-level-3 {
+                    padding-left: 1em !important;
+                }
+                
+                .toc-level-4 {
+                    padding-left: 1.5em !important;
+                }
+                
+                .toc-level-5,
+                .toc-level-6 {
+                    padding-left: 2em !important;
+                }
+                
                 .e-content,
                 .e-content p,
                 .e-content div,
@@ -332,6 +561,13 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         `;
         document.head.appendChild(postStyles);
+        
+        // 목차 생성 및 기능 초기화
+        setTimeout(() => {
+            createTOC();
+            initTOCToggle();
+            initTOCHighlight();
+        }, 100);
     }
 });
 </script>
