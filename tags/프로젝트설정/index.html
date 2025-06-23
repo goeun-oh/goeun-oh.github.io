@@ -1051,7 +1051,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <span><a class="tag-none-link" href="/tags/GPIO/" rel="tag">GPIO</a> <a class="tag-none-link" href="/tags/RCC/" rel="tag">RCC</a> <a class="tag-none-link" href="/tags/STM32CubeIDE/" rel="tag">STM32CubeIDE</a> <a class="tag-none-link" href="/tags/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%84%A4%EC%A0%95/" rel="tag">프로젝트설정</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 11:24'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 11:33'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/1.cortex-m-project-setup/</span>
@@ -1077,7 +1077,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 <p><strong>3. 프로젝트 설정</strong><br><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/gen_project.png"></p>
 <h2 id="1-RCC-클럭-설정"><a href="#1-RCC-클럭-설정" class="headerlink" title="1. RCC (클럭) 설정"></a>1. RCC (클럭) 설정</h2><p>클럭 설정은 STM32 개발에서 가장 중요한 초기 설정 중 하나다.</p>
-<h3 id="클럭-소스-이해"><a href="#클럭-소스-이해" class="headerlink" title="클럭 소스 이해"></a>클럭 소스 이해</h3><p><strong>내부 클럭 (HSI - High Speed Internal)</strong></p>
+<h3 id="1-클럭-소스-이해"><a href="#1-클럭-소스-이해" class="headerlink" title="1) 클럭 소스 이해"></a>1) 클럭 소스 이해</h3><p><strong>내부 클럭 (HSI - High Speed Internal)</strong></p>
 <ul>
 <li><strong>주파수</strong>: 16MHz 고정</li>
 <li><strong>특징</strong>: <ul>
@@ -1097,7 +1097,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 </ul>
-<h3 id="RCC-설정-방법"><a href="#RCC-설정-방법" class="headerlink" title="RCC 설정 방법"></a>RCC 설정 방법</h3><p><strong>1. Clock Configuration 탭으로 이동</strong><br><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/RCC.png"></p>
+<h3 id="2-RCC-설정-방법"><a href="#2-RCC-설정-방법" class="headerlink" title="2) RCC 설정 방법"></a>2) RCC 설정 방법</h3><p><strong>1. Clock Configuration 탭으로 이동</strong><br><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/RCC.png"></p>
 <p>RCC 클릭</p>
 <p><strong>2. HSE 설정</strong></p>
 <figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/RCC2.png"class="mdui-img-rounded" loading="lazy"></figure>
@@ -1118,7 +1118,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <blockquote>
 <p><strong>중요</strong>: PLL을 사용하면 저주파수 입력을 고주파수로 변환하여 시스템 성능을 최대화할 수 있다.</p>
 </blockquote>
-<h2 id="SYS-시스템-설정"><a href="#SYS-시스템-설정" class="headerlink" title="SYS (시스템) 설정"></a>SYS (시스템) 설정</h2><h3 id="Debug-설정"><a href="#Debug-설정" class="headerlink" title="Debug 설정"></a>Debug 설정</h3><p>디버깅을 위한 시스템 설정을 진행한다.</p>
+<h2 id="2-SYS-시스템-설정"><a href="#2-SYS-시스템-설정" class="headerlink" title="2. SYS (시스템) 설정"></a>2. SYS (시스템) 설정</h2><h3 id="Debug-설정"><a href="#Debug-설정" class="headerlink" title="Debug 설정"></a>Debug 설정</h3><p>디버깅을 위한 시스템 설정을 진행한다.</p>
 <p><strong>Debug 인터페이스 선택:</strong></p>
 <figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/sys.png"class="mdui-img-rounded" loading="lazy"></figure>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SYS → Debug → Serial Wire 선택</span><br></pre></td></tr></table></figure>
@@ -1132,7 +1132,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <blockquote>
 <p><strong>참고</strong>: SWD는 ARM Cortex-M 시리즈에서 표준으로 사용되는 디버깅 인터페이스다.</p>
 </blockquote>
-<h2 id="GPIO-설정"><a href="#GPIO-설정" class="headerlink" title="GPIO 설정"></a>GPIO 설정</h2><h3 id="PA5-핀을-Output으로-설정"><a href="#PA5-핀을-Output으로-설정" class="headerlink" title="PA5 핀을 Output으로 설정"></a>PA5 핀을 Output으로 설정</h3><p>User LD2를 제어하기 위해 PA5 핀을 GPIO Output으로 설정한다.</p>
+<h2 id="3-GPIO-설정"><a href="#3-GPIO-설정" class="headerlink" title="3. GPIO 설정"></a>3. GPIO 설정</h2><h3 id="PA5-핀을-Output으로-설정"><a href="#PA5-핀을-Output으로-설정" class="headerlink" title="PA5 핀을 Output으로 설정"></a>PA5 핀을 Output으로 설정</h3><p>User LD2를 제어하기 위해 PA5 핀을 GPIO Output으로 설정한다.</p>
 <p><strong>설정 단계:</strong></p>
 <p><strong>1. Pinout &amp; Configuration 탭에서 PA5 핀 찾기</strong></p>
 <p><strong>2. PA5 클릭 후 GPIO_Output 선택</strong></p>
@@ -1162,7 +1162,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li><strong>Pull-up</strong>: 내부 풀업 저항 사용</li>
 <li><strong>Pull-down</strong>: 내부 풀다운 저항 사용</li>
 </ul>
-<h2 id="설정-결과-확인"><a href="#설정-결과-확인" class="headerlink" title="설정 결과 확인"></a>설정 결과 확인</h2><h3 id="Clock-Tree-확인"><a href="#Clock-Tree-확인" class="headerlink" title="Clock Tree 확인"></a>Clock Tree 확인</h3><p>Clock Configuration 탭에서 최종 클럭 설정을 확인할 수 있다:</p>
+<h2 id="4-설정-결과-확인"><a href="#4-설정-결과-확인" class="headerlink" title="4. 설정 결과 확인"></a>4. 설정 결과 확인</h2><h3 id="Clock-Tree-확인"><a href="#Clock-Tree-확인" class="headerlink" title="Clock Tree 확인"></a>Clock Tree 확인</h3><p>Clock Configuration 탭에서 최종 클럭 설정을 확인할 수 있다:</p>
 <ul>
 <li><strong>Input</strong>: HSE 8MHz</li>
 <li><strong>PLL</strong>: x12.5 (8MHz × 12.5 &#x3D; 100MHz)</li>
