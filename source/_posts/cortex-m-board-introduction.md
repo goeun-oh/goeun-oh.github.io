@@ -18,6 +18,8 @@ layout: post
 
 ## 📱 사용 보드: STM32F411RE Nucleo-64
 
+![Nucleo-64 보드](https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/Nucleo-64_board.png)
+
 ### 핵심 스펙
 
 **STM32F411RE Nucleo-64 보드의 주요 사양은 다음과 같다:**
@@ -30,6 +32,8 @@ layout: post
 - **ART Accelerator**: 고성능 액세스 지원
 
 > 💡 **중요**: 임베디드 개발에서 보드 스펙을 정확히 아는 것은 개발의 첫걸음이다!
+
+![STM32F411RE MCU](https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/F411RE_MCU.png)
 
 ### 보드 특징
 
@@ -46,6 +50,8 @@ layout: post
 
 우리가 제어할 수 있는 LED는 **User LD2**이다:
 
+![LED 연결 구조](https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/image-1.png)
+
 - **연결 핀**: PA5 (Arduino D13 핀과 동일)
 - **동작 방식**: 
   - HIGH (3.3V) → LED ON
@@ -54,6 +60,9 @@ layout: post
 ### 핀 맵 이해
 
 **중요한 핀 맵 정보:**
+
+![핀 맵](https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/image-2.png)
+
 - 같은 행의 핀들은 내부적으로 연결되어 있다
 - 암/수 커넥터의 차이만 있을 뿐 전기적으로는 동일하다
 - PA5 핀은 GPIO Output으로 설정하여 LED를 제어할 수 있다
@@ -63,6 +72,8 @@ layout: post
 ## 🏗️ System Architecture
 
 STM32F411의 시스템 구조를 이해하는 것은 효율적인 프로그래밍의 기초가 된다.
+
+![System Architecture](https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/image-6.png)
 
 ### 주요 구성 요소
 
@@ -84,9 +95,13 @@ STM32F411의 시스템 구조를 이해하는 것은 효율적인 프로그래�
 
 ## ⚡ RCC의 역할과 저전력 설계
 
+![RCC 구조](https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/RCC.png)
+
 ### RCC의 중요성
 
 **RCC (Reset & Clock Control)**는 STM32의 핵심 구성 요소 중 하나다:
+
+![RCC 상세](https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/RCC2.png)
 
 - **클럭 관리**: HCLK, APB CLK, AHB CLK를 각 버스에 제공한다
 - **선택적 공급**: 사용하는 주변장치에만 클럭을 공급한다
@@ -110,6 +125,8 @@ ARM Core는 저전력으로 설계되어 있어 다음과 같은 특징을 가�
 ### GPIOA 메모리 맵 구조
 
 데이터시트에서 확인할 수 있는 GPIOA의 메모리 맵은 다음과 같다:
+
+![GPIO 메모리 맵](https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/image-4.png)
 
 - **Base Address**: 0x4002 0000
 - **주요 레지스터들**:
