@@ -62,503 +62,542 @@
 document.addEventListener('DOMContentLoaded', function() {
     const hasEContent = document.querySelector('.e-content');
     const isHomePage = window.location.pathname === '/' || window.location.pathname === '/index.html';
+    const isArchivePage = window.location.pathname.includes('/archives');
+    const isTagPage = window.location.pathname.includes('/tags');
+    const isCategoryPage = window.location.pathname.includes('/categories');
+    
+    // 포스트 페이지 또는 사이드바 콘텐츠 페이지인지 판단
+    const isContentPage = hasEContent || // 포스트 페이지
+                         isArchivePage ||  // 아카이브 페이지  
+                         isTagPage ||      // 태그 페이지
+                         isCategoryPage || // 카테고리 페이지
+                         (!isHomePage && document.querySelector('.mdui-card-content')); // 기타 콘텐츠 페이지
         
-    if (hasEContent && !isHomePage) {
+    if (isContentPage && !isHomePage) {
         const postStyles = document.createElement('style');
         postStyles.textContent = `
-            /* 레이아웃 스타일 */
+/* 콘텐츠 페이지에만 적용될 스타일 */
+.mdui-card-content.mdui-typo {
+padding: 3em 4em !important;
+max-width: 900px !important;
+margin: 0 auto !important;
+}
+
+```
+        /* 시리즈 네비게이션 스타일 */
+        #category-series-nav {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            color: white !important;
+            border-radius: 16px !important;
+            padding: 2.5em !important;
+            margin: 0 0 2.5em 0 !important;
+            box-shadow: 0 12px 40px rgba(102, 126, 234, 0.25) !important;
+            border: 1px solid rgba(255,255,255,0.1) !important;
+        }
+        
+        .series-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            margin-bottom: 1.8em !important;
+            border-bottom: 2px solid rgba(255,255,255,0.25) !important;
+            padding-bottom: 1.2em !important;
+        }
+        
+        .series-header h3 {
+            margin: 0 !important;
+            font-size: 1.5em !important;
+            font-weight: 700 !important;
+            border: none !important;
+            padding: 0 !important;
+            color: white !important;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1) !important;
+        }
+        
+        .series-progress {
+            background: rgba(255,255,255,0.2) !important;
+            padding: 0.6em 1.2em !important;
+            border-radius: 25px !important;
+            font-size: 0.9em !important;
+            font-weight: 600 !important;
+            backdrop-filter: blur(10px) !important;
+        }
+        
+        .series-list {
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            display: grid !important;
+            gap: 1em !important;
+        }
+        
+        .series-item {
+            display: flex !important;
+            align-items: center !important;
+            background: rgba(255,255,255,0.12) !important;
+            border-radius: 12px !important;
+            padding: 1.2em !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            border: 1px solid rgba(255,255,255,0.15) !important;
+            backdrop-filter: blur(10px) !important;
+        }
+        
+        .series-item:hover {
+            background: rgba(255,255,255,0.2) !important;
+            transform: translateX(8px) translateY(-2px) !important;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+        }
+        
+        .series-item.current {
+            background: rgba(255,255,255,0.25) !important;
+            border-color: rgba(255,255,255,0.4) !important;
+            transform: scale(1.02) !important;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2) !important;
+        }
+        
+        .series-number {
+            background: rgba(255,255,255,0.95) !important;
+            color: #667eea !important;
+            width: 35px !important;
+            height: 35px !important;
+            border-radius: 50% !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            font-weight: 700 !important;
+            font-size: 0.95em !important;
+            margin-right: 1.2em !important;
+            flex-shrink: 0 !important;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+        }
+        
+        .series-link {
+            color: white !important;
+            text-decoration: none !important;
+            font-weight: 500 !important;
+            font-size: 1em !important;
+            line-height: 1.5 !important;
+            flex: 1 !important;
+            opacity: 0.95 !important;
+        }
+        
+        .series-link:hover {
+            color: #fff !important;
+            opacity: 1 !important;
+        }
+        
+        .current-title {
+            color: white !important;
+            font-weight: 600 !important;
+            font-size: 1em !important;
+            line-height: 1.5 !important;
+            flex: 1 !important;
+        }
+        
+        .current-badge {
+            background: linear-gradient(135deg, #28a745, #20c997) !important;
+            color: white !important;
+            padding: 0.3em 0.8em !important;
+            border-radius: 15px !important;
+            font-size: 0.75em !important;
+            font-weight: 600 !important;
+            margin-left: 1em !important;
+            box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3) !important;
+        }
+        
+        /* 목차 스타일 - 심플하게 */
+        #table-of-contents .toc-header {
+            display: none !important;
+        }
+
+        #table-of-contents .toc-toggle {
+            display: none !important;
+        }
+
+        #table-of-contents {
+            padding: 1.5em 0 !important;
+            margin: 0 0 2.5em 0 !important;
+            background: none !important;
+            border: none !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+        }
+
+        #table-of-contents .toc-nav {
+            display: block !important;
+            opacity: 1 !important;
+            max-height: none !important;
+        }
+
+        #table-of-contents .toc-list {
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        #table-of-contents .toc-item {
+            margin: 0 !important;
+            line-height: 1.6 !important;
+        }
+
+        #table-of-contents .toc-level-1 { 
+            display: block !important;
+        }
+        #table-of-contents .toc-level-2, 
+        #table-of-contents .toc-level-3, 
+        #table-of-contents .toc-level-4, 
+        #table-of-contents .toc-level-5, 
+        #table-of-contents .toc-level-6 { 
+            display: none !important;
+        }
+
+        #table-of-contents .toc-link {
+            color: #52a9ff !important;
+            text-decoration: none !important;
+            padding: 0.5em 0 !important;
+            display: block !important;
+            font-size: 0.95em !important;
+            font-weight: 500 !important;
+            transition: color 0.3s ease !important;
+            border: none !important;
+            background: none !important;
+            border-bottom: none !important;
+        }
+
+        #table-of-contents .toc-link:hover {
+            color: #2196f3 !important;
+            background: none !important;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        #table-of-contents .toc-link.active {
+            color: #2196f3 !important;
+            font-weight: 600 !important;
+            background: none !important;
+        }
+        
+        /* 본문 스타일 - .e-content와 일반 콘텐츠 모두 */
+        .e-content,
+        .mdui-card-content.mdui-typo {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+            padding: 0 !important;
+        }
+        
+        .e-content, .e-content p, .e-content div, .e-content span, .e-content li, .e-content td, .e-content th,
+        .mdui-card-content.mdui-typo, .mdui-card-content.mdui-typo p, .mdui-card-content.mdui-typo div, 
+        .mdui-card-content.mdui-typo span, .mdui-card-content.mdui-typo li, .mdui-card-content.mdui-typo td, 
+        .mdui-card-content.mdui-typo th {
+            font-size: 17px !important;
+            line-height: 1.8 !important;
+            color: #2c3e50 !important;
+            word-break: keep-all !important;
+            word-wrap: break-word !important;
+        }
+        
+        .e-content p,
+        .mdui-card-content.mdui-typo p {
+            margin-bottom: 1.6em !important;
+            font-size: 17px !important;
+        }
+        
+        .e-content h1,
+        .mdui-card-content.mdui-typo h1 {
+            font-size: 2.5em !important;
+            margin: 2em 0 1.2em 0 !important;
+            font-weight: 800 !important;
+            color: #2c3e50 !important;
+            border-bottom: 4px solid #3498db !important;
+            padding-bottom: 0.6em !important;
+            scroll-margin-top: 100px !important;
+            position: relative !important;
+        }
+        
+        .e-content h1::before,
+        .mdui-card-content.mdui-typo h1::before {
+            content: '' !important;
+            position: absolute !important;
+            bottom: -4px !important;
+            left: 0 !important;
+            width: 60px !important;
+            height: 4px !important;
+            background: linear-gradient(90deg, #e74c3c, #f39c12) !important;
+            border-radius: 2px !important;
+        }
+        
+        .e-content h2,
+        .mdui-card-content.mdui-typo h2 {
+            font-size: 2.1em !important;
+            margin: 1.8em 0 1em 0 !important;
+            font-weight: 700 !important;
+            color: #34495e !important;
+            border-left: 5px solid #3498db !important;
+            padding: 0.5em 0 0.5em 1em !important;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.05), transparent) !important;
+            border-radius: 0 8px 8px 0 !important;
+            scroll-margin-top: 100px !important;
+        }
+        
+        .e-content h3,
+        .mdui-card-content.mdui-typo h3 {
+            font-size: 1.7em !important;
+            margin: 1.6em 0 0.8em 0 !important;
+            font-weight: 600 !important;
+            color: #2c3e50 !important;
+            scroll-margin-top: 100px !important;
+            position: relative !important;
+        }
+        
+        .e-content h3::before,
+        .mdui-card-content.mdui-typo h3::before {
+            content: '▶' !important;
+            color: #3498db !important;
+            margin-right: 0.5em !important;
+            font-size: 0.8em !important;
+        }
+        
+        .e-content h4, .e-content h5, .e-content h6,
+        .mdui-card-content.mdui-typo h4, .mdui-card-content.mdui-typo h5, .mdui-card-content.mdui-typo h6 {
+            font-weight: 600 !important;
+            color: #34495e !important;
+            scroll-margin-top: 100px !important;
+        }
+        
+        .e-content h4, .mdui-card-content.mdui-typo h4 { font-size: 1.4em !important; margin: 1.4em 0 0.7em 0 !important; }
+        .e-content h5, .mdui-card-content.mdui-typo h5 { font-size: 1.2em !important; margin: 1.2em 0 0.6em 0 !important; }
+        .e-content h6, .mdui-card-content.mdui-typo h6 { font-size: 1.1em !important; margin: 1em 0 0.5em 0 !important; }
+        
+        /* 코드 스타일 개선 */
+        .e-content pre,
+        .mdui-card-content.mdui-typo pre {
+            background: linear-gradient(135deg, #1e1e1e, #2d2d2d) !important;
+            border: 1px solid #404040 !important;
+            border-radius: 12px !important;
+            padding: 2em !important;
+            margin: 2.5em 0 !important;
+            overflow-x: auto !important;
+            font-family: 'JetBrains Mono', 'Consolas', monospace !important;
+            font-size: 15px !important;
+            line-height: 1.6 !important;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3) !important;
+            position: relative !important;
+        }
+        
+        .e-content pre::before,
+        .mdui-card-content.mdui-typo pre::before {
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            height: 3px !important;
+            background: linear-gradient(90deg, #e74c3c, #f39c12, #2ecc71, #3498db) !important;
+            border-radius: 12px 12px 0 0 !important;
+        }
+        
+        .e-content code,
+        .mdui-card-content.mdui-typo code {
+            background: linear-gradient(135deg, #fff2f2, #ffebee) !important;
+            padding: 4px 10px !important;
+            border-radius: 6px !important;
+            font-family: 'JetBrains Mono', 'Consolas', monospace !important;
+            font-size: 0.9em !important;
+            color: #d73a49 !important;
+            font-weight: 600 !important;
+            border: 1px solid #ffcdd2 !important;
+        }
+        
+        .e-content pre code,
+        .mdui-card-content.mdui-typo pre code {
+            background: none !important;
+            padding: 0 !important;
+            color: #f8f8f2 !important;
+            font-weight: normal !important;
+            border: none !important;
+        }
+        
+        /* 기타 스타일 개선 */
+        .e-content ul, .e-content ol,
+        .mdui-card-content.mdui-typo ul, .mdui-card-content.mdui-typo ol {
+            margin: 1.8em 0 !important;
+            padding-left: 2.5em !important;
+        }
+        
+        .e-content li,
+        .mdui-card-content.mdui-typo li {
+            margin-bottom: 1em !important;
+            font-size: 16px !important;
+            line-height: 1.8 !important;
+        }
+        
+        .e-content img,
+        .mdui-card-content.mdui-typo img {
+            max-width: 100% !important;
+            height: auto !important;
+            margin: 2.5em auto !important;
+            display: block !important;
+            border-radius: 12px !important;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15) !important;
+            border: 1px solid #e8e8e8 !important;
+            transition: transform 0.3s ease !important;
+        }
+        
+        .e-content img:hover,
+        .mdui-card-content.mdui-typo img:hover {
+            transform: scale(1.02) !important;
+        }
+        
+        .e-content table,
+        .mdui-card-content.mdui-typo table {
+            width: 100% !important;
+            border-collapse: collapse !important;
+            margin: 2.5em 0 !important;
+            font-size: 15px !important;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1) !important;
+            border-radius: 12px !important;
+            overflow: hidden !important;
+            background: white !important;
+        }
+        
+        .e-content th,
+        .mdui-card-content.mdui-typo th {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2) !important;
+            font-weight: 700 !important;
+            color: #2c3e50 !important;
+            border-bottom: 3px solid #3498db !important;
+            padding: 18px !important;
+        }
+        
+        .e-content td,
+        .mdui-card-content.mdui-typo td {
+            border: 1px solid #e8e8e8 !important;
+            padding: 15px !important;
+            transition: background 0.3s ease !important;
+        }
+        
+        .e-content tr:nth-child(even),
+        .mdui-card-content.mdui-typo tr:nth-child(even) {
+            background: #f9f9f9 !important;
+        }
+        
+        .e-content tr:hover,
+        .mdui-card-content.mdui-typo tr:hover {
+            background: #f0f8ff !important;
+        }
+        
+        .e-content blockquote,
+        .mdui-card-content.mdui-typo blockquote {
+            border-left: 6px solid #3498db !important;
+            margin: 2.5em 0 !important;
+            padding: 1.5em 2em !important;
+            background: linear-gradient(135deg, #f8f9ff, #fff) !important;
+            border-radius: 0 12px 12px 0 !important;
+            font-style: italic !important;
+            color: #555 !important;
+            box-shadow: 0 4px 20px rgba(52, 152, 219, 0.1) !important;
+            position: relative !important;
+        }
+        
+        .e-content blockquote::before,
+        .mdui-card-content.mdui-typo blockquote::before {
+            content: '"' !important;
+            font-size: 4em !important;
+            color: #3498db !important;
+            position: absolute !important;
+            top: -10px !important;
+            left: 15px !important;
+            opacity: 0.3 !important;
+            font-family: serif !important;
+        }
+        
+        .e-content a,
+        .mdui-card-content.mdui-typo a {
+            color: #3498db !important;
+            text-decoration: none !important;
+            border-bottom: 2px solid transparent !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            font-weight: 500 !important;
+        }
+        
+        .e-content a:hover,
+        .mdui-card-content.mdui-typo a:hover {
+            color: #2980b9 !important;
+            border-bottom-color: #2980b9 !important;
+            background: rgba(52, 152, 219, 0.1) !important;
+            padding: 2px 4px !important;
+            border-radius: 4px !important;
+        }
+        
+        .e-content strong,
+        .mdui-card-content.mdui-typo strong {
+            color: #2c3e50 !important;
+            font-weight: 700 !important;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), transparent) !important;
+            padding: 2px 4px !important;
+            border-radius: 4px !important;
+        }
+        
+        /* 반응형 디자인 */
+        @media (max-width: 1024px) {
             .mdui-card-content.mdui-typo {
-                padding: 3em 4em !important;
-                max-width: 900px !important;
-                margin: 0 auto !important;
+                padding: 2.5em 3em !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mdui-card-content.mdui-typo {
+                padding: 2em 2em !important;
             }
             
-            /* 시리즈 네비게이션 스타일 */
             #category-series-nav {
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-                color: white !important;
-                border-radius: 16px !important;
-                padding: 2.5em !important;
-                margin: 0 0 2.5em 0 !important;
-                box-shadow: 0 12px 40px rgba(102, 126, 234, 0.25) !important;
-                border: 1px solid rgba(255,255,255,0.1) !important;
+                padding: 1.5em !important;
+                border-radius: 12px !important;
             }
             
             .series-header {
-                display: flex !important;
-                justify-content: space-between !important;
-                align-items: center !important;
-                margin-bottom: 1.8em !important;
-                border-bottom: 2px solid rgba(255,255,255,0.25) !important;
-                padding-bottom: 1.2em !important;
-            }
-            
-            .series-header h3 {
-                margin: 0 !important;
-                font-size: 1.5em !important;
-                font-weight: 700 !important;
-                border: none !important;
-                padding: 0 !important;
-                color: white !important;
-                text-shadow: 0 1px 2px rgba(0,0,0,0.1) !important;
-            }
-            
-            .series-progress {
-                background: rgba(255,255,255,0.2) !important;
-                padding: 0.6em 1.2em !important;
-                border-radius: 25px !important;
-                font-size: 0.9em !important;
-                font-weight: 600 !important;
-                backdrop-filter: blur(10px) !important;
-            }
-            
-            .series-list {
-                list-style: none !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                display: grid !important;
+                flex-direction: column !important;
                 gap: 1em !important;
+                text-align: center !important;
             }
             
             .series-item {
-                display: flex !important;
-                align-items: center !important;
-                background: rgba(255,255,255,0.12) !important;
-                border-radius: 12px !important;
-                padding: 1.2em !important;
-                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-                border: 1px solid rgba(255,255,255,0.15) !important;
-                backdrop-filter: blur(10px) !important;
-            }
-            
-            .series-item:hover {
-                background: rgba(255,255,255,0.2) !important;
-                transform: translateX(8px) translateY(-2px) !important;
-                box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
-            }
-            
-            .series-item.current {
-                background: rgba(255,255,255,0.25) !important;
-                border-color: rgba(255,255,255,0.4) !important;
-                transform: scale(1.02) !important;
-                box-shadow: 0 8px 30px rgba(0,0,0,0.2) !important;
+                padding: 1em !important;
             }
             
             .series-number {
-                background: rgba(255,255,255,0.95) !important;
-                color: #667eea !important;
-                width: 35px !important;
-                height: 35px !important;
-                border-radius: 50% !important;
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                font-weight: 700 !important;
-                font-size: 0.95em !important;
-                margin-right: 1.2em !important;
-                flex-shrink: 0 !important;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+                width: 30px !important;
+                height: 30px !important;
+                font-size: 0.85em !important;
             }
             
-            .series-link {
-                color: white !important;
-                text-decoration: none !important;
-                font-weight: 500 !important;
-                font-size: 1em !important;
-                line-height: 1.5 !important;
-                flex: 1 !important;
-                opacity: 0.95 !important;
+            .e-content h1, .mdui-card-content.mdui-typo h1 { font-size: 2.2em !important; }
+            .e-content h2, .mdui-card-content.mdui-typo h2 { font-size: 1.8em !important; }
+            .e-content h3, .mdui-card-content.mdui-typo h3 { font-size: 1.5em !important; }
+            
+            .e-content pre, .mdui-card-content.mdui-typo pre {
+                padding: 1.2em !important;
+                font-size: 14px !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .mdui-card-content.mdui-typo {
+                padding: 1.5em 1.5em !important;
             }
             
-            .series-link:hover {
-                color: #fff !important;
-                opacity: 1 !important;
-            }
-            
-            .current-title {
-                color: white !important;
-                font-weight: 600 !important;
-                font-size: 1em !important;
-                line-height: 1.5 !important;
-                flex: 1 !important;
-            }
-            
-            .current-badge {
-                background: linear-gradient(135deg, #28a745, #20c997) !important;
-                color: white !important;
-                padding: 0.3em 0.8em !important;
-                border-radius: 15px !important;
-                font-size: 0.75em !important;
-                font-weight: 600 !important;
-                margin-left: 1em !important;
-                box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3) !important;
-            }
-            
-            /* 목차에서만 불필요한 요소들 숨기기 - 구체적으로 타겟팅 */
-            #table-of-contents .toc-header {
-                display: none !important;
-            }
-
-            #table-of-contents .toc-toggle {
-                display: none !important;
-            }
-
-            /* 목차 스타일 - 완전 심플하게 */
-            #table-of-contents {
-                padding: 1.5em 0 !important;
-                margin: 0 0 2.5em 0 !important;
-                background: none !important;
-                border: none !important;
-                box-shadow: none !important;
-                border-radius: 0 !important;
-            }
-
-            #table-of-contents .toc-nav {
-                display: block !important;
-                opacity: 1 !important;
-                max-height: none !important;
-            }
-
-            #table-of-contents .toc-list {
-                list-style: none !important;
-                padding: 0 !important;
-                margin: 0 !important;
-            }
-
-            #table-of-contents .toc-item {
-                margin: 0 !important;
-                line-height: 1.6 !important;
-            }
-
-            /* h1 제목만 표시 */
-            #table-of-contents .toc-level-1 { 
-                display: block !important;
-            }
-            #table-of-contents .toc-level-2, 
-            #table-of-contents .toc-level-3, 
-            #table-of-contents .toc-level-4, 
-            #table-of-contents .toc-level-5, 
-            #table-of-contents .toc-level-6 { 
-                display: none !important;
-            }
-
-            #table-of-contents .toc-link {
-                color: #52a9ff !important;
-                text-decoration: none !important;
-                padding: 0.5em 0 !important;
-                display: block !important;
-                font-size: 0.95em !important;
-                font-weight: 500 !important;
-                transition: color 0.3s ease !important;
-                border: none !important;
-                background: none !important;
-                border-bottom: none !important;
-            }
-
-            #table-of-contents .toc-link:hover {
-                color: #2196f3 !important;
-                background: none !important;
-                transform: none !important;
-                box-shadow: none !important;
-            }
-
-            #table-of-contents .toc-link.active {
-                color: #2196f3 !important;
-                font-weight: 600 !important;
-                background: none !important;
-            }
-            
-            /* 본문 스타일 개선 */
-            .e-content {
-                font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-                padding: 0 !important;
-            }
-            
-            .e-content, .e-content p, .e-content div, .e-content span, .e-content li, .e-content td, .e-content th {
-                font-size: 17px !important;
-                line-height: 1.8 !important;
-                color: #2c3e50 !important;
-                word-break: keep-all !important;
-                word-wrap: break-word !important;
-            }
-            
-            .e-content p {
-                margin-bottom: 1.6em !important;
-                font-size: 17px !important;
-            }
-            
-            .e-content h1 {
-                font-size: 2.5em !important;
-                margin: 2em 0 1.2em 0 !important;
-                font-weight: 800 !important;
-                color: #2c3e50 !important;
-                border-bottom: 4px solid #3498db !important;
-                padding-bottom: 0.6em !important;
-                scroll-margin-top: 100px !important;
-                position: relative !important;
-            }
-            
-            .e-content h1::before {
-                content: '' !important;
-                position: absolute !important;
-                bottom: -4px !important;
-                left: 0 !important;
-                width: 60px !important;
-                height: 4px !important;
-                background: linear-gradient(90deg, #e74c3c, #f39c12) !important;
-                border-radius: 2px !important;
-            }
-            
-            .e-content h2 {
-                font-size: 2.1em !important;
-                margin: 1.8em 0 1em 0 !important;
-                font-weight: 700 !important;
-                color: #34495e !important;
-                border-left: 5px solid #3498db !important;
-                padding-left: 1em !important;
-                scroll-margin-top: 100px !important;
-                background: linear-gradient(135deg, rgba(52, 152, 219, 0.05), transparent) !important;
-                padding: 0.5em 0 0.5em 1em !important;
-                border-radius: 0 8px 8px 0 !important;
-            }
-            
-            .e-content h3 {
-                font-size: 1.7em !important;
-                margin: 1.6em 0 0.8em 0 !important;
-                font-weight: 600 !important;
-                color: #2c3e50 !important;
-                scroll-margin-top: 100px !important;
-                position: relative !important;
-            }
-            
-            .e-content h3::before {
-                content: '▶' !important;
-                color: #3498db !important;
-                margin-right: 0.5em !important;
-                font-size: 0.8em !important;
-            }
-            
-            .e-content h4, .e-content h5, .e-content h6 {
-                font-weight: 600 !important;
-                color: #34495e !important;
-                scroll-margin-top: 100px !important;
-            }
-            
-            .e-content h4 { font-size: 1.4em !important; margin: 1.4em 0 0.7em 0 !important; }
-            .e-content h5 { font-size: 1.2em !important; margin: 1.2em 0 0.6em 0 !important; }
-            .e-content h6 { font-size: 1.1em !important; margin: 1em 0 0.5em 0 !important; }
-            
-            /* 코드 스타일 개선 */
-            .e-content pre {
-                background: linear-gradient(135deg, #1e1e1e, #2d2d2d) !important;
-                border: 1px solid #404040 !important;
-                border-radius: 12px !important;
-                padding: 2em !important;
-                margin: 2.5em 0 !important;
-                overflow-x: auto !important;
-                font-family: 'JetBrains Mono', 'Consolas', monospace !important;
-                font-size: 15px !important;
-                line-height: 1.6 !important;
-                box-shadow: 0 8px 30px rgba(0,0,0,0.3) !important;
-                position: relative !important;
-            }
-            
-            .e-content pre::before {
-                content: '' !important;
-                position: absolute !important;
-                top: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
-                height: 3px !important;
-                background: linear-gradient(90deg, #e74c3c, #f39c12, #2ecc71, #3498db) !important;
-                border-radius: 12px 12px 0 0 !important;
-            }
-            
-            .e-content code {
-                background: linear-gradient(135deg, #fff2f2, #ffebee) !important;
-                padding: 4px 10px !important;
-                border-radius: 6px !important;
-                font-family: 'JetBrains Mono', 'Consolas', monospace !important;
-                font-size: 0.9em !important;
-                color: #d73a49 !important;
-                font-weight: 600 !important;
-                border: 1px solid #ffcdd2 !important;
-            }
-            
-            .e-content pre code {
-                background: none !important;
-                padding: 0 !important;
-                color: #f8f8f2 !important;
-                font-weight: normal !important;
-                border: none !important;
-            }
-            
-            /* 기타 스타일 개선 */
-            .e-content ul, .e-content ol {
-                margin: 1.8em 0 !important;
-                padding-left: 2.5em !important;
-            }
-            
-            .e-content li {
-                margin-bottom: 1em !important;
+            .e-content, .e-content p, .mdui-card-content.mdui-typo, .mdui-card-content.mdui-typo p {
                 font-size: 16px !important;
-                line-height: 1.8 !important;
             }
             
-            .e-content img {
-                max-width: 100% !important;
-                height: auto !important;
-                margin: 2.5em auto !important;
-                display: block !important;
-                border-radius: 12px !important;
-                box-shadow: 0 12px 40px rgba(0,0,0,0.15) !important;
-                border: 1px solid #e8e8e8 !important;
-                transition: transform 0.3s ease !important;
-            }
-            
-            .e-content img:hover {
-                transform: scale(1.02) !important;
-            }
-            
-            .e-content table {
-                width: 100% !important;
-                border-collapse: collapse !important;
-                margin: 2.5em 0 !important;
-                font-size: 15px !important;
-                box-shadow: 0 8px 30px rgba(0,0,0,0.1) !important;
-                border-radius: 12px !important;
-                overflow: hidden !important;
-                background: white !important;
-            }
-            
-            .e-content th {
-                background: linear-gradient(135deg, #f5f7fa, #c3cfe2) !important;
-                font-weight: 700 !important;
-                color: #2c3e50 !important;
-                border-bottom: 3px solid #3498db !important;
-                padding: 18px !important;
-            }
-            
-            .e-content td {
-                border: 1px solid #e8e8e8 !important;
-                padding: 15px !important;
-                transition: background 0.3s ease !important;
-            }
-            
-            .e-content tr:nth-child(even) {
-                background: #f9f9f9 !important;
-            }
-            
-            .e-content tr:hover {
-                background: #f0f8ff !important;
-            }
-            
-            .e-content blockquote {
-                border-left: 6px solid #3498db !important;
-                margin: 2.5em 0 !important;
-                padding: 1.5em 2em !important;
-                background: linear-gradient(135deg, #f8f9ff, #fff) !important;
-                border-radius: 0 12px 12px 0 !important;
-                font-style: italic !important;
-                color: #555 !important;
-                box-shadow: 0 4px 20px rgba(52, 152, 219, 0.1) !important;
-                position: relative !important;
-            }
-            
-            .e-content blockquote::before {
-                content: '"' !important;
-                font-size: 4em !important;
-                color: #3498db !important;
-                position: absolute !important;
-                top: -10px !important;
-                left: 15px !important;
-                opacity: 0.3 !important;
-                font-family: serif !important;
-            }
-            
-            .e-content a {
-                color: #3498db !important;
-                text-decoration: none !important;
-                border-bottom: 2px solid transparent !important;
-                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-                font-weight: 500 !important;
-            }
-            
-            .e-content a:hover {
-                color: #2980b9 !important;
-                border-bottom-color: #2980b9 !important;
-                background: rgba(52, 152, 219, 0.1) !important;
-                padding: 2px 4px !important;
-                border-radius: 4px !important;
-            }
-            
-            .e-content strong {
-                color: #2c3e50 !important;
-                font-weight: 700 !important;
-                background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), transparent) !important;
-                padding: 2px 4px !important;
-                border-radius: 4px !important;
-            }
-            
-            /* 반응형 디자인 개선 */
-            @media (max-width: 1024px) {
-                .mdui-card-content.mdui-typo {
-                    padding: 2.5em 3em !important;
-                }
-            }
-            
-            @media (max-width: 768px) {
-                .mdui-card-content.mdui-typo {
-                    padding: 2em 2em !important;
-                }
-                
-                #category-series-nav {
-                    padding: 1.5em !important;
-                    border-radius: 12px !important;
-                }
-                
-                .series-header {
-                    flex-direction: column !important;
-                    gap: 1em !important;
-                    text-align: center !important;
-                }
-                
-                .series-item {
-                    padding: 1em !important;
-                }
-                
-                .series-number {
-                    width: 30px !important;
-                    height: 30px !important;
-                    font-size: 0.85em !important;
-                }
-                
-                .e-content h1 { font-size: 2.2em !important; }
-                .e-content h2 { font-size: 1.8em !important; }
-                .e-content h3 { font-size: 1.5em !important; }
-                
-                .e-content pre {
-                    padding: 1.2em !important;
-                    font-size: 14px !important;
-                }
-            }
-            
-            @media (max-width: 480px) {
-                .mdui-card-content.mdui-typo {
-                    padding: 1.5em 1.5em !important;
-                }
-                
-                .e-content, .e-content p {
-                    font-size: 16px !important;
-                }
-                
-                .e-content h1 { font-size: 2em !important; }
-                .e-content h2 { font-size: 1.6em !important; }
-                .e-content h3 { font-size: 1.3em !important; }
-            }
-        `;
-        document.head.appendChild(postStyles);
-    }
+            .e-content h1, .mdui-card-content.mdui-typo h1 { font-size: 2em !important; }
+            .e-content h2, .mdui-card-content.mdui-typo h2 { font-size: 1.6em !important; }
+            .e-content h3, .mdui-card-content.mdui-typo h3 { font-size: 1.3em !important; }
+        }
+    `;
+    document.head.appendChild(postStyles);
+}
+```
+
 });
 </script>
     
@@ -932,7 +971,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <span><a class="tag-none-link" href="/tags/STM32CubeIDE/" rel="tag">STM32CubeIDE</a> <a class="tag-none-link" href="/tags/Timer/" rel="tag">Timer</a> <a class="tag-none-link" href="/tags/%EA%B3%A0%EA%B8%89%EC%84%A4%EC%A0%95/" rel="tag">고급설정</a> <a class="tag-none-link" href="/tags/%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1/" rel="tag">환경구성</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 07:49'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 07:56'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/cortex-m-advanced-setup/</span>
@@ -1137,7 +1176,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <span><a class="tag-none-link" href="/tags/BSRR/" rel="tag">BSRR</a> <a class="tag-none-link" href="/tags/%EA%B3%A0%EA%B8%89%EA%B8%B0%EB%B2%95/" rel="tag">고급기법</a> <a class="tag-none-link" href="/tags/%EB%B9%84%ED%8A%B8%ED%95%84%EB%93%9C/" rel="tag">비트필드</a> <a class="tag-none-link" href="/tags/%EC%84%B1%EB%8A%A5%EC%B5%9C%EC%A0%81%ED%99%94/" rel="tag">성능최적화</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 07:49'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 07:56'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/cortex-m-code-improvement-advanced/</span>
@@ -1415,7 +1454,7 @@ GPIOA<span class="token operator">-></span>  <span class="token comment">// 자�
         
         <span><a class="tag-none-link" href="/tags/Define/" rel="tag">Define</a> <a class="tag-none-link" href="/tags/%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81/" rel="tag">리팩토링</a> <a class="tag-none-link" href="/tags/%EB%B2%A0%EC%9D%B4%EC%8A%A4%EC%A3%BC%EC%86%8C/" rel="tag">베이스주소</a> <a class="tag-none-link" href="/tags/%EC%BD%94%EB%93%9C%EA%B0%9C%EC%84%A0/" rel="tag">코드개선</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 07:49'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 07:56'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/cortex-m-code-improvement-basic/</span>
@@ -1677,7 +1716,7 @@ GPIOA_MODER <span class="token operator">|=</span> <span class="token punctuatio
         
         <span><a class="tag-none-link" href="/tags/%EA%B5%AC%EC%A1%B0%EC%B2%B4/" rel="tag">구조체</a> <a class="tag-none-link" href="/tags/%EB%AA%A8%EB%93%88%ED%99%94/" rel="tag">모듈화</a> <a class="tag-none-link" href="/tags/%EC%BD%94%EB%93%9C%EA%B0%9C%EC%84%A0/" rel="tag">코드개선</a> <a class="tag-none-link" href="/tags/%ED%83%80%EC%9E%85%EC%95%88%EC%A0%84%EC%84%B1/" rel="tag">타입안전성</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 07:49'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 07:56'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/cortex-m-code-improvement-struct/</span>
@@ -1947,7 +1986,7 @@ GPIOA<span class="token operator">-></span>ODR <span class="token operator">^=</
         
         <span><a class="tag-none-link" href="/tags/STM32/" rel="tag">STM32</a> <a class="tag-none-link" href="/tags/%EA%B0%80%EC%9D%B4%EB%93%9C/" rel="tag">가이드</a> <a class="tag-none-link" href="/tags/%EC%B4%88%EA%B8%B0%ED%99%98%EA%B2%BD/" rel="tag">초기환경</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 07:49'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 07:56'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/cortex-m-initial-setup-guide/</span>
@@ -2042,6 +2081,191 @@ GPIOA<span class="token operator">-></span>ODR <span class="token operator">^=</
     
     <div class="mdui-card-primary mdui-ripple">
     <div class="mdui-card-primary-title">
+        <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" href="/2025/06/22/cortex-m-software-stack/">6. SW Stack과 모듈화</a>
+        <a class="p-author h-card" style="display:none" href="https://www.goeun-oh.com">고은</a>
+        
+        <small> <a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/">Cortex-M</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/ARM/">ARM</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/ARM/Embedded/">Embedded</a></small>
+        
+    </div>
+    <div class="mdui-card-primary-subtitle mdui-typo">
+        
+        <span><a class="tag-none-link" href="/tags/SW-Stack/" rel="tag">SW Stack</a> <a class="tag-none-link" href="/tags/%EA%B3%84%EC%B8%B5%EA%B5%AC%EC%A1%B0/" rel="tag">계층구조</a> <a class="tag-none-link" href="/tags/%EB%AA%A8%EB%93%88%ED%99%94/" rel="tag">모듈화</a> <a class="tag-none-link" href="/tags/%ED%8F%B4%EB%8D%94%EB%B6%84%EB%A6%AC/" rel="tag">폴더분리</a></span>
+        <span>-</span>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 07:56'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <span>-</span>
+        
+            <span>2025/06/22/cortex-m-software-stack/</span>
+        
+    </div>
+</div>
+    
+    
+    <div class="mdui-divider"></div>
+    <div class="mdui-card-content mdui-typo">
+        
+        <div class="p-summary" style="display:none"></div>
+        <main class="e-content"><h1 id="SW-Stack과-모듈화"><a href="#SW-Stack과-모듈화" class="headerlink" title="SW Stack과 모듈화"></a>SW Stack과 모듈화</h1><p>이번 포스트에서는 ARM 레포지토리에서 실제로 다룬 SW Stack 개념과 폴더 분리를 통한 모듈화 방법을 알아본다.</p>
+<h2 id="📁-폴더-분리의-필요성"><a href="#📁-폴더-분리의-필요성" class="headerlink" title="📁 폴더 분리의 필요성"></a>📁 폴더 분리의 필요성</h2><h3 id="GPIO-관련-기능-분리"><a href="#GPIO-관련-기능-분리" class="headerlink" title="GPIO 관련 기능 분리"></a>GPIO 관련 기능 분리</h3><p>기존에 main.c에 모든 코드가 집중되어 있던 것을 GPIO 관련된 기능들을 따로 분리한다.</p>
+<p><strong>분리 전 문제점:</strong></p>
+<ul>
+<li>모든 코드가 main.c에 집중</li>
+<li>기능별 구분이 어려움</li>
+<li>재사용성 낮음</li>
+<li>유지보수 어려움</li>
+</ul>
+<p><strong>분리 후 장점:</strong></p>
+<ul>
+<li>기능별 명확한 구분</li>
+<li>코드 재사용 가능</li>
+<li>유지보수 용이</li>
+<li>협업 효율성 향상</li>
+</ul>
+<h2 id="🏗️-SW-Stack-개념"><a href="#🏗️-SW-Stack-개념" class="headerlink" title="🏗️ SW Stack 개념"></a>🏗️ SW Stack 개념</h2><h3 id="SW의-흐름과-계층-구조"><a href="#SW의-흐름과-계층-구조" class="headerlink" title="SW의 흐름과 계층 구조"></a>SW의 흐름과 계층 구조</h3><p>SW의 흐름은 위에서 아래로 진행된다. SW가 HW를 제어하는 계층적 구조다.</p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0619/0.GPIO_BTN_%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0.md%7B237EF5FA-4218-4683-8031-73F87911D2AB%7D.png" alt="SW Stack 구조"class="mdui-img-rounded" loading="lazy"></figure>
+<h3 id="SW-Stack-구조도"><a href="#SW-Stack-구조도" class="headerlink" title="SW Stack 구조도"></a>SW Stack 구조도</h3><pre class="language-none"><code class="language-none">+------------------------+
+|         SW            |
+|  +-----------------+  |
+|  |     main        |  |  ← System 초기화, Application 실행
+|  |  +-----------+  |  |
+|  |  |Application|  |  |  ← 비즈니스 로직 처리
+|  |  +-----------+  |  |
+|  |  |  Driver   |  |  |  ← 하드웨어 추상화 계층
+|  |  +-----------+  |  |
+|  |  | Interface |  |  |  ← 하드웨어 직접 제어
+|  |  +-----------+  |  |
+|  +-----------------+  |
++------------------------+
++------------------------+
+|         HW            |  ← 실제 하드웨어
++------------------------+</code></pre>
+
+<h3 id="각-계층의-역할"><a href="#각-계층의-역할" class="headerlink" title="각 계층의 역할"></a>각 계층의 역할</h3><p><strong>main 계층:</strong></p>
+<ul>
+<li><code>system</code> 초기화</li>
+<li><code>application</code> 실행 기능 외에는 고려하지 않는다</li>
+</ul>
+<p><strong>Application 계층:</strong></p>
+<ul>
+<li>실제 애플리케이션 로직 구현</li>
+<li>비즈니스 요구사항 처리</li>
+</ul>
+<p><strong>Driver 계층:</strong></p>
+<ul>
+<li>하드웨어 추상화</li>
+<li>재사용 가능한 기능 제공</li>
+</ul>
+<p><strong>Interface 계층:</strong></p>
+<ul>
+<li>하드웨어 직접 제어</li>
+<li>레지스터 수준 접근</li>
+</ul>
+<h2 id="🚫-잘못된-접근-방식"><a href="#🚫-잘못된-접근-방식" class="headerlink" title="🚫 잘못된 접근 방식"></a>🚫 잘못된 접근 방식</h2><h3 id="Application에서-Interface-직접-접근-문제"><a href="#Application에서-Interface-직접-접근-문제" class="headerlink" title="Application에서 Interface 직접 접근 문제"></a>Application에서 Interface 직접 접근 문제</h3><p>Application에서 바로 GPIO(Interface)로 접근하는 것은 지양해야 한다.</p>
+<p><strong>문제점:</strong></p>
+<ul>
+<li>GPIO는 하드웨어에 가까운 부분이기 때문에, Application에서 직접 접근하는 것은 좋지 않다</li>
+<li>단지 Driver만 수정하면 되는 것이 Interface까지 수정해야 되어 번거로워진다</li>
+</ul>
+<h3 id="네트워크-스택-예시"><a href="#네트워크-스택-예시" class="headerlink" title="네트워크 스택 예시"></a>네트워크 스택 예시</h3><p>인터넷의 ‘software stack’에서도 동일한 원칙이 적용된다.</p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0619/0.GPIO_BTN_%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0.md%7BC210C9A6-E664-471B-8447-DBD93432D92B%7D.png" alt="네트워크 스택 예시"class="mdui-img-rounded" loading="lazy"></figure>
+<p>Application에서 바로 MAC이나 PHY에 접근하지 않는다.</p>
+<h2 id="💡-올바른-설계-원칙"><a href="#💡-올바른-설계-원칙" class="headerlink" title="💡 올바른 설계 원칙"></a>💡 올바른 설계 원칙</h2><h3 id="인접한-Layer를-통한-통신"><a href="#인접한-Layer를-통한-통신" class="headerlink" title="인접한 Layer를 통한 통신"></a>인접한 Layer를 통한 통신</h3><p><strong>핵심 원칙:</strong> Application에서 인접한 Layer는 Driver다.</p>
+<p><strong>인접한 Layer를 통해 메시지를 송수신해야 한다</strong></p>
+<p>이렇게 만들어야 재사용성이 좋다.</p>
+<h2 id="🔧-실제-적용-GPIO-버튼-추가"><a href="#🔧-실제-적용-GPIO-버튼-추가" class="headerlink" title="🔧 실제 적용: GPIO 버튼 추가"></a>🔧 실제 적용: GPIO 버튼 추가</h2><h3 id="기존-문제상황"><a href="#기존-문제상황" class="headerlink" title="기존 문제상황"></a>기존 문제상황</h3><p>기존의 LED Shifter 기능에서 BTN 기능을 추가하여 BTN을 누르면 LED가 반대 방향으로 SHIFT 하도록 하려고 했다.</p>
+<p>하지만 기존에 구현했던 것은 버튼을 누르고 있을 때 LED가 멈추는 문제가 있었다.</p>
+<h3 id="BTN-기능-추가를-위한-SW-Stack"><a href="#BTN-기능-추가를-위한-SW-Stack" class="headerlink" title="BTN 기능 추가를 위한 SW Stack"></a>BTN 기능 추가를 위한 SW Stack</h3><figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0619/0.GPIO_BTN_%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0.mdimage-1.png" alt="BTN 기능 SW Stack"class="mdui-img-rounded" loading="lazy"></figure>
+<h3 id="ap-main-계층-추가"><a href="#ap-main-계층-추가" class="headerlink" title="ap_main 계층 추가"></a>ap_main 계층 추가</h3><p><code>ap_main</code>을 만들어서 SW Stack Layer를 하나 더 추가한다.</p>
+<p><code>main.c</code>의 기능:</p>
+<ul>
+<li><code>system</code> 초기화</li>
+<li><code>application</code> 실행 기능 외에는 고려하지 않는다</li>
+</ul>
+<h2 id="🔘-버튼-하드웨어-이해"><a href="#🔘-버튼-하드웨어-이해" class="headerlink" title="🔘 버튼 하드웨어 이해"></a>🔘 버튼 하드웨어 이해</h2><h3 id="BTN-Push-Switch-Tact-Switch-분석"><a href="#BTN-Push-Switch-Tact-Switch-분석" class="headerlink" title="BTN(Push Switch, Tact Switch) 분석"></a>BTN(Push Switch, Tact Switch) 분석</h3><p>Schematic으로 우리가 가진 BTN이 HW적으로 어떤 형태인지 알 수 있다.</p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0619/0.GPIO_BTN_%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0.mdimage.png" alt="버튼 회로도"class="mdui-img-rounded" loading="lazy"></figure>
+<p>BTN이 Pullup 되어있다:</p>
+<ul>
+<li>BTN이 눌리지 않은 상태: <code>3.3V</code> (HIGH)</li>
+<li>BTN이 눌린 상태: <code>0V</code> (LOW)</li>
+</ul>
+<h3 id="Chattering-Bounce-현상"><a href="#Chattering-Bounce-현상" class="headerlink" title="Chattering(Bounce) 현상"></a>Chattering(Bounce) 현상</h3><p>이상적으로 0 또는 1로 변화하면 완벽하지만 노이즈가 껴서 Chattering(Bounce) 현상이 발생한다.</p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0619/0.GPIO_BTN_%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0.md%7B7AD34572-2C74-4F83-A793-2E73188AF847%7D.png" alt="Chattering 현상"class="mdui-img-rounded" loading="lazy"></figure>
+<p>이러한 Noise 또한 고려하면서 코드를 짜야한다. (debounce 코드를 작성해야한다)</p>
+<h2 id="🔍-버튼-상태-감지-구현"><a href="#🔍-버튼-상태-감지-구현" class="headerlink" title="🔍 버튼 상태 감지 구현"></a>🔍 버튼 상태 감지 구현</h2><h3 id="버튼-상태-정의"><a href="#버튼-상태-정의" class="headerlink" title="버튼 상태 정의"></a>버튼 상태 정의</h3><p><strong>BTN의 상태:</strong></p>
+<ol>
+<li>Button Normal 상태: RELEASED(<code>1</code>) 상태</li>
+<li>Button Push: PUSHED(<code>0</code>) 상태</li>
+</ol>
+<h3 id="GPIO-READ-함수-구현"><a href="#GPIO-READ-함수-구현" class="headerlink" title="GPIO READ 함수 구현"></a>GPIO READ 함수 구현</h3><p>버튼의 상태를 받고 싶다. <code>Button_GetState()</code>: 버튼의 상태를 받아오는 함수</p>
+<pre class="language-c" data-language="c"><code class="language-c"><span class="token class-name">uint32_t</span> <span class="token function">GPIO_ReadPin</span><span class="token punctuation">(</span>GPIO_TypeDef <span class="token operator">*</span>GPIOx<span class="token punctuation">,</span> <span class="token class-name">uint32_t</span> pinNum<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>GPIOx <span class="token operator">-></span> IDR <span class="token operator">&amp;</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> pinNum<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">?</span> <span class="token number">1</span><span class="token operator">:</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//0이면 0이나가고, 0이 아닌 값이면 1이나간다</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<h3 id="Button-Get-State-함수"><a href="#Button-Get-State-함수" class="headerlink" title="Button Get State 함수"></a>Button Get State 함수</h3><pre class="language-c" data-language="c"><code class="language-c"><span class="token class-name">button_state_t</span> <span class="token function">Button_GetState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+ <span class="token keyword">static</span> <span class="token class-name">uint32_t</span> prevState <span class="token operator">=</span> RELEASED<span class="token punctuation">;</span> <span class="token comment">//전원을 처음에 넣으면 초기값이 HIGH</span>
+ <span class="token class-name">uint32_t</span> curState<span class="token punctuation">;</span>
+ curState<span class="token operator">=</span> <span class="token function">GPIO_ReadPin</span><span class="token punctuation">(</span>GPIOC<span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+ <span class="token comment">//처음 누른 경우</span>
+ <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>prevState <span class="token operator">==</span> RELEASED<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>curState <span class="token operator">==</span> PUSHED<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  prevState <span class="token operator">=</span> PUSHED<span class="token punctuation">;</span>
+  <span class="token keyword">return</span> ACT_PUSHED<span class="token punctuation">;</span>
+ <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>prevState <span class="token operator">==</span> PUSHED<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span><span class="token punctuation">(</span>curState <span class="token operator">==</span> RELEASE<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  prevState <span class="token operator">=</span> RELEASED<span class="token punctuation">;</span>
+  <span class="token keyword">return</span> ACT_RELEASED<span class="token punctuation">;</span>
+ <span class="token punctuation">&#125;</span>
+ <span class="token keyword">return</span> NO_ACT<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p><strong>static 변수 사용 이유:</strong></p>
+<ul>
+<li>Scope를 벗어나도 메모리 공간이 반환되지 않는다</li>
+<li>메모리 재할당을 안하니 이전 값이 계속 유지된다</li>
+</ul>
+<h2 id="💻-C언어의-한계"><a href="#💻-C언어의-한계" class="headerlink" title="💻 C언어의 한계"></a>💻 C언어의 한계</h2><h3 id="Edge-Detect의-한계"><a href="#Edge-Detect의-한계" class="headerlink" title="Edge Detect의 한계"></a>Edge Detect의 한계</h3><ul>
+<li>C언어 코드만으로는 edge detect 하는게 없다</li>
+<li>C언어로 CLK edge 동기화를 할 수 없다</li>
+</ul>
+<p>이러한 한계 때문에 소프트웨어적으로 상태 변화를 감지해야 한다.</p>
+<h2 id="📋-정리"><a href="#📋-정리" class="headerlink" title="📋 정리"></a>📋 정리</h2><p>이번 포스트에서는 SW Stack과 모듈화의 중요성을 다뤘다:</p>
+<ol>
+<li><strong>폴더 분리</strong>: GPIO 관련 기능을 별도로 분리</li>
+<li><strong>SW Stack</strong>: 계층적 구조로 소프트웨어 설계</li>
+<li><strong>올바른 접근</strong>: 인접한 Layer를 통한 통신</li>
+<li><strong>실제 적용</strong>: 버튼 기능 추가 사례</li>
+<li><strong>하드웨어 이해</strong>: Chattering 현상과 대응</li>
+</ol>
+<p><strong>핵심 원칙:</strong></p>
+<ul>
+<li>Application에서 Interface로 직접 접근 금지</li>
+<li>인접한 계층을 통한 통신</li>
+<li>재사용성을 고려한 모듈화</li>
+<li>하드웨어 특성을 고려한 소프트웨어 설계</li>
+</ul>
+<p>다음 포스트에서는 STM32CubeIDE를 활용한 고급 초기환경 설정을 알아보겠다.</p>
+<hr>
+<p><strong>이전 포스트</strong>: <a href="/posts/cortex-m-code-improvement-project">5-4. 코드 개선 과정 - 실제 프로젝트 적용</a><br><strong>다음 포스트</strong>: <a href="/posts/cortex-m-advanced-setup">7. 고급 초기환경 설정</a></p>
+</main>
+        
+        <blockquote class="mdui-m-x-0 mdui-m-t-4">
+    <strong>
+        Author: <a href="#">고은</a><br>
+        URL: <a href="https://www.goeun-oh.com/2025/06/22/cortex-m-software-stack/">https://www.goeun-oh.com/2025/06/22/cortex-m-software-stack/</a><br>
+        
+            라이선스
+        
+    </strong>
+</blockquote>
+        
+    </div>
+    
+</article>
+
+    
+        <article class="h-entry mdui-card mdui-hoverable mdui-shadow-1 mdui-m-y-2" style="opacity: 1; border-radius: 4px"
+>
+    
+    <div class="mdui-card-primary mdui-ripple">
+    <div class="mdui-card-primary-title">
         <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" href="/2025/06/22/cortex-m-led-control-basics/">4. 바텀부터 LED 제어하기</a>
         <a class="p-author h-card" style="display:none" href="https://www.goeun-oh.com">고은</a>
         
@@ -2052,7 +2276,7 @@ GPIOA<span class="token operator">-></span>ODR <span class="token operator">^=</
         
         <span><a class="tag-none-link" href="/tags/GPIO/" rel="tag">GPIO</a> <a class="tag-none-link" href="/tags/LED%EC%A0%9C%EC%96%B4/" rel="tag">LED제어</a> <a class="tag-none-link" href="/tags/RCC/" rel="tag">RCC</a> <a class="tag-none-link" href="/tags/%EB%A0%88%EC%A7%80%EC%8A%A4%ED%84%B0/" rel="tag">레지스터</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 07:49'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 07:56'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/cortex-m-led-control-basics/</span>
@@ -2259,191 +2483,6 @@ GPIOA<span class="token operator">-></span>ODR <span class="token operator">^=</
     <strong>
         Author: <a href="#">고은</a><br>
         URL: <a href="https://www.goeun-oh.com/2025/06/22/cortex-m-led-control-basics/">https://www.goeun-oh.com/2025/06/22/cortex-m-led-control-basics/</a><br>
-        
-            라이선스
-        
-    </strong>
-</blockquote>
-        
-    </div>
-    
-</article>
-
-    
-        <article class="h-entry mdui-card mdui-hoverable mdui-shadow-1 mdui-m-y-2" style="opacity: 1; border-radius: 4px"
->
-    
-    <div class="mdui-card-primary mdui-ripple">
-    <div class="mdui-card-primary-title">
-        <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" href="/2025/06/22/cortex-m-software-stack/">6. SW Stack과 모듈화</a>
-        <a class="p-author h-card" style="display:none" href="https://www.goeun-oh.com">고은</a>
-        
-        <small> <a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/">Cortex-M</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/ARM/">ARM</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/ARM/Embedded/">Embedded</a></small>
-        
-    </div>
-    <div class="mdui-card-primary-subtitle mdui-typo">
-        
-        <span><a class="tag-none-link" href="/tags/SW-Stack/" rel="tag">SW Stack</a> <a class="tag-none-link" href="/tags/%EA%B3%84%EC%B8%B5%EA%B5%AC%EC%A1%B0/" rel="tag">계층구조</a> <a class="tag-none-link" href="/tags/%EB%AA%A8%EB%93%88%ED%99%94/" rel="tag">모듈화</a> <a class="tag-none-link" href="/tags/%ED%8F%B4%EB%8D%94%EB%B6%84%EB%A6%AC/" rel="tag">폴더분리</a></span>
-        <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 07:49'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
-        <span>-</span>
-        
-            <span>2025/06/22/cortex-m-software-stack/</span>
-        
-    </div>
-</div>
-    
-    
-    <div class="mdui-divider"></div>
-    <div class="mdui-card-content mdui-typo">
-        
-        <div class="p-summary" style="display:none"></div>
-        <main class="e-content"><h1 id="SW-Stack과-모듈화"><a href="#SW-Stack과-모듈화" class="headerlink" title="SW Stack과 모듈화"></a>SW Stack과 모듈화</h1><p>이번 포스트에서는 ARM 레포지토리에서 실제로 다룬 SW Stack 개념과 폴더 분리를 통한 모듈화 방법을 알아본다.</p>
-<h2 id="📁-폴더-분리의-필요성"><a href="#📁-폴더-분리의-필요성" class="headerlink" title="📁 폴더 분리의 필요성"></a>📁 폴더 분리의 필요성</h2><h3 id="GPIO-관련-기능-분리"><a href="#GPIO-관련-기능-분리" class="headerlink" title="GPIO 관련 기능 분리"></a>GPIO 관련 기능 분리</h3><p>기존에 main.c에 모든 코드가 집중되어 있던 것을 GPIO 관련된 기능들을 따로 분리한다.</p>
-<p><strong>분리 전 문제점:</strong></p>
-<ul>
-<li>모든 코드가 main.c에 집중</li>
-<li>기능별 구분이 어려움</li>
-<li>재사용성 낮음</li>
-<li>유지보수 어려움</li>
-</ul>
-<p><strong>분리 후 장점:</strong></p>
-<ul>
-<li>기능별 명확한 구분</li>
-<li>코드 재사용 가능</li>
-<li>유지보수 용이</li>
-<li>협업 효율성 향상</li>
-</ul>
-<h2 id="🏗️-SW-Stack-개념"><a href="#🏗️-SW-Stack-개념" class="headerlink" title="🏗️ SW Stack 개념"></a>🏗️ SW Stack 개념</h2><h3 id="SW의-흐름과-계층-구조"><a href="#SW의-흐름과-계층-구조" class="headerlink" title="SW의 흐름과 계층 구조"></a>SW의 흐름과 계층 구조</h3><p>SW의 흐름은 위에서 아래로 진행된다. SW가 HW를 제어하는 계층적 구조다.</p>
-<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0619/0.GPIO_BTN_%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0.md%7B237EF5FA-4218-4683-8031-73F87911D2AB%7D.png" alt="SW Stack 구조"class="mdui-img-rounded" loading="lazy"></figure>
-<h3 id="SW-Stack-구조도"><a href="#SW-Stack-구조도" class="headerlink" title="SW Stack 구조도"></a>SW Stack 구조도</h3><pre class="language-none"><code class="language-none">+------------------------+
-|         SW            |
-|  +-----------------+  |
-|  |     main        |  |  ← System 초기화, Application 실행
-|  |  +-----------+  |  |
-|  |  |Application|  |  |  ← 비즈니스 로직 처리
-|  |  +-----------+  |  |
-|  |  |  Driver   |  |  |  ← 하드웨어 추상화 계층
-|  |  +-----------+  |  |
-|  |  | Interface |  |  |  ← 하드웨어 직접 제어
-|  |  +-----------+  |  |
-|  +-----------------+  |
-+------------------------+
-+------------------------+
-|         HW            |  ← 실제 하드웨어
-+------------------------+</code></pre>
-
-<h3 id="각-계층의-역할"><a href="#각-계층의-역할" class="headerlink" title="각 계층의 역할"></a>각 계층의 역할</h3><p><strong>main 계층:</strong></p>
-<ul>
-<li><code>system</code> 초기화</li>
-<li><code>application</code> 실행 기능 외에는 고려하지 않는다</li>
-</ul>
-<p><strong>Application 계층:</strong></p>
-<ul>
-<li>실제 애플리케이션 로직 구현</li>
-<li>비즈니스 요구사항 처리</li>
-</ul>
-<p><strong>Driver 계층:</strong></p>
-<ul>
-<li>하드웨어 추상화</li>
-<li>재사용 가능한 기능 제공</li>
-</ul>
-<p><strong>Interface 계층:</strong></p>
-<ul>
-<li>하드웨어 직접 제어</li>
-<li>레지스터 수준 접근</li>
-</ul>
-<h2 id="🚫-잘못된-접근-방식"><a href="#🚫-잘못된-접근-방식" class="headerlink" title="🚫 잘못된 접근 방식"></a>🚫 잘못된 접근 방식</h2><h3 id="Application에서-Interface-직접-접근-문제"><a href="#Application에서-Interface-직접-접근-문제" class="headerlink" title="Application에서 Interface 직접 접근 문제"></a>Application에서 Interface 직접 접근 문제</h3><p>Application에서 바로 GPIO(Interface)로 접근하는 것은 지양해야 한다.</p>
-<p><strong>문제점:</strong></p>
-<ul>
-<li>GPIO는 하드웨어에 가까운 부분이기 때문에, Application에서 직접 접근하는 것은 좋지 않다</li>
-<li>단지 Driver만 수정하면 되는 것이 Interface까지 수정해야 되어 번거로워진다</li>
-</ul>
-<h3 id="네트워크-스택-예시"><a href="#네트워크-스택-예시" class="headerlink" title="네트워크 스택 예시"></a>네트워크 스택 예시</h3><p>인터넷의 ‘software stack’에서도 동일한 원칙이 적용된다.</p>
-<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0619/0.GPIO_BTN_%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0.md%7BC210C9A6-E664-471B-8447-DBD93432D92B%7D.png" alt="네트워크 스택 예시"class="mdui-img-rounded" loading="lazy"></figure>
-<p>Application에서 바로 MAC이나 PHY에 접근하지 않는다.</p>
-<h2 id="💡-올바른-설계-원칙"><a href="#💡-올바른-설계-원칙" class="headerlink" title="💡 올바른 설계 원칙"></a>💡 올바른 설계 원칙</h2><h3 id="인접한-Layer를-통한-통신"><a href="#인접한-Layer를-통한-통신" class="headerlink" title="인접한 Layer를 통한 통신"></a>인접한 Layer를 통한 통신</h3><p><strong>핵심 원칙:</strong> Application에서 인접한 Layer는 Driver다.</p>
-<p><strong>인접한 Layer를 통해 메시지를 송수신해야 한다</strong></p>
-<p>이렇게 만들어야 재사용성이 좋다.</p>
-<h2 id="🔧-실제-적용-GPIO-버튼-추가"><a href="#🔧-실제-적용-GPIO-버튼-추가" class="headerlink" title="🔧 실제 적용: GPIO 버튼 추가"></a>🔧 실제 적용: GPIO 버튼 추가</h2><h3 id="기존-문제상황"><a href="#기존-문제상황" class="headerlink" title="기존 문제상황"></a>기존 문제상황</h3><p>기존의 LED Shifter 기능에서 BTN 기능을 추가하여 BTN을 누르면 LED가 반대 방향으로 SHIFT 하도록 하려고 했다.</p>
-<p>하지만 기존에 구현했던 것은 버튼을 누르고 있을 때 LED가 멈추는 문제가 있었다.</p>
-<h3 id="BTN-기능-추가를-위한-SW-Stack"><a href="#BTN-기능-추가를-위한-SW-Stack" class="headerlink" title="BTN 기능 추가를 위한 SW Stack"></a>BTN 기능 추가를 위한 SW Stack</h3><figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0619/0.GPIO_BTN_%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0.mdimage-1.png" alt="BTN 기능 SW Stack"class="mdui-img-rounded" loading="lazy"></figure>
-<h3 id="ap-main-계층-추가"><a href="#ap-main-계층-추가" class="headerlink" title="ap_main 계층 추가"></a>ap_main 계층 추가</h3><p><code>ap_main</code>을 만들어서 SW Stack Layer를 하나 더 추가한다.</p>
-<p><code>main.c</code>의 기능:</p>
-<ul>
-<li><code>system</code> 초기화</li>
-<li><code>application</code> 실행 기능 외에는 고려하지 않는다</li>
-</ul>
-<h2 id="🔘-버튼-하드웨어-이해"><a href="#🔘-버튼-하드웨어-이해" class="headerlink" title="🔘 버튼 하드웨어 이해"></a>🔘 버튼 하드웨어 이해</h2><h3 id="BTN-Push-Switch-Tact-Switch-분석"><a href="#BTN-Push-Switch-Tact-Switch-분석" class="headerlink" title="BTN(Push Switch, Tact Switch) 분석"></a>BTN(Push Switch, Tact Switch) 분석</h3><p>Schematic으로 우리가 가진 BTN이 HW적으로 어떤 형태인지 알 수 있다.</p>
-<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0619/0.GPIO_BTN_%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0.mdimage.png" alt="버튼 회로도"class="mdui-img-rounded" loading="lazy"></figure>
-<p>BTN이 Pullup 되어있다:</p>
-<ul>
-<li>BTN이 눌리지 않은 상태: <code>3.3V</code> (HIGH)</li>
-<li>BTN이 눌린 상태: <code>0V</code> (LOW)</li>
-</ul>
-<h3 id="Chattering-Bounce-현상"><a href="#Chattering-Bounce-현상" class="headerlink" title="Chattering(Bounce) 현상"></a>Chattering(Bounce) 현상</h3><p>이상적으로 0 또는 1로 변화하면 완벽하지만 노이즈가 껴서 Chattering(Bounce) 현상이 발생한다.</p>
-<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0619/0.GPIO_BTN_%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0.md%7B7AD34572-2C74-4F83-A793-2E73188AF847%7D.png" alt="Chattering 현상"class="mdui-img-rounded" loading="lazy"></figure>
-<p>이러한 Noise 또한 고려하면서 코드를 짜야한다. (debounce 코드를 작성해야한다)</p>
-<h2 id="🔍-버튼-상태-감지-구현"><a href="#🔍-버튼-상태-감지-구현" class="headerlink" title="🔍 버튼 상태 감지 구현"></a>🔍 버튼 상태 감지 구현</h2><h3 id="버튼-상태-정의"><a href="#버튼-상태-정의" class="headerlink" title="버튼 상태 정의"></a>버튼 상태 정의</h3><p><strong>BTN의 상태:</strong></p>
-<ol>
-<li>Button Normal 상태: RELEASED(<code>1</code>) 상태</li>
-<li>Button Push: PUSHED(<code>0</code>) 상태</li>
-</ol>
-<h3 id="GPIO-READ-함수-구현"><a href="#GPIO-READ-함수-구현" class="headerlink" title="GPIO READ 함수 구현"></a>GPIO READ 함수 구현</h3><p>버튼의 상태를 받고 싶다. <code>Button_GetState()</code>: 버튼의 상태를 받아오는 함수</p>
-<pre class="language-c" data-language="c"><code class="language-c"><span class="token class-name">uint32_t</span> <span class="token function">GPIO_ReadPin</span><span class="token punctuation">(</span>GPIO_TypeDef <span class="token operator">*</span>GPIOx<span class="token punctuation">,</span> <span class="token class-name">uint32_t</span> pinNum<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>GPIOx <span class="token operator">-></span> IDR <span class="token operator">&amp;</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> pinNum<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">?</span> <span class="token number">1</span><span class="token operator">:</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//0이면 0이나가고, 0이 아닌 값이면 1이나간다</span>
-<span class="token punctuation">&#125;</span></code></pre>
-
-<h3 id="Button-Get-State-함수"><a href="#Button-Get-State-함수" class="headerlink" title="Button Get State 함수"></a>Button Get State 함수</h3><pre class="language-c" data-language="c"><code class="language-c"><span class="token class-name">button_state_t</span> <span class="token function">Button_GetState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
- <span class="token keyword">static</span> <span class="token class-name">uint32_t</span> prevState <span class="token operator">=</span> RELEASED<span class="token punctuation">;</span> <span class="token comment">//전원을 처음에 넣으면 초기값이 HIGH</span>
- <span class="token class-name">uint32_t</span> curState<span class="token punctuation">;</span>
- curState<span class="token operator">=</span> <span class="token function">GPIO_ReadPin</span><span class="token punctuation">(</span>GPIOC<span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
- <span class="token comment">//처음 누른 경우</span>
- <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>prevState <span class="token operator">==</span> RELEASED<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>curState <span class="token operator">==</span> PUSHED<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-  prevState <span class="token operator">=</span> PUSHED<span class="token punctuation">;</span>
-  <span class="token keyword">return</span> ACT_PUSHED<span class="token punctuation">;</span>
- <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>prevState <span class="token operator">==</span> PUSHED<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span><span class="token punctuation">(</span>curState <span class="token operator">==</span> RELEASE<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-  prevState <span class="token operator">=</span> RELEASED<span class="token punctuation">;</span>
-  <span class="token keyword">return</span> ACT_RELEASED<span class="token punctuation">;</span>
- <span class="token punctuation">&#125;</span>
- <span class="token keyword">return</span> NO_ACT<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-
-<p><strong>static 변수 사용 이유:</strong></p>
-<ul>
-<li>Scope를 벗어나도 메모리 공간이 반환되지 않는다</li>
-<li>메모리 재할당을 안하니 이전 값이 계속 유지된다</li>
-</ul>
-<h2 id="💻-C언어의-한계"><a href="#💻-C언어의-한계" class="headerlink" title="💻 C언어의 한계"></a>💻 C언어의 한계</h2><h3 id="Edge-Detect의-한계"><a href="#Edge-Detect의-한계" class="headerlink" title="Edge Detect의 한계"></a>Edge Detect의 한계</h3><ul>
-<li>C언어 코드만으로는 edge detect 하는게 없다</li>
-<li>C언어로 CLK edge 동기화를 할 수 없다</li>
-</ul>
-<p>이러한 한계 때문에 소프트웨어적으로 상태 변화를 감지해야 한다.</p>
-<h2 id="📋-정리"><a href="#📋-정리" class="headerlink" title="📋 정리"></a>📋 정리</h2><p>이번 포스트에서는 SW Stack과 모듈화의 중요성을 다뤘다:</p>
-<ol>
-<li><strong>폴더 분리</strong>: GPIO 관련 기능을 별도로 분리</li>
-<li><strong>SW Stack</strong>: 계층적 구조로 소프트웨어 설계</li>
-<li><strong>올바른 접근</strong>: 인접한 Layer를 통한 통신</li>
-<li><strong>실제 적용</strong>: 버튼 기능 추가 사례</li>
-<li><strong>하드웨어 이해</strong>: Chattering 현상과 대응</li>
-</ol>
-<p><strong>핵심 원칙:</strong></p>
-<ul>
-<li>Application에서 Interface로 직접 접근 금지</li>
-<li>인접한 계층을 통한 통신</li>
-<li>재사용성을 고려한 모듈화</li>
-<li>하드웨어 특성을 고려한 소프트웨어 설계</li>
-</ul>
-<p>다음 포스트에서는 STM32CubeIDE를 활용한 고급 초기환경 설정을 알아보겠다.</p>
-<hr>
-<p><strong>이전 포스트</strong>: <a href="/posts/cortex-m-code-improvement-project">5-4. 코드 개선 과정 - 실제 프로젝트 적용</a><br><strong>다음 포스트</strong>: <a href="/posts/cortex-m-advanced-setup">7. 고급 초기환경 설정</a></p>
-</main>
-        
-        <blockquote class="mdui-m-x-0 mdui-m-t-4">
-    <strong>
-        Author: <a href="#">고은</a><br>
-        URL: <a href="https://www.goeun-oh.com/2025/06/22/cortex-m-software-stack/">https://www.goeun-oh.com/2025/06/22/cortex-m-software-stack/</a><br>
         
             라이선스
         
