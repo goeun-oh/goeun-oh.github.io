@@ -125,12 +125,6 @@
             <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
         </div>
         <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
-            <!-- 태그 페이지 링크 -->
-            <a href="<%- url_for(config.tag_dir + '/') %>" class="mdui-list-item mdui-ripple m">
-                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                <div class="mdui-list-item-content">모든 태그</div>
-            </a>
-            
             <% if(theme.drawer.links == true) { %>
             <!-- 링크 -->
             <a href="<%- url_for(theme.url.links) %>" class="mdui-list-item mdui-ripple m">
