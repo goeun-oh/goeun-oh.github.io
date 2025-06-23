@@ -105,125 +105,15 @@ padding: 3em 4em !important;
 max-width: 900px !important;
 margin: 0 auto !important;
 }
-        /* 시리즈 네비게이션 스타일 */
-        #category-series-nav {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-            color: white !important;
-            border-radius: 16px !important;
-            padding: 2.5em !important;
-            margin: 0 0 2.5em 0 !important;
-            box-shadow: 0 12px 40px rgba(102, 126, 234, 0.25) !important;
-            border: 1px solid rgba(255,255,255,0.1) !important;
-        }
-        
-        .series-header {
-            display: flex !important;
-            justify-content: space-between !important;
-            align-items: center !important;
-            margin-bottom: 1.8em !important;
-            border-bottom: 2px solid rgba(255,255,255,0.25) !important;
-            padding-bottom: 1.2em !important;
-        }
-        
-        .series-header h3 {
-            margin: 0 !important;
-            font-size: 1.5em !important;
-            font-weight: 700 !important;
-            border: none !important;
-            padding: 0 !important;
-            color: white !important;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.1) !important;
-        }
-        
-        .series-progress {
-            background: rgba(255,255,255,0.2) !important;
-            padding: 0.6em 1.2em !important;
-            border-radius: 25px !important;
-            font-size: 0.9em !important;
-            font-weight: 600 !important;
-            backdrop-filter: blur(10px) !important;
-        }
-        
-        .series-list {
-            list-style: none !important;
-            padding: 0 !important;
-            margin: 0 !important;
-            display: grid !important;
-            gap: 1em !important;
-        }
-        
-        .series-item {
-            display: flex !important;
-            align-items: center !important;
-            background: rgba(255,255,255,0.12) !important;
-            border-radius: 12px !important;
-            padding: 1.2em !important;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-            border: 1px solid rgba(255,255,255,0.15) !important;
-            backdrop-filter: blur(10px) !important;
-        }
-        
-        .series-item:hover {
-            background: rgba(255,255,255,0.2) !important;
-            transform: translateX(8px) translateY(-2px) !important;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
-        }
-        
-        .series-item.current {
-            background: rgba(255,255,255,0.25) !important;
-            border-color: rgba(255,255,255,0.4) !important;
-            transform: scale(1.02) !important;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.2) !important;
-        }
-        
-        .series-number {
-            background: rgba(255,255,255,0.95) !important;
-            color: #667eea !important;
-            width: 35px !important;
-            height: 35px !important;
-            border-radius: 50% !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            font-weight: 700 !important;
-            font-size: 0.95em !important;
-            margin-right: 1.2em !important;
-            flex-shrink: 0 !important;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
-        }
-        
-        .series-link {
-            color: white !important;
-            text-decoration: none !important;
-            font-weight: 500 !important;
-            font-size: 1em !important;
-            line-height: 1.5 !important;
-            flex: 1 !important;
-            opacity: 0.95 !important;
-        }
-        
-        .series-link:hover {
-            color: #fff !important;
-            opacity: 1 !important;
-        }
-        
-        .current-title {
-            color: white !important;
-            font-weight: 600 !important;
-            font-size: 1em !important;
-            line-height: 1.5 !important;
-            flex: 1 !important;
-        }
-        
-        .current-badge {
-            background: linear-gradient(135deg, #28a745, #20c997) !important;
-            color: white !important;
-            padding: 0.3em 0.8em !important;
-            border-radius: 15px !important;
-            font-size: 0.75em !important;
-            font-weight: 600 !important;
-            margin-left: 1em !important;
-            box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3) !important;
+
+```
+        /* 시리즈 네비게이션 완전히 숨기기 */
+        #category-series-nav,
+        .series-navigation,
+        .series-nav,
+        .category-series,
+        [class*="series"] {
+            display: none !important;
         }
         
         /* 목차 스타일 - 심플하게 */
@@ -570,27 +460,6 @@ margin: 0 auto !important;
                 padding: 2em 2em !important;
             }
             
-            #category-series-nav {
-                padding: 1.5em !important;
-                border-radius: 12px !important;
-            }
-            
-            .series-header {
-                flex-direction: column !important;
-                gap: 1em !important;
-                text-align: center !important;
-            }
-            
-            .series-item {
-                padding: 1em !important;
-            }
-            
-            .series-number {
-                width: 30px !important;
-                height: 30px !important;
-                font-size: 0.85em !important;
-            }
-            
             .e-content h1, .mdui-card-content.mdui-typo h1 { font-size: 2.2em !important; }
             .e-content h2, .mdui-card-content.mdui-typo h2 { font-size: 1.8em !important; }
             .e-content h3, .mdui-card-content.mdui-typo h3 { font-size: 1.5em !important; }
@@ -617,6 +486,7 @@ margin: 0 auto !important;
     `;
     document.head.appendChild(postStyles);
 }
+```
 
 });
 </script>
