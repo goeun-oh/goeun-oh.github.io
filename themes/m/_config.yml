@@ -41,16 +41,54 @@ appbar:
   search: true
   rss: false
 
+# 기술 블로그용 사이드바 설정
 drawer:
   avatar: 
-  toc: false
-  search: false
+  toc: true
+  search: true
   home: true
-  archives: true
-  categories: true
-  tags: true
+  archives: false
+  categories: false
+  tags: false
   links: false
   rss: false
+  custom:
+    "🔧 RISC-V":
+      href: "/categories/RISC-V/"
+      class: "material-icons"
+      content: "memory"
+    "🖥️ Cortex-M":
+      href: "/categories/Cortex-M/"
+      class: "material-icons"
+      content: "developer_board"
+    "📡 APB Protocol":
+      href: "/categories/APB/"
+      class: "material-icons"
+      content: "device_hub"
+    "⚡ Verilog 기초":
+      href: "/categories/Verilog/"
+      class: "material-icons"
+      content: "electrical_services"
+    "🔌 UART":
+      href: "/categories/UART/"
+      class: "material-icons"
+      content: "cable"
+    "🔄 I2C":
+      href: "/categories/I2C/"
+      class: "material-icons"
+      content: "sync_alt"
+    "📊 SPI":
+      href: "/categories/SPI/"
+      class: "material-icons"
+      content: "timeline"
+    "📚 전체 아카이브":
+      href: "/archives/"
+      class: "material-icons"
+      content: "archive"
+    "🏷️ 태그":
+      href: "/tags/"
+      class: "material-icons"
+      content: "local_offer"
 
 footer:
   since: 2024
@@ -58,7 +96,7 @@ footer:
   powered_by_hexo: true
   theme_m: true
   custom: |
-    <p>끊임없이 배우고 성장하는 개발자</p>
+    <p>임베디드 시스템과 하드웨어 설계</p>
 
 open_graph:
   google_analytics:
