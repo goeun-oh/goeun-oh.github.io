@@ -1,0 +1,16 @@
+/* MDUI 컨테이너 너비 확장 */
+.mdui-container-fluid.mdui-center {
+    max-width: 1200px !important;
+    width: 100% !important;
+}
+
+/* About 섹션 전체 확장 */
+.about-info-simple {
+    max-width: 1000px !important;
+    width: 100% !important;
+}
+
+/* 모든 MDUI 컨테이너 확장 (필요시) */
+.mdui-container-fluid {
+    max-width: 1200px !important;
+}
