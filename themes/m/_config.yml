@@ -41,51 +41,67 @@ appbar:
   search: true
   rss: false
 
-# 기술 블로그용 사이드바 설정
+# 기술 블로그용 사이드바 설정 (대분류별 그룹핑)
 drawer:
   avatar: 
   toc: true
   search: true
   home: true
   archives: false
-  categories: false
+  categories: true  # 카테고리 기능 활성화 (접을 수 있는 메뉴)
   tags: false
   links: false
   rss: false
   custom:
-    "🔧 RISC-V":
-      href: "/categories/RISC-V/"
+    "💻 프로세서 아키텍처":
+      href: "/categories/"
       class: "material-icons"
       content: "memory"
-    "🖥️ Cortex-M":
+    "--- RISC-V":
+      href: "/categories/RISC-V/"
+      class: "material-icons"
+      content: "chevron_right"
+    "--- ARM Cortex-M":
       href: "/categories/Cortex-M/"
       class: "material-icons"
-      content: "developer_board"
-    "📡 APB Protocol":
-      href: "/categories/APB/"
+      content: "chevron_right"
+    "🔌 통신 프로토콜":
+      href: "/categories/"
       class: "material-icons"
       content: "device_hub"
-    "⚡ Verilog 기초":
-      href: "/categories/Verilog/"
+    "--- APB Protocol":
+      href: "/categories/APB/"
       class: "material-icons"
-      content: "electrical_services"
-    "🔌 UART":
+      content: "chevron_right"
+    "--- UART":
       href: "/categories/UART/"
       class: "material-icons"
-      content: "cable"
-    "🔄 I2C":
+      content: "chevron_right"
+    "--- I2C":
       href: "/categories/I2C/"
       class: "material-icons"
-      content: "sync_alt"
-    "📊 SPI":
+      content: "chevron_right"
+    "--- SPI":
       href: "/categories/SPI/"
       class: "material-icons"
-      content: "timeline"
-    "📚 전체 아카이브":
+      content: "chevron_right"
+    "⚡ HDL & 설계":
+      href: "/categories/"
+      class: "material-icons"
+      content: "electrical_services"
+    "--- Verilog 기초":
+      href: "/categories/Verilog/"
+      class: "material-icons"
+      content: "chevron_right"
+    "📚 블로그 메뉴":
+      href: "/archives/"
+      class: "material-icons"
+      content: "menu_book"
+    "--- 전체 아카이브":
       href: "/archives/"
       class: "material-icons"
       content: "archive"
-    "🏷️ 태그":
+    "--- 태그 목록":
       href: "/tags/"
       class: "material-icons"
       content: "local_offer"
