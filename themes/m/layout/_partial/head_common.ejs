@@ -42,6 +42,11 @@
         <link rel=alternate type="application/rss+xml" href="<%= url_for(theme.url.rss) || '#' %>">
 <% }} %>
 
+<!-- Google Fonts 추가 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+
 <style>
     html,body{scroll-behavior:smooth;min-height:100vh}
     blockquote>strong>a{word-break:break-all}
@@ -57,26 +62,16 @@
 <!-- 블로그 포스트 페이지에서만 실행되는 스크립트 -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // URL에 날짜 패턴이 있으면 블로그 포스트로 판단 (예: /2025/06/23/)
-    const isPostPage = /\/\d{4}\/\d{2}\/\d{2}\//.test(window.location.pathname);
+    // .e-content 요소가 존재하고, 포트폴리오 페이지가 아닌 경우에만 적용
+    const hasEContent = document.querySelector('.e-content');
+    const isHomePage = window.location.pathname === '/' || window.location.pathname === '/index.html';
     
-    if (isPostPage) {
-        // Google Fonts 추가
-        const googleFontsLink = document.createElement('link');
-        googleFontsLink.rel = 'preconnect';
-        googleFontsLink.href = 'https://fonts.googleapis.com';
-        document.head.appendChild(googleFontsLink);
-        
-        const googleFontsLink2 = document.createElement('link');
-        googleFontsLink2.rel = 'preconnect';
-        googleFontsLink2.href = 'https://fonts.gstatic.com';
-        googleFontsLink2.crossOrigin = 'anonymous';
-        document.head.appendChild(googleFontsLink2);
-        
-        const fontLink = document.createElement('link');
-        fontLink.href = 'https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap';
-        fontLink.rel = 'stylesheet';
-        document.head.appendChild(fontLink);
+    console.log('Current URL:', window.location.pathname);
+    console.log('Has .e-content:', !!hasEContent);
+    console.log('Is home page:', isHomePage);
+    
+    if (hasEContent && !isHomePage) {
+        console.log('Applying blog post styles...');
         
         // 블로그 포스트 전용 CSS 적용
         const postStyles = document.createElement('style');
@@ -319,6 +314,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         `;
         document.head.appendChild(postStyles);
+    } else {
+        console.log('Not applying styles - either no .e-content or is home page');
     }
 });
 </script>
