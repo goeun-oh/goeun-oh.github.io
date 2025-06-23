@@ -1051,7 +1051,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <span><a class="tag-none-link" href="/tags/GPIO/" rel="tag">GPIO</a> <a class="tag-none-link" href="/tags/RCC/" rel="tag">RCC</a> <a class="tag-none-link" href="/tags/STM32CubeIDE/" rel="tag">STM32CubeIDE</a> <a class="tag-none-link" href="/tags/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%84%A4%EC%A0%95/" rel="tag">프로젝트설정</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 11:03'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 11:19'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/1.cortex-m-project-setup/</span>
@@ -1075,16 +1075,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <li>Target Selection에서 <strong>STM32F411RE</strong> 검색 및 선택</li>
 <li>Nucleo-64 보드 선택</li>
 </ul>
-<p><strong>3. 프로젝트 설정</strong></p>
-<ul>
-<li>프로젝트 이름을 입력한다</li>
-<li>저장 위치를 지정한다</li>
-<li>“Finish”를 클릭하여 프로젝트를 생성한다</li>
-</ul>
-<blockquote>
-<p><strong>팁</strong>: 프로젝트 이름은 영문과 숫자, 언더스코어만 사용하는 것이 좋다.</p>
-</blockquote>
-<h2 id="RCC-클럭-설정"><a href="#RCC-클럭-설정" class="headerlink" title="RCC (클럭) 설정"></a>RCC (클럭) 설정</h2><p>클럭 설정은 STM32 개발에서 가장 중요한 초기 설정 중 하나다.</p>
+<p><strong>3. 프로젝트 설정</strong><br>0618&#x2F;0.초기세팅&#x2F;gen_project.png</p>
+<h2 id="1-RCC-클럭-설정"><a href="#1-RCC-클럭-설정" class="headerlink" title="1. RCC (클럭) 설정"></a>1. RCC (클럭) 설정</h2><p>클럭 설정은 STM32 개발에서 가장 중요한 초기 설정 중 하나다.</p>
 <h3 id="클럭-소스-이해"><a href="#클럭-소스-이해" class="headerlink" title="클럭 소스 이해"></a>클럭 소스 이해</h3><p><strong>내부 클럭 (HSI - High Speed Internal)</strong></p>
 <ul>
 <li><strong>주파수</strong>: 16MHz 고정</li>
@@ -1105,11 +1097,13 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 </ul>
-<h3 id="RCC-설정-방법"><a href="#RCC-설정-방법" class="headerlink" title="RCC 설정 방법"></a>RCC 설정 방법</h3><p><strong>1. Clock Configuration 탭으로 이동</strong></p>
+<h3 id="RCC-설정-방법"><a href="#RCC-설정-방법" class="headerlink" title="RCC 설정 방법"></a>RCC 설정 방법</h3><p><strong>1. Clock Configuration 탭으로 이동</strong><br>0618&#x2F;0.초기세팅&#x2F;RCC.png</p>
+<p>RCC 클릭</p>
 <p><strong>2. HSE 설정</strong></p>
+<p>0618&#x2F;0.초기세팅&#x2F;RCC2.png</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RCC → High Speed Clock (HSE) → Crystal/Ceramic Resonator 선택</span><br></pre></td></tr></table></figure>
 
-<p><strong>3. PLL 설정</strong></p>
+<p><strong>3. PLL 설정</strong><br>0618&#x2F;0.초기세팅&#x2F;image.png</p>
 <ul>
 <li>HSE(8MHz)를 PLL 회로를 통해 100MHz로 증폭한다</li>
 <li>이 과정을 통해 시스템 클럭을 최대 성능으로 설정할 수 있다</li>
@@ -1126,6 +1120,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </blockquote>
 <h2 id="SYS-시스템-설정"><a href="#SYS-시스템-설정" class="headerlink" title="SYS (시스템) 설정"></a>SYS (시스템) 설정</h2><h3 id="Debug-설정"><a href="#Debug-설정" class="headerlink" title="Debug 설정"></a>Debug 설정</h3><p>디버깅을 위한 시스템 설정을 진행한다.</p>
 <p><strong>Debug 인터페이스 선택:</strong></p>
+<p>0618&#x2F;0.초기세팅&#x2F;sys.png</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SYS → Debug → Serial Wire 선택</span><br></pre></td></tr></table></figure>
 
 <p><strong>Serial Wire Debug (SWD)의 장점:</strong></p>
@@ -1141,7 +1136,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <p><strong>설정 단계:</strong></p>
 <p><strong>1. Pinout &amp; Configuration 탭에서 PA5 핀 찾기</strong></p>
 <p><strong>2. PA5 클릭 후 GPIO_Output 선택</strong></p>
-<p><strong>3. GPIO 설정 확인</strong></p>
+<p>0618&#x2F;0.초기세팅&#x2F;image-2.png</p>
+<p><strong>3. GPIO 설정 확인</strong><br>0618&#x2F;0.초기세팅&#x2F;image-3.png</p>
 <ul>
 <li><strong>GPIO output level</strong>: Low (초기값)</li>
 <li><strong>GPIO mode</strong>: Output Push Pull</li>
@@ -1244,7 +1240,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <span><a class="tag-none-link" href="/tags/GPIO/" rel="tag">GPIO</a> <a class="tag-none-link" href="/tags/LED%EC%A0%9C%EC%96%B4/" rel="tag">LED제어</a> <a class="tag-none-link" href="/tags/RCC/" rel="tag">RCC</a> <a class="tag-none-link" href="/tags/%EB%A0%88%EC%A7%80%EC%8A%A4%ED%84%B0/" rel="tag">레지스터</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 11:03'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 11:19'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/cortex-m-led-control-basics/</span>
