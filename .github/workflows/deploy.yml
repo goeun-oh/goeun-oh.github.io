@@ -8,7 +8,6 @@ jobs:
 deploy:
 runs-on: ubuntu-latest
 
-```
 steps:
 - uses: actions/checkout@v3
   with:
@@ -34,4 +33,3 @@ steps:
     github_token: ${{ secrets.GITHUB_TOKEN }}
     publish_dir: ./public
     publish_branch: gh-pages
-```
