@@ -63,70 +63,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const hasEContent = document.querySelector('.e-content');
     const isHomePage = window.location.pathname === '/' || window.location.pathname === '/index.html';
-    
-    if (hasEContent && !isHomePage) {
-        const categoryPosts = {
-            'Cortex-M': [
-                { title: '1. STM32 보드 소개', url: '/2025/06/23/0.cortex-m-board-introduction/' },
-                { title: '2. STM32CubeIDE 프로젝트 생성', url: '/2025/06/23/1.cortex-m-project-setup/' },
-                { title: '3. Cortex-M 초기환경 세팅 가이드', url: '/2025/06/23/cortex-m-initial-setup-guide/' },
-                { title: '4. 바텀부터 LED 제어하기', url: '/2025/06/23/cortex-m-led-control-basics/' },
-                { title: '5-1. 코드 개선 과정 - Define과 베이스 주소', url: '/2025/06/23/cortex-m-code-improvement-basic/' },
-                { title: '5-2. 코드 개선 과정 - 구조체 활용', url: '/2025/06/23/cortex-m-code-improvement-struct/' },
-                { title: '5-3. 코드 개선 과정 - 고급 기법과 성능', url: '/2025/06/23/cortex-m-code-improvement-advanced/' },
-                { title: '6. SW Stack과 모듈화', url: '/2025/06/23/cortex-m-software-stack/' },
-                { title: '7. 고급 초기환경 설정', url: '/2025/06/23/cortex-m-advanced-setup/' }
-            ]
-        };
-
-        function detectCurrentCategory() {
-            const currentPath = window.location.pathname;
-            if (currentPath.includes('/2025/') && currentPath.includes('cortex-m')) {
-                return 'Cortex-M';
-            }
-            return null;
-        }
-
-        function createCategoryTOC() {
-            if (document.getElementById('category-series-nav')) {
-                return;
-            }
-            
-            const currentCategory = detectCurrentCategory();
-            if (!currentCategory || !categoryPosts[currentCategory]) return;
-            
-            const posts = categoryPosts[currentCategory];
-            const currentPath = window.location.pathname;
-            
-            let tocHTML = `
-                <div id="category-series-nav">
-                    <div class="series-header">
-                        <h3>📚 ${currentCategory} 시리즈</h3>
-                        <div class="series-progress">총 ${posts.length}편</div>
-                    </div>
-                    <ul class="series-list">
-            `;
-            
-            posts.forEach((post, index) => {
-                const isCurrentPost = currentPath.includes(post.url.split('/').pop());
-                const postNumber = index + 1;
-                
-                tocHTML += `
-                    <li class="series-item ${isCurrentPost ? 'current' : ''}">
-                        <span class="series-number">${postNumber}</span>
-                        ${isCurrentPost ? 
-                            `<span class="series-title current-title">${post.title} <span class="current-badge">현재</span></span>` :
-                            `<a href="${post.url}" class="series-link">${post.title}</a>`
-                        }
-                    </li>
-                `;
-            });
-            
-            tocHTML += `</ul></div>`;
-            
-            const content = document.querySelector('.e-content');
-            content.insertAdjacentHTML('afterbegin', tocHTML);
-        }
 
         function createTOC() {
             if (document.getElementById('table-of-contents')) {
@@ -694,7 +630,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.head.appendChild(postStyles);
         
         setTimeout(() => {
-            createCategoryTOC();
             createTOC();
             initTOCToggle();
             initTOCHighlight();
