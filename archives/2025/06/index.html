@@ -82,125 +82,15 @@ padding: 3em 4em !important;
 max-width: 900px !important;
 margin: 0 auto !important;
 }
-        /* 시리즈 네비게이션 스타일 */
-        #category-series-nav {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-            color: white !important;
-            border-radius: 16px !important;
-            padding: 2.5em !important;
-            margin: 0 0 2.5em 0 !important;
-            box-shadow: 0 12px 40px rgba(102, 126, 234, 0.25) !important;
-            border: 1px solid rgba(255,255,255,0.1) !important;
-        }
-        
-        .series-header {
-            display: flex !important;
-            justify-content: space-between !important;
-            align-items: center !important;
-            margin-bottom: 1.8em !important;
-            border-bottom: 2px solid rgba(255,255,255,0.25) !important;
-            padding-bottom: 1.2em !important;
-        }
-        
-        .series-header h3 {
-            margin: 0 !important;
-            font-size: 1.5em !important;
-            font-weight: 700 !important;
-            border: none !important;
-            padding: 0 !important;
-            color: white !important;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.1) !important;
-        }
-        
-        .series-progress {
-            background: rgba(255,255,255,0.2) !important;
-            padding: 0.6em 1.2em !important;
-            border-radius: 25px !important;
-            font-size: 0.9em !important;
-            font-weight: 600 !important;
-            backdrop-filter: blur(10px) !important;
-        }
-        
-        .series-list {
-            list-style: none !important;
-            padding: 0 !important;
-            margin: 0 !important;
-            display: grid !important;
-            gap: 1em !important;
-        }
-        
-        .series-item {
-            display: flex !important;
-            align-items: center !important;
-            background: rgba(255,255,255,0.12) !important;
-            border-radius: 12px !important;
-            padding: 1.2em !important;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-            border: 1px solid rgba(255,255,255,0.15) !important;
-            backdrop-filter: blur(10px) !important;
-        }
-        
-        .series-item:hover {
-            background: rgba(255,255,255,0.2) !important;
-            transform: translateX(8px) translateY(-2px) !important;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
-        }
-        
-        .series-item.current {
-            background: rgba(255,255,255,0.25) !important;
-            border-color: rgba(255,255,255,0.4) !important;
-            transform: scale(1.02) !important;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.2) !important;
-        }
-        
-        .series-number {
-            background: rgba(255,255,255,0.95) !important;
-            color: #667eea !important;
-            width: 35px !important;
-            height: 35px !important;
-            border-radius: 50% !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            font-weight: 700 !important;
-            font-size: 0.95em !important;
-            margin-right: 1.2em !important;
-            flex-shrink: 0 !important;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
-        }
-        
-        .series-link {
-            color: white !important;
-            text-decoration: none !important;
-            font-weight: 500 !important;
-            font-size: 1em !important;
-            line-height: 1.5 !important;
-            flex: 1 !important;
-            opacity: 0.95 !important;
-        }
-        
-        .series-link:hover {
-            color: #fff !important;
-            opacity: 1 !important;
-        }
-        
-        .current-title {
-            color: white !important;
-            font-weight: 600 !important;
-            font-size: 1em !important;
-            line-height: 1.5 !important;
-            flex: 1 !important;
-        }
-        
-        .current-badge {
-            background: linear-gradient(135deg, #28a745, #20c997) !important;
-            color: white !important;
-            padding: 0.3em 0.8em !important;
-            border-radius: 15px !important;
-            font-size: 0.75em !important;
-            font-weight: 600 !important;
-            margin-left: 1em !important;
-            box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3) !important;
+
+```
+        /* 시리즈 네비게이션 완전히 숨기기 */
+        #category-series-nav,
+        .series-navigation,
+        .series-nav,
+        .category-series,
+        [class*="series"] {
+            display: none !important;
         }
         
         /* 목차 스타일 - 심플하게 */
@@ -547,27 +437,6 @@ margin: 0 auto !important;
                 padding: 2em 2em !important;
             }
             
-            #category-series-nav {
-                padding: 1.5em !important;
-                border-radius: 12px !important;
-            }
-            
-            .series-header {
-                flex-direction: column !important;
-                gap: 1em !important;
-                text-align: center !important;
-            }
-            
-            .series-item {
-                padding: 1em !important;
-            }
-            
-            .series-number {
-                width: 30px !important;
-                height: 30px !important;
-                font-size: 0.85em !important;
-            }
-            
             .e-content h1, .mdui-card-content.mdui-typo h1 { font-size: 2.2em !important; }
             .e-content h2, .mdui-card-content.mdui-typo h2 { font-size: 1.8em !important; }
             .e-content h3, .mdui-card-content.mdui-typo h3 { font-size: 1.5em !important; }
@@ -594,6 +463,7 @@ margin: 0 auto !important;
     `;
     document.head.appendChild(postStyles);
 }
+```
 
 });
 </script>
@@ -964,7 +834,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
     <div class="mdui-card-primary-subtitle mdui-typo">
         
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-24 07:57<br>Updated: 2025-06-24 07:57'}" datetime="2025-06-23T22:57:25.180Z">2025-06-24</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-24 08:04<br>Updated: 2025-06-24 08:04'}" datetime="2025-06-23T23:04:34.706Z">2025-06-24</time>
         <span>-</span>
         
             <a href="/2025/06/23/hello-world/">2025/06/23/hello-world/</a>
@@ -1220,7 +1090,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <span><a class="tag-none-link" href="/tags/Nucleo-64/" rel="tag">Nucleo-64</a> <a class="tag-none-link" href="/tags/STM32F411/" rel="tag">STM32F411</a> <a class="tag-none-link" href="/tags/%ED%95%98%EB%93%9C%EC%9B%A8%EC%96%B4/" rel="tag">하드웨어</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 07:57'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 08:04'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/0.cortex-m-board-introduction/</span>
@@ -1371,7 +1241,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <span><a class="tag-none-link" href="/tags/GPIO/" rel="tag">GPIO</a> <a class="tag-none-link" href="/tags/RCC/" rel="tag">RCC</a> <a class="tag-none-link" href="/tags/STM32CubeIDE/" rel="tag">STM32CubeIDE</a> <a class="tag-none-link" href="/tags/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%84%A4%EC%A0%95/" rel="tag">프로젝트설정</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 07:57'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 08:04'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/1.cortex-m-project-setup/</span>
@@ -1552,7 +1422,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <span><a class="tag-none-link" href="/tags/STM32CubeIDE/" rel="tag">STM32CubeIDE</a> <a class="tag-none-link" href="/tags/Timer/" rel="tag">Timer</a> <a class="tag-none-link" href="/tags/%EA%B3%A0%EA%B8%89%EC%84%A4%EC%A0%95/" rel="tag">고급설정</a> <a class="tag-none-link" href="/tags/%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1/" rel="tag">환경구성</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 07:57'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 08:04'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/cortex-m-advanced-setup/</span>
@@ -1757,7 +1627,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <span><a class="tag-none-link" href="/tags/BSRR/" rel="tag">BSRR</a> <a class="tag-none-link" href="/tags/%EA%B3%A0%EA%B8%89%EA%B8%B0%EB%B2%95/" rel="tag">고급기법</a> <a class="tag-none-link" href="/tags/%EB%B9%84%ED%8A%B8%ED%95%84%EB%93%9C/" rel="tag">비트필드</a> <a class="tag-none-link" href="/tags/%EC%84%B1%EB%8A%A5%EC%B5%9C%EC%A0%81%ED%99%94/" rel="tag">성능최적화</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 07:57'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 08:04'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/cortex-m-code-improvement-advanced/</span>
@@ -2035,7 +1905,7 @@ GPIOA<span class="token operator">-></span>  <span class="token comment">// 자�
         
         <span><a class="tag-none-link" href="/tags/Define/" rel="tag">Define</a> <a class="tag-none-link" href="/tags/%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81/" rel="tag">리팩토링</a> <a class="tag-none-link" href="/tags/%EB%B2%A0%EC%9D%B4%EC%8A%A4%EC%A3%BC%EC%86%8C/" rel="tag">베이스주소</a> <a class="tag-none-link" href="/tags/%EC%BD%94%EB%93%9C%EA%B0%9C%EC%84%A0/" rel="tag">코드개선</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 07:57'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 08:04'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/cortex-m-code-improvement-basic/</span>
@@ -2297,7 +2167,7 @@ GPIOA_MODER <span class="token operator">|=</span> <span class="token punctuatio
         
         <span><a class="tag-none-link" href="/tags/%EA%B5%AC%EC%A1%B0%EC%B2%B4/" rel="tag">구조체</a> <a class="tag-none-link" href="/tags/%EB%AA%A8%EB%93%88%ED%99%94/" rel="tag">모듈화</a> <a class="tag-none-link" href="/tags/%EC%BD%94%EB%93%9C%EA%B0%9C%EC%84%A0/" rel="tag">코드개선</a> <a class="tag-none-link" href="/tags/%ED%83%80%EC%9E%85%EC%95%88%EC%A0%84%EC%84%B1/" rel="tag">타입안전성</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 07:57'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 08:04'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/cortex-m-code-improvement-struct/</span>
@@ -2567,7 +2437,7 @@ GPIOA<span class="token operator">-></span>ODR <span class="token operator">^=</
         
         <span><a class="tag-none-link" href="/tags/STM32/" rel="tag">STM32</a> <a class="tag-none-link" href="/tags/%EA%B0%80%EC%9D%B4%EB%93%9C/" rel="tag">가이드</a> <a class="tag-none-link" href="/tags/%EC%B4%88%EA%B8%B0%ED%99%98%EA%B2%BD/" rel="tag">초기환경</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 07:57'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 08:04'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/cortex-m-initial-setup-guide/</span>
@@ -2672,7 +2542,7 @@ GPIOA<span class="token operator">-></span>ODR <span class="token operator">^=</
         
         <span><a class="tag-none-link" href="/tags/GPIO/" rel="tag">GPIO</a> <a class="tag-none-link" href="/tags/LED%EC%A0%9C%EC%96%B4/" rel="tag">LED제어</a> <a class="tag-none-link" href="/tags/RCC/" rel="tag">RCC</a> <a class="tag-none-link" href="/tags/%EB%A0%88%EC%A7%80%EC%8A%A4%ED%84%B0/" rel="tag">레지스터</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 07:57'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 08:04'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/cortex-m-led-control-basics/</span>
@@ -2905,7 +2775,7 @@ GPIOA<span class="token operator">-></span>ODR <span class="token operator">^=</
         
         <span><a class="tag-none-link" href="/tags/SW-Stack/" rel="tag">SW Stack</a> <a class="tag-none-link" href="/tags/%EA%B3%84%EC%B8%B5%EA%B5%AC%EC%A1%B0/" rel="tag">계층구조</a> <a class="tag-none-link" href="/tags/%EB%AA%A8%EB%93%88%ED%99%94/" rel="tag">모듈화</a> <a class="tag-none-link" href="/tags/%ED%8F%B4%EB%8D%94%EB%B6%84%EB%A6%AC/" rel="tag">폴더분리</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 07:57'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-24 08:04'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/cortex-m-software-stack/</span>
