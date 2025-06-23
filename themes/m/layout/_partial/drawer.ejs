@@ -1,5 +1,15 @@
+<style>
+.submenu-level-2 {
+    padding-left: 32px !important;
+}
+.submenu-level-3 {
+    padding-left: 56px !important;
+    font-size: 0.9em;
+}
+</style>
+
 <aside class="mdui-drawer<% if(theme.mdui.drawer_close == true) { %> mdui-drawer-close<% } %>">
-    <nav class="mdui-list" mdui-collapse="{accordion: true}">
+    <nav class="mdui-list" mdui-collapse="{accordion: false}">
         <a href="<%= url_for(theme.url.avatar) %>" class="mdui-list-item mdui-ripple h-card">
             <div class="mdui-list-item-avatar">
                 <% if(theme.drawer.avatar) { %>
@@ -32,55 +42,49 @@
         </div>
         <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
             
-            <!-- RISC-V 서브메뉴 -->
-            <div class="mdui-collapse-item">
-                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple m">
-                    <i class="mdui-list-item-icon mdui-icon material-icons">computer</i>
-                    <div class="mdui-list-item-content">RISC-V</div>
-                    <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
-                </div>
-                <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
-                    <a href="/categories/RISC-V/basic/" class="mdui-list-item mdui-ripple m">
-                        <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                        <div class="mdui-list-item-content">기초 개념</div>
-                    </a>
-                    <a href="/categories/RISC-V/instruction/" class="mdui-list-item mdui-ripple m">
-                        <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                        <div class="mdui-list-item-content">명령어 세트</div>
-                    </a>
-                    <a href="/categories/RISC-V/assembly/" class="mdui-list-item mdui-ripple m">
-                        <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                        <div class="mdui-list-item-content">어셈블리 프로그래밍</div>
-                    </a>
-                </div>
+            <!-- RISC-V 그룹 헤더 -->
+            <div class="mdui-list-item submenu-level-2" style="background-color: #f5f5f5;">
+                <i class="mdui-list-item-icon mdui-icon material-icons">computer</i>
+                <div class="mdui-list-item-content"><strong>RISC-V</strong></div>
             </div>
             
-            <!-- Cortex-M 서브메뉴 -->
-            <div class="mdui-collapse-item">
-                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple m">
-                    <i class="mdui-list-item-icon mdui-icon material-icons">memory</i>
-                    <div class="mdui-list-item-content">Cortex-M</div>
-                    <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
-                </div>
-                <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
-                    <a href="/categories/Cortex-M/setup/" class="mdui-list-item mdui-ripple m">
-                        <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                        <div class="mdui-list-item-content">초기환경 세팅</div>
-                    </a>
-                    <a href="/categories/Cortex-M/peripheral/" class="mdui-list-item mdui-ripple m">
-                        <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                        <div class="mdui-list-item-content">주변장치 제어</div>
-                    </a>
-                    <a href="/categories/Cortex-M/interrupt/" class="mdui-list-item mdui-ripple m">
-                        <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                        <div class="mdui-list-item-content">인터럽트 처리</div>
-                    </a>
-                    <a href="/categories/Cortex-M/rtos/" class="mdui-list-item mdui-ripple m">
-                        <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                        <div class="mdui-list-item-content">RTOS 활용</div>
-                    </a>
-                </div>
+            <!-- RISC-V 세부 항목들 -->
+            <a href="/categories/RISC-V/basic/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">기초 개념</div>
+            </a>
+            <a href="/categories/RISC-V/instruction/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">명령어 세트</div>
+            </a>
+            <a href="/categories/RISC-V/assembly/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">어셈블리 프로그래밍</div>
+            </a>
+            
+            <!-- Cortex-M 그룹 헤더 -->
+            <div class="mdui-list-item submenu-level-2" style="background-color: #f5f5f5; margin-top: 8px;">
+                <i class="mdui-list-item-icon mdui-icon material-icons">memory</i>
+                <div class="mdui-list-item-content"><strong>Cortex-M</strong></div>
             </div>
+            
+            <!-- Cortex-M 세부 항목들 -->
+            <a href="/categories/Cortex-M/setup/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">초기환경 세팅</div>
+            </a>
+            <a href="/categories/Cortex-M/peripheral/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">주변장치 제어</div>
+            </a>
+            <a href="/categories/Cortex-M/interrupt/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">인터럽트 처리</div>
+            </a>
+            <a href="/categories/Cortex-M/rtos/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">RTOS 활용</div>
+            </a>
             
         </div>
     </div>
@@ -226,5 +230,18 @@
         <% } %>
 </footer>
 
-
 </aside>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+        // 중첩된 collapse가 제대로 작동하도록 초기화
+        var collapseElements = document.querySelectorAll('.mdui-collapse-item');
+        collapseElements.forEach(function(element) {
+            if (window.mdui && mdui.Collapse) {
+                new mdui.Collapse(element);
+            }
+        });
+    }, 100);
+});
+</script>
