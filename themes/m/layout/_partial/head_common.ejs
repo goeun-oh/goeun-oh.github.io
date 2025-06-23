@@ -61,93 +61,11 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // .e-content 요소가 존재하고, 포트폴리오 페이지가 아닌 경우에만 적용
     const hasEContent = document.querySelector('.e-content');
     const isHomePage = window.location.pathname === '/' || window.location.pathname === '/index.html';
-
-        function createTOC() {
-            if (document.getElementById('table-of-contents')) {
-                return;
-            }
-            
-            const content = document.querySelector('.e-content');
-            const headings = content.querySelectorAll('h1, h2, h3, h4, h5, h6');
-            
-            if (headings.length < 2) return;
-            
-            headings.forEach((heading, index) => {
-                if (!heading.id) {
-                    const text = heading.textContent.trim();
-                    const id = 'heading-' + index + '-' + text.toLowerCase()
-                        .replace(/[^\w\s-가-힣]/g, '')
-                        .replace(/\s+/g, '-');
-                    heading.id = id;
-                }
-            });
-            
-            let tocHTML = '<div id="table-of-contents"><div class="toc-header"><h3>📑 이 글의 목차</h3><button id="toc-toggle" class="toc-toggle">접기</button></div><nav class="toc-nav"><ul class="toc-list">';
-            
-            headings.forEach((heading) => {
-                const level = parseInt(heading.tagName.charAt(1));
-                const text = heading.textContent.trim();
-                const id = heading.id;
-                
-                tocHTML += `<li class="toc-item toc-level-${level}">
-                    <a href="#${id}" class="toc-link">${text}</a>
-                </li>`;
-            });
-            
-            tocHTML += '</ul></nav></div>';
-            
-            const seriesNav = document.getElementById('category-series-nav');
-            if (seriesNav) {
-                seriesNav.insertAdjacentHTML('afterend', tocHTML);
-            } else {
-                content.insertAdjacentHTML('afterbegin', tocHTML);
-            }
-        }
         
-        function initTOCToggle() {
-            const toggleBtn = document.getElementById('toc-toggle');
-            const tocNav = document.querySelector('.toc-nav');
-            
-            if (toggleBtn && tocNav) {
-                toggleBtn.addEventListener('click', function() {
-                    if (tocNav.style.display === 'none') {
-                        tocNav.style.display = 'block';
-                        toggleBtn.textContent = '접기';
-                    } else {
-                        tocNav.style.display = 'none';
-                        toggleBtn.textContent = '펼치기';
-                    }
-                });
-            }
-        }
-        
-        function initTOCHighlight() {
-            const tocLinks = document.querySelectorAll('.toc-link');
-            const headings = document.querySelectorAll('.e-content h1, .e-content h2, .e-content h3, .e-content h4, .e-content h5, .e-content h6');
-            
-            function updateActiveLink() {
-                let current = '';
-                headings.forEach(heading => {
-                    const rect = heading.getBoundingClientRect();
-                    if (rect.top <= 100) {
-                        current = heading.id;
-                    }
-                });
-                
-                tocLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === '#' + current) {
-                        link.classList.add('active');
-                    }
-                });
-            }
-            
-            window.addEventListener('scroll', updateActiveLink);
-            updateActiveLink();
-        }
-        
+		if (hasEContent && !isHomePage) {
         const postStyles = document.createElement('style');
         postStyles.textContent = `.mdui-card-content.mdui-typo {
                 padding: 3em 4em !important;
@@ -629,11 +547,6 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         document.head.appendChild(postStyles);
         
-        setTimeout(() => {
-            createTOC();
-            initTOCToggle();
-            initTOCHighlight();
-        }, 100);
     }
 });
 </script>
