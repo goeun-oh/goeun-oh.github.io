@@ -22,7 +22,70 @@
             <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
             <div class="mdui-list-item-content"><%= __("common.home") %></div>
         </a>
-        <% } if(theme.drawer.archives == true) { %>
+        <% } %>
+        
+        <!-- 프로세서 아키텍처 -->
+        <div class="mdui-collapse-item">
+            <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">memory</i>
+                <div class="mdui-list-item-content">💻 프로세서 아키텍처</div>
+                <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+            </div>
+            <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                <a href="/categories/RISC-V/" class="mdui-list-item mdui-ripple m">
+                    <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                    <div class="mdui-list-item-content">RISC-V</div>
+                </a>
+                <a href="/categories/Cortex-M/" class="mdui-list-item mdui-ripple m">
+                    <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                    <div class="mdui-list-item-content">Cortex-M</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- 통신 프로토콜 -->
+        <div class="mdui-collapse-item">
+            <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">device_hub</i>
+                <div class="mdui-list-item-content">🔌 통신 프로토콜</div>
+                <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+            </div>
+            <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                <a href="/categories/APB/" class="mdui-list-item mdui-ripple m">
+                    <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                    <div class="mdui-list-item-content">APB Protocol</div>
+                </a>
+                <a href="/categories/UART/" class="mdui-list-item mdui-ripple m">
+                    <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                    <div class="mdui-list-item-content">UART</div>
+                </a>
+                <a href="/categories/I2C/" class="mdui-list-item mdui-ripple m">
+                    <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                    <div class="mdui-list-item-content">I2C</div>
+                </a>
+                <a href="/categories/SPI/" class="mdui-list-item mdui-ripple m">
+                    <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                    <div class="mdui-list-item-content">SPI</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- HDL & 설계 -->
+        <div class="mdui-collapse-item">
+            <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">electrical_services</i>
+                <div class="mdui-list-item-content">⚡ HDL & 설계</div>
+                <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+            </div>
+            <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                <a href="/categories/Verilog/" class="mdui-list-item mdui-ripple m">
+                    <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                    <div class="mdui-list-item-content">Verilog 기초</div>
+                </a>
+            </div>
+        </div>
+
+        <% if(theme.drawer.archives == true) { %>
         <div class="mdui-collapse-item">
             <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
                 <i class="mdui-list-item-icon mdui-icon material-icons">inbox</i>
