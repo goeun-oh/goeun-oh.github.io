@@ -44,7 +44,7 @@ layout: post
 HCLK이 APB Prescaler를 거쳐 Peripheral Clock이 된다:
 - **Timer는 100MHz로 설정된다**
 
-![클럭 분배](https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/stm32_%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1.mdimage-2.png)
+![클럭 분배](https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/stm32_%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1.md/image-2.png)
 
 ## 🔧 2. Debugging 설정
 
