@@ -19,6 +19,11 @@
 <meta name="theme-color" content="#3F51B5">
 
 
+<!-- Google Fonts 추가 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+
 <style>
     html,body{scroll-behavior:smooth;min-height:100vh}
     blockquote>strong>a{word-break:break-all}
@@ -35,26 +40,16 @@
 <!-- 블로그 포스트 페이지에서만 실행되는 스크립트 -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // URL에 날짜 패턴이 있으면 블로그 포스트로 판단 (예: /2025/06/23/)
-    const isPostPage = /\/\d{4}\/\d{2}\/\d{2}\//.test(window.location.pathname);
+    // .e-content 요소가 존재하고, 포트폴리오 페이지가 아닌 경우에만 적용
+    const hasEContent = document.querySelector('.e-content');
+    const isHomePage = window.location.pathname === '/' || window.location.pathname === '/index.html';
     
-    if (isPostPage) {
-        // Google Fonts 추가
-        const googleFontsLink = document.createElement('link');
-        googleFontsLink.rel = 'preconnect';
-        googleFontsLink.href = 'https://fonts.googleapis.com';
-        document.head.appendChild(googleFontsLink);
-        
-        const googleFontsLink2 = document.createElement('link');
-        googleFontsLink2.rel = 'preconnect';
-        googleFontsLink2.href = 'https://fonts.gstatic.com';
-        googleFontsLink2.crossOrigin = 'anonymous';
-        document.head.appendChild(googleFontsLink2);
-        
-        const fontLink = document.createElement('link');
-        fontLink.href = 'https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap';
-        fontLink.rel = 'stylesheet';
-        document.head.appendChild(fontLink);
+    console.log('Current URL:', window.location.pathname);
+    console.log('Has .e-content:', !!hasEContent);
+    console.log('Is home page:', isHomePage);
+    
+    if (hasEContent && !isHomePage) {
+        console.log('Applying blog post styles...');
         
         // 블로그 포스트 전용 CSS 적용
         const postStyles = document.createElement('style');
@@ -297,6 +292,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         `;
         document.head.appendChild(postStyles);
+    } else {
+        console.log('Not applying styles - either no .e-content or is home page');
     }
 });
 </script>
@@ -311,7 +308,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <meta property="og:description" content="코드 개선 과정 - Define과 베이스 주소이번 포스트에서는 기본적인 레지스터 제어 코드를 단계적으로 개선하여 더욱 가독성 있고 유지보수 가능한 코드로 발전시키는 과정을 다룬다. 🎯 개선의 필요성기존 코드의 문제점이전 포스트에서 작성한 코드는 다음과 같은 문제점들을 가지고 있다: 1234&#x2F;&#x2F; 문제점이 있는 코드*(volatile uint32_t *)0x">
 <meta property="og:locale" content="ko_KR">
 <meta property="article:published_time" content="2025-06-22T15:00:00.000Z">
-<meta property="article:modified_time" content="2025-06-23T12:28:57.437Z">
+<meta property="article:modified_time" content="2025-06-23T12:30:40.724Z">
 <meta property="article:author" content="고은">
 <meta property="article:tag" content="코드개선">
 <meta property="article:tag" content="Define">
@@ -673,7 +670,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <span><a class="tag-none-link" href="/tags/Define/" rel="tag">Define</a> <a class="tag-none-link" href="/tags/%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81/" rel="tag">리팩토링</a> <a class="tag-none-link" href="/tags/%EB%B2%A0%EC%9D%B4%EC%8A%A4%EC%A3%BC%EC%86%8C/" rel="tag">베이스주소</a> <a class="tag-none-link" href="/tags/%EC%BD%94%EB%93%9C%EA%B0%9C%EC%84%A0/" rel="tag">코드개선</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 09:28'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 09:30'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/cortex-m-code-improvement-basic/</span>
@@ -798,15 +795,15 @@ document.addEventListener('DOMContentLoaded', function() {
     
         <div class="mdui-col-xs-12 mdui-m-b-2">
             <a class="extend prev mdui-btn mdui-ripple mdui-float-left mdui-text-truncate" rel="prev"
-                style="max-width: 100%" href="/2025/06/22/cortex-m-board-introduction/">
-                <i class="mdui-icon mdui-icon-left material-icons">arrow_back</i>1. STM32 보드 소개
+                style="max-width: 100%" href="/2025/06/22/cortex-m-code-improvement-advanced/">
+                <i class="mdui-icon mdui-icon-left material-icons">arrow_back</i>5-3. 코드 개선 과정 - 고급 기법과 성능
             </a>
         </div>
     
         <div class="mdui-col-xs-12">
             <a class="extend next mdui-btn mdui-ripple mdui-float-right mdui-text-truncate" rel="next"
-                style="max-width: 100%" href="/2025/06/22/cortex-m-code-improvement-advanced/">
-                <i class="mdui-icon mdui-icon-right material-icons">arrow_forward</i>5-3. 코드 개선 과정 - 고급 기법과 성능
+                style="max-width: 100%" href="/2025/06/22/cortex-m-code-improvement-struct/">
+                <i class="mdui-icon mdui-icon-right material-icons">arrow_forward</i>5-2. 코드 개선 과정 - 구조체 활용
             </a>
         </div>
     
