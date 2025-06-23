@@ -37,22 +37,16 @@
     
 </style>
 
-<!-- 블로그 포스트 페이지에서만 실행되는 스크립트 -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // .e-content 요소가 존재하고, 포트폴리오 페이지가 아닌 경우에만 적용
     const hasEContent = document.querySelector('.e-content');
     const isHomePage = window.location.pathname === '/' || window.location.pathname === '/index.html';
     
     if (hasEContent && !isHomePage) {
-        // 목차 생성 함수
-                // 기존 JavaScript 코드에서 createContentTOC() 함수 호출 전에 이 코드들을 추가하세요:
-
-        // 카테고리별 게시글 목차 데이터
         const categoryPosts = {
             'Cortex-M': [
-                { title: '1. STM32 보드 소개', url: '/2025/06/23/cortex-m-board-introduction/' },
-                { title: '2. STM32CubeIDE 프로젝트 생성', url: '/2025/06/23/cortex-m-project-setup/' },
+                { title: '1. STM32 보드 소개', url: '/2025/06/23/0.cortex-m-board-introduction/' },
+                { title: '2. STM32CubeIDE 프로젝트 생성', url: '/2025/06/23/1.cortex-m-project-setup/' },
                 { title: '3. Cortex-M 초기환경 세팅 가이드', url: '/2025/06/23/cortex-m-initial-setup-guide/' },
                 { title: '4. 바텀부터 LED 제어하기', url: '/2025/06/23/cortex-m-led-control-basics/' },
                 { title: '5-1. 코드 개선 과정 - Define과 베이스 주소', url: '/2025/06/23/cortex-m-code-improvement-basic/' },
@@ -65,19 +59,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
         function detectCurrentCategory() {
             const currentPath = window.location.pathname;
-            
-            // Cortex-M 카테고리 페이지이거나 cortex-m 포스트인 경우
-            if (currentPath.includes('/categories/Cortex-M/') || 
-                currentPath.includes('cortex-m') || 
-                currentPath.toLowerCase().includes('cortex')) {
+            if (currentPath.includes('/2025/') && currentPath.includes('cortex-m')) {
                 return 'Cortex-M';
             }
-            
             return null;
         }
 
-        // 카테고리 목차 생성
         function createCategoryTOC() {
+            if (document.getElementById('category-series-nav')) {
+                return;
+            }
+            
             const currentCategory = detectCurrentCategory();
             if (!currentCategory || !categoryPosts[currentCategory]) return;
             
@@ -101,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <li class="series-item ${isCurrentPost ? 'current' : ''}">
                         <span class="series-number">${postNumber}</span>
                         ${isCurrentPost ? 
-                            `<span class="series-title current-title">${post.title} (현재)</span>` :
+                            `<span class="series-title current-title">${post.title} <span class="current-badge">현재</span></span>` :
                             `<a href="${post.url}" class="series-link">${post.title}</a>`
                         }
                     </li>
@@ -114,20 +106,16 @@ document.addEventListener('DOMContentLoaded', function() {
             content.insertAdjacentHTML('afterbegin', tocHTML);
         }
 
-        // 함수 호출을 다음과 같이 수정:
-        setTimeout(() => {
-            createCategoryTOC();  // 이 줄을 추가
-            createTOC();          // 기존 createTOC() 호출 전에
-            initTOCToggle();
-            initTOCHighlight();
-        }, 100);
         function createTOC() {
+            if (document.getElementById('table-of-contents')) {
+                return;
+            }
+            
             const content = document.querySelector('.e-content');
             const headings = content.querySelectorAll('h1, h2, h3, h4, h5, h6');
             
-            if (headings.length < 2) return; // 헤딩이 2개 미만이면 목차 생성 안함
+            if (headings.length < 2) return;
             
-            // 각 헤딩에 ID 추가
             headings.forEach((heading, index) => {
                 if (!heading.id) {
                     const text = heading.textContent.trim();
@@ -138,8 +126,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
             
-            // 목차 HTML 생성
-            let tocHTML = '<div id="table-of-contents"><div class="toc-header"><h3>📑 목차</h3><button id="toc-toggle" class="toc-toggle">접기</button></div><nav class="toc-nav"><ul class="toc-list">';
+            let tocHTML = '<div id="table-of-contents"><div class="toc-header"><h3>📑 이 글의 목차</h3><button id="toc-toggle" class="toc-toggle">접기</button></div><nav class="toc-nav"><ul class="toc-list">';
             
             headings.forEach((heading) => {
                 const level = parseInt(heading.tagName.charAt(1));
@@ -153,11 +140,14 @@ document.addEventListener('DOMContentLoaded', function() {
             
             tocHTML += '</ul></nav></div>';
             
-            // 목차를 본문 앞에 삽입
-            content.insertAdjacentHTML('afterbegin', tocHTML);
+            const seriesNav = document.getElementById('category-series-nav');
+            if (seriesNav) {
+                seriesNav.insertAdjacentHTML('afterend', tocHTML);
+            } else {
+                content.insertAdjacentHTML('afterbegin', tocHTML);
+            }
         }
         
-        // 목차 토글 기능
         function initTOCToggle() {
             const toggleBtn = document.getElementById('toc-toggle');
             const tocNav = document.querySelector('.toc-nav');
@@ -175,7 +165,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        // 스크롤 시 현재 섹션 하이라이트
         function initTOCHighlight() {
             const tocLinks = document.querySelectorAll('.toc-link');
             const headings = document.querySelectorAll('.e-content h1, .e-content h2, .e-content h3, .e-content h4, .e-content h5, .e-content h6');
@@ -198,23 +187,16 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             window.addEventListener('scroll', updateActiveLink);
-            updateActiveLink(); // 초기 호출
+            updateActiveLink();
         }
         
-        // 블로그 포스트 전용 CSS 적용
         const postStyles = document.createElement('style');
-        postStyles.textContent = `
-            /* 블로그 포스트 내용에만 적용되는 가독성 개선 CSS */
-            
-            /* 카드 컨테이너 자체에 여백 추가 */
-            .mdui-card-content.mdui-typo {
+        postStyles.textContent = `.mdui-card-content.mdui-typo {
                 padding: 3em 4em !important;
                 max-width: 900px !important;
                 margin: 0 auto !important;
             }
-            /* 기존 CSS 스타일에 이 코드들을 추가하세요: */
-
-            /* 카테고리 시리즈 네비게이션 */
+            
             #category-series-nav {
                 background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
                 color: white !important;
@@ -223,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 margin: 0 0 2em 0 !important;
                 box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3) !important;
             }
-
+            
             .series-header {
                 display: flex !important;
                 justify-content: space-between !important;
@@ -232,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 border-bottom: 2px solid rgba(255,255,255,0.3) !important;
                 padding-bottom: 1em !important;
             }
-
+            
             .series-header h3 {
                 margin: 0 !important;
                 font-size: 1.4em !important;
@@ -241,7 +223,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 padding: 0 !important;
                 color: white !important;
             }
-
+            
             .series-progress {
                 background: rgba(255,255,255,0.2) !important;
                 padding: 0.5em 1em !important;
@@ -249,7 +231,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 font-size: 0.9em !important;
                 font-weight: 500 !important;
             }
-
+            
             .series-list {
                 list-style: none !important;
                 padding: 0 !important;
@@ -257,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 display: grid !important;
                 gap: 0.8em !important;
             }
-
+            
             .series-item {
                 display: flex !important;
                 align-items: center !important;
@@ -267,18 +249,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 transition: all 0.3s ease !important;
                 border: 1px solid rgba(255,255,255,0.2) !important;
             }
-
+            
             .series-item:hover {
                 background: rgba(255,255,255,0.2) !important;
                 transform: translateX(5px) !important;
             }
-
+            
             .series-item.current {
                 background: rgba(255,255,255,0.25) !important;
                 border-color: rgba(255,255,255,0.5) !important;
                 transform: scale(1.02) !important;
             }
-
+            
             .series-number {
                 background: rgba(255,255,255,0.9) !important;
                 color: #667eea !important;
@@ -293,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 margin-right: 1em !important;
                 flex-shrink: 0 !important;
             }
-
+            
             .series-link {
                 color: white !important;
                 text-decoration: none !important;
@@ -302,48 +284,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 line-height: 1.4 !important;
                 flex: 1 !important;
             }
-
+            
             .series-link:hover {
                 color: #fff !important;
             }
-
+            
             .current-title {
                 color: white !important;
                 font-weight: 600 !important;
                 font-size: 0.95em !important;
                 line-height: 1.4 !important;
+                flex: 1 !important;
             }
-
-            /* 모바일 반응형 */
-            @media (max-width: 768px) {
-                #category-series-nav {
-                    padding: 1.5em !important;
-                    margin: 0 0 1.5em 0 !important;
-                }
-                
-                .series-header {
-                    flex-direction: column !important;
-                    gap: 0.5em !important;
-                    text-align: center !important;
-                }
-                
-                .series-item {
-                    padding: 0.8em !important;
-                }
-                
-                .series-number {
-                    width: 25px !important;
-                    height: 25px !important;
-                    font-size: 0.8em !important;
-                    margin-right: 0.8em !important;
-                }
-                
-                .series-link,
-                .current-title {
-                    font-size: 0.9em !important;
-                }
+            
+            .current-badge {
+                background: #28a745 !important;
+                color: white !important;
+                padding: 0.2em 0.6em !important;
+                border-radius: 12px !important;
+                font-size: 0.7em !important;
+                font-weight: 600 !important;
+                margin-left: 1em !important;
             }
-            /* 목차 스타일 */
+            
             #table-of-contents {
                 background: #f8f9ff !important;
                 border: 2px solid #e3f2fd !important;
@@ -351,7 +314,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 padding: 1.5em !important;
                 margin: 0 0 3em 0 !important;
                 box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
-                position: relative !important;
             }
             
             .toc-header {
@@ -403,29 +365,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 line-height: 1.4 !important;
             }
             
-            .toc-level-1 {
-                font-weight: 600 !important;
-            }
-            
-            .toc-level-2 {
-                padding-left: 1em !important;
-                font-weight: 500 !important;
-            }
-            
-            .toc-level-3 {
-                padding-left: 2em !important;
-            }
-            
-            .toc-level-4 {
-                padding-left: 3em !important;
-                font-size: 0.9em !important;
-            }
-            
-            .toc-level-5,
-            .toc-level-6 {
-                padding-left: 4em !important;
-                font-size: 0.85em !important;
-            }
+            .toc-level-1 { font-weight: 600 !important; }
+            .toc-level-2 { padding-left: 1em !important; font-weight: 500 !important; }
+            .toc-level-3 { padding-left: 2em !important; }
+            .toc-level-4 { padding-left: 3em !important; font-size: 0.9em !important; }
+            .toc-level-5, .toc-level-6 { padding-left: 4em !important; font-size: 0.85em !important; }
             
             .toc-link {
                 color: #34495e !important;
@@ -456,13 +400,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 padding: 0 !important;
             }
             
-            .e-content,
-            .e-content p,
-            .e-content div,
-            .e-content span,
-            .e-content li,
-            .e-content td,
-            .e-content th {
+            .e-content, .e-content p, .e-content div, .e-content span, .e-content li, .e-content td, .e-content th {
                 font-size: 17px !important;
                 line-height: 1.8 !important;
                 color: #333 !important;
@@ -511,8 +449,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 scroll-margin-top: 100px !important;
             }
             
-            .e-content h5,
-            .e-content h6 {
+            .e-content h5, .e-content h6 {
                 font-size: 1.1em !important;
                 margin: 1em 0 0.5em 0 !important;
                 font-weight: 600 !important;
@@ -520,8 +457,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 scroll-margin-top: 100px !important;
             }
             
-            .e-content ul, 
-            .e-content ol {
+            .e-content ul, .e-content ol {
                 margin: 1.5em 0 !important;
                 padding-left: 2.2em !important;
             }
@@ -560,8 +496,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 font-weight: normal !important;
             }
             
-            .e-content p code, 
-            .e-content li code {
+            .e-content p code, .e-content li code {
                 background: #fff2f2 !important;
                 color: #d73a49 !important;
                 font-weight: 600 !important;
@@ -588,8 +523,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 overflow: hidden !important;
             }
             
-            .e-content th,
-            .e-content td {
+            .e-content th, .e-content td {
                 border: 1px solid #ddd !important;
                 padding: 15px !important;
                 text-align: left !important;
@@ -645,17 +579,41 @@ document.addEventListener('DOMContentLoaded', function() {
                 font-style: italic !important;
             }
             
-            /* 태블릿 반응형 */
             @media (max-width: 1024px) {
                 .mdui-card-content.mdui-typo {
                     padding: 2.5em 3em !important;
                 }
             }
             
-            /* 모바일 반응형 */
             @media (max-width: 768px) {
                 .mdui-card-content.mdui-typo {
                     padding: 2em 2em !important;
+                }
+                
+                #category-series-nav {
+                    padding: 1.5em !important;
+                    margin: 0 0 1.5em 0 !important;
+                }
+                
+                .series-header {
+                    flex-direction: column !important;
+                    gap: 0.5em !important;
+                    text-align: center !important;
+                }
+                
+                .series-item {
+                    padding: 0.8em !important;
+                }
+                
+                .series-number {
+                    width: 25px !important;
+                    height: 25px !important;
+                    font-size: 0.8em !important;
+                    margin-right: 0.8em !important;
+                }
+                
+                .series-link, .current-title {
+                    font-size: 0.9em !important;
                 }
                 
                 #table-of-contents {
@@ -668,54 +626,26 @@ document.addEventListener('DOMContentLoaded', function() {
                     gap: 0.5em !important;
                 }
                 
-                .toc-level-2 {
-                    padding-left: 0.5em !important;
-                }
+                .toc-level-2 { padding-left: 0.5em !important; }
+                .toc-level-3 { padding-left: 1em !important; }
+                .toc-level-4 { padding-left: 1.5em !important; }
+                .toc-level-5, .toc-level-6 { padding-left: 2em !important; }
                 
-                .toc-level-3 {
-                    padding-left: 1em !important;
-                }
-                
-                .toc-level-4 {
-                    padding-left: 1.5em !important;
-                }
-                
-                .toc-level-5,
-                .toc-level-6 {
-                    padding-left: 2em !important;
-                }
-                
-                .e-content,
-                .e-content p,
-                .e-content div,
-                .e-content span,
-                .e-content li {
+                .e-content, .e-content p, .e-content div, .e-content span, .e-content li {
                     font-size: 16px !important;
                 }
                 
-                .e-content h1 {
-                    font-size: 2.0em !important;
-                }
-                
-                .e-content h2 {
-                    font-size: 1.7em !important;
-                }
-                
-                .e-content h3 {
-                    font-size: 1.4em !important;
-                }
+                .e-content h1 { font-size: 2.0em !important; }
+                .e-content h2 { font-size: 1.7em !important; }
+                .e-content h3 { font-size: 1.4em !important; }
                 
                 .e-content pre {
                     padding: 1em !important;
                     font-size: 14px !important;
                 }
                 
-                .e-content table {
-                    font-size: 14px !important;
-                }
-                
-                .e-content th,
-                .e-content td {
+                .e-content table { font-size: 14px !important; }
+                .e-content th, .e-content td {
                     padding: 10px !important;
                     font-size: 14px !important;
                 }
@@ -726,11 +656,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     padding: 1.5em 1.5em !important;
                 }
                 
-                .e-content,
-                .e-content p,
-                .e-content div,
-                .e-content span,
-                .e-content li {
+                .e-content, .e-content p, .e-content div, .e-content span, .e-content li {
                     font-size: 15px !important;
                 }
                 
@@ -745,7 +671,6 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         document.head.appendChild(postStyles);
         
-        // 목차 생성 및 기능 초기화
         setTimeout(() => {
             createCategoryTOC();
             createTOC();
@@ -758,15 +683,15 @@ document.addEventListener('DOMContentLoaded', function() {
     
     <title>2. STM32CubeIDE 프로젝트 생성 | </title>
     <link rel="canonical" href="https://www.goeun-oh.com/2025/06/22/1.cortex-m-project-setup/">
-    <meta name="description" content="STM32CubeIDE 프로젝트 생성이번 포스트에서는 STM32CubeIDE를 사용하여 새 프로젝트를 생성하고 기본적인 설정을 진행한다. 🚀 기본 프로젝트 설정프로젝트 생성 단계1. STM32CubeIDE 실행  STM32CubeIDE를 실행한다 “File → New → STM32 Project” 선택  2. MCU 선택  Target Selection에">
+    <meta name="description" content="STM32CubeIDE 프로젝트 생성이번 포스트에서는 STM32CubeIDE를 사용하여 새 프로젝트를 생성하고 기본적인 설정을 진행한다. 기본 프로젝트 설정프로젝트 생성 단계1. STM32CubeIDE 실행  STM32CubeIDE를 실행한다 “File → New → STM32 Project” 선택  2. MCU 선택  Target Selection에서 S">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2. STM32CubeIDE 프로젝트 생성">
 <meta property="og:url" content="https://www.goeun-oh.com/2025/06/22/1.cortex-m-project-setup/index.html">
 <meta property="og:site_name">
-<meta property="og:description" content="STM32CubeIDE 프로젝트 생성이번 포스트에서는 STM32CubeIDE를 사용하여 새 프로젝트를 생성하고 기본적인 설정을 진행한다. 🚀 기본 프로젝트 설정프로젝트 생성 단계1. STM32CubeIDE 실행  STM32CubeIDE를 실행한다 “File → New → STM32 Project” 선택  2. MCU 선택  Target Selection에">
+<meta property="og:description" content="STM32CubeIDE 프로젝트 생성이번 포스트에서는 STM32CubeIDE를 사용하여 새 프로젝트를 생성하고 기본적인 설정을 진행한다. 기본 프로젝트 설정프로젝트 생성 단계1. STM32CubeIDE 실행  STM32CubeIDE를 실행한다 “File → New → STM32 Project” 선택  2. MCU 선택  Target Selection에서 S">
 <meta property="og:locale" content="ko_KR">
 <meta property="article:published_time" content="2025-06-22T15:00:00.000Z">
-<meta property="article:modified_time" content="2025-06-23T12:57:25.644Z">
+<meta property="article:modified_time" content="2025-06-23T13:24:29.254Z">
 <meta property="article:author" content="고은">
 <meta property="article:tag" content="STM32CubeIDE">
 <meta property="article:tag" content="프로젝트설정">
@@ -1121,14 +1046,14 @@ document.addEventListener('DOMContentLoaded', function() {
         <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" >2. STM32CubeIDE 프로젝트 생성</a>
         <a class="p-author h-card" style="display:none" href="https://www.goeun-oh.com">고은</a>
         
-        <small> <a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/">Cortex-M</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/setup/">setup</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/setup/2-STM32CubeIDE%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%83%9D%EC%84%B1/">2.STM32CubeIDE프로젝트생성</a></small>
+        <small> <a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/">Cortex-M</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/setup/">setup</a></small>
         
     </div>
     <div class="mdui-card-primary-subtitle mdui-typo">
         
         <span><a class="tag-none-link" href="/tags/GPIO/" rel="tag">GPIO</a> <a class="tag-none-link" href="/tags/RCC/" rel="tag">RCC</a> <a class="tag-none-link" href="/tags/STM32CubeIDE/" rel="tag">STM32CubeIDE</a> <a class="tag-none-link" href="/tags/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%84%A4%EC%A0%95/" rel="tag">프로젝트설정</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 09:57'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 10:24'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/1.cortex-m-project-setup/</span>
@@ -1142,7 +1067,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <div class="p-summary" style="display:none"></div>
         <main class="e-content"><h1 id="STM32CubeIDE-프로젝트-생성"><a href="#STM32CubeIDE-프로젝트-생성" class="headerlink" title="STM32CubeIDE 프로젝트 생성"></a>STM32CubeIDE 프로젝트 생성</h1><p>이번 포스트에서는 STM32CubeIDE를 사용하여 새 프로젝트를 생성하고 기본적인 설정을 진행한다.</p>
-<h2 id="🚀-기본-프로젝트-설정"><a href="#🚀-기본-프로젝트-설정" class="headerlink" title="🚀 기본 프로젝트 설정"></a>🚀 기본 프로젝트 설정</h2><h3 id="프로젝트-생성-단계"><a href="#프로젝트-생성-단계" class="headerlink" title="프로젝트 생성 단계"></a>프로젝트 생성 단계</h3><p><strong>1. STM32CubeIDE 실행</strong></p>
+<h2 id="기본-프로젝트-설정"><a href="#기본-프로젝트-설정" class="headerlink" title="기본 프로젝트 설정"></a>기본 프로젝트 설정</h2><h3 id="프로젝트-생성-단계"><a href="#프로젝트-생성-단계" class="headerlink" title="프로젝트 생성 단계"></a>프로젝트 생성 단계</h3><p><strong>1. STM32CubeIDE 실행</strong></p>
 <ul>
 <li>STM32CubeIDE를 실행한다</li>
 <li>“File → New → STM32 Project” 선택</li>
@@ -1159,9 +1084,9 @@ document.addEventListener('DOMContentLoaded', function() {
 <li>“Finish”를 클릭하여 프로젝트를 생성한다</li>
 </ul>
 <blockquote>
-<p>💡 <strong>팁</strong>: 프로젝트 이름은 영문과 숫자, 언더스코어만 사용하는 것이 좋다.</p>
+<p><strong>팁</strong>: 프로젝트 이름은 영문과 숫자, 언더스코어만 사용하는 것이 좋다.</p>
 </blockquote>
-<h2 id="⚙️-RCC-클럭-설정"><a href="#⚙️-RCC-클럭-설정" class="headerlink" title="⚙️ RCC (클럭) 설정"></a>⚙️ RCC (클럭) 설정</h2><p>클럭 설정은 STM32 개발에서 가장 중요한 초기 설정 중 하나다.</p>
+<h2 id="RCC-클럭-설정"><a href="#RCC-클럭-설정" class="headerlink" title="RCC (클럭) 설정"></a>RCC (클럭) 설정</h2><p>클럭 설정은 STM32 개발에서 가장 중요한 초기 설정 중 하나다.</p>
 <h3 id="클럭-소스-이해"><a href="#클럭-소스-이해" class="headerlink" title="클럭 소스 이해"></a>클럭 소스 이해</h3><p><strong>내부 클럭 (HSI - High Speed Internal)</strong></p>
 <ul>
 <li><strong>주파수</strong>: 16MHz 고정</li>
@@ -1199,9 +1124,9 @@ document.addEventListener('DOMContentLoaded', function() {
 <li><strong>Timer Clock</strong>: 100MHz</li>
 </ul>
 <blockquote>
-<p>📌 <strong>중요</strong>: PLL을 사용하면 저주파수 입력을 고주파수로 변환하여 시스템 성능을 최대화할 수 있다.</p>
+<p><strong>중요</strong>: PLL을 사용하면 저주파수 입력을 고주파수로 변환하여 시스템 성능을 최대화할 수 있다.</p>
 </blockquote>
-<h2 id="🔧-SYS-시스템-설정"><a href="#🔧-SYS-시스템-설정" class="headerlink" title="🔧 SYS (시스템) 설정"></a>🔧 SYS (시스템) 설정</h2><h3 id="Debug-설정"><a href="#Debug-설정" class="headerlink" title="Debug 설정"></a>Debug 설정</h3><p>디버깅을 위한 시스템 설정을 진행한다.</p>
+<h2 id="SYS-시스템-설정"><a href="#SYS-시스템-설정" class="headerlink" title="SYS (시스템) 설정"></a>SYS (시스템) 설정</h2><h3 id="Debug-설정"><a href="#Debug-설정" class="headerlink" title="Debug 설정"></a>Debug 설정</h3><p>디버깅을 위한 시스템 설정을 진행한다.</p>
 <p><strong>Debug 인터페이스 선택:</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SYS → Debug → Serial Wire 선택</span><br></pre></td></tr></table></figure>
 
@@ -1212,9 +1137,9 @@ document.addEventListener('DOMContentLoaded', function() {
 <li><strong>실시간 추적</strong>: 실시간으로 프로그램 실행 상태를 모니터링할 수 있다</li>
 </ul>
 <blockquote>
-<p>🔍 <strong>참고</strong>: SWD는 ARM Cortex-M 시리즈에서 표준으로 사용되는 디버깅 인터페이스다.</p>
+<p><strong>참고</strong>: SWD는 ARM Cortex-M 시리즈에서 표준으로 사용되는 디버깅 인터페이스다.</p>
 </blockquote>
-<h2 id="📍-GPIO-설정"><a href="#📍-GPIO-설정" class="headerlink" title="📍 GPIO 설정"></a>📍 GPIO 설정</h2><h3 id="PA5-핀을-Output으로-설정"><a href="#PA5-핀을-Output으로-설정" class="headerlink" title="PA5 핀을 Output으로 설정"></a>PA5 핀을 Output으로 설정</h3><p>User LD2를 제어하기 위해 PA5 핀을 GPIO Output으로 설정한다.</p>
+<h2 id="GPIO-설정"><a href="#GPIO-설정" class="headerlink" title="GPIO 설정"></a>GPIO 설정</h2><h3 id="PA5-핀을-Output으로-설정"><a href="#PA5-핀을-Output으로-설정" class="headerlink" title="PA5 핀을 Output으로 설정"></a>PA5 핀을 Output으로 설정</h3><p>User LD2를 제어하기 위해 PA5 핀을 GPIO Output으로 설정한다.</p>
 <p><strong>설정 단계:</strong></p>
 <p><strong>1. Pinout &amp; Configuration 탭에서 PA5 핀 찾기</strong></p>
 <p><strong>2. PA5 클릭 후 GPIO_Output 선택</strong></p>
@@ -1243,7 +1168,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li><strong>Pull-up</strong>: 내부 풀업 저항 사용</li>
 <li><strong>Pull-down</strong>: 내부 풀다운 저항 사용</li>
 </ul>
-<h2 id="📊-설정-결과-확인"><a href="#📊-설정-결과-확인" class="headerlink" title="📊 설정 결과 확인"></a>📊 설정 결과 확인</h2><h3 id="Clock-Tree-확인"><a href="#Clock-Tree-확인" class="headerlink" title="Clock Tree 확인"></a>Clock Tree 확인</h3><p>Clock Configuration 탭에서 최종 클럭 설정을 확인할 수 있다:</p>
+<h2 id="설정-결과-확인"><a href="#설정-결과-확인" class="headerlink" title="설정 결과 확인"></a>설정 결과 확인</h2><h3 id="Clock-Tree-확인"><a href="#Clock-Tree-확인" class="headerlink" title="Clock Tree 확인"></a>Clock Tree 확인</h3><p>Clock Configuration 탭에서 최종 클럭 설정을 확인할 수 있다:</p>
 <ul>
 <li><strong>Input</strong>: HSE 8MHz</li>
 <li><strong>PLL</strong>: x12.5 (8MHz × 12.5 &#x3D; 100MHz)</li>
@@ -1257,7 +1182,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li>PA5가 <strong>녹색</strong>으로 표시된다 (GPIO_Output으로 설정됨)</li>
 <li>핀 라벨이 <strong>GPIO_Output</strong>으로 변경된다</li>
 </ul>
-<h2 id="💾-코드-생성-준비"><a href="#💾-코드-생성-준비" class="headerlink" title="💾 코드 생성 준비"></a>💾 코드 생성 준비</h2><h3 id="Project-Manager-설정"><a href="#Project-Manager-설정" class="headerlink" title="Project Manager 설정"></a>Project Manager 설정</h3><p><strong>1. Project Manager 탭으로 이동</strong></p>
+<h2 id="코드-생성-준비"><a href="#코드-생성-준비" class="headerlink" title="코드 생성 준비"></a>코드 생성 준비</h2><h3 id="Project-Manager-설정"><a href="#Project-Manager-설정" class="headerlink" title="Project Manager 설정"></a>Project Manager 설정</h3><p><strong>1. Project Manager 탭으로 이동</strong></p>
 <p><strong>2. Code Generator 설정</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Code Generator → </span><br><span class="line">&quot;Generate peripheral initialization as a pair of &#x27;.c/.h&#x27; files per peripheral&quot; 선택</span><br></pre></td></tr></table></figure>
 
@@ -1272,13 +1197,13 @@ document.addEventListener('DOMContentLoaded', function() {
 <li>톱니바퀴 아이콘(Generate Code)을 클릭한다</li>
 <li>코드 생성이 완료되면 프로젝트가 열린다</li>
 </ul>
-<h2 id="📁-생성된-파일-구조"><a href="#📁-생성된-파일-구조" class="headerlink" title="📁 생성된 파일 구조"></a>📁 생성된 파일 구조</h2><p>코드 생성 후 다음과 같은 파일들이 만들어진다:</p>
+<h2 id="생성된-파일-구조"><a href="#생성된-파일-구조" class="headerlink" title="생성된 파일 구조"></a>생성된 파일 구조</h2><p>코드 생성 후 다음과 같은 파일들이 만들어진다:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Project/</span><br><span class="line">├── Core/</span><br><span class="line">│   ├── Inc/</span><br><span class="line">│   │   ├── main.h</span><br><span class="line">│   │   ├── stm32f4xx_hal_conf.h</span><br><span class="line">│   │   └── stm32f4xx_it.h</span><br><span class="line">│   └── Src/</span><br><span class="line">│       ├── main.c              ← 메인 함수</span><br><span class="line">│       ├── stm32f4xx_hal_msp.c ← MSP 초기화</span><br><span class="line">│       ├── stm32f4xx_it.c      ← 인터럽트 핸들러</span><br><span class="line">│       └── system_stm32f4xx.c  ← 시스템 초기화</span><br><span class="line">├── Drivers/</span><br><span class="line">│   ├── CMSIS/</span><br><span class="line">│   └── STM32F4xx_HAL_Driver/</span><br><span class="line">└── ...</span><br></pre></td></tr></table></figure>
 
-<h2 id="🧪-간단한-테스트-코드"><a href="#🧪-간단한-테스트-코드" class="headerlink" title="🧪 간단한 테스트 코드"></a>🧪 간단한 테스트 코드</h2><p>생성된 main.c에 LED 제어 코드를 추가해보자:</p>
+<h2 id="간단한-테스트-코드"><a href="#간단한-테스트-코드" class="headerlink" title="간단한 테스트 코드"></a>간단한 테스트 코드</h2><p>생성된 main.c에 LED 제어 코드를 추가해보자:</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* USER CODE BEGIN WHILE */</span></span><br><span class="line"><span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/* USER CODE END WHILE */</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// LED ON</span></span><br><span class="line">    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);</span><br><span class="line">    HAL_Delay(<span class="number">500</span>);  <span class="comment">// 0.5초 대기</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// LED OFF</span></span><br><span class="line">    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);</span><br><span class="line">    HAL_Delay(<span class="number">500</span>);  <span class="comment">// 0.5초 대기</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* USER CODE BEGIN 3 */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* USER CODE END 3 */</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="📋-정리"><a href="#📋-정리" class="headerlink" title="📋 정리"></a>📋 정리</h2><p>이번 포스트에서는 STM32CubeIDE를 사용한 프로젝트 생성과 기본 설정을 다뤘다:</p>
+<h2 id="정리"><a href="#정리" class="headerlink" title="정리"></a>정리</h2><p>이번 포스트에서는 STM32CubeIDE를 사용한 프로젝트 생성과 기본 설정을 다뤘다:</p>
 <ol>
 <li><strong>프로젝트 생성</strong>: MCU 선택과 기본 설정</li>
 <li><strong>RCC 설정</strong>: HSE 8MHz → 100MHz PLL 설정</li>
@@ -1288,7 +1213,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ol>
 <p>다음 포스트에서는 개발에 필요한 도구들을 설치하고 빌드 환경을 구성해보겠다.</p>
 <hr>
-<p><strong>이전 포스트</strong>: <a href="/posts/1.STM32%EB%B3%B4%EB%93%9C%EC%86%8C%EA%B0%9C">1. STM32 보드 소개</a><br><strong>다음 포스트</strong>: <a href="/posts/cortex-m-development-environment">3. 개발 환경 구성</a></p>
+<p><strong>이전 포스트</strong>: <a href="/2025/06/23/0.cortex-m-board-introduction/">1. STM32 보드 소개</a><br><strong>다음 포스트</strong>: <a href="/2025/06/23/cortex-m-development-environment">3. 개발 환경 구성</a></p>
 </main>
         
         <blockquote class="mdui-m-x-0 mdui-m-t-4">
