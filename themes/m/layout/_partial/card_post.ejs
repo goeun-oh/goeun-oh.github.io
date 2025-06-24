@@ -17,14 +17,14 @@
         <% if(is_post() || is_page() || theme.posts.index_content == 'content' || theme.posts.index_content == 'auto' && !post.excerpt) { %>
         <div class="p-summary" style="display:none"><%- post.excerpt %></div>
         
-        <!-- TOC 추가 -->
+        <!-- TOC 추가 - H1만 표시 -->
         <% if(post.toc !== false && (is_post() || is_page())) { %>
         <div id="table-of-contents">
             <h2>목차</h2>
             <%- toc(post.content, {
                 list_number: false,
                 min_depth: 1,
-                max_depth: 6,
+                max_depth: 1,
                 class: 'toc-nav'
             }) %>
         </div>
