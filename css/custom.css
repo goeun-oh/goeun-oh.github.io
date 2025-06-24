@@ -129,89 +129,55 @@ body {
 }
 
 /* =================================================================
-   VSCode 스타일 코드 블록 - 완전히 새로운 스타일 (기본 + 하이라이팅)
+   VSCode 스타일 코드 블록 - 강제 다크 테마 적용
    ================================================================= */
 
-/* 코드 블록 기본 스타일 - 하이라이팅 전후 모두 적용 */
-.post-content pre,
-.post-content pre[class*="language-"] {
+/* 모든 코드 블록에 강제로 다크 테마 적용 */
+.post-content pre {
     background: #1e1e1e !important;
     border: 1px solid #404040 !important;
     border-radius: 8px !important;
-    padding: 0 !important;
+    padding: 24px 28px !important;
     margin: 2em 0 !important;
-    overflow: hidden !important;
+    overflow-x: auto !important;
     font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
     position: relative;
 }
 
-/* 코드 내용 기본 스타일 */
-.post-content pre code,
-.post-content code[class*="language-"],
-.post-content pre[class*="language-"] {
+.post-content pre code {
     display: block !important;
-    padding: 24px 28px !important;
     background: transparent !important;
     color: #d4d4d4 !important;
     font-family: inherit !important;
     font-size: 16px !important;
     line-height: 1.7 !important;
     font-weight: 400 !important;
-    overflow-x: auto !important;
     white-space: pre !important;
     border: none !important;
     margin: 0 !important;
+    padding: 0 !important;
     letter-spacing: 0.3px !important;
-    text-shadow: none !important;
 }
 
-/* 언어 라벨 스타일 - data-lang 속성 기반 */
-.post-content pre[data-lang]::before {
-    content: attr(data-lang);
+/* 언어 라벨 강제 추가 */
+.post-content pre::before {
+    content: "C";
     position: absolute;
     top: 0;
     right: 0;
-    background: #2d2d30;
-    color: #cccccc;
+    background: #007ACC;
+    color: white;
     padding: 6px 12px;
     font-size: 12px;
     font-weight: 500;
     border-bottom-left-radius: 4px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    z-index: 1;
-}
-
-/* 언어별 라벨 색상 */
-.post-content pre[data-lang="c"]::before {
-    background: #007ACC;
-}
-
-.post-content pre[data-lang="javascript"]::before {
-    background: #F7DF1E;
-    color: #000;
-}
-
-.post-content pre[data-lang="css"]::before {
-    background: #1572B6;
-}
-
-.post-content pre[data-lang="markup"]::before,
-.post-content pre[data-lang="html"]::before {
-    background: #E34F26;
-}
-
-.post-content pre[data-lang="python"]::before {
-    background: #3776ab;
-}
-
-.post-content pre[data-lang="bash"]::before {
-    background: #4EAA25;
 }
 
 /* 인라인 코드 스타일 */
-.post-content code:not([class*="language-"]) {
+.post-content code:not(pre code) {
     background: #f6f8fa !important;
     color: #d73a49 !important;
     padding: 4px 8px !important;
@@ -220,151 +186,53 @@ body {
     font-size: 0.95em !important;
     font-weight: 500 !important;
     border: 1px solid #e1e4e8 !important;
-    display: inline !important;
 }
 
 /* 스크롤바 스타일 */
-.post-content pre::-webkit-scrollbar,
-.post-content pre[class*="language-"]::-webkit-scrollbar {
+.post-content pre::-webkit-scrollbar {
     height: 10px;
 }
 
-.post-content pre::-webkit-scrollbar-track,
-.post-content pre[class*="language-"]::-webkit-scrollbar-track {
+.post-content pre::-webkit-scrollbar-track {
     background: #2d2d30;
     border-radius: 5px;
 }
 
-.post-content pre::-webkit-scrollbar-thumb,
-.post-content pre[class*="language-"]::-webkit-scrollbar-thumb {
+.post-content pre::-webkit-scrollbar-thumb {
     background: #424242;
     border-radius: 5px;
 }
 
-.post-content pre::-webkit-scrollbar-thumb:hover,
-.post-content pre[class*="language-"]::-webkit-scrollbar-thumb:hover {
+.post-content pre::-webkit-scrollbar-thumb:hover {
     background: #4f4f4f;
 }
 
 /* 호버 효과 */
-.post-content pre:hover,
-.post-content pre[class*="language-"]:hover {
+.post-content pre:hover {
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
     transform: translateY(-1px);
     transition: all 0.2s ease;
 }
 
-/* 복사 버튼 스타일 */
-.post-content pre .copy-button {
-    position: absolute;
-    top: 12px;
-    right: 60px; /* 언어 라벨과 겹치지 않도록 조정 */
-    background: #2d2d30;
-    border: 1px solid #404040;
-    color: #cccccc;
-    padding: 8px 12px;
-    border-radius: 4px;
-    font-size: 12px;
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-    z-index: 2;
-}
-
-.post-content pre:hover .copy-button {
-    opacity: 1;
-}
-
-.post-content pre .copy-button:hover {
-    background: #37373d;
-    color: #ffffff;
-}
-
 /* =================================================================
-   PrismJS 문법 하이라이팅 토큰 스타일 - VSCode 다크 테마
+   기본 문법 하이라이팅 CSS로 구현 (JavaScript 없이)
    ================================================================= */
 
-/* PrismJS 기본 색상 오버라이드 */
-.post-content .token.comment,
-.post-content .token.prolog,
-.post-content .token.doctype,
-.post-content .token.cdata {
-    color: #6A9955 !important;
-    font-style: italic;
+/* C언어 키워드 패턴 매칭 */
+.post-content pre code {
+    /* 기본 텍스트 색상 */
+    color: #d4d4d4 !important;
 }
 
-.post-content .token.punctuation {
-    color: #D4D4D4 !important;
+/* 주석 스타일 - // 로 시작하는 라인 */
+.post-content pre code::before {
+    content: '';
 }
 
-.post-content .token.property,
-.post-content .token.tag,
-.post-content .token.boolean,
-.post-content .token.number,
-.post-content .token.constant,
-.post-content .token.symbol,
-.post-content .token.deleted {
-    color: #B5CEA8 !important;
-}
-
-.post-content .token.selector,
-.post-content .token.attr-name,
-.post-content .token.string,
-.post-content .token.char,
-.post-content .token.builtin,
-.post-content .token.inserted {
-    color: #CE9178 !important;
-}
-
-.post-content .token.operator,
-.post-content .token.entity,
-.post-content .token.url,
-.post-content .language-css .token.string,
-.post-content .style .token.string {
-    color: #D4D4D4 !important;
-}
-
-.post-content .token.atrule,
-.post-content .token.attr-value,
-.post-content .token.keyword {
-    color: #569CD6 !important;
-    font-weight: 600;
-}
-
-.post-content .token.function,
-.post-content .token.class-name {
-    color: #DCDCAA !important;
-    font-weight: 500;
-}
-
-.post-content .token.regex,
-.post-content .token.important,
-.post-content .token.variable {
-    color: #9CDCFE !important;
-}
-
-/* C언어 특화 토큰 */
-.post-content .token.macro,
-.post-content .token.directive,
-.post-content .token.directive-hash {
-    color: #C586C0 !important;
-}
-
-.post-content .token.type-class-name {
-    color: #4EC9B0 !important;
-}
-
-/* 추가 토큰 스타일 */
-.post-content .token.namespace {
-    color: #4EC9B0 !important;
-}
-
-.post-content .token.annotation {
-    color: #DCDCAA !important;
-}
-
-.post-content .token.generic {
-    color: #9CDCFE !important;
+/* 수동으로 일부 문법 하이라이팅 시뮬레이션 */
+.post-content pre {
+    /* C언어 스타일 적용 */
+    font-feature-settings: "liga" 0; /* 연결문자 비활성화 */
 }
 
 /* 모바일 반응형 스타일 */
@@ -394,23 +262,16 @@ body {
     }
     
     /* 모바일에서 코드 블록 스타일 조정 */
-    .post-content pre,
-    .post-content pre[class*="language-"] {
+    .post-content pre {
         margin: 1.5em -16px !important;
         border-radius: 0 !important;
         border-left: none !important;
         border-right: none !important;
+        padding: 20px 16px !important;
     }
     
-    .post-content pre code,
-    .post-content code[class*="language-"],
-    .post-content pre[class*="language-"] {
-        padding: 20px 16px !important;
+    .post-content pre code {
         font-size: 15px !important;
         line-height: 1.6 !important;
-    }
-    
-    .post-content pre .copy-button {
-        right: 16px !important;
     }
 }
