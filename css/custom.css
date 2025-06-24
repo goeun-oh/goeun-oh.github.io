@@ -129,19 +129,28 @@ body {
 }
 
 /* =================================================================
-   VSCode 스타일 코드 블록 - PrismJS 토큰 기반 완전 적용
+   마지막 수단 - 브루트 포스 CSS로 모든 것을 덮어씌움
    ================================================================= */
 
-/* 코드 블록 컨테이너 - 모든 가능한 선택자 */
-pre,
-pre.language-c,
-pre[class*="language-"],
-code[class*="language-"],
-.language-c,
+/* 모든 가능한 선택자를 사용한 핵폭탄 CSS */
+* pre,
+*[class] pre,
+*[id] pre,
+html pre,
+body pre,
+div pre,
+article pre,
+section pre,
+main pre,
 .post-content pre,
 .main-content pre,
+.content pre,
 .mdui-typo pre,
-article pre {
+.mdui-card pre,
+pre.language-c,
+pre[class*="language-"],
+pre[data-language],
+.language-c {
     background: #1e1e1e !important;
     background-color: #1e1e1e !important;
     color: #d4d4d4 !important;
@@ -149,148 +158,138 @@ article pre {
     border-radius: 8px !important;
     padding: 24px !important;
     margin: 2em 0 !important;
-    overflow-x: auto !important;
     font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace !important;
     font-size: 16px !important;
     line-height: 1.6 !important;
     font-weight: 400 !important;
     white-space: pre !important;
+    overflow-x: auto !important;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
     position: relative !important;
     display: block !important;
 }
 
-/* =================================================================
-   PrismJS 토큰 스타일 - 스크린샷에서 본 클래스들에 직접 적용
-   ================================================================= */
-
-/* 기본 토큰 색상 */
-.token,
-span.token,
-.language-c .token,
-pre .token {
-    color: #d4d4d4 !important;
-    background: none !important;
-}
-
-/* 키워드 (void, int, uint32_t 등) */
-.token.keyword,
-span.token.keyword,
-.language-c .token.keyword,
-pre .token.keyword {
-    color: #569CD6 !important;
-    font-weight: 600 !important;
-}
-
-/* 함수명 */
-.token.function,
-span.token.function,
-.language-c .token.function,
-pre .token.function {
-    color: #DCDCAA !important;
-    font-weight: 500 !important;
-}
-
-/* 주석 */
-.token.comment,
-span.token.comment,
-.language-c .token.comment,
-pre .token.comment {
+/* 모든 토큰에 색상 강제 적용 */
+* .token.comment,
+*[class] .token.comment,
+*[id] .token.comment,
+html .token.comment,
+body .token.comment,
+span.token.comment {
     color: #6A9955 !important;
     font-style: italic !important;
+    background: transparent !important;
 }
 
-/* 문자열 */
-.token.string,
-span.token.string,
-.language-c .token.string,
-pre .token.string {
-    color: #CE9178 !important;
-}
-
-/* 숫자 */
-.token.number,
-span.token.number,
-.language-c .token.number,
-pre .token.number {
-    color: #B5CEA8 !important;
-}
-
-/* 연산자와 구두점 */
-.token.operator,
-.token.punctuation,
-span.token.operator,
-span.token.punctuation,
-.language-c .token.operator,
-.language-c .token.punctuation,
-pre .token.operator,
-pre .token.punctuation {
-    color: #D4D4D4 !important;
-}
-
-/* 매크로와 전처리기 */
-.token.macro,
-.token.directive,
-.token.directive-hash,
-span.token.macro,
-span.token.directive,
-.language-c .token.macro,
-.language-c .token.directive,
-pre .token.macro,
-pre .token.directive {
-    color: #C586C0 !important;
-}
-
-/* 속성과 변수 */
-.token.property,
-.token.variable,
-span.token.property,
-span.token.variable,
-.language-c .token.property,
-.language-c .token.variable,
-pre .token.property,
-pre .token.variable {
-    color: #9CDCFE !important;
-}
-
-/* 타입과 클래스명 */
-.token.class-name,
-.token.type,
-span.token.class-name,
-span.token.type,
-.language-c .token.class-name,
-.language-c .token.type,
-pre .token.class-name,
-pre .token.type {
-    color: #4EC9B0 !important;
-}
-
-/* 상수와 불린 값 */
-.token.boolean,
-.token.constant,
-span.token.boolean,
-span.token.constant,
-.language-c .token.boolean,
-.language-c .token.constant,
-pre .token.boolean,
-pre .token.constant {
+* .token.keyword,
+*[class] .token.keyword,
+*[id] .token.keyword,
+html .token.keyword,
+body .token.keyword,
+span.token.keyword,
+.token.directive.keyword {
     color: #569CD6 !important;
+    font-weight: 600 !important;
+    background: transparent !important;
 }
 
-/* 특별한 심볼들 */
-.token.symbol,
-.token.important,
-span.token.symbol,
-span.token.important,
-.language-c .token.symbol,
-.language-c .token.important,
-pre .token.symbol,
-pre .token.important {
-    color: #FF6B6B !important;
+* .token.function,
+*[class] .token.function,
+*[id] .token.function,
+html .token.function,
+body .token.function,
+span.token.function {
+    color: #DCDCAA !important;
+    font-weight: 500 !important;
+    background: transparent !important;
 }
 
-/* 인라인 코드 (pre 밖에 있는) */
-code:not(pre code):not([class*="language-"]) {
+* .token.number,
+*[class] .token.number,
+*[id] .token.number,
+html .token.number,
+body .token.number,
+span.token.number {
+    color: #B5CEA8 !important;
+    background: transparent !important;
+}
+
+* .token.operator,
+*[class] .token.operator,
+*[id] .token.operator,
+html .token.operator,
+body .token.operator,
+span.token.operator,
+* .token.punctuation,
+*[class] .token.punctuation,
+*[id] .token.punctuation,
+html .token.punctuation,
+body .token.punctuation,
+span.token.punctuation {
+    color: #D4D4D4 !important;
+    background: transparent !important;
+}
+
+* .token.string,
+*[class] .token.string,
+*[id] .token.string,
+html .token.string,
+body .token.string,
+span.token.string {
+    color: #CE9178 !important;
+    background: transparent !important;
+}
+
+* .token.macro,
+*[class] .token.macro,
+*[id] .token.macro,
+html .token.macro,
+body .token.macro,
+span.token.macro,
+* .token.directive,
+*[class] .token.directive,
+*[id] .token.directive,
+html .token.directive,
+body .token.directive,
+span.token.directive {
+    color: #C586C0 !important;
+    background: transparent !important;
+}
+
+* .token.property,
+*[class] .token.property,
+*[id] .token.property,
+html .token.property,
+body .token.property,
+span.token.property,
+* .token.variable,
+*[class] .token.variable,
+*[id] .token.variable,
+html .token.variable,
+body .token.variable,
+span.token.variable {
+    color: #9CDCFE !important;
+    background: transparent !important;
+}
+
+/* 모든 토큰의 기본 스타일 */
+* .token,
+*[class] .token,
+*[id] .token,
+html .token,
+body .token,
+span.token,
+span[class*="token"] {
+    background: transparent !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+    font-size: inherit !important;
+}
+
+/* 인라인 코드 */
+code:not(pre code):not([class*="language-"]):not(.token) {
     background: #f6f8fa !important;
     color: #d73a49 !important;
     padding: 4px 8px !important;
@@ -300,46 +299,6 @@ code:not(pre code):not([class*="language-"]) {
     font-weight: 500 !important;
     border: 1px solid #e1e4e8 !important;
     display: inline !important;
-}
-
-/* 언어 라벨 */
-pre::before,
-pre.language-c::before,
-pre[class*="language-"]::before {
-    content: "C" !important;
-    position: absolute !important;
-    top: 0 !important;
-    right: 0 !important;
-    background: #007ACC !important;
-    color: white !important;
-    padding: 6px 12px !important;
-    font-size: 12px !important;
-    font-weight: 500 !important;
-    font-family: 'JetBrains Mono', monospace !important;
-    border-bottom-left-radius: 4px !important;
-    text-transform: uppercase !important;
-    z-index: 1 !important;
-}
-
-/* 스크롤바 */
-pre::-webkit-scrollbar {
-    height: 8px !important;
-}
-
-pre::-webkit-scrollbar-track {
-    background: #2d2d30 !important;
-}
-
-pre::-webkit-scrollbar-thumb {
-    background: #424242 !important;
-    border-radius: 4px !important;
-}
-
-/* 호버 효과 */
-pre:hover {
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
-    transform: translateY(-1px) !important;
-    transition: all 0.2s ease !important;
 }
 
 /* 모바일 반응형 */
