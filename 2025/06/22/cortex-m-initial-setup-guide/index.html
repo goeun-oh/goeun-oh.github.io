@@ -477,7 +477,7 @@ margin: 0 auto !important;
 <meta property="og:description" content="Cortex-M 초기환경 세팅 가이드STM32F411 Nucleo-64 보드를 사용하여 초기환경 설정부터 고급 기능까지 단계별로 정리한다. 📚 학습 로드맵이 가이드는 총 7개의 주요 섹션으로 구성되어 있으며, 각 섹션은 독립적인 포스트로 작성되어 있다. 1️⃣ STM32 보드 소개 STM32F411RE Nucleo-64 보드 스펙 소개 핀 맵과 LED 연">
 <meta property="og:locale" content="ko_KR">
 <meta property="article:published_time" content="2025-06-22T15:00:00.000Z">
-<meta property="article:modified_time" content="2025-06-24T00:15:07.352Z">
+<meta property="article:modified_time" content="2025-06-24T00:15:26.145Z">
 <meta property="article:author" content="고은">
 <meta property="article:tag" content="STM32">
 <meta property="article:tag" content="초기환경">
@@ -851,6 +851,15 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="mdui-card-content mdui-typo">
         
         <div class="p-summary" style="display:none"></div>
+        
+        <!-- TOC 추가 -->
+        
+        <div id="table-of-contents">
+            <h2>목차</h2>
+            <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Cortex-M-%EC%B4%88%EA%B8%B0%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%85-%EA%B0%80%EC%9D%B4%EB%93%9C"><span class="toc-nav-text">Cortex-M 초기환경 세팅 가이드</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%F0%9F%93%9A-%ED%95%99%EC%8A%B5-%EB%A1%9C%EB%93%9C%EB%A7%B5"><span class="toc-nav-text">📚 학습 로드맵</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1%EF%B8%8F%E2%83%A3-STM32-%EB%B3%B4%EB%93%9C-%EC%86%8C%EA%B0%9C"><span class="toc-nav-text">1️⃣ STM32 보드 소개</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#2%EF%B8%8F%E2%83%A3-STM32CubeIDE-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%83%9D%EC%84%B1"><span class="toc-nav-text">2️⃣ STM32CubeIDE 프로젝트 생성</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#3%EF%B8%8F%E2%83%A3-%EA%B0%9C%EB%B0%9C-%ED%99%98%EA%B2%BD-%EA%B5%AC%EC%84%B1"><span class="toc-nav-text">3️⃣ 개발 환경 구성</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#4%EF%B8%8F%E2%83%A3-%EB%B0%94%ED%85%80%EB%B6%80%ED%84%B0-LED-%EC%A0%9C%EC%96%B4%ED%95%98%EA%B8%B0"><span class="toc-nav-text">4️⃣ 바텀부터 LED 제어하기</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#5%EF%B8%8F%E2%83%A3-%EC%BD%94%EB%93%9C-%EA%B0%9C%EC%84%A0-%EA%B3%BC%EC%A0%95"><span class="toc-nav-text">5️⃣ 코드 개선 과정</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#6%EF%B8%8F%E2%83%A3-SW-Stack%EA%B3%BC-%EB%AA%A8%EB%93%88%ED%99%94"><span class="toc-nav-text">6️⃣ SW Stack과 모듈화</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#7%EF%B8%8F%E2%83%A3-%EA%B3%A0%EA%B8%89-%EC%B4%88%EA%B8%B0%ED%99%98%EA%B2%BD-%EC%84%A4%EC%A0%95"><span class="toc-nav-text">7️⃣ 고급 초기환경 설정</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%F0%9F%8E%AF-%ED%95%99%EC%8A%B5-%EB%AA%A9%ED%91%9C"><span class="toc-nav-text">🎯 학습 목표</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%F0%9F%92%A1-%EC%B6%94%EC%B2%9C-%ED%95%99%EC%8A%B5-%EC%88%9C%EC%84%9C"><span class="toc-nav-text">💡 추천 학습 순서</span></a></li></ol></li></ol>
+        </div>
+        
+        
         <main class="e-content"><h1 id="Cortex-M-초기환경-세팅-가이드"><a href="#Cortex-M-초기환경-세팅-가이드" class="headerlink" title="Cortex-M 초기환경 세팅 가이드"></a>Cortex-M 초기환경 세팅 가이드</h1><p>STM32F411 Nucleo-64 보드를 사용하여 초기환경 설정부터 고급 기능까지 단계별로 정리한다.</p>
 <h2 id="📚-학습-로드맵"><a href="#📚-학습-로드맵" class="headerlink" title="📚 학습 로드맵"></a>📚 학습 로드맵</h2><p>이 가이드는 총 7개의 주요 섹션으로 구성되어 있으며, 각 섹션은 독립적인 포스트로 작성되어 있다.</p>
 <h3 id="1️⃣-STM32-보드-소개"><a href="#1️⃣-STM32-보드-소개" class="headerlink" title="1️⃣ STM32 보드 소개"></a>1️⃣ <a href="/posts/cortex-m-board-introduction">STM32 보드 소개</a></h3><ul>
@@ -931,15 +940,15 @@ document.addEventListener('DOMContentLoaded', function() {
     
         <div class="mdui-col-xs-12 mdui-m-b-2">
             <a class="extend prev mdui-btn mdui-ripple mdui-float-left mdui-text-truncate" rel="prev"
-                style="max-width: 100%" href="/2025/06/22/cortex-m-code-improvement-basic/">
-                <i class="mdui-icon mdui-icon-left material-icons">arrow_back</i>5-1. 코드 개선 과정 - Define과 베이스 주소
+                style="max-width: 100%" href="/2025/06/22/cortex-m-code-improvement-struct/">
+                <i class="mdui-icon mdui-icon-left material-icons">arrow_back</i>5-2. 코드 개선 과정 - 구조체 활용
             </a>
         </div>
     
         <div class="mdui-col-xs-12">
             <a class="extend next mdui-btn mdui-ripple mdui-float-right mdui-text-truncate" rel="next"
-                style="max-width: 100%" href="/2025/06/22/cortex-m-code-improvement-struct/">
-                <i class="mdui-icon mdui-icon-right material-icons">arrow_forward</i>5-2. 코드 개선 과정 - 구조체 활용
+                style="max-width: 100%" href="/2025/06/22/cortex-m-led-control-basics/">
+                <i class="mdui-icon mdui-icon-right material-icons">arrow_forward</i>4. 바텀부터 LED 제어하기
             </a>
         </div>
     

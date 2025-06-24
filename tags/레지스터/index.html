@@ -850,6 +850,10 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="mdui-card-content mdui-typo">
         
         <div class="p-summary" style="display:none"></div>
+        
+        <!-- TOC 추가 -->
+        
+        
         <main class="e-content"><h1 id="바텀부터-LED-제어하기"><a href="#바텀부터-LED-제어하기" class="headerlink" title="바텀부터 LED 제어하기"></a>바텀부터 LED 제어하기</h1><p>이번 포스트에서는 STM32CubeIDE의 HAL 라이브러리를 사용하지 않고, 레지스터를 직접 제어하여 LED를 제어하는 방법을 알아본다.</p>
 <h2 id="🎯-개발-목표"><a href="#🎯-개발-목표" class="headerlink" title="🎯 개발 목표"></a>🎯 개발 목표</h2><p>아래 순서대로 LED 제어 프로그램을 구현한다:</p>
 <pre class="language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdint.h></span></span>
