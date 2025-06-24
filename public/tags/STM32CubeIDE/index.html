@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="ko" >
+<head>
+    <meta charset="utf-8">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+
+
+<link rel="dns-prefetch" //cdn.jsdelivr.net>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.2/dist/css/mdui.min.css">
+
+
+
+
+<link rel="stylesheet" href="/css/prism-m.css">
+
+
+
+
+
+<meta name="theme-color" content="#3F51B5">
+
+
+<!-- Bear 스타일 폰트 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600&family=SF+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+    /* 기본 스타일 */
+    html, body {
+        scroll-behavior: smooth;
+        min-height: 100vh;
+        background-color: #fafafa !important;
+    }
+    
+    /* 모든 이미지에서 윤곽선 완전 제거 */
+    * img {
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+    }
+    
+    blockquote > strong > a {
+        word-break: break-all;
+    }
+    
+    .mdui-hoverable:hover, .mdui-hoverable:focus {
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+    }
+    
+    .mdui-card-primary-title a {
+        text-decoration: none !important;
+    }
+    
+    .page-number {
+        display: none !important;
+    }
+    
+    .mdui-container-fluid {
+        transition: opacity .4s;
+    }
+    
+    
+        body{background-color: #f6f6f6}
+
+    
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const hasEContent = document.querySelector('.e-content');
+    const isHomePage = window.location.pathname === '/' || window.location.pathname === '/index.html';
+    const isArchivePage = window.location.pathname.includes('/archives');
+    const isTagPage = window.location.pathname.includes('/tags');
+    const isCategoryPage = window.location.pathname.includes('/categories');
+    
+    // 포스트 페이지 또는 사이드바 콘텐츠 페이지인지 판단
+    const isContentPage = hasEContent || // 포스트 페이지
+                         isArchivePage ||  // 아카이브 페이지  
+                         isTagPage ||      // 태그 페이지
+                         isCategoryPage || // 카테고리 페이지
+                         (!isHomePage && document.querySelector('.mdui-card-content')); // 기타 콘텐츠 페이지
+        
+    if (isContentPage && !isHomePage) {
+        const postStyles = document.createElement('style');
+        postStyles.textContent = `
+/* Bear 앱 스타일 - 미니멀하고 깔끔하게 */
+.mdui-card-content.mdui-typo {
+    padding: 3em 4em !important;
+    max-width: 800px !important;
+    margin: 0 auto !important;
+    background-color: #ffffff !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+    border-radius: 8px !important;
+}
+
+/* 시리즈 네비게이션 숨기기 */
+#category-series-nav,
+.series-navigation,
+.series-nav,
+.category-series,
+[class*="series"] {
+    display: none !important;
+}
+
+/* 목차 스타일 - Bear 앱처럼 심플하게 */
+#table-of-contents {
+    padding: 1.5em 0 !important;
+    margin: 0 0 2em 0 !important;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+}
+
+#table-of-contents h2 {
+    font-size: 1.2em !important;
+    font-weight: 600 !important;
+    color: #333 !important;
+    margin-bottom: 1em !important;
+    border: none !important;
+    background: none !important;
+    padding: 0 !important;
+}
+
+#table-of-contents .toc-nav {
+    display: block !important;
+    opacity: 1 !important;
+}
+
+#table-of-contents .toc-list {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+#table-of-contents .toc-item {
+    margin: 0.5em 0 !important;
+    line-height: 1.5 !important;
+}
+
+#table-of-contents .toc-level-1 { 
+    display: block !important;
+}
+#table-of-contents .toc-level-2, 
+#table-of-contents .toc-level-3, 
+#table-of-contents .toc-level-4, 
+#table-of-contents .toc-level-5, 
+#table-of-contents .toc-level-6 { 
+    display: none !important;
+}
+
+#table-of-contents .toc-link {
+    color: #666 !important;
+    text-decoration: none !important;
+    padding: 0.3em 0 !important;
+    display: block !important;
+    font-size: 0.95em !important;
+    font-weight: 400 !important;
+    transition: color 0.2s ease !important;
+    border: none !important;
+    background: none !important;
+}
+
+#table-of-contents .toc-link:hover {
+    color: #333 !important;
+}
+
+#table-of-contents .toc-link.active {
+    color: #007AFF !important;
+    font-weight: 500 !important;
+}
+
+/* Bear 앱 스타일 본문 */
+.e-content,
+.mdui-card-content.mdui-typo {
+    font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif !important;
+    padding: 0 !important;
+    line-height: 1.6 !important;
+    color: #333 !important;
+}
+
+.e-content, .e-content p, .e-content div, .e-content span, .e-content li, .e-content td, .e-content th,
+.mdui-card-content.mdui-typo, .mdui-card-content.mdui-typo p, .mdui-card-content.mdui-typo div, 
+.mdui-card-content.mdui-typo span, .mdui-card-content.mdui-typo li, .mdui-card-content.mdui-typo td, 
+.mdui-card-content.mdui-typo th {
+    font-size: 16px !important;
+    line-height: 1.7 !important;
+    color: #333 !important;
+    word-break: keep-all !important;
+    word-wrap: break-word !important;
+}
+
+.e-content p,
+.mdui-card-content.mdui-typo p {
+    margin-bottom: 1.2em !important;
+    font-size: 16px !important;
+}
+
+/* 제목 스타일 - Bear 앱처럼 심플하게 */
+.e-content h1,
+.mdui-card-content.mdui-typo h1 {
+    font-size: 2em !important;
+    margin: 1.5em 0 1em 0 !important;
+    font-weight: 700 !important;
+    color: #1a1a1a !important;
+    border: none !important;
+    padding: 0 !important;
+    scroll-margin-top: 80px !important;
+}
+
+.e-content h1::before,
+.mdui-card-content.mdui-typo h1::before {
+    display: none !important;
+}
+
+.e-content h2,
+.mdui-card-content.mdui-typo h2 {
+    font-size: 1.5em !important;
+    margin: 1.5em 0 0.8em 0 !important;
+    font-weight: 600 !important;
+    color: #1a1a1a !important;
+    border: none !important;
+    padding: 0 !important;
+    background: none !important;
+    border-radius: 0 !important;
+    scroll-margin-top: 80px !important;
+}
+
+.e-content h3,
+.mdui-card-content.mdui-typo h3 {
+    font-size: 1.25em !important;
+    margin: 1.3em 0 0.7em 0 !important;
+    font-weight: 600 !important;
+    color: #1a1a1a !important;
+    scroll-margin-top: 80px !important;
+}
+
+.e-content h3::before,
+.mdui-card-content.mdui-typo h3::before {
+    display: none !important;
+}
+
+.e-content h4, .e-content h5, .e-content h6,
+.mdui-card-content.mdui-typo h4, .mdui-card-content.mdui-typo h5, .mdui-card-content.mdui-typo h6 {
+    font-weight: 600 !important;
+    color: #1a1a1a !important;
+    scroll-margin-top: 80px !important;
+    border: none !important;
+    background: none !important;
+    padding: 0 !important;
+}
+
+.e-content h4, .mdui-card-content.mdui-typo h4 { 
+    font-size: 1.1em !important; 
+    margin: 1.2em 0 0.6em 0 !important; 
+}
+.e-content h5, .mdui-card-content.mdui-typo h5 { 
+    font-size: 1em !important; 
+    margin: 1.1em 0 0.5em 0 !important; 
+}
+.e-content h6, .mdui-card-content.mdui-typo h6 { 
+    font-size: 0.95em !important; 
+    margin: 1em 0 0.5em 0 !important; 
+}
+
+/* 코드 스타일 - Bear 앱처럼 */
+.e-content pre,
+.mdui-card-content.mdui-typo pre {
+    background: #f6f6f6 !important;
+    border: 1px solid #e6e6e6 !important;
+    border-radius: 6px !important;
+    padding: 1.2em !important;
+    margin: 1.5em 0 !important;
+    overflow-x: auto !important;
+    font-family: 'SF Mono', 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    box-shadow: none !important;
+}
+
+.e-content pre::before,
+.mdui-card-content.mdui-typo pre::before {
+    display: none !important;
+}
+
+.e-content code,
+.mdui-card-content.mdui-typo code {
+    background: #f6f6f6 !important;
+    padding: 2px 6px !important;
+    border-radius: 3px !important;
+    font-family: 'SF Mono', 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 0.9em !important;
+    color: #d14 !important;
+    font-weight: normal !important;
+    border: none !important;
+}
+
+.e-content pre code,
+.mdui-card-content.mdui-typo pre code {
+    background: none !important;
+    padding: 0 !important;
+    color: #333 !important;
+    font-weight: normal !important;
+    border: none !important;
+}
+
+/* 리스트 스타일 */
+.e-content ul, .e-content ol,
+.mdui-card-content.mdui-typo ul, .mdui-card-content.mdui-typo ol {
+    margin: 1.2em 0 !important;
+    padding-left: 1.8em !important;
+}
+
+.e-content li,
+.mdui-card-content.mdui-typo li {
+    margin-bottom: 0.5em !important;
+    font-size: 16px !important;
+    line-height: 1.6 !important;
+}
+
+/* 이미지 스타일 - 모든 윤곽선 완전 제거 */
+.e-content img,
+.mdui-card-content.mdui-typo img {
+    max-width: 100% !important;
+    height: auto !important;
+    margin: 1.5em auto !important;
+    display: block !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    outline: none !important;
+    transition: none !important;
+}
+
+/* 모든 이미지 요소에서 윤곽선 제거 */
+img {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* 특정 클래스나 컨테이너 내 이미지 윤곽선 제거 */
+.mdui-card img,
+.mdui-card-content img,
+.mdui-typo img,
+article img {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+}
+
+.e-content img:hover,
+.mdui-card-content.mdui-typo img:hover {
+    transform: none !important;
+}
+
+/* 테이블 스타일 */
+.e-content table,
+.mdui-card-content.mdui-typo table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin: 1.5em 0 !important;
+    font-size: 14px !important;
+    border: 1px solid #e6e6e6 !important;
+    border-radius: 6px !important;
+    overflow: hidden !important;
+    background: white !important;
+    box-shadow: none !important;
+}
+
+.e-content th,
+.mdui-card-content.mdui-typo th {
+    background: #f8f8f8 !important;
+    font-weight: 600 !important;
+    color: #333 !important;
+    border-bottom: 1px solid #e6e6e6 !important;
+    padding: 12px !important;
+}
+
+.e-content td,
+.mdui-card-content.mdui-typo td {
+    border: 1px solid #e6e6e6 !important;
+    padding: 10px !important;
+}
+
+.e-content tr:nth-child(even),
+.mdui-card-content.mdui-typo tr:nth-child(even) {
+    background: #fafafa !important;
+}
+
+.e-content tr:hover,
+.mdui-card-content.mdui-typo tr:hover {
+    background: #f5f5f5 !important;
+}
+
+/* 인용문 스타일 */
+.e-content blockquote,
+.mdui-card-content.mdui-typo blockquote {
+    border-left: 3px solid #ddd !important;
+    margin: 1.5em 0 !important;
+    padding: 0.8em 1.2em !important;
+    background: #f9f9f9 !important;
+    border-radius: 0 4px 4px 0 !important;
+    font-style: normal !important;
+    color: #666 !important;
+    box-shadow: none !important;
+}
+
+.e-content blockquote::before,
+.mdui-card-content.mdui-typo blockquote::before {
+    display: none !important;
+}
+/* Prism.js VSCode 스타일 문법 강조 */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: #6A9955 !important;  /* VSCode 주석 색상 (녹색) */
+    font-style: italic !important;
+}
+
+.token.punctuation {
+    color: #D4D4D4 !important;  /* VSCode 기본 텍스트 색상 */
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+    color: #B5CEA8 !important;  /* VSCode 숫자/상수 색상 */
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+    color: #CE9178 !important;  /* VSCode 문자열 색상 */
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+    color: #D4D4D4 !important;  /* VSCode 연산자 색상 */
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+    color: #569CD6 !important;  /* VSCode 키워드 색상 (파란색) */
+    font-weight: normal !important;
+}
+
+.token.function,
+.token.class-name {
+    color: #DCDCAA !important;  /* VSCode 함수명 색상 (노란색) */
+    font-weight: normal !important;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+    color: #9CDCFE !important;  /* VSCode 변수 색상 (하늘색) */
+}
+
+.token.important,
+.token.bold {
+    font-weight: bold !important;
+}
+
+.token.italic {
+    font-style: italic !important;
+}
+/* 링크 스타일 */
+.e-content a,
+.mdui-card-content.mdui-typo a {
+    color: #007AFF !important;
+    text-decoration: none !important;
+    border-bottom: none !important;
+    transition: color 0.2s ease !important;
+    font-weight: normal !important;
+}
+
+.e-content a:hover,
+.mdui-card-content.mdui-typo a:hover {
+    color: #0051D5 !important;
+    background: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    text-decoration: underline !important;
+}
+
+/* 강조 텍스트 */
+.e-content strong,
+.mdui-card-content.mdui-typo strong {
+    color: #1a1a1a !important;
+    font-weight: 600 !important;
+    background: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1024px) {
+    .mdui-card-content.mdui-typo {
+        padding: 2.5em 3em !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .mdui-card-content.mdui-typo {
+        padding: 2em 1.5em !important;
+    }
+    
+    .e-content h1, .mdui-card-content.mdui-typo h1 { font-size: 1.8em !important; }
+    .e-content h2, .mdui-card-content.mdui-typo h2 { font-size: 1.4em !important; }
+    .e-content h3, .mdui-card-content.mdui-typo h3 { font-size: 1.2em !important; }
+}
+
+@media (max-width: 480px) {
+    .mdui-card-content.mdui-typo {
+        padding: 1.5em 1em !important;
+    }
+    
+    .e-content, .e-content p, .mdui-card-content.mdui-typo, .mdui-card-content.mdui-typo p {
+        font-size: 15px !important;
+    }
+    
+    .e-content h1, .mdui-card-content.mdui-typo h1 { font-size: 1.6em !important; }
+    .e-content h2, .mdui-card-content.mdui-typo h2 { font-size: 1.3em !important; }
+    .e-content h3, .mdui-card-content.mdui-typo h3 { font-size: 1.1em !important; }
+}
+`;
+        document.head.appendChild(postStyles);
+    }
+});
+</script>
+    
+    <title>태그: STM32CubeIDE | </title>
+    <link rel="canonical" href="https://www.goeun-oh.com/tags/STM32CubeIDE/">
+    <meta name="description" content="하드웨어 설계부터 임베디드 시스템까지, 끊임없이 배우고 성장하기">
+<meta property="og:type" content="website">
+<meta property="og:title">
+<meta property="og:url" content="https://www.goeun-oh.com/tags/STM32CubeIDE/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="하드웨어 설계부터 임베디드 시스템까지, 끊임없이 배우고 성장하기">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:author" content="고은">
+<meta property="article:tag" content="하드웨어 개발자, Verilog, RISC-V, Cortex-M, AXI4, FPGA, 임베디드, 포트폴리오">
+<meta name="twitter:card" content="summary">
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body class="mdui-theme-primary-indigo mdui-theme-accent-pink mdui-appbar-with-toolbar ">
+    <div class="mdui-theme-layout-light">
+    <header id="appbar" class="mdui-appbar mdui-appbar-fixed mdui-shadow-0 mdui-appbar-scroll-hide">
+    <div class="mdui-toolbar">
+        <button mdui-drawer="{target: '.mdui-drawer'}" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon material-icons">menu</i></button>
+        <a href="/" class="mdui-typo-title"></a>
+        <div class="mdui-toolbar-spacer"></div>
+        
+        <a href="/search/" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon material-icons">search</i></a>
+        
+    </div>
+</header>
+    
+
+<style>
+.category-group {
+    padding-left: 24px !important;
+}
+.category-item {
+    padding-left: 48px !important;
+    font-size: 0.9em;
+}
+.post-count {
+    color: #757575;
+    font-size: 0.8em;
+    margin-left: 8px;
+}
+</style>
+
+<aside class="mdui-drawer mdui-drawer-close">
+    <nav class="mdui-list" mdui-collapse="{accordion: false}">
+        <!-- 프로필 영역 -->
+        <a href="#" class="mdui-list-item mdui-ripple h-card">
+            <div class="mdui-list-item-avatar">
+                
+                <img alt="고은" class="u-photo" src="/images/avatar.jpg" />
+                
+            </div>
+            <div class="mdui-list-item-content p-name">고은</div>
+            <span style="display:none" class="u-url u-uid">https://www.goeun-oh.com</span>
+        </a>
+        
+        <div class="mdui-divider"></div>
+        
+        <!-- 기본 메뉴 -->
+        
+        <a href="/search/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">search</i>
+            <div class="mdui-list-item-content">검색</div>
+        </a>
+        
+        
+        
+        <a href="/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
+            <div class="mdui-list-item-content">홈</div>
+        </a>
+        
+
+        <!-- 카테고리 메뉴 (동적 생성) -->
+        
+        <div class="mdui-collapse-item">
+            <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">folder</i>
+                <div class="mdui-list-item-content">📚 카테고리</div>
+                <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+            </div>
+            <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                
+                <!-- RISC-V 카테고리 -->
+                
+                <a href="/categories/RISC-V/" class="mdui-list-item mdui-ripple category-group">
+                    <i class="mdui-list-item-icon mdui-icon material-icons">computer</i>
+                    <div class="mdui-list-item-content">
+                        RISC-V
+                        <span class="post-count">(0)</span>
+                    </div>
+                </a>
+                
+                <!-- Cortex-M 카테고리 -->
+                
+                <a href="/categories/Cortex-M/" class="mdui-list-item mdui-ripple category-group">
+                    <i class="mdui-list-item-icon mdui-icon material-icons">memory</i>
+                    <div class="mdui-list-item-content">
+                        Cortex-M
+                        <span class="post-count">(9)</span>
+                    </div>
+                </a>
+                
+                <!-- 기타 카테고리들 (동적 생성) -->
+                
+                    
+                
+                    
+                
+                    
+                
+                
+            </div>
+        </div>
+        
+
+        <!-- 목차 (포스트 페이지에서만) -->
+        
+
+        <!-- 아카이브 -->
+        
+        <a href="/archives/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">archive</i>
+            <div class="mdui-list-item-content">📑 전체 글</div>
+        </a>
+        
+
+        <!-- 태그 -->
+        
+
+        <!-- 링크 -->
+        
+
+        <!-- RSS -->
+        
+
+        <!-- 커스텀 메뉴 -->
+        
+            
+            <a href="/categories/RISC-V/" class="mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">memory</i>
+                <div class="mdui-list-item-content">💻 RISC-V</div>
+            </a>
+            
+            <a href="/categories/Cortex-M/" class="mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">developer_board</i>
+                <div class="mdui-list-item-content">🖥️ Cortex-M</div>
+            </a>
+            
+            <a href="/categories/APB/" class="mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">device_hub</i>
+                <div class="mdui-list-item-content">📡 APB Protocol</div>
+            </a>
+            
+            <a href="/categories/Verilog/" class="mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">electrical_services</i>
+                <div class="mdui-list-item-content">⚡ Verilog</div>
+            </a>
+            
+            <a href="/categories/UART/" class="mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">cable</i>
+                <div class="mdui-list-item-content">🔌 UART</div>
+            </a>
+            
+            <a href="/categories/I2C/" class="mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">sync_alt</i>
+                <div class="mdui-list-item-content">🔄 I2C</div>
+            </a>
+            
+            <a href="/categories/SPI/" class="mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">timeline</i>
+                <div class="mdui-list-item-content">📊 SPI</div>
+            </a>
+            
+        
+
+    </nav>
+    
+    <div class="mdui-divider"></div>
+    
+    <!-- 푸터 -->
+    <footer class="mdui-m-l-2 mdui-m-t-1 mdui-typo mdui-text-color-theme-disabled">
+        <p class="mdui-m-b-0">
+            <p>임베디드 시스템과 하드웨어 설계</p>
+<br>
+            © 2024 - 
+            2025 고은<br>
+            
+            Hosted on <a href="/" rel="noreferrer"
+                target="_blank">GitHub Pages</a><br>
+            
+            Powered by <a href="https://hexo.io/" rel="noreferrer" target="_blank">Hexo</a><br>
+            
+            Theme - <a href="https://github.com/kwaa/hexo-theme-m" rel="noreferrer" target="_blank"
+                mdui-tooltip="{position:'right', content: 'by 藍+85CD'}">M</a>
+            
+        </p>
+    </footer>
+
+</aside>
+
+<style>
+/* TOC 스타일링 */
+#toc-content ol {
+    padding-left: 16px;
+    margin: 4px 0;
+}
+#toc-content .toc-link {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.85em;
+    line-height: 1.4;
+    display: block;
+    padding: 2px 0;
+}
+#toc-content .toc-link:hover {
+    color: #1976d2;
+}
+#toc-content .toc-level-2 {
+    padding-left: 12px;
+}
+#toc-content .toc-level-3 {
+    padding-left: 24px;
+}
+</style>
+    </div>
+    <div class="mdui-container-fluid mdui-center" style="max-width:1200px">
+        <section class="h-feed mdui-theme-layout-light mdui-color-transparent">
+    <a href="https://www.goeun-oh.com" class="p-name u-url" style="display:none"></a>
+    
+        <article class="h-entry mdui-card mdui-hoverable mdui-shadow-1 mdui-m-y-2" style="opacity: 1; border-radius: 4px"
+>
+    
+    <div class="mdui-card-primary mdui-ripple">
+    <div class="mdui-card-primary-title">
+        <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" href="/posts/cortex-m-advanced-setup/">7. 고급 초기환경 설정 (STM32CubeIDE 활용)</a>
+        <a class="p-author h-card" style="display:none" href="https://www.goeun-oh.com">고은</a>
+        
+        <small> <a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/">Cortex-M</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/ARM/">ARM</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/ARM/Embedded/">Embedded</a></small>
+        
+    </div>
+    <div class="mdui-card-primary-subtitle mdui-typo">
+        
+        <span><a class="tag-none-link" href="/tags/STM32CubeIDE/" rel="tag">STM32CubeIDE</a> <a class="tag-none-link" href="/tags/Timer/" rel="tag">Timer</a> <a class="tag-none-link" href="/tags/%EA%B3%A0%EA%B8%89%EC%84%A4%EC%A0%95/" rel="tag">고급설정</a> <a class="tag-none-link" href="/tags/%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1/" rel="tag">환경구성</a></span>
+        <span>-</span>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-06-24 09:12'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <span>-</span>
+        
+            <span>posts/cortex-m-advanced-setup/</span>
+        
+    </div>
+</div>
+    
+    
+    <div class="mdui-divider"></div>
+    <div class="mdui-card-content mdui-typo">
+        
+        <div class="p-summary" style="display:none"></div>
+        
+        <!-- TOC 디버깅 및 렌더링 -->
+        
+        
+        <main class="e-content"><h1 id="고급-초기환경-설정-STM32CubeIDE-활용"><a href="#고급-초기환경-설정-STM32CubeIDE-활용" class="headerlink" title="고급 초기환경 설정 (STM32CubeIDE 활용)"></a>고급 초기환경 설정 (STM32CubeIDE 활용)</h1><p>이번 포스트에서는 Empty Project 말고 STM32CubeIDE에서 제공하는 기능을 이용해서 개발을 진행하는 고급 환경구성 방법을 다룬다.</p>
+<h2 id="🎯-고급-환경구성-개요"><a href="#🎯-고급-환경구성-개요" class="headerlink" title="🎯 고급 환경구성 개요"></a>🎯 고급 환경구성 개요</h2><p>이제 Empty Project 말고 STM32CubeIDE에서 제공하는 것을 이용해서 개발을 진행한다.</p>
+<p>이를 통해 더욱 체계적이고 효율적인 개발 환경을 구축할 수 있다.</p>
+<h2 id="⚙️-1-RCC-설정"><a href="#⚙️-1-RCC-설정" class="headerlink" title="⚙️ 1. RCC 설정"></a>⚙️ 1. RCC 설정</h2><h3 id="HSE와-HSI-비교"><a href="#HSE와-HSI-비교" class="headerlink" title="HSE와 HSI 비교"></a>HSE와 HSI 비교</h3><figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/stm32_%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1.mdimage-1.png" alt="RCC 설정"class="mdui-img-rounded" loading="lazy"></figure>
+<p><strong>HSI vs HSE:</strong></p>
+<ul>
+<li><strong>HSI</strong>: 16MHz로 고정 (내부 클럭)</li>
+<li><strong>HSE</strong>: 외부 클럭 (8MHz, 우리가 사용하는 보드 외부 클럭은 8MHz)</li>
+</ul>
+<p><strong>설정 방법:</strong></p>
+<ul>
+<li>HSE를 사용하도록 설정</li>
+<li>HSE를 8MHz로 설정</li>
+</ul>
+<h3 id="PLL-설정과-클럭-분배"><a href="#PLL-설정과-클럭-분배" class="headerlink" title="PLL 설정과 클럭 분배"></a>PLL 설정과 클럭 분배</h3><p>해당 clock이 PLL 회로로 들어가 클럭을 100MHz로 뻥튀기한다.</p>
+<p>HCLK이 APB Prescaler를 거쳐 Peripheral Clock이 된다:</p>
+<ul>
+<li><strong>Timer는 100MHz로 설정된다</strong></li>
+</ul>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/image-2.png" alt="클럭 분배"class="mdui-img-rounded" loading="lazy"></figure>
+<h2 id="🔧-2-Debugging-설정"><a href="#🔧-2-Debugging-설정" class="headerlink" title="🔧 2. Debugging 설정"></a>🔧 2. Debugging 설정</h2><h3 id="Serial-Wire-설정"><a href="#Serial-Wire-설정" class="headerlink" title="Serial Wire 설정"></a>Serial Wire 설정</h3><p>Debugging용 Wire를 Serial Wire로 설정한다.</p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/stm32_%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1.mdimage-3.png" alt="디버깅 설정"class="mdui-img-rounded" loading="lazy"></figure>
+<p><strong>Serial Wire Debug의 장점:</strong></p>
+<ul>
+<li>JTAG보다 적은 핀 사용</li>
+<li>효율적인 디버깅 인터페이스</li>
+<li>STM32에서 표준으로 사용</li>
+</ul>
+<h2 id="📍-3-GPIO-설정"><a href="#📍-3-GPIO-설정" class="headerlink" title="📍 3. GPIO 설정"></a>📍 3. GPIO 설정</h2><h3 id="GPIO-핀-구성"><a href="#GPIO-핀-구성" class="headerlink" title="GPIO 핀 구성"></a>GPIO 핀 구성</h3><p>다음과 같이 GPIO를 설정한다:</p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/stm32_%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1.md%7BEAF31B8D-8800-478B-8202-5B7206C3FE05%7D.png" alt="GPIO 설정 과정"class="mdui-img-rounded" loading="lazy"></figure>
+<h3 id="설정-완료-확인"><a href="#설정-완료-확인" class="headerlink" title="설정 완료 확인"></a>설정 완료 확인</h3><p>설정이 완료된 모습:</p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/stm32_%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1.md%7B029A8A1D-15A5-4883-BF37-56B66B5AEA89%7D.png" alt="설정 완료"class="mdui-img-rounded" loading="lazy"></figure>
+<p><strong>GPIO 설정 요점:</strong></p>
+<ul>
+<li>사용할 핀들을 적절한 모드로 설정</li>
+<li>Input&#x2F;Output&#x2F;AF&#x2F;Analog 모드 선택</li>
+<li>Pull-up&#x2F;Pull-down 설정</li>
+<li>Output 타입 및 속도 설정</li>
+</ul>
+<h2 id="⏰-4-Timer-설정"><a href="#⏰-4-Timer-설정" class="headerlink" title="⏰ 4. Timer 설정"></a>⏰ 4. Timer 설정</h2><h3 id="Timer-기본-설정"><a href="#Timer-기본-설정" class="headerlink" title="Timer 기본 설정"></a>Timer 기본 설정</h3><p>다음과 같이 Timer를 설정한다:</p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/stm32_%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1.mdimage-4.png" alt="Timer 설정"class="mdui-img-rounded" loading="lazy"></figure>
+<p><strong>Timer 설정 목적:</strong></p>
+<ul>
+<li>정확한 타이밍 제어</li>
+<li>주기적인 인터럽트 발생</li>
+<li>PWM 신호 생성</li>
+</ul>
+<h3 id="NVIC-설정"><a href="#NVIC-설정" class="headerlink" title="NVIC 설정"></a>NVIC 설정</h3><p>Timer Interrupt를 활성화하기 위해 NVIC를 활성화한다:</p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/stm32_%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1.mdimage-5.png" alt="NVIC 설정"class="mdui-img-rounded" loading="lazy"></figure>
+<p><strong>NVIC(Nested Vectored Interrupt Controller):</strong></p>
+<ul>
+<li>인터럽트 우선순위 관리</li>
+<li>중첩 인터럽트 처리</li>
+<li>효율적인 인터럽트 핸들링</li>
+</ul>
+<h2 id="📁-5-Project-Manager-설정"><a href="#📁-5-Project-Manager-설정" class="headerlink" title="📁 5. Project Manager 설정"></a>📁 5. Project Manager 설정</h2><h3 id="Code-Generator-설정"><a href="#Code-Generator-설정" class="headerlink" title="Code Generator 설정"></a>Code Generator 설정</h3><p>Code generator에서 **”Generate peripheral initialization as a pair of ‘.c&#x2F;.h’ files per peripheral”**를 선택한다:</p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/stm32_%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1.mdimage-6.png" alt="Project Manager 설정"class="mdui-img-rounded" loading="lazy"></figure>
+<p><strong>이 설정의 장점:</strong></p>
+<ul>
+<li>관련 파일이 각각 따로 만들어져 보기 편하다</li>
+<li>주변장치별로 파일이 분리되어 유지보수 용이</li>
+<li>코드 구조가 명확해짐</li>
+</ul>
+<h2 id="🚀-6-프로젝트-생성"><a href="#🚀-6-프로젝트-생성" class="headerlink" title="🚀 6. 프로젝트 생성"></a>🚀 6. 프로젝트 생성</h2><h3 id="최종-생성"><a href="#최종-생성" class="headerlink" title="최종 생성"></a>최종 생성</h3><p>다 했으면 톱니바퀴 아이콘을 눌러서 프로젝트를 생성한다:</p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/stm32_%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1.mdimage-7.png" alt="프로젝트 생성"class="mdui-img-rounded" loading="lazy"></figure>
+<p><strong>생성 과정:</strong></p>
+<ol>
+<li>설정 검증</li>
+<li>코드 생성</li>
+<li>프로젝트 파일 구성</li>
+<li>초기화 코드 생성</li>
+</ol>
+<h2 id="🛠️-컴파일-환경-구성"><a href="#🛠️-컴파일-환경-구성" class="headerlink" title="🛠️ 컴파일 환경 구성"></a>🛠️ 컴파일 환경 구성</h2><h3 id="STM32CubeCLT-설치"><a href="#STM32CubeCLT-설치" class="headerlink" title="STM32CubeCLT 설치"></a>STM32CubeCLT 설치</h3><p>컴파일 하기 위한 프로그램 설치 (STM32CubeCLT_1.18.0):</p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/Complie_Program.md%7B4891395B-74F4-42E2-9F0B-89D3EB8411DC%7D.png" alt="STM32CubeCLT 설치"class="mdui-img-rounded" loading="lazy"></figure>
+<h3 id="컴파일러-확인"><a href="#컴파일러-확인" class="headerlink" title="컴파일러 확인"></a>컴파일러 확인</h3><p><strong>컴파일러 (<code>arm-none-eabi-gcc</code>):</strong></p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/Complie_Program.md%7B782895A3-CB33-45A2-96B4-6BCC6A7B0D99%7D.png" alt="컴파일러"class="mdui-img-rounded" loading="lazy"></figure>
+<p><strong>링커 (<code>arm-none-eabi-ld</code>):</strong></p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/Complie_Program.md%7B73540C4A-7896-45E1-857B-009D7E81AF08%7D.png" alt="링커"class="mdui-img-rounded" loading="lazy"></figure>
+<h3 id="설치-확인"><a href="#설치-확인" class="headerlink" title="설치 확인"></a>설치 확인</h3><p>CMD에서 STM32와 Version 확인:</p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/Complie_Program.md%7B2EE09E95-4964-4D1B-9DBF-70E5128423D7%7D.png" alt="버전 확인"class="mdui-img-rounded" loading="lazy"></figure>
+<h2 id="📊-생성된-프로젝트-구조"><a href="#📊-생성된-프로젝트-구조" class="headerlink" title="📊 생성된 프로젝트 구조"></a>📊 생성된 프로젝트 구조</h2><h3 id="파일-구조"><a href="#파일-구조" class="headerlink" title="파일 구조"></a>파일 구조</h3><p>STM32CubeIDE가 생성하는 표준 프로젝트 구조:</p>
+<pre class="language-none"><code class="language-none">Project&#x2F;
+├── Core&#x2F;
+│   ├── Inc&#x2F;
+│   │   ├── main.h
+│   │   ├── stm32f4xx_hal_conf.h
+│   │   ├── stm32f4xx_it.h
+│   │   └── gpio.h (설정에 따라 생성)
+│   └── Src&#x2F;
+│       ├── main.c
+│       ├── stm32f4xx_hal_msp.c
+│       ├── stm32f4xx_it.c
+│       ├── system_stm32f4xx.c
+│       └── gpio.c (설정에 따라 생성)
+├── Drivers&#x2F;
+│   ├── CMSIS&#x2F;
+│   └── STM32F4xx_HAL_Driver&#x2F;
+└── Middlewares&#x2F; (필요시)</code></pre>
+
+<h3 id="주요-파일-설명"><a href="#주요-파일-설명" class="headerlink" title="주요 파일 설명"></a>주요 파일 설명</h3><p><strong>main.c:</strong></p>
+<ul>
+<li>메인 애플리케이션 로직</li>
+<li>사용자 코드 영역 제공</li>
+</ul>
+<p><strong>stm32f4xx_hal_msp.c:</strong></p>
+<ul>
+<li>MSP(MCU Support Package) 초기화</li>
+<li>저수준 하드웨어 초기화</li>
+</ul>
+<p><strong>stm32f4xx_it.c:</strong></p>
+<ul>
+<li>인터럽트 핸들러 구현</li>
+<li>시스템 인터럽트와 사용자 인터럽트</li>
+</ul>
+<p><strong>gpio.c&#x2F;gpio.h:</strong></p>
+<ul>
+<li>GPIO 초기화 코드</li>
+<li>주변장치별 파일 분리 시 생성</li>
+</ul>
+<h2 id="💡-고급-환경구성의-장점"><a href="#💡-고급-환경구성의-장점" class="headerlink" title="💡 고급 환경구성의 장점"></a>💡 고급 환경구성의 장점</h2><h3 id="1-자동-코드-생성"><a href="#1-자동-코드-생성" class="headerlink" title="1. 자동 코드 생성"></a>1. 자동 코드 생성</h3><ul>
+<li>초기화 코드 자동 생성</li>
+<li>에러 없는 기본 설정</li>
+<li>표준 HAL 라이브러리 활용</li>
+</ul>
+<h3 id="2-시각적-설정"><a href="#2-시각적-설정" class="headerlink" title="2. 시각적 설정"></a>2. 시각적 설정</h3><ul>
+<li>GUI를 통한 직관적 설정</li>
+<li>실시간 설정 확인</li>
+<li>핀 충돌 자동 감지</li>
+</ul>
+<h3 id="3-유지보수성"><a href="#3-유지보수성" class="headerlink" title="3. 유지보수성"></a>3. 유지보수성</h3><ul>
+<li>설정 변경이 용이</li>
+<li>코드 재생성 가능</li>
+<li>표준화된 구조</li>
+</ul>
+<h3 id="4-호환성"><a href="#4-호환성" class="headerlink" title="4. 호환성"></a>4. 호환성</h3><ul>
+<li>ST 공식 지원</li>
+<li>다양한 STM32 시리즈 지원</li>
+<li>업데이트와 버그 수정</li>
+</ul>
+<h2 id="📋-정리"><a href="#📋-정리" class="headerlink" title="📋 정리"></a>📋 정리</h2><p>이번 포스트에서는 STM32CubeIDE를 활용한 고급 초기환경 설정을 다뤘다:</p>
+<ol>
+<li><strong>RCC 설정</strong>: HSE 사용과 PLL을 통한 클럭 설정</li>
+<li><strong>디버깅 설정</strong>: Serial Wire Debug 인터페이스 설정</li>
+<li><strong>GPIO 설정</strong>: 시각적 인터페이스를 통한 핀 설정</li>
+<li><strong>Timer 설정</strong>: Timer와 NVIC 인터럽트 설정</li>
+<li><strong>프로젝트 관리</strong>: 주변장치별 파일 분리 설정</li>
+<li><strong>컴파일 환경</strong>: STM32CubeCLT 도구 설치</li>
+</ol>
+<p><strong>핵심 장점:</strong></p>
+<ul>
+<li>자동화된 코드 생성</li>
+<li>시각적이고 직관적인 설정</li>
+<li>에러 없는 기본 구성</li>
+<li>표준화된 프로젝트 구조</li>
+</ul>
+<p>이제 초기환경 세팅의 전 과정을 완료했다. 다음 단계에서는 이를 바탕으로 더 복잡한 기능들을 구현할 수 있다.</p>
+<hr>
+<p><strong>이전 포스트</strong>: <a href="/posts/cortex-m-software-stack">6. SW Stack과 모듈화</a></p>
+<hr>
+<h2 id="🎉-초기환경-세팅-시리즈-완료"><a href="#🎉-초기환경-세팅-시리즈-완료" class="headerlink" title="🎉 초기환경 세팅 시리즈 완료!"></a>🎉 초기환경 세팅 시리즈 완료!</h2><p>축하한다! Cortex-M 초기환경 세팅의 모든 과정을 완료했다. 이제 다음 단계로 넘어가 더 고급 기능들을 구현해보자.</p>
+</main>
+        
+    </div>
+    
+</article>
+
+    
+        <article class="h-entry mdui-card mdui-hoverable mdui-shadow-1 mdui-m-y-2" style="opacity: 1; border-radius: 4px"
+>
+    
+    <div class="mdui-card-primary mdui-ripple">
+    <div class="mdui-card-primary-title">
+        <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" href="/posts/1.cortex-m-project-setup/">2. STM32CubeIDE 프로젝트 생성</a>
+        <a class="p-author h-card" style="display:none" href="https://www.goeun-oh.com">고은</a>
+        
+        <small> <a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/">Cortex-M</a></small>
+        
+    </div>
+    <div class="mdui-card-primary-subtitle mdui-typo">
+        
+        <span><a class="tag-none-link" href="/tags/GPIO/" rel="tag">GPIO</a> <a class="tag-none-link" href="/tags/RCC/" rel="tag">RCC</a> <a class="tag-none-link" href="/tags/STM32CubeIDE/" rel="tag">STM32CubeIDE</a> <a class="tag-none-link" href="/tags/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%84%A4%EC%A0%95/" rel="tag">프로젝트설정</a></span>
+        <span>-</span>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-22 12:00<br>수정일: 2025-06-24 12:22'}" datetime="2025-06-21T15:00:00.000Z">2025-06-22</time>
+        <span>-</span>
+        
+            <span>posts/1.cortex-m-project-setup/</span>
+        
+    </div>
+</div>
+    
+    
+    <div class="mdui-divider"></div>
+    <div class="mdui-card-content mdui-typo">
+        
+        <div class="p-summary" style="display:none"></div>
+        
+        <!-- TOC 디버깅 및 렌더링 -->
+        
+        
+        <main class="e-content"><h1 id="STM32CubeIDE-프로젝트-생성"><a href="#STM32CubeIDE-프로젝트-생성" class="headerlink" title="STM32CubeIDE 프로젝트 생성"></a>STM32CubeIDE 프로젝트 생성</h1><p>이번 포스트에서는 STM32CubeIDE를 사용하여 새 프로젝트를 생성하고 기본적인 설정을 진행한다.</p>
+<h2 id="기본-프로젝트-설정"><a href="#기본-프로젝트-설정" class="headerlink" title="기본 프로젝트 설정"></a>기본 프로젝트 설정</h2><h3 id="프로젝트-생성-단계"><a href="#프로젝트-생성-단계" class="headerlink" title="프로젝트 생성 단계"></a>프로젝트 생성 단계</h3><p><strong>1. STM32CubeIDE 실행</strong></p>
+<ul>
+<li>STM32CubeIDE를 실행한다</li>
+<li>“File → New → STM32 Project” 선택</li>
+</ul>
+<p><strong>2. MCU 선택</strong></p>
+<ul>
+<li>Target Selection에서 <strong>STM32F411RE</strong> 검색 및 선택</li>
+<li>Nucleo-64 보드 선택</li>
+</ul>
+<p><strong>3. 프로젝트 설정</strong><br><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/gen_project.png"></p>
+<h2 id="1-RCC-클럭-설정"><a href="#1-RCC-클럭-설정" class="headerlink" title="1. RCC (클럭) 설정"></a>1. RCC (클럭) 설정</h2><p>클럭 설정은 STM32 개발에서 가장 중요한 초기 설정 중 하나다.</p>
+<h3 id="1-클럭-소스-이해"><a href="#1-클럭-소스-이해" class="headerlink" title="1) 클럭 소스 이해"></a>1) 클럭 소스 이해</h3><p><strong>내부 클럭 (HSI - High Speed Internal)</strong></p>
+<ul>
+<li><strong>주파수</strong>: 16MHz 고정</li>
+<li><strong>특징</strong>: <ul>
+<li>외부 크리스털이 필요 없다</li>
+<li>온도나 전압 변화에 영향을 받을 수 있다</li>
+<li>정확도가 외부 클럭보다 낮다</li>
+</ul>
+</li>
+</ul>
+<p><strong>외부 클럭 (HSE - High Speed External)</strong>  </p>
+<p><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/IMG_0431.jpeg">  </p>
+<p>MCU 외부에 실제 크리스털 오실레이터 부품을 달아서 사용하는 클럭이며 보통 보드에 크리스털이나 클럭 모듈이 납땜되어 있음  </p>
+<ul>
+<li><strong>주파수</strong>: 8MHz (우리 보드 기준)</li>
+<li><strong>특징</strong>:<ul>
+<li>외부 크리스털 오실레이터를 사용한다</li>
+<li>높은 정확도와 안정성을 제공한다</li>
+<li>정밀한 타이밍이 필요한 애플리케이션에 적합하다</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-RCC-설정-방법"><a href="#2-RCC-설정-방법" class="headerlink" title="2) RCC 설정 방법"></a>2) RCC 설정 방법</h3><p><strong>1. Clock Configuration 탭으로 이동</strong><br><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/RCC.png"></p>
+<p>RCC 클릭</p>
+<p><strong>2. HSE 설정</strong></p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/RCC2.png"class="mdui-img-rounded" loading="lazy"></figure>
+<pre class="language-none"><code class="language-none">RCC → High Speed Clock (HSE) → Crystal&#x2F;Ceramic Resonator 선택</code></pre>
+
+<p><strong>3. PLL 설정</strong><br><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/image.png"></p>
+<ul>
+<li>HSE(8MHz)를 PLL 회로를 통해 100MHz로 증폭한다</li>
+<li>이 과정을 통해 시스템 클럭을 최대 성능으로 설정할 수 있다</li>
+</ul>
+<p><strong>4. 최종 클럭 설정</strong></p>
+<ul>
+<li><strong>HCLK</strong>: 100MHz (시스템 클럭)</li>
+<li><strong>APB1</strong>: 50MHz (저속 주변장치)</li>
+<li><strong>APB2</strong>: 100MHz (고속 주변장치)</li>
+<li><strong>Timer Clock</strong>: 100MHz</li>
+</ul>
+<blockquote>
+<p><strong>중요</strong>: PLL을 사용하면 저주파수 입력을 고주파수로 변환하여 시스템 성능을 최대화할 수 있다.</p>
+</blockquote>
+<h2 id="2-SYS-시스템-설정"><a href="#2-SYS-시스템-설정" class="headerlink" title="2. SYS (시스템) 설정"></a>2. SYS (시스템) 설정</h2><h3 id="Debug-설정"><a href="#Debug-설정" class="headerlink" title="Debug 설정"></a>Debug 설정</h3><p>디버깅을 위한 시스템 설정을 진행한다.</p>
+<p><strong>Debug 인터페이스 선택:</strong></p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/sys.png"class="mdui-img-rounded" loading="lazy"></figure>
+<pre class="language-none"><code class="language-none">SYS → Debug → Serial Wire 선택</code></pre>
+
+<p><strong>Serial Wire Debug (SWD)의 장점:</strong></p>
+<ul>
+<li><strong>핀 수 절약</strong>: JTAG 대비 적은 핀 사용 (SWDIO, SWCLK만 필요)</li>
+<li><strong>고속 디버깅</strong>: 효율적인 디버깅 인터페이스 제공</li>
+<li><strong>실시간 추적</strong>: 실시간으로 프로그램 실행 상태를 모니터링할 수 있다</li>
+</ul>
+<blockquote>
+<p><strong>참고</strong>: SWD는 ARM Cortex-M 시리즈에서 표준으로 사용되는 디버깅 인터페이스다.</p>
+</blockquote>
+<h2 id="3-GPIO-설정"><a href="#3-GPIO-설정" class="headerlink" title="3. GPIO 설정"></a>3. GPIO 설정</h2><h3 id="PA5-핀을-Output으로-설정"><a href="#PA5-핀을-Output으로-설정" class="headerlink" title="PA5 핀을 Output으로 설정"></a>PA5 핀을 Output으로 설정</h3><p>User LD2를 제어하기 위해 PA5 핀을 GPIO Output으로 설정한다.</p>
+<p><strong>설정 단계:</strong></p>
+<p><strong>1. Pinout &amp; Configuration 탭에서 PA5 핀 찾기</strong></p>
+<p><strong>2. PA5 클릭 후 GPIO_Output 선택</strong></p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/image-2.png"class="mdui-img-rounded" loading="lazy"></figure>
+<p><strong>3. GPIO 설정 확인</strong><br><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/image-3.png"></p>
+<ul>
+<li><strong>GPIO output level</strong>: Low (초기값)</li>
+<li><strong>GPIO mode</strong>: Output Push Pull</li>
+<li><strong>GPIO Pull-up&#x2F;Pull-down</strong>: No pull-up and no pull-down</li>
+<li><strong>Maximum output speed</strong>: Low</li>
+</ul>
+<h3 id="GPIO-모드-설명"><a href="#GPIO-모드-설명" class="headerlink" title="GPIO 모드 설명"></a>GPIO 모드 설명</h3><p><strong>Output Type 옵션:</strong></p>
+<p><strong>Push Pull</strong></p>
+<ul>
+<li>기본 설정으로 대부분의 용도에 적합하다</li>
+<li>HIGH&#x2F;LOW 양방향으로 확실한 신호를 출력한다</li>
+<li>LED 제어에 적합하다</li>
+</ul>
+<p><strong>Open Drain</strong></p>
+<ul>
+<li>주로 I2C 통신이나 와이어드 OR 로직에 사용한다</li>
+<li>HIGH 임피던스 상태와 LOW만 출력할 수 있다</li>
+</ul>
+<p><strong>Pull-up&#x2F;Pull-down 옵션:</strong></p>
+<ul>
+<li><strong>No pull</strong>: 외부 풀업&#x2F;풀다운 저항을 사용할 때</li>
+<li><strong>Pull-up</strong>: 내부 풀업 저항 사용</li>
+<li><strong>Pull-down</strong>: 내부 풀다운 저항 사용</li>
+</ul>
+<h2 id="4-설정-결과-확인"><a href="#4-설정-결과-확인" class="headerlink" title="4. 설정 결과 확인"></a>4. 설정 결과 확인</h2><h3 id="Clock-Tree-확인"><a href="#Clock-Tree-확인" class="headerlink" title="Clock Tree 확인"></a>Clock Tree 확인</h3><p>Clock Configuration 탭에서 최종 클럭 설정을 확인할 수 있다:</p>
+<ul>
+<li><strong>Input</strong>: HSE 8MHz</li>
+<li><strong>PLL</strong>: x12.5 (8MHz × 12.5 &#x3D; 100MHz)</li>
+<li><strong>SYSCLK</strong>: 100MHz</li>
+<li><strong>AHB</strong>: 100MHz</li>
+<li><strong>APB1</strong>: 50MHz (÷2)</li>
+<li><strong>APB2</strong>: 100MHz (÷1)</li>
+</ul>
+<h3 id="GPIO-설정-확인"><a href="#GPIO-설정-확인" class="headerlink" title="GPIO 설정 확인"></a>GPIO 설정 확인</h3><p>Pinout view에서 다음을 확인할 수 있다:</p>
+<ul>
+<li>PA5가 <strong>녹색</strong>으로 표시된다 (GPIO_Output으로 설정됨)</li>
+<li>핀 라벨이 <strong>GPIO_Output</strong>으로 변경된다</li>
+</ul>
+<h2 id="간단한-테스트-코드"><a href="#간단한-테스트-코드" class="headerlink" title="간단한 테스트 코드"></a>간단한 테스트 코드</h2><p>생성된 main.c에 LED 제어 코드를 추가해보자:</p>
+<pre class="language-c" data-language="c"><code class="language-c"><span class="token comment">/* USER CODE BEGIN WHILE */</span>
+<span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token comment">/* USER CODE END WHILE */</span>
+    
+    <span class="token comment">// LED ON</span>
+    <span class="token function">HAL_GPIO_WritePin</span><span class="token punctuation">(</span>GPIOA<span class="token punctuation">,</span> GPIO_PIN_5<span class="token punctuation">,</span> GPIO_PIN_SET<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">HAL_Delay</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 0.5초 대기</span>
+    
+    <span class="token comment">// LED OFF</span>
+    <span class="token function">HAL_GPIO_WritePin</span><span class="token punctuation">(</span>GPIOA<span class="token punctuation">,</span> GPIO_PIN_5<span class="token punctuation">,</span> GPIO_PIN_RESET<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">HAL_Delay</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 0.5초 대기</span>
+    
+    <span class="token comment">/* USER CODE BEGIN 3 */</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">/* USER CODE END 3 */</span></code></pre>
+
+<h2 id="정리"><a href="#정리" class="headerlink" title="정리"></a>정리</h2><p>이번 포스트에서는 STM32CubeIDE를 사용한 프로젝트 생성과 기본 설정을 다뤘다:</p>
+<p>다음 포스트에서는 개발에 필요한 도구들을 설치하고 빌드 환경을 구성해보겠다.</p>
+<hr>
+<p><strong>이전 포스트</strong>: <a href="/posts/0.cortex-m-board-introduction/">1. STM32 보드 소개</a><br><strong>다음 포스트</strong>: <a href="/posts/cortex-m-development-environment">3. 개발 환경 구성</a></p>
+</main>
+        
+    </div>
+    
+</article>
+
+    
+    
+</section>
+
+    </div>
+    <a href="#" class="mdui-fab mdui-fab-fixed mdui-hidden-xs mdui-color-theme-accent mdui-ripple"><i class="mdui-icon material-icons">keyboard_arrow_up</i></a>
+
+<script src="https://cdn.jsdelivr.net/npm/mdui@1.0.2/dist/js/mdui.min.js"></script>
+
+
+<script>
+    var $ = mdui.$;
+    function init(){
+        //
+    }
+    window.addEventListener("load", () => {
+        //
+        init()
+    }, {once: true});
+</script>
+
+</body>
+</html>
