@@ -14,7 +14,7 @@ fancybox: true
 # Profile
 profile:
   enabled: true
-  avatar: /images/avatar.jpg
+  #avatar: /images/avatar.jpg
   author: 고은
   author_title: 임베디드 시스템 개발자
   location: Seoul, Korea
@@ -60,6 +60,9 @@ sidebar:
   padding: 18
   offset: 12
 
+#menu
+menu:
+  Cortex-M : /categories/Cortex-M
 # Post
 post:
   meta:
