@@ -569,18 +569,26 @@ article img {
         
     </div>
 </header>
-    <style>
-.submenu-level-2 {
-    padding-left: 32px !important;
+    
+
+<style>
+.category-group {
+    padding-left: 24px !important;
 }
-.submenu-level-3 {
-    padding-left: 56px !important;
+.category-item {
+    padding-left: 48px !important;
     font-size: 0.9em;
+}
+.post-count {
+    color: #757575;
+    font-size: 0.8em;
+    margin-left: 8px;
 }
 </style>
 
 <aside class="mdui-drawer mdui-drawer-close">
     <nav class="mdui-list" mdui-collapse="{accordion: false}">
+        <!-- 프로필 영역 -->
         <a href="#" class="mdui-list-item mdui-ripple h-card">
             <div class="mdui-list-item-avatar">
                 
@@ -590,329 +598,141 @@ article img {
             <div class="mdui-list-item-content p-name">고은</div>
             <span style="display:none" class="u-url u-uid">https://www.goeun-oh.com</span>
         </a>
+        
         <div class="mdui-divider"></div>
+        
+        <!-- 기본 메뉴 -->
         
         <a href="/search/" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">search</i>
             <div class="mdui-list-item-content">검색</div>
         </a>
         
+        
+        
         <a href="/" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
             <div class="mdui-list-item-content">홈</div>
         </a>
         
-    <!-- 프로세서 아키텍처 -->
-    <div class="mdui-collapse-item">
-        <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
-            <i class="mdui-list-item-icon mdui-icon material-icons">memory</i>
-            <div class="mdui-list-item-content">💻 프로세서 아키텍처</div>
-            <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
-        </div>
-        <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
-            
-            <!-- RISC-V 그룹 헤더 -->
-            <div class="mdui-list-item submenu-level-2" style="background-color: #f5f5f5;">
-                <i class="mdui-list-item-icon mdui-icon material-icons">computer</i>
-                <div class="mdui-list-item-content"><strong>RISC-V</strong></div>
-            </div>
-            
-            <!-- RISC-V 세부 항목들 -->
-            <a href="/categories/RISC-V/basic/" class="mdui-list-item mdui-ripple submenu-level-3">
-                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                <div class="mdui-list-item-content">기초 개념</div>
-            </a>
-            <a href="/categories/RISC-V/instruction/" class="mdui-list-item mdui-ripple submenu-level-3">
-                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                <div class="mdui-list-item-content">명령어 세트</div>
-            </a>
-            <a href="/categories/RISC-V/assembly/" class="mdui-list-item mdui-ripple submenu-level-3">
-                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                <div class="mdui-list-item-content">어셈블리 프로그래밍</div>
-            </a>
-            
-            <!-- Cortex-M 그룹 헤더 -->
-            <div class="mdui-list-item submenu-level-2" style="background-color: #f5f5f5; margin-top: 8px;">
-                <i class="mdui-list-item-icon mdui-icon material-icons">memory</i>
-                <div class="mdui-list-item-content"><strong>Cortex-M</strong></div>
-            </div>
-<<<<<<< HEAD
-                <a href="/categories/Coretex-M/" class="mdui-list-item mdui-ripple submenu-level-3">
-                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                <div class="mdui-list-item-content">Cortex-M</div>
-            </a>
-=======
-            
-            <!-- Cortex-M 세부 항목들 -->
-            <a href="/categories/Cortex-M/" class="mdui-list-item mdui-ripple submenu-level-3">
-                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                <div class="mdui-list-item-content">전체 포스트</div>
-            </a>
-            <a href="/posts/cortex-m-board-introduction/" class="mdui-list-item mdui-ripple submenu-level-3">
-                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                <div class="mdui-list-item-content">1. STM32 보드 소개</div>
-            </a>
-            <a href="/posts/cortex-m-project-setup/" class="mdui-list-item mdui-ripple submenu-level-3">
-                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                <div class="mdui-list-item-content">2. 프로젝트 생성</div>
-            </a>
-            <a href="/posts/cortex-m-led-control-basics/" class="mdui-list-item mdui-ripple submenu-level-3">
-                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                <div class="mdui-list-item-content">4. LED 제어 기초</div>
-            </a>
-            <a href="/posts/cortex-m-code-improvement-basic/" class="mdui-list-item mdui-ripple submenu-level-3">
-                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                <div class="mdui-list-item-content">5-1. 코드 개선</div>
-            </a>
-            <a href="/posts/cortex-m-software-stack/" class="mdui-list-item mdui-ripple submenu-level-3">
-                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                <div class="mdui-list-item-content">6. SW Stack</div>
-            </a>
-            <a href="/posts/cortex-m-advanced-setup/" class="mdui-list-item mdui-ripple submenu-level-3">
-                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                <div class="mdui-list-item-content">7. 고급 환경설정</div>
-            </a>
-            
->>>>>>> 2507239035b0ff7212e88b94344246bce6a72c3c
-        </div>
-    </div>
 
-    <!-- 통신 프로토콜 -->
-    <div class="mdui-collapse-item">
-        <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
-            <i class="mdui-list-item-icon mdui-icon material-icons">device_hub</i>
-            <div class="mdui-list-item-content">🔌 통신 프로토콜</div>
-            <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
-        </div>
-        <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
-            
-            <!-- 버스 프로토콜 그룹 -->
-            <div class="mdui-list-item submenu-level-2" style="background-color: #f5f5f5;">
-                <i class="mdui-list-item-icon mdui-icon material-icons">settings_ethernet</i>
-                <div class="mdui-list-item-content"><strong>버스 프로토콜</strong></div>
-            </div>
-            <a href="/categories/APB/" class="mdui-list-item mdui-ripple submenu-level-3">
-                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                <div class="mdui-list-item-content">APB Protocol</div>
-            </a>
-            <a href="/categories/APB/basic/" class="mdui-list-item mdui-ripple submenu-level-3">
-                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                <div class="mdui-list-item-content">└ APB 기초</div>
-            </a>
-            
-            <!-- 시리얼 통신 그룹 -->
-            <div class="mdui-list-item submenu-level-2" style="background-color: #f5f5f5; margin-top: 8px;">
-                <i class="mdui-list-item-icon mdui-icon material-icons">cable</i>
-                <div class="mdui-list-item-content"><strong>시리얼 통신</strong></div>
-            </div>
-            <a href="/categories/UART/" class="mdui-list-item mdui-ripple submenu-level-3">
-                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                <div class="mdui-list-item-content">UART</div>
-            </a>
-            <a href="/categories/UART/basic/" class="mdui-list-item mdui-ripple submenu-level-3">
-                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                <div class="mdui-list-item-content">└ UART 기초</div>
-            </a>
-            <a href="/categories/UART/config/" class="mdui-list-item mdui-ripple submenu-level-3">
-                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                <div class="mdui-list-item-content">└ 설정 및 사용</div>
-            </a>
-            
-            <a href="/categories/I2C/" class="mdui-list-item mdui-ripple submenu-level-3">
-                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                <div class="mdui-list-item-content">I2C</div>
-            </a>
-            <a href="/categories/I2C/protocol/" class="mdui-list-item mdui-ripple submenu-level-3">
-                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                <div class="mdui-list-item-content">└ 프로토콜 분석</div>
-            </a>
-            <a href="/categories/I2C/implementation/" class="mdui-list-item mdui-ripple submenu-level-3">
-                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                <div class="mdui-list-item-content">└ 구현 방법</div>
-            </a>
-            
-            <a href="/categories/SPI/" class="mdui-list-item mdui-ripple submenu-level-3">
-                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                <div class="mdui-list-item-content">SPI</div>
-            </a>
-            <a href="/categories/SPI/basics/" class="mdui-list-item mdui-ripple submenu-level-3">
-                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                <div class="mdui-list-item-content">└ SPI 기초</div>
-            </a>
-            <a href="/categories/SPI/modes/" class="mdui-list-item mdui-ripple submenu-level-3">
-                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                <div class="mdui-list-item-content">└ 동작 모드</div>
-            </a>
-            
-        </div>
-    </div>
+        <!-- 카테고리 메뉴 (동적 생성) -->
+        
 
-    <!-- HDL & 설계 -->
-    <div class="mdui-collapse-item">
-        <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
-            <i class="mdui-list-item-icon mdui-icon material-icons">electrical_services</i>
-            <div class="mdui-list-item-content">⚡ HDL & 설계</div>
-            <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
-        </div>
-        <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
-            
-            <!-- Verilog 그룹 -->
-            <div class="mdui-list-item submenu-level-2" style="background-color: #f5f5f5;">
-                <i class="mdui-list-item-icon mdui-icon material-icons">code</i>
-                <div class="mdui-list-item-content"><strong>Verilog</strong></div>
-            </div>
-            <a href="/categories/Verilog/" class="mdui-list-item mdui-ripple submenu-level-3">
-                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                <div class="mdui-list-item-content">Verilog 기초</div>
-            </a>
-            <a href="/categories/Verilog/syntax/" class="mdui-list-item mdui-ripple submenu-level-3">
-                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                <div class="mdui-list-item-content">└ 문법 및 구조</div>
-            </a>
-            <a href="/categories/Verilog/modules/" class="mdui-list-item mdui-ripple submenu-level-3">
-                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                <div class="mdui-list-item-content">└ 모듈 설계</div>
-            </a>
-            <a href="/categories/Verilog/testbench/" class="mdui-list-item mdui-ripple submenu-level-3">
-                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                <div class="mdui-list-item-content">└ 테스트벤치</div>
-            </a>
-            
-            <!-- FPGA 설계 그룹 -->
-            <div class="mdui-list-item submenu-level-2" style="background-color: #f5f5f5; margin-top: 8px;">
-                <i class="mdui-list-item-icon mdui-icon material-icons">developer_board</i>
-                <div class="mdui-list-item-content"><strong>FPGA 설계</strong></div>
-            </div>
-            <a href="/categories/FPGA/basics/" class="mdui-list-item mdui-ripple submenu-level-3">
-                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                <div class="mdui-list-item-content">FPGA 기초</div>
-            </a>
-            <a href="/categories/FPGA/synthesis/" class="mdui-list-item mdui-ripple submenu-level-3">
-                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                <div class="mdui-list-item-content">└ 합성 과정</div>
-            </a>
-            <a href="/categories/FPGA/timing/" class="mdui-list-item mdui-ripple submenu-level-3">
-                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                <div class="mdui-list-item-content">└ 타이밍 분석</div>
-            </a>
-            
-            <!-- 검증 그룹 -->
-            <div class="mdui-list-item submenu-level-2" style="background-color: #f5f5f5; margin-top: 8px;">
-                <i class="mdui-list-item-icon mdui-icon material-icons">verified</i>
-                <div class="mdui-list-item-content"><strong>설계 검증</strong></div>
-            </div>
-            <a href="/categories/Verification/uvm/" class="mdui-list-item mdui-ripple submenu-level-3">
-                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                <div class="mdui-list-item-content">UVM 기초</div>
-            </a>
-            <a href="/categories/Verification/systemverilog/" class="mdui-list-item mdui-ripple submenu-level-3">
-                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
-                <div class="mdui-list-item-content">└ SystemVerilog</div>
-            </a>
-            
-        </div>
-    </div>
+        <!-- 목차 (포스트 페이지에서만) -->
+        
 
-    
-    <div class="mdui-collapse-item">
-        <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
-            <i class="mdui-list-item-icon mdui-icon material-icons">inbox</i>
-            <div class="mdui-list-item-content">아카이브</div>
-            <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
-        </div>
-        <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
-            <a class="mdui-list-item mdui-ripple m-link" href="/archives/2025/06/">6월 2025</a>
-        </div>
-    </div>
-    
-    <!-- 태그 및 기타 메뉴들을 포함하는 드롭다운 -->
-    <div class="mdui-collapse-item">
-        <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+        <!-- 아카이브 -->
+        
+        <a href="/archives/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">archive</i>
+            <div class="mdui-list-item-content">📑 전체 글</div>
+        </a>
+        
+
+        <!-- 태그 -->
+        
+        <a href="/tags/" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">local_offer</i>
-            <div class="mdui-list-item-content">태그</div>
-            <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
-        </div>
-        <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+            <div class="mdui-list-item-content">🏷️ 태그</div>
+        </a>
+        
+
+        <!-- 링크 -->
+        
+
+        <!-- RSS -->
+        
+
+        <!-- 커스텀 메뉴 -->
+        
             
-            <!-- 커스텀 메뉴들 -->
-            <a href="/categories/RISC-V/" class="mdui-list-item mdui-ripple m">
+            <a href="/categories/RISC-V/" class="mdui-list-item mdui-ripple">
                 <i class="mdui-list-item-icon mdui-icon material-icons">memory</i>
                 <div class="mdui-list-item-content">💻 RISC-V</div>
             </a>
             
-            <!-- 커스텀 메뉴들 -->
-            <a href="/categories/Cortex-M/" class="mdui-list-item mdui-ripple m">
+            <a href="/categories/Cortex-M/" class="mdui-list-item mdui-ripple">
                 <i class="mdui-list-item-icon mdui-icon material-icons">developer_board</i>
                 <div class="mdui-list-item-content">🖥️ Cortex-M</div>
             </a>
             
-            <!-- 커스텀 메뉴들 -->
-            <a href="/categories/APB/" class="mdui-list-item mdui-ripple m">
+            <a href="/categories/APB/" class="mdui-list-item mdui-ripple">
                 <i class="mdui-list-item-icon mdui-icon material-icons">device_hub</i>
                 <div class="mdui-list-item-content">📡 APB Protocol</div>
             </a>
             
-            <!-- 커스텀 메뉴들 -->
-            <a href="/categories/Verilog/" class="mdui-list-item mdui-ripple m">
+            <a href="/categories/Verilog/" class="mdui-list-item mdui-ripple">
                 <i class="mdui-list-item-icon mdui-icon material-icons">electrical_services</i>
                 <div class="mdui-list-item-content">⚡ Verilog</div>
             </a>
             
-            <!-- 커스텀 메뉴들 -->
-            <a href="/categories/UART/" class="mdui-list-item mdui-ripple m">
+            <a href="/categories/UART/" class="mdui-list-item mdui-ripple">
                 <i class="mdui-list-item-icon mdui-icon material-icons">cable</i>
                 <div class="mdui-list-item-content">🔌 UART</div>
             </a>
             
-            <!-- 커스텀 메뉴들 -->
-            <a href="/categories/I2C/" class="mdui-list-item mdui-ripple m">
+            <a href="/categories/I2C/" class="mdui-list-item mdui-ripple">
                 <i class="mdui-list-item-icon mdui-icon material-icons">sync_alt</i>
                 <div class="mdui-list-item-content">🔄 I2C</div>
             </a>
             
-            <!-- 커스텀 메뉴들 -->
-            <a href="/categories/SPI/" class="mdui-list-item mdui-ripple m">
+            <a href="/categories/SPI/" class="mdui-list-item mdui-ripple">
                 <i class="mdui-list-item-icon mdui-icon material-icons">timeline</i>
                 <div class="mdui-list-item-content">📊 SPI</div>
             </a>
             
-        </div>
-    </div>
+        
+
+    </nav>
     
-</nav>
-<div class="mdui-divider"></div>
-<footer class="mdui-m-l-2 mdui-m-t-1 mdui-typo mdui-text-color-theme-disabled">
-    <p class="mdui-m-b-0">
-        <p>임베디드 시스템과 하드웨어 설계</p>
+    <div class="mdui-divider"></div>
+    
+    <!-- 푸터 -->
+    <footer class="mdui-m-l-2 mdui-m-t-1 mdui-typo mdui-text-color-theme-disabled">
+        <p class="mdui-m-b-0">
+            <p>임베디드 시스템과 하드웨어 설계</p>
 <br>
-        © 2024 - 
-        2025 고은<br>
-        
-        Hosted on <a href="/" rel="noreferrer"
-            target="_blank">GitHub Pages</a><br>
-        
-        Powered by <a href="https://hexo.io/" rel="noreferrer" target="_blank">Hexo</a><br>
-        
-        Theme - <a href="https://github.com/kwaa/hexo-theme-m" rel="noreferrer" target="_blank"
-            mdui-tooltip="{position:'right', content: 'by 藍+85CD'}">M</a></p>
-        
-</footer>
+            © 2024 - 
+            2025 고은<br>
+            
+            Hosted on <a href="/" rel="noreferrer"
+                target="_blank">GitHub Pages</a><br>
+            
+            Powered by <a href="https://hexo.io/" rel="noreferrer" target="_blank">Hexo</a><br>
+            
+            Theme - <a href="https://github.com/kwaa/hexo-theme-m" rel="noreferrer" target="_blank"
+                mdui-tooltip="{position:'right', content: 'by 藍+85CD'}">M</a>
+            
+        </p>
+    </footer>
 
 </aside>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(function() {
-        // 중첩된 collapse가 제대로 작동하도록 초기화
-        var collapseElements = document.querySelectorAll('.mdui-collapse-item');
-        collapseElements.forEach(function(element) {
-            if (window.mdui && mdui.Collapse) {
-                new mdui.Collapse(element);
-            }
-        });
-    }, 100);
-});
-</script>
+<style>
+/* TOC 스타일링 */
+#toc-content ol {
+    padding-left: 16px;
+    margin: 4px 0;
+}
+#toc-content .toc-link {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.85em;
+    line-height: 1.4;
+    display: block;
+    padding: 2px 0;
+}
+#toc-content .toc-link:hover {
+    color: #1976d2;
+}
+#toc-content .toc-level-2 {
+    padding-left: 12px;
+}
+#toc-content .toc-level-3 {
+    padding-left: 24px;
+}
+</style>
     </div>
     <div class="mdui-container-fluid mdui-center" style="max-width:1200px">
         <section class="h-feed mdui-theme-layout-light mdui-color-transparent">
@@ -933,7 +753,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <span><a class="tag-none-link" href="/tags/%EA%B5%AC%EC%A1%B0%EC%B2%B4/" rel="tag">구조체</a> <a class="tag-none-link" href="/tags/%EB%AA%A8%EB%93%88%ED%99%94/" rel="tag">모듈화</a> <a class="tag-none-link" href="/tags/%EC%BD%94%EB%93%9C%EA%B0%9C%EC%84%A0/" rel="tag">코드개선</a> <a class="tag-none-link" href="/tags/%ED%83%80%EC%9E%85%EC%95%88%EC%A0%84%EC%84%B1/" rel="tag">타입안전성</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-06-24 12:22'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-06-24 12:46'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>posts/cortex-m-code-improvement-struct/</span>
@@ -1197,7 +1017,7 @@ GPIOA<span class="token operator">-></span>ODR <span class="token operator">^=</
         
         <span><a class="tag-none-link" href="/tags/ARM/" rel="tag">ARM</a> <a class="tag-none-link" href="/tags/Embedded/" rel="tag">Embedded</a> <a class="tag-none-link" href="/tags/SW-Stack/" rel="tag">SW Stack</a> <a class="tag-none-link" href="/tags/%EA%B3%84%EC%B8%B5%EA%B5%AC%EC%A1%B0/" rel="tag">계층구조</a> <a class="tag-none-link" href="/tags/%EB%AA%A8%EB%93%88%ED%99%94/" rel="tag">모듈화</a> <a class="tag-none-link" href="/tags/%ED%8F%B4%EB%8D%94%EB%B6%84%EB%A6%AC/" rel="tag">폴더분리</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-06-24 12:22'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-06-24 12:46'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>posts/cortex-m-software-stack/</span>
