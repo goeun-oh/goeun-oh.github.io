@@ -129,106 +129,168 @@ body {
 }
 
 /* =================================================================
-   VSCode 스타일 코드 블록 - CORS 없는 순수 CSS
+   VSCode 스타일 코드 블록 - PrismJS 토큰 기반 완전 적용
    ================================================================= */
 
-/* 최고 우선순위 코드 블록 스타일링 */
+/* 코드 블록 컨테이너 - 모든 가능한 선택자 */
 pre,
-pre[class],
-pre[class*="lang"],
-pre[class*="language"],
+pre.language-c,
+pre[class*="language-"],
+code[class*="language-"],
+.language-c,
 .post-content pre,
 .main-content pre,
 .mdui-typo pre,
-article pre,
-section pre,
-div pre,
-body pre,
-html pre {
-    /* 기존 스타일 완전 초기화 */
-    all: initial !important;
-    
-    /* VSCode 다크 테마 강제 적용 */
-    display: block !important;
-    background-color: #1e1e1e !important;
+article pre {
     background: #1e1e1e !important;
+    background-color: #1e1e1e !important;
     color: #d4d4d4 !important;
     border: 1px solid #404040 !important;
     border-radius: 8px !important;
     padding: 24px !important;
     margin: 2em 0 !important;
-    overflow: visible !important;
     overflow-x: auto !important;
     font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace !important;
     font-size: 16px !important;
     line-height: 1.6 !important;
     font-weight: 400 !important;
     white-space: pre !important;
-    word-wrap: normal !important;
-    word-break: normal !important;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
     position: relative !important;
-    width: auto !important;
-    height: auto !important;
-    max-width: 100% !important;
-    letter-spacing: 0.3px !important;
-    text-align: left !important;
-    direction: ltr !important;
-    tab-size: 4 !important;
-    hyphens: none !important;
-    font-style: normal !important;
-    font-variant: normal !important;
-    text-decoration: none !important;
-    text-transform: none !important;
-    text-shadow: none !important;
-    box-sizing: border-box !important;
-}
-
-/* 코드 블록 내 모든 요소 */
-pre *,
-pre[class] *,
-pre[class*="lang"] *,
-pre[class*="language"] * {
-    color: #d4d4d4 !important;
-    background: transparent !important;
-    background-color: transparent !important;
-    font-family: inherit !important;
-    font-size: inherit !important;
-    font-weight: inherit !important;
-    line-height: inherit !important;
-    border: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    text-shadow: none !important;
-    box-shadow: none !important;
-}
-
-/* code 태그 특별 처리 */
-pre code,
-pre[class] code,
-pre[class*="lang"] code,
-pre[class*="language"] code,
-code[class*="language"] {
     display: block !important;
-    background: transparent !important;
-    background-color: transparent !important;
-    color: #d4d4d4 !important;
-    font-family: inherit !important;
-    font-size: inherit !important;
-    font-weight: inherit !important;
-    line-height: inherit !important;
-    white-space: pre !important;
-    word-wrap: normal !important;
-    border: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    text-shadow: none !important;
-    box-shadow: none !important;
-    overflow: visible !important;
 }
 
-/* 인라인 코드는 제외 */
-:not(pre) > code {
+/* =================================================================
+   PrismJS 토큰 스타일 - 스크린샷에서 본 클래스들에 직접 적용
+   ================================================================= */
+
+/* 기본 토큰 색상 */
+.token,
+span.token,
+.language-c .token,
+pre .token {
+    color: #d4d4d4 !important;
+    background: none !important;
+}
+
+/* 키워드 (void, int, uint32_t 등) */
+.token.keyword,
+span.token.keyword,
+.language-c .token.keyword,
+pre .token.keyword {
+    color: #569CD6 !important;
+    font-weight: 600 !important;
+}
+
+/* 함수명 */
+.token.function,
+span.token.function,
+.language-c .token.function,
+pre .token.function {
+    color: #DCDCAA !important;
+    font-weight: 500 !important;
+}
+
+/* 주석 */
+.token.comment,
+span.token.comment,
+.language-c .token.comment,
+pre .token.comment {
+    color: #6A9955 !important;
+    font-style: italic !important;
+}
+
+/* 문자열 */
+.token.string,
+span.token.string,
+.language-c .token.string,
+pre .token.string {
+    color: #CE9178 !important;
+}
+
+/* 숫자 */
+.token.number,
+span.token.number,
+.language-c .token.number,
+pre .token.number {
+    color: #B5CEA8 !important;
+}
+
+/* 연산자와 구두점 */
+.token.operator,
+.token.punctuation,
+span.token.operator,
+span.token.punctuation,
+.language-c .token.operator,
+.language-c .token.punctuation,
+pre .token.operator,
+pre .token.punctuation {
+    color: #D4D4D4 !important;
+}
+
+/* 매크로와 전처리기 */
+.token.macro,
+.token.directive,
+.token.directive-hash,
+span.token.macro,
+span.token.directive,
+.language-c .token.macro,
+.language-c .token.directive,
+pre .token.macro,
+pre .token.directive {
+    color: #C586C0 !important;
+}
+
+/* 속성과 변수 */
+.token.property,
+.token.variable,
+span.token.property,
+span.token.variable,
+.language-c .token.property,
+.language-c .token.variable,
+pre .token.property,
+pre .token.variable {
+    color: #9CDCFE !important;
+}
+
+/* 타입과 클래스명 */
+.token.class-name,
+.token.type,
+span.token.class-name,
+span.token.type,
+.language-c .token.class-name,
+.language-c .token.type,
+pre .token.class-name,
+pre .token.type {
+    color: #4EC9B0 !important;
+}
+
+/* 상수와 불린 값 */
+.token.boolean,
+.token.constant,
+span.token.boolean,
+span.token.constant,
+.language-c .token.boolean,
+.language-c .token.constant,
+pre .token.boolean,
+pre .token.constant {
+    color: #569CD6 !important;
+}
+
+/* 특별한 심볼들 */
+.token.symbol,
+.token.important,
+span.token.symbol,
+span.token.important,
+.language-c .token.symbol,
+.language-c .token.important,
+pre .token.symbol,
+pre .token.important {
+    color: #FF6B6B !important;
+}
+
+/* 인라인 코드 (pre 밖에 있는) */
+code:not(pre code):not([class*="language-"]) {
     background: #f6f8fa !important;
     color: #d73a49 !important;
     padding: 4px 8px !important;
@@ -238,14 +300,12 @@ code[class*="language"] {
     font-weight: 500 !important;
     border: 1px solid #e1e4e8 !important;
     display: inline !important;
-    white-space: nowrap !important;
 }
 
 /* 언어 라벨 */
 pre::before,
-pre[class]::before,
-pre[class*="lang"]::before,
-pre[class*="language"]::before {
+pre.language-c::before,
+pre[class*="language-"]::before {
     content: "C" !important;
     position: absolute !important;
     top: 0 !important;
@@ -259,18 +319,15 @@ pre[class*="language"]::before {
     border-bottom-left-radius: 4px !important;
     text-transform: uppercase !important;
     z-index: 1 !important;
-    letter-spacing: 0.5px !important;
 }
 
-/* 스크롤바 스타일 */
+/* 스크롤바 */
 pre::-webkit-scrollbar {
     height: 8px !important;
-    width: 8px !important;
 }
 
 pre::-webkit-scrollbar-track {
     background: #2d2d30 !important;
-    border-radius: 4px !important;
 }
 
 pre::-webkit-scrollbar-thumb {
@@ -278,23 +335,11 @@ pre::-webkit-scrollbar-thumb {
     border-radius: 4px !important;
 }
 
-pre::-webkit-scrollbar-thumb:hover {
-    background: #4f4f4f !important;
-}
-
 /* 호버 효과 */
 pre:hover {
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
     transform: translateY(-1px) !important;
     transition: all 0.2s ease !important;
-}
-
-/* 추가 클래스 기반 강제 적용 */
-.vscode-dark,
-.language-c,
-.hljs {
-    background: #1e1e1e !important;
-    color: #d4d4d4 !important;
 }
 
 /* 모바일 반응형 */
@@ -324,9 +369,7 @@ pre:hover {
     }
     
     pre,
-    pre[class],
-    pre[class*="lang"],
-    pre[class*="language"] {
+    pre[class*="language-"] {
         margin: 1.5em -16px !important;
         border-radius: 0 !important;
         border-left: none !important;
