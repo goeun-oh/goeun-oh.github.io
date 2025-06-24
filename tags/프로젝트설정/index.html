@@ -758,7 +758,7 @@ article img {
         
         <span><a class="tag-none-link" href="/tags/GPIO/" rel="tag">GPIO</a> <a class="tag-none-link" href="/tags/RCC/" rel="tag">RCC</a> <a class="tag-none-link" href="/tags/STM32CubeIDE/" rel="tag">STM32CubeIDE</a> <a class="tag-none-link" href="/tags/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%84%A4%EC%A0%95/" rel="tag">프로젝트설정</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-22 12:00<br>수정일: 2025-06-24 12:56'}" datetime="2025-06-21T15:00:00.000Z">2025-06-22</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-22 12:00<br>수정일: 2025-06-24 12:58'}" datetime="2025-06-21T15:00:00.000Z">2025-06-22</time>
         <span>-</span>
         
             <span>posts/1.cortex-m-project-setup/</span>
@@ -890,22 +890,22 @@ article img {
 <li>핀 라벨이 <strong>GPIO_Output</strong>으로 변경된다</li>
 </ul>
 <h2 id="간단한-테스트-코드"><a href="#간단한-테스트-코드" class="headerlink" title="간단한 테스트 코드"></a>간단한 테스트 코드</h2><p>생성된 main.c에 LED 제어 코드를 추가해보자:</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">/* USER CODE BEGIN WHILE */</span>
-<span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token comment">/* USER CODE END WHILE */</span>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">&#x2F;* USER CODE BEGIN WHILE *&#x2F;
+while (1)
+&#123;
+    &#x2F;* USER CODE END WHILE *&#x2F;
     
-    <span class="token comment">// LED ON</span>
-    <span class="token function">HAL_GPIO_WritePin</span><span class="token punctuation">(</span>GPIOA<span class="token punctuation">,</span> GPIO_PIN_5<span class="token punctuation">,</span> GPIO_PIN_SET<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">HAL_Delay</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 0.5초 대기</span>
+    &#x2F;&#x2F; LED ON
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+    HAL_Delay(500);  &#x2F;&#x2F; 0.5초 대기
     
-    <span class="token comment">// LED OFF</span>
-    <span class="token function">HAL_GPIO_WritePin</span><span class="token punctuation">(</span>GPIOA<span class="token punctuation">,</span> GPIO_PIN_5<span class="token punctuation">,</span> GPIO_PIN_RESET<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">HAL_Delay</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 0.5초 대기</span>
+    &#x2F;&#x2F; LED OFF
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+    HAL_Delay(500);  &#x2F;&#x2F; 0.5초 대기
     
-    <span class="token comment">/* USER CODE BEGIN 3 */</span>
-<span class="token punctuation">&#125;</span>
-<span class="token comment">/* USER CODE END 3 */</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    &#x2F;* USER CODE BEGIN 3 *&#x2F;
+&#125;
+&#x2F;* USER CODE END 3 *&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="정리"><a href="#정리" class="headerlink" title="정리"></a>정리</h2><p>이번 포스트에서는 STM32CubeIDE를 사용한 프로젝트 생성과 기본 설정을 다뤘다:</p>
 <p>다음 포스트에서는 개발에 필요한 도구들을 설치하고 빌드 환경을 구성해보겠다.</p>

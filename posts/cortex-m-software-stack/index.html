@@ -560,7 +560,7 @@ article img {
 <meta property="og:locale" content="ko_KR">
 <meta property="og:image" content="https://raw.githubusercontent.com/goeun-oh/ARM/main/0619/0.GPIO_BTN_%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0.md%7B237EF5FA-4218-4683-8031-73F87911D2AB%7D.png">
 <meta property="article:published_time" content="2025-06-22T15:00:00.000Z">
-<meta property="article:modified_time" content="2025-06-24T03:56:24.812Z">
+<meta property="article:modified_time" content="2025-06-24T03:58:34.835Z">
 <meta property="article:author" content="고은">
 <meta property="article:tag" content="모듈화">
 <meta property="article:tag" content="SW Stack">
@@ -764,7 +764,7 @@ article img {
         
         <span><a class="tag-none-link" href="/tags/ARM/" rel="tag">ARM</a> <a class="tag-none-link" href="/tags/Embedded/" rel="tag">Embedded</a> <a class="tag-none-link" href="/tags/SW-Stack/" rel="tag">SW Stack</a> <a class="tag-none-link" href="/tags/%EA%B3%84%EC%B8%B5%EA%B5%AC%EC%A1%B0/" rel="tag">계층구조</a> <a class="tag-none-link" href="/tags/%EB%AA%A8%EB%93%88%ED%99%94/" rel="tag">모듈화</a> <a class="tag-none-link" href="/tags/%ED%8F%B4%EB%8D%94%EB%B6%84%EB%A6%AC/" rel="tag">폴더분리</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-06-24 12:56'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-06-24 12:58'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>posts/cortex-m-software-stack/</span>
@@ -832,129 +832,129 @@ article img {
     ├── stm32f411xx.h
     └── memory_map.h<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="🔧-GPIO-모듈-분리-실습"><a href="#🔧-GPIO-모듈-분리-실습" class="headerlink" title="🔧 GPIO 모듈 분리 실습"></a>🔧 GPIO 모듈 분리 실습</h2><h3 id="1-GPIO-드라이버-계층-gpio-driver-h"><a href="#1-GPIO-드라이버-계층-gpio-driver-h" class="headerlink" title="1. GPIO 드라이버 계층 (gpio_driver.h)"></a>1. GPIO 드라이버 계층 (gpio_driver.h)</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifndef</span> <span class="token expression">GPIO_DRIVER_H</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIO_DRIVER_H</span></span>
+<h2 id="🔧-GPIO-모듈-분리-실습"><a href="#🔧-GPIO-모듈-분리-실습" class="headerlink" title="🔧 GPIO 모듈 분리 실습"></a>🔧 GPIO 모듈 분리 실습</h2><h3 id="1-GPIO-드라이버-계층-gpio-driver-h"><a href="#1-GPIO-드라이버-계층-gpio-driver-h" class="headerlink" title="1. GPIO 드라이버 계층 (gpio_driver.h)"></a>1. GPIO 드라이버 계층 (gpio_driver.h)</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">#ifndef GPIO_DRIVER_H
+#define GPIO_DRIVER_H
 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdint.h></span></span>
+#include &lt;stdint.h&gt;
 
-<span class="token comment">// GPIO 베이스 주소 정의</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_BASE</span>    <span class="token expression"><span class="token number">0x40020000</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOB_BASE</span>    <span class="token expression"><span class="token number">0x40020400</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOC_BASE</span>    <span class="token expression"><span class="token number">0x40020800</span></span></span>
+&#x2F;&#x2F; GPIO 베이스 주소 정의
+#define GPIOA_BASE    0x40020000
+#define GPIOB_BASE    0x40020400
+#define GPIOC_BASE    0x40020800
 
-<span class="token comment">// GPIO 레지스터 구조체</span>
-<span class="token keyword">typedef</span> <span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> MODER<span class="token punctuation">;</span>    <span class="token comment">// Mode register</span>
-    <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> OTYPER<span class="token punctuation">;</span>   <span class="token comment">// Output type register</span>
-    <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> OSPEEDR<span class="token punctuation">;</span>  <span class="token comment">// Speed register</span>
-    <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> PUPDR<span class="token punctuation">;</span>    <span class="token comment">// Pull-up/pull-down register</span>
-    <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> IDR<span class="token punctuation">;</span>      <span class="token comment">// Input data register</span>
-    <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> ODR<span class="token punctuation">;</span>      <span class="token comment">// Output data register</span>
-    <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> BSRR<span class="token punctuation">;</span>     <span class="token comment">// Bit set/reset register</span>
-    <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> LCKR<span class="token punctuation">;</span>     <span class="token comment">// Lock register</span>
-    <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> AFR<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>   <span class="token comment">// Alternate function registers</span>
-<span class="token punctuation">&#125;</span> GPIO_TypeDef<span class="token punctuation">;</span>
+&#x2F;&#x2F; GPIO 레지스터 구조체
+typedef struct &#123;
+    volatile uint32_t MODER;    &#x2F;&#x2F; Mode register
+    volatile uint32_t OTYPER;   &#x2F;&#x2F; Output type register
+    volatile uint32_t OSPEEDR;  &#x2F;&#x2F; Speed register
+    volatile uint32_t PUPDR;    &#x2F;&#x2F; Pull-up&#x2F;pull-down register
+    volatile uint32_t IDR;      &#x2F;&#x2F; Input data register
+    volatile uint32_t ODR;      &#x2F;&#x2F; Output data register
+    volatile uint32_t BSRR;     &#x2F;&#x2F; Bit set&#x2F;reset register
+    volatile uint32_t LCKR;     &#x2F;&#x2F; Lock register
+    volatile uint32_t AFR[2];   &#x2F;&#x2F; Alternate function registers
+&#125; GPIO_TypeDef;
 
-<span class="token comment">// GPIO 포트 정의</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA</span>  <span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">(</span>GPIO_TypeDef<span class="token operator">*</span><span class="token punctuation">)</span>GPIOA_BASE<span class="token punctuation">)</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOB</span>  <span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">(</span>GPIO_TypeDef<span class="token operator">*</span><span class="token punctuation">)</span>GPIOB_BASE<span class="token punctuation">)</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOC</span>  <span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">(</span>GPIO_TypeDef<span class="token operator">*</span><span class="token punctuation">)</span>GPIOC_BASE<span class="token punctuation">)</span></span></span>
+&#x2F;&#x2F; GPIO 포트 정의
+#define GPIOA  ((GPIO_TypeDef*)GPIOA_BASE)
+#define GPIOB  ((GPIO_TypeDef*)GPIOB_BASE)
+#define GPIOC  ((GPIO_TypeDef*)GPIOC_BASE)
 
-<span class="token comment">// 함수 선언</span>
-<span class="token keyword">void</span> <span class="token function">gpio_clock_enable</span><span class="token punctuation">(</span>GPIO_TypeDef<span class="token operator">*</span> gpio<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">void</span> <span class="token function">gpio_set_mode</span><span class="token punctuation">(</span>GPIO_TypeDef<span class="token operator">*</span> gpio<span class="token punctuation">,</span> <span class="token class-name">uint8_t</span> pin<span class="token punctuation">,</span> <span class="token class-name">uint8_t</span> mode<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">void</span> <span class="token function">gpio_write_pin</span><span class="token punctuation">(</span>GPIO_TypeDef<span class="token operator">*</span> gpio<span class="token punctuation">,</span> <span class="token class-name">uint8_t</span> pin<span class="token punctuation">,</span> <span class="token class-name">uint8_t</span> state<span class="token punctuation">)</span><span class="token punctuation">;</span>
+&#x2F;&#x2F; 함수 선언
+void gpio_clock_enable(GPIO_TypeDef* gpio);
+void gpio_set_mode(GPIO_TypeDef* gpio, uint8_t pin, uint8_t mode);
+void gpio_write_pin(GPIO_TypeDef* gpio, uint8_t pin, uint8_t state);
 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+#endif<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="2-GPIO-드라이버-계층-gpio-driver-c"><a href="#2-GPIO-드라이버-계층-gpio-driver-c" class="headerlink" title="2. GPIO 드라이버 계층 (gpio_driver.c)"></a>2. GPIO 드라이버 계층 (gpio_driver.c)</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"gpio_driver.h"</span></span>
+<h3 id="2-GPIO-드라이버-계층-gpio-driver-c"><a href="#2-GPIO-드라이버-계층-gpio-driver-c" class="headerlink" title="2. GPIO 드라이버 계층 (gpio_driver.c)"></a>2. GPIO 드라이버 계층 (gpio_driver.c)</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">#include &quot;gpio_driver.h&quot;
 
-<span class="token comment">// RCC 레지스터 주소</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">RCC_BASE</span>      <span class="token expression"><span class="token number">0x40023800</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">RCC_AHB1ENR</span>   <span class="token expression"><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>RCC_BASE <span class="token operator">+</span> <span class="token number">0x30</span><span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
+&#x2F;&#x2F; RCC 레지스터 주소
+#define RCC_BASE      0x40023800
+#define RCC_AHB1ENR   (*(volatile uint32_t*)(RCC_BASE + 0x30))
 
-<span class="token keyword">void</span> <span class="token function">gpio_clock_enable</span><span class="token punctuation">(</span>GPIO_TypeDef<span class="token operator">*</span> gpio<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>gpio <span class="token operator">==</span> GPIOA<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        RCC_AHB1ENR <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">&lt;&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// GPIOA 클록 활성화</span>
-    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>gpio <span class="token operator">==</span> GPIOB<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        RCC_AHB1ENR <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">&lt;&lt;</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// GPIOB 클록 활성화</span>
-    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>gpio <span class="token operator">==</span> GPIOC<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        RCC_AHB1ENR <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">&lt;&lt;</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// GPIOC 클록 활성화</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
+void gpio_clock_enable(GPIO_TypeDef* gpio) &#123;
+    if (gpio &#x3D;&#x3D; GPIOA) &#123;
+        RCC_AHB1ENR |&#x3D; (1 &lt;&lt; 0);  &#x2F;&#x2F; GPIOA 클록 활성화
+    &#125; else if (gpio &#x3D;&#x3D; GPIOB) &#123;
+        RCC_AHB1ENR |&#x3D; (1 &lt;&lt; 1);  &#x2F;&#x2F; GPIOB 클록 활성화
+    &#125; else if (gpio &#x3D;&#x3D; GPIOC) &#123;
+        RCC_AHB1ENR |&#x3D; (1 &lt;&lt; 2);  &#x2F;&#x2F; GPIOC 클록 활성화
+    &#125;
+&#125;
 
-<span class="token keyword">void</span> <span class="token function">gpio_set_mode</span><span class="token punctuation">(</span>GPIO_TypeDef<span class="token operator">*</span> gpio<span class="token punctuation">,</span> <span class="token class-name">uint8_t</span> pin<span class="token punctuation">,</span> <span class="token class-name">uint8_t</span> mode<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    gpio<span class="token operator">-></span>MODER <span class="token operator">&amp;=</span> <span class="token operator">~</span><span class="token punctuation">(</span><span class="token number">3</span> <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span>pin <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">// 기존 모드 클리어</span>
-    gpio<span class="token operator">-></span>MODER <span class="token operator">|=</span> <span class="token punctuation">(</span>mode <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span>pin <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">// 새 모드 설정</span>
-<span class="token punctuation">&#125;</span>
+void gpio_set_mode(GPIO_TypeDef* gpio, uint8_t pin, uint8_t mode) &#123;
+    gpio-&gt;MODER &amp;&#x3D; ~(3 &lt;&lt; (pin * 2));      &#x2F;&#x2F; 기존 모드 클리어
+    gpio-&gt;MODER |&#x3D; (mode &lt;&lt; (pin * 2));    &#x2F;&#x2F; 새 모드 설정
+&#125;
 
-<span class="token keyword">void</span> <span class="token function">gpio_write_pin</span><span class="token punctuation">(</span>GPIO_TypeDef<span class="token operator">*</span> gpio<span class="token punctuation">,</span> <span class="token class-name">uint8_t</span> pin<span class="token punctuation">,</span> <span class="token class-name">uint8_t</span> state<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        gpio<span class="token operator">-></span>BSRR <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">&lt;&lt;</span> pin<span class="token punctuation">)</span><span class="token punctuation">;</span>           <span class="token comment">// Set pin</span>
-    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-        gpio<span class="token operator">-></span>BSRR <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span>pin <span class="token operator">+</span> <span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">// Reset pin</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+void gpio_write_pin(GPIO_TypeDef* gpio, uint8_t pin, uint8_t state) &#123;
+    if (state) &#123;
+        gpio-&gt;BSRR &#x3D; (1 &lt;&lt; pin);           &#x2F;&#x2F; Set pin
+    &#125; else &#123;
+        gpio-&gt;BSRR &#x3D; (1 &lt;&lt; (pin + 16));    &#x2F;&#x2F; Reset pin
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="3-LED-HAL-계층-led-hal-h"><a href="#3-LED-HAL-계층-led-hal-h" class="headerlink" title="3. LED HAL 계층 (led_hal.h)"></a>3. LED HAL 계층 (led_hal.h)</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifndef</span> <span class="token expression">LED_HAL_H</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">LED_HAL_H</span></span>
+<h3 id="3-LED-HAL-계층-led-hal-h"><a href="#3-LED-HAL-계층-led-hal-h" class="headerlink" title="3. LED HAL 계층 (led_hal.h)"></a>3. LED HAL 계층 (led_hal.h)</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">#ifndef LED_HAL_H
+#define LED_HAL_H
 
-<span class="token comment">// LED 상태 정의</span>
-<span class="token keyword">typedef</span> <span class="token keyword">enum</span> <span class="token punctuation">&#123;</span>
-    LED_OFF <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
-    LED_ON  <span class="token operator">=</span> <span class="token number">1</span>
-<span class="token punctuation">&#125;</span> LED_State_t<span class="token punctuation">;</span>
+&#x2F;&#x2F; LED 상태 정의
+typedef enum &#123;
+    LED_OFF &#x3D; 0,
+    LED_ON  &#x3D; 1
+&#125; LED_State_t;
 
-<span class="token comment">// LED 초기화 및 제어 함수</span>
-<span class="token keyword">void</span> <span class="token function">led_init</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">void</span> <span class="token function">led_set_state</span><span class="token punctuation">(</span>LED_State_t state<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">void</span> <span class="token function">led_toggle</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+&#x2F;&#x2F; LED 초기화 및 제어 함수
+void led_init(void);
+void led_set_state(LED_State_t state);
+void led_toggle(void);
 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+#endif<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="4-LED-HAL-계층-led-hal-c"><a href="#4-LED-HAL-계층-led-hal-c" class="headerlink" title="4. LED HAL 계층 (led_hal.c)"></a>4. LED HAL 계층 (led_hal.c)</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"led_hal.h"</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"gpio_driver.h"</span></span>
+<h3 id="4-LED-HAL-계층-led-hal-c"><a href="#4-LED-HAL-계층-led-hal-c" class="headerlink" title="4. LED HAL 계층 (led_hal.c)"></a>4. LED HAL 계층 (led_hal.c)</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">#include &quot;led_hal.h&quot;
+#include &quot;gpio_driver.h&quot;
 
-<span class="token comment">// LED 핀 정의</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">LED_PORT</span>    <span class="token expression">GPIOA</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">LED_PIN</span>     <span class="token expression"><span class="token number">5</span></span></span>
+&#x2F;&#x2F; LED 핀 정의
+#define LED_PORT    GPIOA
+#define LED_PIN     5
 
-<span class="token keyword">void</span> <span class="token function">led_init</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token comment">// GPIO 클록 활성화</span>
-    <span class="token function">gpio_clock_enable</span><span class="token punctuation">(</span>LED_PORT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+void led_init(void) &#123;
+    &#x2F;&#x2F; GPIO 클록 활성화
+    gpio_clock_enable(LED_PORT);
     
-    <span class="token comment">// LED 핀을 출력 모드로 설정</span>
-    <span class="token function">gpio_set_mode</span><span class="token punctuation">(</span>LED_PORT<span class="token punctuation">,</span> LED_PIN<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 1 = Output mode</span>
-<span class="token punctuation">&#125;</span>
+    &#x2F;&#x2F; LED 핀을 출력 모드로 설정
+    gpio_set_mode(LED_PORT, LED_PIN, 1);  &#x2F;&#x2F; 1 &#x3D; Output mode
+&#125;
 
-<span class="token keyword">void</span> <span class="token function">led_set_state</span><span class="token punctuation">(</span>LED_State_t state<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token function">gpio_write_pin</span><span class="token punctuation">(</span>LED_PORT<span class="token punctuation">,</span> LED_PIN<span class="token punctuation">,</span> state<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
+void led_set_state(LED_State_t state) &#123;
+    gpio_write_pin(LED_PORT, LED_PIN, state);
+&#125;
 
-<span class="token keyword">void</span> <span class="token function">led_toggle</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">static</span> LED_State_t current_state <span class="token operator">=</span> LED_OFF<span class="token punctuation">;</span>
-    current_state <span class="token operator">=</span> <span class="token punctuation">(</span>current_state <span class="token operator">==</span> LED_OFF<span class="token punctuation">)</span> <span class="token operator">?</span> LED_ON <span class="token operator">:</span> LED_OFF<span class="token punctuation">;</span>
-    <span class="token function">led_set_state</span><span class="token punctuation">(</span>current_state<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+void led_toggle(void) &#123;
+    static LED_State_t current_state &#x3D; LED_OFF;
+    current_state &#x3D; (current_state &#x3D;&#x3D; LED_OFF) ? LED_ON : LED_OFF;
+    led_set_state(current_state);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="5-애플리케이션-계층-main-c"><a href="#5-애플리케이션-계층-main-c" class="headerlink" title="5. 애플리케이션 계층 (main.c)"></a>5. 애플리케이션 계층 (main.c)</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"led_hal.h"</span></span>
+<h3 id="5-애플리케이션-계층-main-c"><a href="#5-애플리케이션-계층-main-c" class="headerlink" title="5. 애플리케이션 계층 (main.c)"></a>5. 애플리케이션 계층 (main.c)</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">#include &quot;led_hal.h&quot;
 
-<span class="token comment">// 간단한 딜레이 함수</span>
-<span class="token keyword">void</span> <span class="token function">delay</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> count<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">while</span><span class="token punctuation">(</span>count<span class="token operator">--</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
+&#x2F;&#x2F; 간단한 딜레이 함수
+void delay(volatile uint32_t count) &#123;
+    while(count--);
+&#125;
 
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token comment">// LED 초기화</span>
-    <span class="token function">led_init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+int main(void) &#123;
+    &#x2F;&#x2F; LED 초기화
+    led_init();
     
-    <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token function">led_toggle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment">// LED 토글</span>
-        <span class="token function">delay</span><span class="token punctuation">(</span><span class="token number">1000000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">// 딜레이</span>
-    <span class="token punctuation">&#125;</span>
+    while(1) &#123;
+        led_toggle();        &#x2F;&#x2F; LED 토글
+        delay(1000000);      &#x2F;&#x2F; 딜레이
+    &#125;
     
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="🎯-모듈화의-장점"><a href="#🎯-모듈화의-장점" class="headerlink" title="🎯 모듈화의 장점"></a>🎯 모듈화의 장점</h2><h3 id="1-코드-재사용성"><a href="#1-코드-재사용성" class="headerlink" title="1. 코드 재사용성"></a>1. <strong>코드 재사용성</strong></h3><ul>
 <li>GPIO 드라이버는 다른 프로젝트에서도 사용 가능</li>
@@ -984,48 +984,48 @@ article img {
 <li>각 계층의 내부 구현은 숨김</li>
 <li>공개 인터페이스만을 통한 접근</li>
 </ul>
-<h2 id="🚀-실제-프로젝트-적용-팁"><a href="#🚀-실제-프로젝트-적용-팁" class="headerlink" title="🚀 실제 프로젝트 적용 팁"></a>🚀 실제 프로젝트 적용 팁</h2><h3 id="1-점진적-리팩토링"><a href="#1-점진적-리팩토링" class="headerlink" title="1. 점진적 리팩토링"></a>1. <strong>점진적 리팩토링</strong></h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// Before: 모든 코드가 main.c에</span>
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token comment">// GPIO 클록 설정</span>
-    RCC_AHB1ENR <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">&lt;&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<h2 id="🚀-실제-프로젝트-적용-팁"><a href="#🚀-실제-프로젝트-적용-팁" class="headerlink" title="🚀 실제 프로젝트 적용 팁"></a>🚀 실제 프로젝트 적용 팁</h2><h3 id="1-점진적-리팩토링"><a href="#1-점진적-리팩토링" class="headerlink" title="1. 점진적 리팩토링"></a>1. <strong>점진적 리팩토링</strong></h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">&#x2F;&#x2F; Before: 모든 코드가 main.c에
+int main(void) &#123;
+    &#x2F;&#x2F; GPIO 클록 설정
+    RCC_AHB1ENR |&#x3D; (1 &lt;&lt; 0);
     
-    <span class="token comment">// GPIO 모드 설정</span>
-    GPIOA<span class="token operator">-></span>MODER <span class="token operator">&amp;=</span> <span class="token operator">~</span><span class="token punctuation">(</span><span class="token number">3</span> <span class="token operator">&lt;&lt;</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    GPIOA<span class="token operator">-></span>MODER <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">&lt;&lt;</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    &#x2F;&#x2F; GPIO 모드 설정
+    GPIOA-&gt;MODER &amp;&#x3D; ~(3 &lt;&lt; 10);
+    GPIOA-&gt;MODER |&#x3D; (1 &lt;&lt; 10);
     
-    <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        GPIOA<span class="token operator">-></span>BSRR <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">&lt;&lt;</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">delay</span><span class="token punctuation">(</span><span class="token number">1000000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        GPIOA<span class="token operator">-></span>BSRR <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">&lt;&lt;</span> <span class="token number">21</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">delay</span><span class="token punctuation">(</span><span class="token number">1000000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
+    while(1) &#123;
+        GPIOA-&gt;BSRR &#x3D; (1 &lt;&lt; 5);
+        delay(1000000);
+        GPIOA-&gt;BSRR &#x3D; (1 &lt;&lt; 21);
+        delay(1000000);
+    &#125;
+&#125;
 
-<span class="token comment">// After: 계층별 분리</span>
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token function">led_init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+&#x2F;&#x2F; After: 계층별 분리
+int main(void) &#123;
+    led_init();
     
-    <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token function">led_toggle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">delay</span><span class="token punctuation">(</span><span class="token number">1000000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    while(1) &#123;
+        led_toggle();
+        delay(1000000);
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="2-설정-파일-활용"><a href="#2-설정-파일-활용" class="headerlink" title="2. 설정 파일 활용"></a>2. <strong>설정 파일 활용</strong></h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// config.h</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">LED1_PORT</span>    <span class="token expression">GPIOA</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">LED1_PIN</span>     <span class="token expression"><span class="token number">5</span></span></span>
+<h3 id="2-설정-파일-활용"><a href="#2-설정-파일-활용" class="headerlink" title="2. 설정 파일 활용"></a>2. <strong>설정 파일 활용</strong></h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">&#x2F;&#x2F; config.h
+#define LED1_PORT    GPIOA
+#define LED1_PIN     5
 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">LED2_PORT</span>    <span class="token expression">GPIOB</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">LED2_PIN</span>     <span class="token expression"><span class="token number">3</span></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+#define LED2_PORT    GPIOB
+#define LED2_PIN     3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="3-에러-처리-추가"><a href="#3-에러-처리-추가" class="headerlink" title="3. 에러 처리 추가"></a>3. <strong>에러 처리 추가</strong></h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">typedef</span> <span class="token keyword">enum</span> <span class="token punctuation">&#123;</span>
-    HAL_OK<span class="token punctuation">,</span>
-    HAL_ERROR<span class="token punctuation">,</span>
-    HAL_BUSY<span class="token punctuation">,</span>
+<h3 id="3-에러-처리-추가"><a href="#3-에러-처리-추가" class="headerlink" title="3. 에러 처리 추가"></a>3. <strong>에러 처리 추가</strong></h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">typedef enum &#123;
+    HAL_OK,
+    HAL_ERROR,
+    HAL_BUSY,
     HAL_TIMEOUT
-<span class="token punctuation">&#125;</span> HAL_StatusTypeDef<span class="token punctuation">;</span>
+&#125; HAL_StatusTypeDef;
 
-HAL_StatusTypeDef <span class="token function">led_init</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+HAL_StatusTypeDef led_init(void);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="📚-참고-자료"><a href="#📚-참고-자료" class="headerlink" title="📚 참고 자료"></a>📚 참고 자료</h2><p>이 포스트는 다음 GitHub 레포지토리의 실습 내용을 바탕으로 작성되었습니다:</p>
 <ul>
