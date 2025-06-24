@@ -1,15 +1,14 @@
 ---
 title: 6. SW Stack과 모듈화
 date: 2025-06-23
-categories:
-  - Cortex-M
-  - ARM
-  - Embedded
+categories: Cortex-M
 tags:
   - SW Stack
   - 모듈화
   - 폴더분리
   - 계층구조
+  - ARM
+  - Embedded
 layout: post
 ---
 
