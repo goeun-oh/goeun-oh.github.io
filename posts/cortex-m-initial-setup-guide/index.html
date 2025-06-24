@@ -14,13 +14,6 @@
 
 
 
-
-<link rel="stylesheet" href="/css/prism-m.css">
-
-
-
-
-
 <meta name="theme-color" content="#3F51B5">
 
 
@@ -70,6 +63,18 @@
 
     
 </style>
+
+<!-- Prism.js CSS는 커스텀 스타일 다음에 로드 -->
+
+
+<link rel="stylesheet" href="/css/prism-m.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/PrismJS/prism/plugins/line-numbers/prism-line-numbers.css">
+
+
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -269,9 +274,9 @@ document.addEventListener('DOMContentLoaded', function() {
     margin: 1em 0 0.5em 0 !important; 
 }
 
-/* 인라인 코드 스타일 - Prism.js와 구분 */
-.e-content code:not(pre code),
-.mdui-card-content.mdui-typo code:not(pre code) {
+/* 인라인 코드만 Bear 스타일 적용, Prism.js 코드 블록은 제외 */
+.e-content code:not([class*="language-"]):not(pre code),
+.mdui-card-content.mdui-typo code:not([class*="language-"]):not(pre code) {
     background: #f6f6f6 !important;
     padding: 2px 6px !important;
     border-radius: 3px !important;
@@ -465,7 +470,7 @@ article img {
 <meta property="og:description" content="Cortex-M 초기환경 세팅 가이드STM32F411 Nucleo-64 보드를 사용하여 초기환경 설정부터 고급 기능까지 단계별로 정리한다. 📚 학습 로드맵이 가이드는 총 7개의 주요 섹션으로 구성되어 있으며, 각 섹션은 독립적인 포스트로 작성되어 있다. 1️⃣ STM32 보드 소개 STM32F411RE Nucleo-64 보드 스펙 소개 핀 맵과 LED 연">
 <meta property="og:locale" content="ko_KR">
 <meta property="article:published_time" content="2025-06-22T15:00:00.000Z">
-<meta property="article:modified_time" content="2025-06-24T05:44:58.124Z">
+<meta property="article:modified_time" content="2025-06-24T05:46:19.779Z">
 <meta property="article:author" content="고은">
 <meta property="article:tag" content="STM32">
 <meta property="article:tag" content="초기환경">
@@ -665,7 +670,7 @@ article img {
         
         <span><a class="tag-none-link" href="/tags/STM32/" rel="tag">STM32</a> <a class="tag-none-link" href="/tags/%EA%B0%80%EC%9D%B4%EB%93%9C/" rel="tag">가이드</a> <a class="tag-none-link" href="/tags/%EC%B4%88%EA%B8%B0%ED%99%98%EA%B2%BD/" rel="tag">초기환경</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-06-24 02:44'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-06-24 02:46'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>posts/cortex-m-initial-setup-guide/</span>
