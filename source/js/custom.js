@@ -1,142 +1,153 @@
-// 최강 코드 블록 다크 테마 강제 적용
-// 모든 방법을 동원한 마지막 수단
+// 최종 완성 - 완벽한 VSCode 다크 테마
 
-(function() {
-    'use strict';
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🎨 최종 VSCode 테마 적용 시작');
     
-    console.log('🔥 최강 코드 블록 스타일링 시작');
-    
-    function forceCodeBlockStyling() {
-        // 모든 가능한 코드 블록 선택자
-        const selectors = [
-            'pre',
-            'code[class*="language"]',
-            '.highlight pre',
-            '.hljs',
-            'pre code',
-            '[class*="language-"] pre',
-            '[class*="lang-"] pre'
+    function applyVSCodeTheme() {
+        // 1. 코드 블록 배경 설정
+        document.querySelectorAll('pre, pre[class*="language-"]').forEach(pre => {
+            pre.style.cssText = `
+                background: #1e1e1e !important;
+                border: 1px solid #404040 !important;
+                border-radius: 8px !important;
+                padding: 24px !important;
+                margin: 2em 0 !important;
+                font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Monaco, 'Cascadia Code', monospace !important;
+                font-size: 16px !important;
+                line-height: 1.6 !important;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+                overflow-x: auto !important;
+                position: relative !important;
+            `;
+        });
+        
+        // 2. 완벽한 토큰 색상 매핑
+        const tokenStyles = [
+            // 전처리기 지시문 (#include, #define)
+            { classes: ['directive', 'macro'], color: '#C586C0', weight: 'normal' },
+            { classes: ['directive-hash'], color: '#C586C0', weight: 'normal' },
+            
+            // 키워드 (void, int, volatile, typedef)
+            { classes: ['keyword'], color: '#569CD6', weight: '600' },
+            
+            // 함수명 (main, delay, GPIO_SetMode)
+            { classes: ['function'], color: '#DCDCAA', weight: '500' },
+            
+            // 주석
+            { classes: ['comment'], color: '#6A9955', weight: 'normal', italic: true },
+            
+            // 문자열
+            { classes: ['string'], color: '#CE9178', weight: 'normal' },
+            
+            // 숫자 (1U, 5, 16, 0x30)
+            { classes: ['number', 'hexcode'], color: '#B5CEA8', weight: 'normal' },
+            
+            // 연산자 및 구두점 (|=, &=, <<, >>, (, ), ;)
+            { classes: ['operator', 'punctuation'], color: '#D4D4D4', weight: 'normal' },
+            
+            // 속성 및 변수
+            { classes: ['property', 'variable'], color: '#9CDCFE', weight: 'normal' },
+            
+            // 타입 및 클래스명
+            { classes: ['class-name', 'type'], color: '#4EC9B0', weight: 'normal' },
+            
+            // 상수 및 불린값
+            { classes: ['boolean', 'constant'], color: '#569CD6', weight: 'normal' }
         ];
         
-        let totalElements = 0;
+        let appliedCount = 0;
         
-        selectors.forEach(selector => {
-            const elements = document.querySelectorAll(selector);
-            elements.forEach(element => {
-                totalElements++;
-                
-                // 강제 인라인 스타일 적용 (최고 우선순위)
-                element.setAttribute('style', `
-                    background: #1e1e1e !important;
-                    background-color: #1e1e1e !important;
-                    color: #d4d4d4 !important;
-                    border: 1px solid #404040 !important;
-                    border-radius: 8px !important;
-                    padding: 24px !important;
-                    margin: 2em 0 !important;
-                    overflow-x: auto !important;
-                    font-family: 'JetBrains Mono', 'Fira Code', Monaco, monospace !important;
-                    font-size: 16px !important;
-                    line-height: 1.6 !important;
-                    font-weight: 400 !important;
-                    white-space: pre !important;
-                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
-                    position: relative !important;
-                    display: block !important;
-                `);
-                
-                // 모든 자식 요소도 스타일링
-                const children = element.querySelectorAll('*');
-                children.forEach(child => {
-                    child.setAttribute('style', `
-                        color: #d4d4d4 !important;
-                        background: transparent !important;
-                        font-family: inherit !important;
-                        font-size: inherit !important;
-                    `);
+        // 각 토큰 스타일 적용
+        tokenStyles.forEach(({ classes, color, weight, italic }) => {
+            classes.forEach(className => {
+                document.querySelectorAll(`span.token.${className}, .token.${className}`).forEach(element => {
+                    let styles = `color: ${color} !important; background: transparent !important; font-weight: ${weight} !important;`;
+                    if (italic) styles += ' font-style: italic !important;';
+                    
+                    element.style.cssText = styles;
+                    appliedCount++;
                 });
-                
-                console.log('✅ 스타일 적용:', element.tagName, element.className);
             });
         });
         
-        console.log(`📊 총 ${totalElements}개 요소에 스타일 적용`);
-        return totalElements;
-    }
-    
-    // 즉시 실행
-    forceCodeBlockStyling();
-    
-    // DOM 로드 완료 후 실행
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', forceCodeBlockStyling);
-    }
-    
-    // 추가 지연 실행 (다른 스크립트 간섭 방지)
-    setTimeout(forceCodeBlockStyling, 100);
-    setTimeout(forceCodeBlockStyling, 500);
-    setTimeout(forceCodeBlockStyling, 1000);
-    
-    // MutationObserver로 동적 변화 감시
-    if (window.MutationObserver) {
-        const observer = new MutationObserver(function(mutations) {
-            let needsUpdate = false;
-            mutations.forEach(function(mutation) {
-                if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-                    needsUpdate = true;
-                }
-                if (mutation.type === 'attributes' && 
-                    (mutation.attributeName === 'style' || mutation.attributeName === 'class')) {
-                    needsUpdate = true;
-                }
-            });
-            
-            if (needsUpdate) {
-                setTimeout(forceCodeBlockStyling, 50);
+        // 3. 일반 토큰들 기본 색상 적용
+        document.querySelectorAll('span[class*="token"]').forEach(token => {
+            if (!token.style.color || token.style.color === 'rgb(51, 51, 51)') {
+                token.style.setProperty('color', '#d4d4d4', 'important');
+                token.style.setProperty('background', 'transparent', 'important');
             }
         });
         
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true,
-            attributes: true,
-            attributeFilter: ['style', 'class']
+        // 4. 코드 블록 내 모든 텍스트 기본 색상 설정
+        document.querySelectorAll('pre, pre code').forEach(element => {
+            if (!element.classList.contains('token')) {
+                element.style.setProperty('color', '#d4d4d4', 'important');
+            }
         });
         
-        console.log('👁️ MutationObserver 활성화');
+        // 5. 언어 라벨 추가
+        document.querySelectorAll('pre[class*="language-"]').forEach(pre => {
+            if (!pre.querySelector('.language-label')) {
+                const label = document.createElement('div');
+                label.className = 'language-label';
+                label.textContent = 'C';
+                label.style.cssText = `
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    background: #007ACC;
+                    color: white;
+                    padding: 6px 12px;
+                    font-size: 12px;
+                    font-weight: 500;
+                    border-bottom-left-radius: 4px;
+                    text-transform: uppercase;
+                    z-index: 1;
+                `;
+                pre.appendChild(label);
+            }
+        });
+        
+        console.log(`✅ VSCode 테마 적용 완료: ${appliedCount}개 토큰 스타일링`);
+        return appliedCount;
     }
     
-    // 페이지 전체 로드 후 마지막 확인
-    window.addEventListener('load', function() {
-        setTimeout(forceCodeBlockStyling, 100);
-        console.log('🎉 페이지 로드 완료 - 최종 스타일링 적용');
+    // 즉시 적용
+    applyVSCodeTheme();
+    
+    // 다중 타이밍으로 재적용
+    [100, 300, 500, 1000].forEach(delay => {
+        setTimeout(applyVSCodeTheme, delay);
     });
     
-})();
+    // 지속적 감시
+    const observer = new MutationObserver(() => {
+        setTimeout(applyVSCodeTheme, 50);
+    });
+    
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['style', 'class']
+    });
+    
+    console.log('🎉 VSCode 다크 테마 완성!');
+});
 
-// 추가: CSS 클래스 강제 주입
-const style = document.createElement('style');
-style.textContent = `
-    /* 브루트 포스 CSS - 모든 것을 덮어씌움 */
-    pre[style*="background"] {
-        background: #1e1e1e !important;
-        color: #d4d4d4 !important;
-    }
-    
-    code[style*="background"] {
-        background: transparent !important;
-        color: #d4d4d4 !important;
-    }
-    
-    /* 인라인 스타일도 강제로 덮어씌움 */
-    [style*="#f6f6f6"] {
-        background: #1e1e1e !important;
-    }
-    
-    [style*="color: #333"] {
-        color: #d4d4d4 !important;
-    }
-`;
-document.head.appendChild(style);
-
-console.log('💀 브루트 포스 CSS 주입 완료');
+// 페이지 로드 완료 후 최종 확인
+window.addEventListener('load', function() {
+    setTimeout(() => {
+        const tokens = document.querySelectorAll('span[class*="token"]');
+        console.log(`🔍 최종 통계: ${tokens.length}개 토큰 발견`);
+        
+        // 색상별 토큰 개수 확인
+        const colorCounts = {};
+        tokens.forEach(token => {
+            const color = getComputedStyle(token).color;
+            colorCounts[color] = (colorCounts[color] || 0) + 1;
+        });
+        
+        console.log('📊 색상별 토큰 분포:', colorCounts);
+    }, 1500);
+});
