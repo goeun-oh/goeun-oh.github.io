@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
     if (isContentPage && !isHomePage) {
         const postStyles = document.createElement('style');
-        postStyles.textContent = \`
+        postStyles.textContent = `
 /* Bear 앱 스타일 - 미니멀하고 깔끔하게 */
 .mdui-card-content.mdui-typo {
     padding: 3em 4em !important;
@@ -264,11 +264,11 @@ document.addEventListener('DOMContentLoaded', function() {
     margin: 1em 0 0.5em 0 !important; 
 }
 
-/* 코드 스타일 - VSCode 다크 테마처럼 */
+/* 코드 스타일 - Bear 앱처럼 */
 .e-content pre,
 .mdui-card-content.mdui-typo pre {
-    background: #1e1e1e !important;
-    border: 1px solid #333 !important;
+    background: #f6f6f6 !important;
+    border: 1px solid #e6e6e6 !important;
     border-radius: 6px !important;
     padding: 1.2em !important;
     margin: 1.5em 0 !important;
@@ -300,77 +300,9 @@ document.addEventListener('DOMContentLoaded', function() {
 .mdui-card-content.mdui-typo pre code {
     background: none !important;
     padding: 0 !important;
-    color: #D4D4D4 !important;
+    color: #333 !important;
     font-weight: normal !important;
     border: none !important;
-}
-
-/* Prism.js VSCode 스타일 문법 강조 */
-.token.comment,
-.token.prolog,
-.token.doctype,
-.token.cdata {
-    color: #6A9955 !important;
-    font-style: italic !important;
-}
-
-.token.punctuation {
-    color: #D4D4D4 !important;
-}
-
-.token.property,
-.token.tag,
-.token.boolean,
-.token.number,
-.token.constant,
-.token.symbol,
-.token.deleted {
-    color: #B5CEA8 !important;
-}
-
-.token.selector,
-.token.attr-name,
-.token.string,
-.token.char,
-.token.builtin,
-.token.inserted {
-    color: #CE9178 !important;
-}
-
-.token.operator,
-.token.entity,
-.token.url,
-.language-css .token.string,
-.style .token.string {
-    color: #D4D4D4 !important;
-}
-
-.token.atrule,
-.token.attr-value,
-.token.keyword {
-    color: #569CD6 !important;
-    font-weight: normal !important;
-}
-
-.token.function,
-.token.class-name {
-    color: #DCDCAA !important;
-    font-weight: normal !important;
-}
-
-.token.regex,
-.token.important,
-.token.variable {
-    color: #9CDCFE !important;
-}
-
-.token.important,
-.token.bold {
-    font-weight: bold !important;
-}
-
-.token.italic {
-    font-style: italic !important;
 }
 
 /* 리스트 스타일 */
@@ -480,7 +412,73 @@ article img {
 .mdui-card-content.mdui-typo blockquote::before {
     display: none !important;
 }
+/* Prism.js VSCode 스타일 문법 강조 */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: #6A9955 !important;  /* VSCode 주석 색상 (녹색) */
+    font-style: italic !important;
+}
 
+.token.punctuation {
+    color: #D4D4D4 !important;  /* VSCode 기본 텍스트 색상 */
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+    color: #B5CEA8 !important;  /* VSCode 숫자/상수 색상 */
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+    color: #CE9178 !important;  /* VSCode 문자열 색상 */
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+    color: #D4D4D4 !important;  /* VSCode 연산자 색상 */
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+    color: #569CD6 !important;  /* VSCode 키워드 색상 (파란색) */
+    font-weight: normal !important;
+}
+
+.token.function,
+.token.class-name {
+    color: #DCDCAA !important;  /* VSCode 함수명 색상 (노란색) */
+    font-weight: normal !important;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+    color: #9CDCFE !important;  /* VSCode 변수 색상 (하늘색) */
+}
+
+.token.important,
+.token.bold {
+    font-weight: bold !important;
+}
+
+.token.italic {
+    font-style: italic !important;
+}
 /* 링크 스타일 */
 .e-content a,
 .mdui-card-content.mdui-typo a {
@@ -540,7 +538,7 @@ article img {
     .e-content h2, .mdui-card-content.mdui-typo h2 { font-size: 1.3em !important; }
     .e-content h3, .mdui-card-content.mdui-typo h3 { font-size: 1.1em !important; }
 }
-\`;
+`;
         document.head.appendChild(postStyles);
     }
 });
@@ -916,7 +914,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <span><a class="tag-none-link" href="/tags/%EA%B5%AC%EC%A1%B0%EC%B2%B4/" rel="tag">구조체</a> <a class="tag-none-link" href="/tags/%EB%AA%A8%EB%93%88%ED%99%94/" rel="tag">모듈화</a> <a class="tag-none-link" href="/tags/%EC%BD%94%EB%93%9C%EA%B0%9C%EC%84%A0/" rel="tag">코드개선</a> <a class="tag-none-link" href="/tags/%ED%83%80%EC%9E%85%EC%95%88%EC%A0%84%EC%84%B1/" rel="tag">타입안전성</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-06-24 10:22'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-06-24 10:52'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/cortex-m-code-improvement-struct/</span>
@@ -1180,7 +1178,7 @@ GPIOA<span class="token operator">-></span>ODR <span class="token operator">^=</
         
         <span><a class="tag-none-link" href="/tags/SW-Stack/" rel="tag">SW Stack</a> <a class="tag-none-link" href="/tags/%EA%B3%84%EC%B8%B5%EA%B5%AC%EC%A1%B0/" rel="tag">계층구조</a> <a class="tag-none-link" href="/tags/%EB%AA%A8%EB%93%88%ED%99%94/" rel="tag">모듈화</a> <a class="tag-none-link" href="/tags/%ED%8F%B4%EB%8D%94%EB%B6%84%EB%A6%AC/" rel="tag">폴더분리</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-06-24 10:22'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-06-24 10:52'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/cortex-m-software-stack/</span>
