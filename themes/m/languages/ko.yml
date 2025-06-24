@@ -4,47 +4,23 @@ common:
     archive: "아카이브"
     category: "카테고리"
     tag: "태그"
-    newer: "다음"
-    older: "이전"
-    about: "소개"
-    contact: "연락처"
-    menu: "메뉴"
+
+drawer:
     toc: "목차"
-    read_more: "더 읽기"
-    posted: "게시됨"
-    updated: "업데이트됨"
-    share: "공유"
-    permalink: "고유링크"
-    
-footer:
-    powered_by: "제공:"
-    theme: "테마"
-    
+    links: "링크"
+
+index:
+    more: '더 읽기'
+    prev: '이전'
+    next: '다음'
+    archive: '아카이브 <b>%s</b>의 글들'
+    category: '카테고리 <b>%s</b>의 글들'
+    tag: '태그 <b>%s</b>의 글들'
+
 post:
-    copyright: "저작권"
-    license: "라이선스"
-    
-page:
-    contents: "내용"
-    back_to_top: "맨 위로"
-    
-counter:
-    tag_cloud:
-        zero: "태그 없음"
-        one: "1개 태그"
-        other: "%d개 태그"
-    
-    archive_a:
-        zero: "아카이브 없음"
-        one: "1개 아카이브"
-        other: "%d개 아카이브"
-        
-    archive_b:
-        zero: "포스트 없음"
-        one: "1개 포스트"
-        other: "%d개 포스트"
-        
-    categories:
-        zero: "카테고리 없음"
-        one: "1개 카테고리"
-        other: "%d개 카테고리"
+    date: "작성일: "
+    updated: "수정일: "
+    author: "저자: "
+    url: "링크: "
+    license: "이 글은 %s 라이선스를 따릅니다."
+    license_false: "이 글의 무단 전재는 금지됩니다."
