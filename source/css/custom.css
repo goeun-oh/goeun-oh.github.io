@@ -129,78 +129,73 @@ body {
 }
 
 /* =================================================================
-   VSCode 스타일 코드 블록 - 최강 강제 적용
+   VSCode 스타일 코드 블록 - CORS 없는 순수 CSS
    ================================================================= */
 
-/* 모든 가능한 pre 선택자 + 최대 우선순위 */
+/* 최고 우선순위 코드 블록 스타일링 */
 pre,
-pre.language-c,
-pre[class*="language-"],
+pre[class],
+pre[class*="lang"],
+pre[class*="language"],
 .post-content pre,
 .main-content pre,
-article pre,
 .mdui-typo pre,
-.mdui-card pre,
+article pre,
+section pre,
 div pre,
-p pre,
-body pre {
+body pre,
+html pre {
+    /* 기존 스타일 완전 초기화 */
+    all: initial !important;
+    
+    /* VSCode 다크 테마 강제 적용 */
+    display: block !important;
+    background-color: #1e1e1e !important;
     background: #1e1e1e !important;
     color: #d4d4d4 !important;
     border: 1px solid #404040 !important;
     border-radius: 8px !important;
     padding: 24px !important;
     margin: 2em 0 !important;
+    overflow: visible !important;
     overflow-x: auto !important;
-    font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
+    font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace !important;
     font-size: 16px !important;
     line-height: 1.6 !important;
     font-weight: 400 !important;
     white-space: pre !important;
+    word-wrap: normal !important;
+    word-break: normal !important;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
     position: relative !important;
-    display: block !important;
     width: auto !important;
     height: auto !important;
+    max-width: 100% !important;
     letter-spacing: 0.3px !important;
     text-align: left !important;
     direction: ltr !important;
-    word-spacing: normal !important;
-    word-break: normal !important;
     tab-size: 4 !important;
     hyphens: none !important;
+    font-style: normal !important;
+    font-variant: normal !important;
+    text-decoration: none !important;
+    text-transform: none !important;
+    text-shadow: none !important;
+    box-sizing: border-box !important;
 }
 
-/* 코드 블록 안의 모든 요소 강제 스타일링 */
+/* 코드 블록 내 모든 요소 */
 pre *,
-pre.language-c *,
-pre[class*="language-"] *,
-.post-content pre *,
-.main-content pre *,
-article pre *,
-.mdui-typo pre * {
+pre[class] *,
+pre[class*="lang"] *,
+pre[class*="language"] * {
     color: #d4d4d4 !important;
     background: transparent !important;
+    background-color: transparent !important;
     font-family: inherit !important;
     font-size: inherit !important;
     font-weight: inherit !important;
-    border: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-/* code 태그 안에 있는 모든 텍스트 */
-pre code,
-pre.language-c code,
-pre[class*="language-"] code,
-code.language-c,
-code[class*="language-"] {
-    display: block !important;
-    background: transparent !important;
-    color: #d4d4d4 !important;
-    font-family: inherit !important;
-    font-size: inherit !important;
-    font-weight: inherit !important;
-    white-space: pre !important;
+    line-height: inherit !important;
     border: none !important;
     margin: 0 !important;
     padding: 0 !important;
@@ -208,8 +203,32 @@ code[class*="language-"] {
     box-shadow: none !important;
 }
 
-/* 인라인 코드는 따로 처리 */
-code:not([class*="language-"]):not(pre code):not(pre *) {
+/* code 태그 특별 처리 */
+pre code,
+pre[class] code,
+pre[class*="lang"] code,
+pre[class*="language"] code,
+code[class*="language"] {
+    display: block !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    color: #d4d4d4 !important;
+    font-family: inherit !important;
+    font-size: inherit !important;
+    font-weight: inherit !important;
+    line-height: inherit !important;
+    white-space: pre !important;
+    word-wrap: normal !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+}
+
+/* 인라인 코드는 제외 */
+:not(pre) > code {
     background: #f6f8fa !important;
     color: #d73a49 !important;
     padding: 4px 8px !important;
@@ -219,13 +238,14 @@ code:not([class*="language-"]):not(pre code):not(pre *) {
     font-weight: 500 !important;
     border: 1px solid #e1e4e8 !important;
     display: inline !important;
+    white-space: nowrap !important;
 }
 
-/* "C" 라벨 */
-pre::after,
-pre.language-c::after,
-pre[class*="language-"]::after,
-.post-content pre::after {
+/* 언어 라벨 */
+pre::before,
+pre[class]::before,
+pre[class*="lang"]::before,
+pre[class*="language"]::before {
     content: "C" !important;
     position: absolute !important;
     top: 0 !important;
@@ -235,21 +255,31 @@ pre[class*="language-"]::after,
     padding: 6px 12px !important;
     font-size: 12px !important;
     font-weight: 500 !important;
+    font-family: 'JetBrains Mono', monospace !important;
     border-bottom-left-radius: 4px !important;
     text-transform: uppercase !important;
     z-index: 1 !important;
-    font-family: 'JetBrains Mono', monospace !important;
+    letter-spacing: 0.5px !important;
 }
 
-/* 스크롤바 */
+/* 스크롤바 스타일 */
 pre::-webkit-scrollbar {
     height: 8px !important;
+    width: 8px !important;
+}
+
+pre::-webkit-scrollbar-track {
     background: #2d2d30 !important;
+    border-radius: 4px !important;
 }
 
 pre::-webkit-scrollbar-thumb {
     background: #424242 !important;
     border-radius: 4px !important;
+}
+
+pre::-webkit-scrollbar-thumb:hover {
+    background: #4f4f4f !important;
 }
 
 /* 호버 효과 */
@@ -259,9 +289,10 @@ pre:hover {
     transition: all 0.2s ease !important;
 }
 
-/* 강제로 다른 모든 CSS 규칙 무시 */
-[style*="background"][style*="pre"],
-[style*="color"][style*="pre"] {
+/* 추가 클래스 기반 강제 적용 */
+.vscode-dark,
+.language-c,
+.hljs {
     background: #1e1e1e !important;
     color: #d4d4d4 !important;
 }
@@ -293,12 +324,14 @@ pre:hover {
     }
     
     pre,
-    pre[class*="language-"] {
+    pre[class],
+    pre[class*="lang"],
+    pre[class*="language"] {
         margin: 1.5em -16px !important;
         border-radius: 0 !important;
         border-left: none !important;
         border-right: none !important;
         padding: 20px 16px !important;
-        font-size: 14px !important;
+        font-size: 15px !important;
     }
 }
