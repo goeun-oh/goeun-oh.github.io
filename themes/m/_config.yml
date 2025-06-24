@@ -101,7 +101,7 @@ posts:
   thumbnail_title: false # true /false
   index_content: auto # false / auto / excerpt / content
   show_categories: true
-  license: '<a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>'
+  license: false # 라이선스 표시 비활성화
 
 comments:
   use: false # utterances
