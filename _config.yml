@@ -15,7 +15,7 @@ timezone: 'Asia/Seoul'
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
 url: https://www.goeun-oh.com
 root: /
-permalink: :year/:month/:day/:title/
+permalink: posts/:title/
 permalink_defaults:
   category: blog
 pretty_urls:
