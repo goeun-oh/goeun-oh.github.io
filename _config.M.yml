@@ -2,10 +2,12 @@
 # Theme: https://github.com/theme-M/hexo-theme-M
 
 # Header
-#menu:
-#  포트폴리오: /
-#  프로젝트: /archives
-#  소개: /about
+menu:
+  홈: /
+  RISC-V: /categories/RISC-V
+  Cortex-M: /categories/Cortex-M
+  프로젝트: /archives
+  소개: /about
 
 # Content
 excerpt_link: 더 읽기
@@ -48,11 +50,12 @@ drawer:
   toc: true
   search: true
   home: true
-  archives: false
-  categories: false
+  archives: true
+  categories: true  # 카테고리 메뉴를 사이드바에 표시
   tags: false
   links: false
   rss: false
+
 # Sidebar
 sidebar:
   position: right
@@ -60,9 +63,6 @@ sidebar:
   padding: 18
   offset: 12
 
-#menu
-menu:
-  Cortex-M : /categories/Cortex-M
 # Post
 post:
   meta:
