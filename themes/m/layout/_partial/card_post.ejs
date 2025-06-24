@@ -17,17 +17,20 @@
         <% if(is_post() || is_page() || theme.posts.index_content == 'content' || theme.posts.index_content == 'auto' && !post.excerpt) { %>
         <div class="p-summary" style="display:none"><%- post.excerpt %></div>
         
-        <!-- TOC 추가 - 조건 단순화 -->
-        <% if((is_post() || is_page()) && post.toc === true) { %>
-        <div id="table-of-contents">
-            <h2>목차</h2>
-            <%- toc(post.content, {
+        <!-- TOC 디버깅 및 렌더링 -->
+        <% if(is_post() || is_page()) { %>
+            <% var tocContent = toc(post.content, {
                 list_number: false,
                 min_depth: 2,
                 max_depth: 2,
                 class: 'toc-nav'
-            }) %>
-        </div>
+            }); %>
+            <% if(post.toc === true && tocContent && tocContent.trim() !== '') { %>
+            <div id="table-of-contents">
+                <h2>목차</h2>
+                <%- tocContent %>
+            </div>
+            <% } %>
         <% } %>
         
         <main class="e-content"><%- post.content %></main>
