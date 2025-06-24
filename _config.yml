@@ -49,7 +49,7 @@ future: true
 # Code Highlighting - Prism.js 활성화
 syntax_highlighter: prismjs
 highlight:
-  enable: false
+  enable: true
 prismjs:
   enable: true
   preprocess: true
