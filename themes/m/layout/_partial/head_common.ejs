@@ -287,43 +287,15 @@ document.addEventListener('DOMContentLoaded', function() {
     margin: 1em 0 0.5em 0 !important; 
 }
 
-/* 코드 스타일 - Bear 앱처럼 */
-.e-content pre,
-.mdui-card-content.mdui-typo pre {
-    background: #f6f6f6 !important;
-    border: 1px solid #e6e6e6 !important;
-    border-radius: 6px !important;
-    padding: 1.2em !important;
-    margin: 1.5em 0 !important;
-    overflow-x: auto !important;
-    font-family: 'SF Mono', 'Monaco', 'Menlo', 'Consolas', monospace !important;
-    font-size: 14px !important;
-    line-height: 1.5 !important;
-    box-shadow: none !important;
-}
-
-.e-content pre::before,
-.mdui-card-content.mdui-typo pre::before {
-    display: none !important;
-}
-
-.e-content code,
-.mdui-card-content.mdui-typo code {
+/* 인라인 코드 스타일 - Prism.js와 구분 */
+.e-content code:not(pre code),
+.mdui-card-content.mdui-typo code:not(pre code) {
     background: #f6f6f6 !important;
     padding: 2px 6px !important;
     border-radius: 3px !important;
     font-family: 'SF Mono', 'Monaco', 'Menlo', 'Consolas', monospace !important;
     font-size: 0.9em !important;
     color: #d14 !important;
-    font-weight: normal !important;
-    border: none !important;
-}
-
-.e-content pre code,
-.mdui-card-content.mdui-typo pre code {
-    background: none !important;
-    padding: 0 !important;
-    color: #333 !important;
     font-weight: normal !important;
     border: none !important;
 }
@@ -435,73 +407,7 @@ article img {
 .mdui-card-content.mdui-typo blockquote::before {
     display: none !important;
 }
-/* Prism.js VSCode 스타일 문법 강조 */
-.token.comment,
-.token.prolog,
-.token.doctype,
-.token.cdata {
-    color: #6A9955 !important;  /* VSCode 주석 색상 (녹색) */
-    font-style: italic !important;
-}
 
-.token.punctuation {
-    color: #D4D4D4 !important;  /* VSCode 기본 텍스트 색상 */
-}
-
-.token.property,
-.token.tag,
-.token.boolean,
-.token.number,
-.token.constant,
-.token.symbol,
-.token.deleted {
-    color: #B5CEA8 !important;  /* VSCode 숫자/상수 색상 */
-}
-
-.token.selector,
-.token.attr-name,
-.token.string,
-.token.char,
-.token.builtin,
-.token.inserted {
-    color: #CE9178 !important;  /* VSCode 문자열 색상 */
-}
-
-.token.operator,
-.token.entity,
-.token.url,
-.language-css .token.string,
-.style .token.string {
-    color: #D4D4D4 !important;  /* VSCode 연산자 색상 */
-}
-
-.token.atrule,
-.token.attr-value,
-.token.keyword {
-    color: #569CD6 !important;  /* VSCode 키워드 색상 (파란색) */
-    font-weight: normal !important;
-}
-
-.token.function,
-.token.class-name {
-    color: #DCDCAA !important;  /* VSCode 함수명 색상 (노란색) */
-    font-weight: normal !important;
-}
-
-.token.regex,
-.token.important,
-.token.variable {
-    color: #9CDCFE !important;  /* VSCode 변수 색상 (하늘색) */
-}
-
-.token.important,
-.token.bold {
-    font-weight: bold !important;
-}
-
-.token.italic {
-    font-style: italic !important;
-}
 /* 링크 스타일 */
 .e-content a,
 .mdui-card-content.mdui-typo a {
