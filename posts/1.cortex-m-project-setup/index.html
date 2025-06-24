@@ -15,6 +15,11 @@
 
 
 
+<link rel="stylesheet" href="/css/prism-m.css">
+
+
+
+
 
 <meta name="theme-color" content="#3F51B5">
 
@@ -562,7 +567,7 @@ article img {
 <meta property="og:image" content="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/image-2.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/image-3.png">
 <meta property="article:published_time" content="2025-06-21T15:00:00.000Z">
-<meta property="article:modified_time" content="2025-06-24T05:27:04.317Z">
+<meta property="article:modified_time" content="2025-06-24T05:33:10.353Z">
 <meta property="article:author" content="고은">
 <meta property="article:tag" content="STM32CubeIDE">
 <meta property="article:tag" content="프로젝트설정">
@@ -764,7 +769,7 @@ article img {
         
         <span><a class="tag-none-link" href="/tags/GPIO/" rel="tag">GPIO</a> <a class="tag-none-link" href="/tags/RCC/" rel="tag">RCC</a> <a class="tag-none-link" href="/tags/STM32CubeIDE/" rel="tag">STM32CubeIDE</a> <a class="tag-none-link" href="/tags/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%84%A4%EC%A0%95/" rel="tag">프로젝트설정</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-22 12:00<br>수정일: 2025-06-24 02:27'}" datetime="2025-06-21T15:00:00.000Z">2025-06-22</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-22 12:00<br>수정일: 2025-06-24 02:33'}" datetime="2025-06-21T15:00:00.000Z">2025-06-22</time>
         <span>-</span>
         
             <span>posts/1.cortex-m-project-setup/</span>
@@ -828,8 +833,8 @@ article img {
 <p>RCC 클릭</p>
 <p><strong>2. HSE 설정</strong></p>
 <figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/RCC2.png"class="mdui-img-rounded" loading="lazy"></figure>
-<pre><code>RCC → High Speed Clock (HSE) → Crystal/Ceramic Resonator 선택
-</code></pre>
+<pre class="line-numbers language-none"><code class="language-none">RCC → High Speed Clock (HSE) → Crystal&#x2F;Ceramic Resonator 선택<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p><strong>3. PLL 설정</strong><br><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/image.png"></p>
 <ul>
 <li>HSE(8MHz)를 PLL 회로를 통해 100MHz로 증폭한다</li>
@@ -848,8 +853,8 @@ article img {
 <h2 id="2-SYS-시스템-설정"><a href="#2-SYS-시스템-설정" class="headerlink" title="2. SYS (시스템) 설정"></a>2. SYS (시스템) 설정</h2><h3 id="Debug-설정"><a href="#Debug-설정" class="headerlink" title="Debug 설정"></a>Debug 설정</h3><p>디버깅을 위한 시스템 설정을 진행한다.</p>
 <p><strong>Debug 인터페이스 선택:</strong></p>
 <figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/sys.png"class="mdui-img-rounded" loading="lazy"></figure>
-<pre><code>SYS → Debug → Serial Wire 선택
-</code></pre>
+<pre class="line-numbers language-none"><code class="language-none">SYS → Debug → Serial Wire 선택<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p><strong>Serial Wire Debug (SWD)의 장점:</strong></p>
 <ul>
 <li><strong>핀 수 절약</strong>: JTAG 대비 적은 핀 사용 (SWDIO, SWCLK만 필요)</li>
@@ -904,23 +909,23 @@ article img {
 <li>핀 라벨이 <strong>GPIO_Output</strong>으로 변경된다</li>
 </ul>
 <h2 id="간단한-테스트-코드"><a href="#간단한-테스트-코드" class="headerlink" title="간단한 테스트 코드"></a>간단한 테스트 코드</h2><p>생성된 main.c에 LED 제어 코드를 추가해보자:</p>
-<pre><code class="language-c">/* USER CODE BEGIN WHILE */
-while (1)
-&#123;
-    /* USER CODE END WHILE */
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">/* USER CODE BEGIN WHILE */</span>
+<span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token comment">/* USER CODE END WHILE */</span>
     
-    // LED ON
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
-    HAL_Delay(500);  // 0.5초 대기
+    <span class="token comment">// LED ON</span>
+    <span class="token function">HAL_GPIO_WritePin</span><span class="token punctuation">(</span>GPIOA<span class="token punctuation">,</span> GPIO_PIN_5<span class="token punctuation">,</span> GPIO_PIN_SET<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">HAL_Delay</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 0.5초 대기</span>
     
-    // LED OFF
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
-    HAL_Delay(500);  // 0.5초 대기
+    <span class="token comment">// LED OFF</span>
+    <span class="token function">HAL_GPIO_WritePin</span><span class="token punctuation">(</span>GPIOA<span class="token punctuation">,</span> GPIO_PIN_5<span class="token punctuation">,</span> GPIO_PIN_RESET<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">HAL_Delay</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 0.5초 대기</span>
     
-    /* USER CODE BEGIN 3 */
-&#125;
-/* USER CODE END 3 */
-</code></pre>
+    <span class="token comment">/* USER CODE BEGIN 3 */</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">/* USER CODE END 3 */</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h2 id="정리"><a href="#정리" class="headerlink" title="정리"></a>정리</h2><p>이번 포스트에서는 STM32CubeIDE를 사용한 프로젝트 생성과 기본 설정을 다뤘다:</p>
 <p>다음 포스트에서는 개발에 필요한 도구들을 설치하고 빌드 환경을 구성해보겠다.</p>
 <hr>

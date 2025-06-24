@@ -15,6 +15,11 @@
 
 
 
+<link rel="stylesheet" href="/css/prism-m.css">
+
+
+
+
 
 <meta name="theme-color" content="#3F51B5">
 
@@ -753,7 +758,7 @@ article img {
         
         <span><a class="tag-none-link" href="/tags/%EA%B5%AC%EC%A1%B0%EC%B2%B4/" rel="tag">구조체</a> <a class="tag-none-link" href="/tags/%EB%AA%A8%EB%93%88%ED%99%94/" rel="tag">모듈화</a> <a class="tag-none-link" href="/tags/%EC%BD%94%EB%93%9C%EA%B0%9C%EC%84%A0/" rel="tag">코드개선</a> <a class="tag-none-link" href="/tags/%ED%83%80%EC%9E%85%EC%95%88%EC%A0%84%EC%84%B1/" rel="tag">타입안전성</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-06-24 02:27'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-06-24 02:33'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>posts/cortex-m-code-improvement-struct/</span>
@@ -772,26 +777,26 @@ article img {
         
         <main class="e-content"><h1 id="코드-개선-과정-구조체-활용"><a href="#코드-개선-과정-구조체-활용" class="headerlink" title="코드 개선 과정 - 구조체 활용"></a>코드 개선 과정 - 구조체 활용</h1><p>이번 포스트에서는 Define 방식의 한계를 극복하고 구조체를 활용하여 더욱 체계적이고 재사용 가능한 코드를 만드는 방법을 다룬다.</p>
 <h2 id="🚨-Define-방식의-한계"><a href="#🚨-Define-방식의-한계" class="headerlink" title="🚨 Define 방식의 한계"></a>🚨 Define 방식의 한계</h2><h3 id="기존-Define-방식의-문제점"><a href="#기존-Define-방식의-문제점" class="headerlink" title="기존 Define 방식의 문제점"></a>기존 Define 방식의 문제점</h3><p>이전 포스트에서 개선한 코드도 여전히 다음과 같은 문제가 있다:</p>
-<pre><code class="language-c">// 문제가 있는 방식 - 반복적이고 비효율적
-#define GPIOA_MODER   *(volatile uint32_t *)(GPIOA_BASE + 0x00)
-#define GPIOA_OTYPER  *(volatile uint32_t *)(GPIOA_BASE + 0x04)
-#define GPIOA_OSPEEDR *(volatile uint32_t *)(GPIOA_BASE + 0x08)
-#define GPIOA_PUPDR   *(volatile uint32_t *)(GPIOA_BASE + 0x0C)
-#define GPIOA_IDR     *(volatile uint32_t *)(GPIOA_BASE + 0x10)
-#define GPIOA_ODR     *(volatile uint32_t *)(GPIOA_BASE + 0x14)
-#define GPIOA_BSRR    *(volatile uint32_t *)(GPIOA_BASE + 0x18)
-#define GPIOA_LCKR    *(volatile uint32_t *)(GPIOA_BASE + 0x1C)
-#define GPIOA_AFRL    *(volatile uint32_t *)(GPIOA_BASE + 0x20)
-#define GPIOA_AFRH    *(volatile uint32_t *)(GPIOA_BASE + 0x24)
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// 문제가 있는 방식 - 반복적이고 비효율적</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_MODER</span>   <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOA_BASE <span class="token operator">+</span> <span class="token number">0x00</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_OTYPER</span>  <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOA_BASE <span class="token operator">+</span> <span class="token number">0x04</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_OSPEEDR</span> <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOA_BASE <span class="token operator">+</span> <span class="token number">0x08</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_PUPDR</span>   <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOA_BASE <span class="token operator">+</span> <span class="token number">0x0C</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_IDR</span>     <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOA_BASE <span class="token operator">+</span> <span class="token number">0x10</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_ODR</span>     <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOA_BASE <span class="token operator">+</span> <span class="token number">0x14</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_BSRR</span>    <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOA_BASE <span class="token operator">+</span> <span class="token number">0x18</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_LCKR</span>    <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOA_BASE <span class="token operator">+</span> <span class="token number">0x1C</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_AFRL</span>    <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOA_BASE <span class="token operator">+</span> <span class="token number">0x20</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_AFRH</span>    <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOA_BASE <span class="token operator">+</span> <span class="token number">0x24</span><span class="token punctuation">)</span></span></span>
 
-// GPIOB에 대해서도 동일하게 반복
-#define GPIOB_MODER   *(volatile uint32_t *)(GPIOB_BASE + 0x00)
-#define GPIOB_OTYPER  *(volatile uint32_t *)(GPIOB_BASE + 0x04)
-#define GPIOB_OSPEEDR *(volatile uint32_t *)(GPIOB_BASE + 0x08)
-// ... 계속 반복
+<span class="token comment">// GPIOB에 대해서도 동일하게 반복</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOB_MODER</span>   <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOB_BASE <span class="token operator">+</span> <span class="token number">0x00</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOB_OTYPER</span>  <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOB_BASE <span class="token operator">+</span> <span class="token number">0x04</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOB_OSPEEDR</span> <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOB_BASE <span class="token operator">+</span> <span class="token number">0x08</span><span class="token punctuation">)</span></span></span>
+<span class="token comment">// ... 계속 반복</span>
 
-// GPIOC, GPIOD, GPIOE... 모두 동일하게 반복해야 함
-</code></pre>
+<span class="token comment">// GPIOC, GPIOD, GPIOE... 모두 동일하게 반복해야 함</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p><strong>주요 문제점:</strong></p>
 <ol>
 <li><strong>반복적 정의</strong>: 각 GPIO마다 동일한 패턴 반복</li>
@@ -800,19 +805,19 @@ article img {
 <li><strong>타입 안전성 없음</strong>: 컴파일러가 잘못된 사용을 감지하기 어려움</li>
 </ol>
 <h2 id="📦-구조체-사용의-중요성"><a href="#📦-구조체-사용의-중요성" class="headerlink" title="📦 구조체 사용의 중요성"></a>📦 구조체 사용의 중요성</h2><h3 id="구조체를-사용한-해결책"><a href="#구조체를-사용한-해결책" class="headerlink" title="구조체를 사용한 해결책"></a>구조체를 사용한 해결책</h3><p>하나의 구조체 정의로 모든 GPIO에 적용할 수 있다:</p>
-<pre><code class="language-c">// GPIO 레지스터 구조체 정의
-typedef struct&#123;
-   volatile uint32_t MODER;      // 0x00 - Mode register
-   volatile uint32_t OTYPER;     // 0x04 - Output type register  
-   volatile uint32_t OSPEEDR;    // 0x08 - Output speed register
-   volatile uint32_t PUPDR;      // 0x0C - Pull-up/pull-down register
-   volatile uint32_t IDR;        // 0x10 - Input data register
-   volatile uint32_t ODR;        // 0x14 - Output data register
-   volatile uint32_t BSRR;       // 0x18 - Bit set/reset register
-   volatile uint32_t LCKR;       // 0x1C - Configuration lock register
-   volatile uint32_t AFR[2];     // 0x20, 0x24 - Alternate function registers (AFRL, AFRH)
-&#125;GPIO_TypeDef;
-</code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// GPIO 레지스터 구조체 정의</span>
+<span class="token keyword">typedef</span> <span class="token keyword">struct</span><span class="token punctuation">&#123;</span>
+   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> MODER<span class="token punctuation">;</span>      <span class="token comment">// 0x00 - Mode register</span>
+   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> OTYPER<span class="token punctuation">;</span>     <span class="token comment">// 0x04 - Output type register  </span>
+   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> OSPEEDR<span class="token punctuation">;</span>    <span class="token comment">// 0x08 - Output speed register</span>
+   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> PUPDR<span class="token punctuation">;</span>      <span class="token comment">// 0x0C - Pull-up/pull-down register</span>
+   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> IDR<span class="token punctuation">;</span>        <span class="token comment">// 0x10 - Input data register</span>
+   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> ODR<span class="token punctuation">;</span>        <span class="token comment">// 0x14 - Output data register</span>
+   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> BSRR<span class="token punctuation">;</span>       <span class="token comment">// 0x18 - Bit set/reset register</span>
+   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> LCKR<span class="token punctuation">;</span>       <span class="token comment">// 0x1C - Configuration lock register</span>
+   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> AFR<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>     <span class="token comment">// 0x20, 0x24 - Alternate function registers (AFRL, AFRH)</span>
+<span class="token punctuation">&#125;</span>GPIO_TypeDef<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h3 id="구조체-멤버-설명"><a href="#구조체-멤버-설명" class="headerlink" title="구조체 멤버 설명"></a>구조체 멤버 설명</h3><p><strong>주요 레지스터별 용도:</strong></p>
 <p><strong>MODER (Mode Register)</strong></p>
 <ul>
@@ -844,15 +849,15 @@ typedef struct&#123;
 <li>대체 기능 설정</li>
 <li>AFR[0]: 핀 0-7, AFR[1]: 핀 8-15</li>
 </ul>
-<h2 id="🎯-구조체-포인터-정의"><a href="#🎯-구조체-포인터-정의" class="headerlink" title="🎯 구조체 포인터 정의"></a>🎯 구조체 포인터 정의</h2><h3 id="각-GPIO를-구조체-포인터로-정의"><a href="#각-GPIO를-구조체-포인터로-정의" class="headerlink" title="각 GPIO를 구조체 포인터로 정의"></a>각 GPIO를 구조체 포인터로 정의</h3><pre><code class="language-c">// 구조체 포인터로 각 GPIO 정의
-#define GPIOA ((GPIO_TypeDef *)(GPIOA_BASE))
-#define GPIOB ((GPIO_TypeDef *)(GPIOB_BASE))
-#define GPIOC ((GPIO_TypeDef *)(GPIOC_BASE))
-#define GPIOD ((GPIO_TypeDef *)(GPIOD_BASE))
-#define GPIOE ((GPIO_TypeDef *)(GPIOE_BASE))
-</code></pre>
-<h3 id="포인터-타입-캐스팅-이해"><a href="#포인터-타입-캐스팅-이해" class="headerlink" title="포인터 타입 캐스팅 이해"></a>포인터 타입 캐스팅 이해</h3><pre><code class="language-c">#define GPIOA ((GPIO_TypeDef *)(GPIOA_BASE))
-</code></pre>
+<h2 id="🎯-구조체-포인터-정의"><a href="#🎯-구조체-포인터-정의" class="headerlink" title="🎯 구조체 포인터 정의"></a>🎯 구조체 포인터 정의</h2><h3 id="각-GPIO를-구조체-포인터로-정의"><a href="#각-GPIO를-구조체-포인터로-정의" class="headerlink" title="각 GPIO를 구조체 포인터로 정의"></a>각 GPIO를 구조체 포인터로 정의</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// 구조체 포인터로 각 GPIO 정의</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA</span> <span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">(</span>GPIO_TypeDef <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOA_BASE<span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOB</span> <span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">(</span>GPIO_TypeDef <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOB_BASE<span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOC</span> <span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">(</span>GPIO_TypeDef <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOC_BASE<span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOD</span> <span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">(</span>GPIO_TypeDef <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOD_BASE<span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOE</span> <span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">(</span>GPIO_TypeDef <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOE_BASE<span class="token punctuation">)</span><span class="token punctuation">)</span></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="포인터-타입-캐스팅-이해"><a href="#포인터-타입-캐스팅-이해" class="headerlink" title="포인터 타입 캐스팅 이해"></a>포인터 타입 캐스팅 이해</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA</span> <span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">(</span>GPIO_TypeDef <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOA_BASE<span class="token punctuation">)</span><span class="token punctuation">)</span></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p><strong>동작 원리:</strong></p>
 <ol>
 <li><code>GPIOA_BASE</code>: 32비트 정수 주소값</li>
@@ -860,7 +865,7 @@ typedef struct&#123;
 <li><code>GPIOA-&gt;MODER</code>: 구조체 멤버 접근 연산자 사용</li>
 </ol>
 <p><strong>메모리 매핑:</strong></p>
-<pre><code>GPIOA_BASE (0x40020000) ──┐
+<pre class="line-numbers language-none"><code class="language-none">GPIOA_BASE (0x40020000) ──┐
                           │
                           ▼
 ┌─────────────────────────────┐
@@ -874,105 +879,105 @@ typedef struct&#123;
 │ LCKR     (0x4002001C)      │ ← GPIOA-&gt;LCKR
 │ AFR[0]   (0x40020020)      │ ← GPIOA-&gt;AFR[0]
 │ AFR[1]   (0x40020024)      │ ← GPIOA-&gt;AFR[1]
-└─────────────────────────────┘
-</code></pre>
-<h2 id="🚀-구조체를-사용한-최종-코드"><a href="#🚀-구조체를-사용한-최종-코드" class="headerlink" title="🚀 구조체를 사용한 최종 코드"></a>🚀 구조체를 사용한 최종 코드</h2><h3 id="완성된-코드"><a href="#완성된-코드" class="headerlink" title="완성된 코드"></a>완성된 코드</h3><pre><code class="language-c">#include &lt;stdint.h&gt;
-#include &quot;stm32f411xe.h&quot;  // STM32 표준 헤더 파일
+└─────────────────────────────┘<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-// 베이스 주소 정의
-#define PERIPH_BASE (0x40000000UL)
-#define AHB1PERIPH_OFFSET (0x20000UL)
-#define AHB1PERIPH_BASE (PERIPH_BASE + AHB1PERIPH_OFFSET)
-#define GPIOA_BASE (AHB1PERIPH_BASE + 0x0000UL)
-#define RCC_AHB1ENR *(volatile uint32_t *)0x40023830
+<h2 id="🚀-구조체를-사용한-최종-코드"><a href="#🚀-구조체를-사용한-최종-코드" class="headerlink" title="🚀 구조체를 사용한 최종 코드"></a>🚀 구조체를 사용한 최종 코드</h2><h3 id="완성된-코드"><a href="#완성된-코드" class="headerlink" title="완성된 코드"></a>완성된 코드</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdint.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"stm32f411xe.h"</span>  <span class="token comment">// STM32 표준 헤더 파일</span></span>
 
-// GPIO 구조체 정의
-typedef struct&#123;
-   volatile uint32_t MODER;
-   volatile uint32_t OTYPER;
-   volatile uint32_t OSPEEDR;
-   volatile uint32_t PUPDR;
-   volatile uint32_t IDR;
-   volatile uint32_t ODR;
-   volatile uint32_t BSRR;
-   volatile uint32_t LCKR;
-   volatile uint32_t AFR[2];
-&#125;GPIO_TypeDef;
+<span class="token comment">// 베이스 주소 정의</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">PERIPH_BASE</span> <span class="token expression"><span class="token punctuation">(</span><span class="token number">0x40000000UL</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">AHB1PERIPH_OFFSET</span> <span class="token expression"><span class="token punctuation">(</span><span class="token number">0x20000UL</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">AHB1PERIPH_BASE</span> <span class="token expression"><span class="token punctuation">(</span>PERIPH_BASE <span class="token operator">+</span> AHB1PERIPH_OFFSET<span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_BASE</span> <span class="token expression"><span class="token punctuation">(</span>AHB1PERIPH_BASE <span class="token operator">+</span> <span class="token number">0x0000UL</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">RCC_AHB1ENR</span> <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token number">0x40023830</span></span></span>
 
-// GPIO 포인터 정의
-#define GPIOA ((GPIO_TypeDef *)(GPIOA_BASE))
+<span class="token comment">// GPIO 구조체 정의</span>
+<span class="token keyword">typedef</span> <span class="token keyword">struct</span><span class="token punctuation">&#123;</span>
+   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> MODER<span class="token punctuation">;</span>
+   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> OTYPER<span class="token punctuation">;</span>
+   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> OSPEEDR<span class="token punctuation">;</span>
+   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> PUPDR<span class="token punctuation">;</span>
+   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> IDR<span class="token punctuation">;</span>
+   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> ODR<span class="token punctuation">;</span>
+   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> BSRR<span class="token punctuation">;</span>
+   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> LCKR<span class="token punctuation">;</span>
+   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> AFR<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>GPIO_TypeDef<span class="token punctuation">;</span>
 
-void delay();
+<span class="token comment">// GPIO 포인터 정의</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA</span> <span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">(</span>GPIO_TypeDef <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOA_BASE<span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
 
-int main(void)
-&#123;
-   /*1. Enable clock access to GPIOA */
-   RCC_AHB1ENR |= (1U &lt;&lt; 0);
+<span class="token keyword">void</span> <span class="token function">delay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-   /*2. Set PA5 as output pin */
-   GPIOA-&gt;MODER |= (1U &lt;&lt; 10);
-   GPIOA-&gt;MODER &amp;= ~(1U &lt;&lt; 11);
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+   <span class="token comment">/*1. Enable clock access to GPIOA */</span>
+   RCC_AHB1ENR <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-   while(1)
-   &#123;
-      /*3. Set PA5 high */
-      GPIOA-&gt;ODR |= (1U &lt;&lt; 5);
-      delay();
+   <span class="token comment">/*2. Set PA5 as output pin */</span>
+   GPIOA<span class="token operator">-></span>MODER <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   GPIOA<span class="token operator">-></span>MODER <span class="token operator">&amp;=</span> <span class="token operator">~</span><span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">11</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+   <span class="token punctuation">&#123;</span>
+      <span class="token comment">/*3. Set PA5 high */</span>
+      GPIOA<span class="token operator">-></span>ODR <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">delay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       
-      /*4. Set PA5 low */
-      GPIOA-&gt;ODR &amp;= ~(1U &lt;&lt; 5);
-      delay();
-   &#125;
-&#125;
+      <span class="token comment">/*4. Set PA5 low */</span>
+      GPIOA<span class="token operator">-></span>ODR <span class="token operator">&amp;=</span> <span class="token operator">~</span><span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">delay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
 
-void delay()&#123;
-    for(int i = 0; i&lt;100000; i++)&#123;&#125;
-&#125;
-</code></pre>
+<span class="token keyword">void</span> <span class="token function">delay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span><span class="token number">100000</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h2 id="✨-구조체-사용의-장점"><a href="#✨-구조체-사용의-장점" class="headerlink" title="✨ 구조체 사용의 장점"></a>✨ 구조체 사용의 장점</h2><h3 id="1-간결성과-재사용성"><a href="#1-간결성과-재사용성" class="headerlink" title="1. 간결성과 재사용성"></a>1. 간결성과 재사용성</h3><p><strong>Before (Define 방식):</strong></p>
-<pre><code class="language-c">// 각 GPIO마다 개별 정의 필요 (40줄 이상)
-#define GPIOA_ODR *(volatile uint32_t *)(GPIOA_BASE + 0x14)
-#define GPIOB_ODR *(volatile uint32_t *)(GPIOB_BASE + 0x14)
-#define GPIOC_ODR *(volatile uint32_t *)(GPIOC_BASE + 0x14)
-// ... 계속
-</code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// 각 GPIO마다 개별 정의 필요 (40줄 이상)</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_ODR</span> <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOA_BASE <span class="token operator">+</span> <span class="token number">0x14</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOB_ODR</span> <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOB_BASE <span class="token operator">+</span> <span class="token number">0x14</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOC_ODR</span> <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOC_BASE <span class="token operator">+</span> <span class="token number">0x14</span><span class="token punctuation">)</span></span></span>
+<span class="token comment">// ... 계속</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p><strong>After (구조체 방식):</strong></p>
-<pre><code class="language-c">// 하나의 구조체로 모든 GPIO 커버 (10줄)
-GPIOA-&gt;ODR
-GPIOB-&gt;ODR  
-GPIOC-&gt;ODR
-</code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// 하나의 구조체로 모든 GPIO 커버 (10줄)</span>
+GPIOA<span class="token operator">-></span>ODR
+GPIOB<span class="token operator">-></span>ODR  
+GPIOC<span class="token operator">-></span>ODR<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h3 id="2-확장성"><a href="#2-확장성" class="headerlink" title="2. 확장성"></a>2. 확장성</h3><p>새로운 GPIO 포트 추가가 매우 쉽다:</p>
-<pre><code class="language-c">// 새 GPIO 추가 (단 한 줄!)
-#define GPIOF ((GPIO_TypeDef *)(GPIOF_BASE))
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// 새 GPIO 추가 (단 한 줄!)</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOF</span> <span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">(</span>GPIO_TypeDef <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOF_BASE<span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
 
-// 즉시 모든 레지스터 사용 가능
-GPIOF-&gt;MODER = 0x12345678;
-GPIOF-&gt;ODR |= (1U &lt;&lt; 3);
-</code></pre>
+<span class="token comment">// 즉시 모든 레지스터 사용 가능</span>
+GPIOF<span class="token operator">-></span>MODER <span class="token operator">=</span> <span class="token number">0x12345678</span><span class="token punctuation">;</span>
+GPIOF<span class="token operator">-></span>ODR <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h3 id="3-타입-안전성"><a href="#3-타입-안전성" class="headerlink" title="3. 타입 안전성"></a>3. 타입 안전성</h3><p>IDE와 컴파일러가 타입 검사를 수행한다:</p>
-<pre><code class="language-c">// 잘못된 사용 시 컴파일 에러 발생
-GPIOA-&gt;INVALID_REGISTER = 0;  // 컴파일 에러!
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// 잘못된 사용 시 컴파일 에러 발생</span>
+GPIOA<span class="token operator">-></span>INVALID_REGISTER <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>  <span class="token comment">// 컴파일 에러!</span>
 
-// IDE에서 자동완성 지원
-GPIOA-&gt;  // 여기서 자동완성으로 사용 가능한 멤버들을 보여줌
-</code></pre>
-<h3 id="4-가독성-향상"><a href="#4-가독성-향상" class="headerlink" title="4. 가독성 향상"></a>4. 가독성 향상</h3><pre><code class="language-c">// 구조체 멤버 접근이 더 직관적
-GPIOA-&gt;MODER |= (1U &lt;&lt; 10);   // 명확한 의미
-GPIOA-&gt;ODR ^= (1U &lt;&lt; 5);      // 토글 의미 명확
-</code></pre>
+<span class="token comment">// IDE에서 자동완성 지원</span>
+GPIOA<span class="token operator">-></span>  <span class="token comment">// 여기서 자동완성으로 사용 가능한 멤버들을 보여줌</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4-가독성-향상"><a href="#4-가독성-향상" class="headerlink" title="4. 가독성 향상"></a>4. 가독성 향상</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// 구조체 멤버 접근이 더 직관적</span>
+GPIOA<span class="token operator">-></span>MODER <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">// 명확한 의미</span>
+GPIOA<span class="token operator">-></span>ODR <span class="token operator">^=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">// 토글 의미 명확</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
 <h2 id="💡-핵심-개념-정리"><a href="#💡-핵심-개념-정리" class="headerlink" title="💡 핵심 개념 정리"></a>💡 핵심 개념 정리</h2><h3 id="구조체와-메모리-매핑의-관계"><a href="#구조체와-메모리-매핑의-관계" class="headerlink" title="구조체와 메모리 매핑의 관계"></a>구조체와 메모리 매핑의 관계</h3><p>구조체는 메모리에 연속적으로 배치된다:</p>
-<pre><code class="language-c">typedef struct&#123;
-   volatile uint32_t MODER;    // +0x00
-   volatile uint32_t OTYPER;   // +0x04
-   volatile uint32_t OSPEEDR;  // +0x08
-   // ...
-&#125;GPIO_TypeDef;
-</code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">typedef</span> <span class="token keyword">struct</span><span class="token punctuation">&#123;</span>
+   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> MODER<span class="token punctuation">;</span>    <span class="token comment">// +0x00</span>
+   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> OTYPER<span class="token punctuation">;</span>   <span class="token comment">// +0x04</span>
+   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> OSPEEDR<span class="token punctuation">;</span>  <span class="token comment">// +0x08</span>
+   <span class="token comment">// ...</span>
+<span class="token punctuation">&#125;</span>GPIO_TypeDef<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>이는 STM32의 실제 하드웨어 레지스터 배치와 정확히 일치한다.</p>
 <h3 id="volatile-키워드의-지속적-중요성"><a href="#volatile-키워드의-지속적-중요성" class="headerlink" title="volatile 키워드의 지속적 중요성"></a>volatile 키워드의 지속적 중요성</h3><p>구조체에서도 <code>volatile</code>은 여전히 중요하다:</p>
-<pre><code class="language-c">volatile uint32_t MODER;  // 컴파일러 최적화 방지
-</code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> MODER<span class="token punctuation">;</span>  <span class="token comment">// 컴파일러 최적화 방지</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p><strong>이유:</strong></p>
 <ul>
 <li>하드웨어 레지스터는 언제든지 값이 변경될 수 있다</li>
