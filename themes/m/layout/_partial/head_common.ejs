@@ -56,6 +56,14 @@
         background-color: #fafafa !important;
     }
     
+    /* 모든 이미지에서 윤곽선 완전 제거 */
+    * img {
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+    }
+    
     blockquote > strong > a {
         word-break: break-all;
     }
@@ -334,17 +342,36 @@ document.addEventListener('DOMContentLoaded', function() {
     line-height: 1.6 !important;
 }
 
-/* 이미지 스타일 */
+/* 이미지 스타일 - 모든 윤곽선 완전 제거 */
 .e-content img,
 .mdui-card-content.mdui-typo img {
     max-width: 100% !important;
     height: auto !important;
     margin: 1.5em auto !important;
     display: block !important;
-    border-radius: 6px !important;
+    border-radius: 0 !important;
     box-shadow: none !important;
     border: none !important;
+    outline: none !important;
     transition: none !important;
+}
+
+/* 모든 이미지 요소에서 윤곽선 제거 */
+img {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* 특정 클래스나 컨테이너 내 이미지 윤곽선 제거 */
+.mdui-card img,
+.mdui-card-content img,
+.mdui-typo img,
+article img {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
 }
 
 .e-content img:hover,
