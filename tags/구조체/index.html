@@ -556,7 +556,7 @@ article img {
 <meta property="article:author" content="고은">
 <meta property="article:tag" content="하드웨어 개발자, Verilog, RISC-V, Cortex-M, AXI4, FPGA, 임베디드, 포트폴리오">
 <meta name="twitter:card" content="summary">
-<meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 <body class="mdui-theme-primary-indigo mdui-theme-accent-pink mdui-appbar-with-toolbar ">
     <div class="mdui-theme-layout-light">
     <header id="appbar" class="mdui-appbar mdui-appbar-fixed mdui-shadow-0 mdui-appbar-scroll-hide">
@@ -772,7 +772,7 @@ article img {
         
         <main class="e-content"><h1 id="코드-개선-과정-구조체-활용"><a href="#코드-개선-과정-구조체-활용" class="headerlink" title="코드 개선 과정 - 구조체 활용"></a>코드 개선 과정 - 구조체 활용</h1><p>이번 포스트에서는 Define 방식의 한계를 극복하고 구조체를 활용하여 더욱 체계적이고 재사용 가능한 코드를 만드는 방법을 다룬다.</p>
 <h2 id="🚨-Define-방식의-한계"><a href="#🚨-Define-방식의-한계" class="headerlink" title="🚨 Define 방식의 한계"></a>🚨 Define 방식의 한계</h2><h3 id="기존-Define-방식의-문제점"><a href="#기존-Define-방식의-문제점" class="headerlink" title="기존 Define 방식의 문제점"></a>기존 Define 방식의 문제점</h3><p>이전 포스트에서 개선한 코드도 여전히 다음과 같은 문제가 있다:</p>
-<pre class=" language-language-c"><code class="language-language-c">// 문제가 있는 방식 - 반복적이고 비효율적
+<pre><code class="language-c">// 문제가 있는 방식 - 반복적이고 비효율적
 #define GPIOA_MODER   *(volatile uint32_t *)(GPIOA_BASE + 0x00)
 #define GPIOA_OTYPER  *(volatile uint32_t *)(GPIOA_BASE + 0x04)
 #define GPIOA_OSPEEDR *(volatile uint32_t *)(GPIOA_BASE + 0x08)
@@ -800,7 +800,7 @@ article img {
 <li><strong>타입 안전성 없음</strong>: 컴파일러가 잘못된 사용을 감지하기 어려움</li>
 </ol>
 <h2 id="📦-구조체-사용의-중요성"><a href="#📦-구조체-사용의-중요성" class="headerlink" title="📦 구조체 사용의 중요성"></a>📦 구조체 사용의 중요성</h2><h3 id="구조체를-사용한-해결책"><a href="#구조체를-사용한-해결책" class="headerlink" title="구조체를 사용한 해결책"></a>구조체를 사용한 해결책</h3><p>하나의 구조체 정의로 모든 GPIO에 적용할 수 있다:</p>
-<pre class=" language-language-c"><code class="language-language-c">// GPIO 레지스터 구조체 정의
+<pre><code class="language-c">// GPIO 레지스터 구조체 정의
 typedef struct&#123;
    volatile uint32_t MODER;      // 0x00 - Mode register
    volatile uint32_t OTYPER;     // 0x04 - Output type register  
@@ -844,14 +844,14 @@ typedef struct&#123;
 <li>대체 기능 설정</li>
 <li>AFR[0]: 핀 0-7, AFR[1]: 핀 8-15</li>
 </ul>
-<h2 id="🎯-구조체-포인터-정의"><a href="#🎯-구조체-포인터-정의" class="headerlink" title="🎯 구조체 포인터 정의"></a>🎯 구조체 포인터 정의</h2><h3 id="각-GPIO를-구조체-포인터로-정의"><a href="#각-GPIO를-구조체-포인터로-정의" class="headerlink" title="각 GPIO를 구조체 포인터로 정의"></a>각 GPIO를 구조체 포인터로 정의</h3><pre class=" language-language-c"><code class="language-language-c">// 구조체 포인터로 각 GPIO 정의
+<h2 id="🎯-구조체-포인터-정의"><a href="#🎯-구조체-포인터-정의" class="headerlink" title="🎯 구조체 포인터 정의"></a>🎯 구조체 포인터 정의</h2><h3 id="각-GPIO를-구조체-포인터로-정의"><a href="#각-GPIO를-구조체-포인터로-정의" class="headerlink" title="각 GPIO를 구조체 포인터로 정의"></a>각 GPIO를 구조체 포인터로 정의</h3><pre><code class="language-c">// 구조체 포인터로 각 GPIO 정의
 #define GPIOA ((GPIO_TypeDef *)(GPIOA_BASE))
 #define GPIOB ((GPIO_TypeDef *)(GPIOB_BASE))
 #define GPIOC ((GPIO_TypeDef *)(GPIOC_BASE))
 #define GPIOD ((GPIO_TypeDef *)(GPIOD_BASE))
 #define GPIOE ((GPIO_TypeDef *)(GPIOE_BASE))
 </code></pre>
-<h3 id="포인터-타입-캐스팅-이해"><a href="#포인터-타입-캐스팅-이해" class="headerlink" title="포인터 타입 캐스팅 이해"></a>포인터 타입 캐스팅 이해</h3><pre class=" language-language-c"><code class="language-language-c">#define GPIOA ((GPIO_TypeDef *)(GPIOA_BASE))
+<h3 id="포인터-타입-캐스팅-이해"><a href="#포인터-타입-캐스팅-이해" class="headerlink" title="포인터 타입 캐스팅 이해"></a>포인터 타입 캐스팅 이해</h3><pre><code class="language-c">#define GPIOA ((GPIO_TypeDef *)(GPIOA_BASE))
 </code></pre>
 <p><strong>동작 원리:</strong></p>
 <ol>
@@ -876,8 +876,8 @@ typedef struct&#123;
 │ AFR[1]   (0x40020024)      │ ← GPIOA-&gt;AFR[1]
 └─────────────────────────────┘
 </code></pre>
-<h2 id="🚀-구조체를-사용한-최종-코드"><a href="#🚀-구조체를-사용한-최종-코드" class="headerlink" title="🚀 구조체를 사용한 최종 코드"></a>🚀 구조체를 사용한 최종 코드</h2><h3 id="완성된-코드"><a href="#완성된-코드" class="headerlink" title="완성된 코드"></a>완성된 코드</h3><pre class=" language-language-c"><code class="language-language-c">#include <stdint.h>
-#include "stm32f411xe.h"  // STM32 표준 헤더 파일
+<h2 id="🚀-구조체를-사용한-최종-코드"><a href="#🚀-구조체를-사용한-최종-코드" class="headerlink" title="🚀 구조체를 사용한 최종 코드"></a>🚀 구조체를 사용한 최종 코드</h2><h3 id="완성된-코드"><a href="#완성된-코드" class="headerlink" title="완성된 코드"></a>완성된 코드</h3><pre><code class="language-c">#include &lt;stdint.h&gt;
+#include &quot;stm32f411xe.h&quot;  // STM32 표준 헤더 파일
 
 // 베이스 주소 정의
 #define PERIPH_BASE (0x40000000UL)
@@ -907,62 +907,62 @@ void delay();
 int main(void)
 &#123;
    /*1. Enable clock access to GPIOA */
-   RCC_AHB1ENR |= (1U << 0);
+   RCC_AHB1ENR |= (1U &lt;&lt; 0);
 
    /*2. Set PA5 as output pin */
-   GPIOA->MODER |= (1U << 10);
-   GPIOA->MODER &= ~(1U << 11);
+   GPIOA-&gt;MODER |= (1U &lt;&lt; 10);
+   GPIOA-&gt;MODER &amp;= ~(1U &lt;&lt; 11);
 
    while(1)
    &#123;
       /*3. Set PA5 high */
-      GPIOA->ODR |= (1U << 5);
+      GPIOA-&gt;ODR |= (1U &lt;&lt; 5);
       delay();
       
       /*4. Set PA5 low */
-      GPIOA->ODR &= ~(1U << 5);
+      GPIOA-&gt;ODR &amp;= ~(1U &lt;&lt; 5);
       delay();
    &#125;
 &#125;
 
 void delay()&#123;
-    for(int i = 0; i<100000; i++)&#123;&#125;
+    for(int i = 0; i&lt;100000; i++)&#123;&#125;
 &#125;
 </code></pre>
 <h2 id="✨-구조체-사용의-장점"><a href="#✨-구조체-사용의-장점" class="headerlink" title="✨ 구조체 사용의 장점"></a>✨ 구조체 사용의 장점</h2><h3 id="1-간결성과-재사용성"><a href="#1-간결성과-재사용성" class="headerlink" title="1. 간결성과 재사용성"></a>1. 간결성과 재사용성</h3><p><strong>Before (Define 방식):</strong></p>
-<pre class=" language-language-c"><code class="language-language-c">// 각 GPIO마다 개별 정의 필요 (40줄 이상)
+<pre><code class="language-c">// 각 GPIO마다 개별 정의 필요 (40줄 이상)
 #define GPIOA_ODR *(volatile uint32_t *)(GPIOA_BASE + 0x14)
 #define GPIOB_ODR *(volatile uint32_t *)(GPIOB_BASE + 0x14)
 #define GPIOC_ODR *(volatile uint32_t *)(GPIOC_BASE + 0x14)
 // ... 계속
 </code></pre>
 <p><strong>After (구조체 방식):</strong></p>
-<pre class=" language-language-c"><code class="language-language-c">// 하나의 구조체로 모든 GPIO 커버 (10줄)
-GPIOA->ODR
-GPIOB->ODR  
-GPIOC->ODR
+<pre><code class="language-c">// 하나의 구조체로 모든 GPIO 커버 (10줄)
+GPIOA-&gt;ODR
+GPIOB-&gt;ODR  
+GPIOC-&gt;ODR
 </code></pre>
 <h3 id="2-확장성"><a href="#2-확장성" class="headerlink" title="2. 확장성"></a>2. 확장성</h3><p>새로운 GPIO 포트 추가가 매우 쉽다:</p>
-<pre class=" language-language-c"><code class="language-language-c">// 새 GPIO 추가 (단 한 줄!)
+<pre><code class="language-c">// 새 GPIO 추가 (단 한 줄!)
 #define GPIOF ((GPIO_TypeDef *)(GPIOF_BASE))
 
 // 즉시 모든 레지스터 사용 가능
-GPIOF->MODER = 0x12345678;
-GPIOF->ODR |= (1U << 3);
+GPIOF-&gt;MODER = 0x12345678;
+GPIOF-&gt;ODR |= (1U &lt;&lt; 3);
 </code></pre>
 <h3 id="3-타입-안전성"><a href="#3-타입-안전성" class="headerlink" title="3. 타입 안전성"></a>3. 타입 안전성</h3><p>IDE와 컴파일러가 타입 검사를 수행한다:</p>
-<pre class=" language-language-c"><code class="language-language-c">// 잘못된 사용 시 컴파일 에러 발생
-GPIOA->INVALID_REGISTER = 0;  // 컴파일 에러!
+<pre><code class="language-c">// 잘못된 사용 시 컴파일 에러 발생
+GPIOA-&gt;INVALID_REGISTER = 0;  // 컴파일 에러!
 
 // IDE에서 자동완성 지원
-GPIOA->  // 여기서 자동완성으로 사용 가능한 멤버들을 보여줌
+GPIOA-&gt;  // 여기서 자동완성으로 사용 가능한 멤버들을 보여줌
 </code></pre>
-<h3 id="4-가독성-향상"><a href="#4-가독성-향상" class="headerlink" title="4. 가독성 향상"></a>4. 가독성 향상</h3><pre class=" language-language-c"><code class="language-language-c">// 구조체 멤버 접근이 더 직관적
-GPIOA->MODER |= (1U << 10);   // 명확한 의미
-GPIOA->ODR ^= (1U << 5);      // 토글 의미 명확
+<h3 id="4-가독성-향상"><a href="#4-가독성-향상" class="headerlink" title="4. 가독성 향상"></a>4. 가독성 향상</h3><pre><code class="language-c">// 구조체 멤버 접근이 더 직관적
+GPIOA-&gt;MODER |= (1U &lt;&lt; 10);   // 명확한 의미
+GPIOA-&gt;ODR ^= (1U &lt;&lt; 5);      // 토글 의미 명확
 </code></pre>
 <h2 id="💡-핵심-개념-정리"><a href="#💡-핵심-개념-정리" class="headerlink" title="💡 핵심 개념 정리"></a>💡 핵심 개념 정리</h2><h3 id="구조체와-메모리-매핑의-관계"><a href="#구조체와-메모리-매핑의-관계" class="headerlink" title="구조체와 메모리 매핑의 관계"></a>구조체와 메모리 매핑의 관계</h3><p>구조체는 메모리에 연속적으로 배치된다:</p>
-<pre class=" language-language-c"><code class="language-language-c">typedef struct&#123;
+<pre><code class="language-c">typedef struct&#123;
    volatile uint32_t MODER;    // +0x00
    volatile uint32_t OTYPER;   // +0x04
    volatile uint32_t OSPEEDR;  // +0x08
@@ -971,7 +971,7 @@ GPIOA->ODR ^= (1U << 5);      // 토글 의미 명확
 </code></pre>
 <p>이는 STM32의 실제 하드웨어 레지스터 배치와 정확히 일치한다.</p>
 <h3 id="volatile-키워드의-지속적-중요성"><a href="#volatile-키워드의-지속적-중요성" class="headerlink" title="volatile 키워드의 지속적 중요성"></a>volatile 키워드의 지속적 중요성</h3><p>구조체에서도 <code>volatile</code>은 여전히 중요하다:</p>
-<pre class=" language-language-c"><code class="language-language-c">volatile uint32_t MODER;  // 컴파일러 최적화 방지
+<pre><code class="language-c">volatile uint32_t MODER;  // 컴파일러 최적화 방지
 </code></pre>
 <p><strong>이유:</strong></p>
 <ul>
