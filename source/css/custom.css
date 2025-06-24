@@ -129,10 +129,10 @@ body {
 }
 
 /* =================================================================
-   코드 블록 완전 초기화 및 VSCode 스타일 강제 적용
+   VSCode 스타일 코드 블록 - 최강 강제 적용
    ================================================================= */
 
-/* 모든 가능한 pre 선택자를 사용해서 완전히 덮어씌우기 */
+/* 모든 가능한 pre 선택자 + 최대 우선순위 */
 pre,
 pre.language-c,
 pre[class*="language-"],
@@ -140,13 +140,10 @@ pre[class*="language-"],
 .main-content pre,
 article pre,
 .mdui-typo pre,
-code.language-c,
-code[class*="language-"] {
-    /* 기존 스타일 완전 초기화 */
-    all: unset !important;
-    
-    /* VSCode 다크 테마 강제 적용 */
-    display: block !important;
+.mdui-card pre,
+div pre,
+p pre,
+body pre {
     background: #1e1e1e !important;
     color: #d4d4d4 !important;
     border: 1px solid #404040 !important;
@@ -161,26 +158,58 @@ code[class*="language-"] {
     white-space: pre !important;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
     position: relative !important;
+    display: block !important;
     width: auto !important;
     height: auto !important;
     letter-spacing: 0.3px !important;
+    text-align: left !important;
+    direction: ltr !important;
+    word-spacing: normal !important;
+    word-break: normal !important;
+    tab-size: 4 !important;
+    hyphens: none !important;
 }
 
-/* 코드 블록 안의 모든 텍스트를 밝은 색으로 강제 변경 */
+/* 코드 블록 안의 모든 요소 강제 스타일링 */
 pre *,
 pre.language-c *,
 pre[class*="language-"] *,
-code.language-c *,
-code[class*="language-"] * {
+.post-content pre *,
+.main-content pre *,
+article pre *,
+.mdui-typo pre * {
     color: #d4d4d4 !important;
     background: transparent !important;
     font-family: inherit !important;
     font-size: inherit !important;
     font-weight: inherit !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* code 태그 안에 있는 모든 텍스트 */
+pre code,
+pre.language-c code,
+pre[class*="language-"] code,
+code.language-c,
+code[class*="language-"] {
+    display: block !important;
+    background: transparent !important;
+    color: #d4d4d4 !important;
+    font-family: inherit !important;
+    font-size: inherit !important;
+    font-weight: inherit !important;
+    white-space: pre !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
 }
 
 /* 인라인 코드는 따로 처리 */
-code:not([class*="language-"]):not(pre code) {
+code:not([class*="language-"]):not(pre code):not(pre *) {
     background: #f6f8fa !important;
     color: #d73a49 !important;
     padding: 4px 8px !important;
@@ -189,12 +218,14 @@ code:not([class*="language-"]):not(pre code) {
     font-size: 0.9em !important;
     font-weight: 500 !important;
     border: 1px solid #e1e4e8 !important;
+    display: inline !important;
 }
 
-/* "C" 라벨 추가 */
+/* "C" 라벨 */
 pre::after,
 pre.language-c::after,
-pre[class*="language-"]::after {
+pre[class*="language-"]::after,
+.post-content pre::after {
     content: "C" !important;
     position: absolute !important;
     top: 0 !important;
@@ -207,35 +238,35 @@ pre[class*="language-"]::after {
     border-bottom-left-radius: 4px !important;
     text-transform: uppercase !important;
     z-index: 1 !important;
+    font-family: 'JetBrains Mono', monospace !important;
 }
 
-/* 스크롤바 스타일 */
-pre::-webkit-scrollbar,
-pre[class*="language-"]::-webkit-scrollbar {
+/* 스크롤바 */
+pre::-webkit-scrollbar {
     height: 8px !important;
-}
-
-pre::-webkit-scrollbar-track,
-pre[class*="language-"]::-webkit-scrollbar-track {
     background: #2d2d30 !important;
-    border-radius: 4px !important;
 }
 
-pre::-webkit-scrollbar-thumb,
-pre[class*="language-"]::-webkit-scrollbar-thumb {
+pre::-webkit-scrollbar-thumb {
     background: #424242 !important;
     border-radius: 4px !important;
 }
 
 /* 호버 효과 */
-pre:hover,
-pre[class*="language-"]:hover {
+pre:hover {
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
     transform: translateY(-1px) !important;
     transition: all 0.2s ease !important;
 }
 
-/* 모바일 반응형 스타일 */
+/* 강제로 다른 모든 CSS 규칙 무시 */
+[style*="background"][style*="pre"],
+[style*="color"][style*="pre"] {
+    background: #1e1e1e !important;
+    color: #d4d4d4 !important;
+}
+
+/* 모바일 반응형 */
 @media (max-width: 768px) {
     .mdui-container {
         padding: 0 16px;
@@ -261,7 +292,6 @@ pre[class*="language-"]:hover {
         font-size: 1.4em !important;
     }
     
-    /* 모바일 코드 블록 */
     pre,
     pre[class*="language-"] {
         margin: 1.5em -16px !important;
