@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
 
 
-<link rel=“dns-prefetch” //cdn.jsdelivr.net>
+<link rel="dns-prefetch" //cdn.jsdelivr.net>
 
 
 
@@ -19,17 +19,25 @@
 <meta name="theme-color" content="#3F51B5">
 
 
-<!-- Google Fonts 최적화 -->
-
+<!-- Bear 스타일 폰트 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600&family=SF+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
     /* 기본 스타일 */
     html, body {
         scroll-behavior: smooth;
         min-height: 100vh;
+        background-color: #fafafa !important;
+    }
+    
+    /* 모든 이미지에서 윤곽선 완전 제거 */
+    * img {
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
     }
     
     blockquote > strong > a {
@@ -37,7 +45,7 @@
     }
     
     .mdui-hoverable:hover, .mdui-hoverable:focus {
-        box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12) !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
     }
     
     .mdui-card-primary-title a {
@@ -76,394 +84,463 @@ document.addEventListener('DOMContentLoaded', function() {
     if (isContentPage && !isHomePage) {
         const postStyles = document.createElement('style');
         postStyles.textContent = `
-/* 콘텐츠 페이지에만 적용될 스타일 */
+/* Bear 앱 스타일 - 미니멀하고 깔끔하게 */
 .mdui-card-content.mdui-typo {
-padding: 3em 4em !important;
-max-width: 900px !important;
-margin: 0 auto !important;
+    padding: 3em 4em !important;
+    max-width: 800px !important;
+    margin: 0 auto !important;
+    background-color: #ffffff !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+    border-radius: 8px !important;
 }
 
-        /* 시리즈 네비게이션 완전히 숨기기 */
-        #category-series-nav,
-        .series-navigation,
-        .series-nav,
-        .category-series,
-        [class*="series"] {
-            display: none !important;
-        }
-        
-        /* 목차 스타일 - 심플하게 */
-        #table-of-contents .toc-header {
-            display: none !important;
-        }
-
-        #table-of-contents .toc-toggle {
-            display: none !important;
-        }
-
-        #table-of-contents {
-            padding: 1.5em 0 !important;
-            margin: 0 0 2.5em 0 !important;
-            background: none !important;
-            border: none !important;
-            box-shadow: none !important;
-            border-radius: 0 !important;
-        }
-
-        #table-of-contents .toc-nav {
-            display: block !important;
-            opacity: 1 !important;
-            max-height: none !important;
-        }
-
-        #table-of-contents .toc-list {
-            list-style: none !important;
-            padding: 0 !important;
-            margin: 0 !important;
-        }
-
-        #table-of-contents .toc-item {
-            margin: 0 !important;
-            line-height: 1.6 !important;
-        }
-
-        #table-of-contents .toc-level-1 { 
-            display: block !important;
-        }
-        #table-of-contents .toc-level-2, 
-        #table-of-contents .toc-level-3, 
-        #table-of-contents .toc-level-4, 
-        #table-of-contents .toc-level-5, 
-        #table-of-contents .toc-level-6 { 
-            display: none !important;
-        }
-
-        #table-of-contents .toc-link {
-            color: #52a9ff !important;
-            text-decoration: none !important;
-            padding: 0.5em 0 !important;
-            display: block !important;
-            font-size: 0.95em !important;
-            font-weight: 500 !important;
-            transition: color 0.3s ease !important;
-            border: none !important;
-            background: none !important;
-            border-bottom: none !important;
-        }
-
-        #table-of-contents .toc-link:hover {
-            color: #2196f3 !important;
-            background: none !important;
-            transform: none !important;
-            box-shadow: none !important;
-        }
-
-        #table-of-contents .toc-link.active {
-            color: #2196f3 !important;
-            font-weight: 600 !important;
-            background: none !important;
-        }
-        
-        /* 본문 스타일 - .e-content와 일반 콘텐츠 모두 */
-        .e-content,
-        .mdui-card-content.mdui-typo {
-            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-            padding: 0 !important;
-        }
-        
-        .e-content, .e-content p, .e-content div, .e-content span, .e-content li, .e-content td, .e-content th,
-        .mdui-card-content.mdui-typo, .mdui-card-content.mdui-typo p, .mdui-card-content.mdui-typo div, 
-        .mdui-card-content.mdui-typo span, .mdui-card-content.mdui-typo li, .mdui-card-content.mdui-typo td, 
-        .mdui-card-content.mdui-typo th {
-            font-size: 17px !important;
-            line-height: 1.8 !important;
-            color: #2c3e50 !important;
-            word-break: keep-all !important;
-            word-wrap: break-word !important;
-        }
-        
-        .e-content p,
-        .mdui-card-content.mdui-typo p {
-            margin-bottom: 1.6em !important;
-            font-size: 17px !important;
-        }
-        
-        .e-content h1,
-        .mdui-card-content.mdui-typo h1 {
-            font-size: 2.5em !important;
-            margin: 2em 0 1.2em 0 !important;
-            font-weight: 800 !important;
-            color: #2c3e50 !important;
-            border-bottom: 4px solid #3498db !important;
-            padding-bottom: 0.6em !important;
-            scroll-margin-top: 100px !important;
-            position: relative !important;
-        }
-        
-        .e-content h1::before,
-        .mdui-card-content.mdui-typo h1::before {
-            content: '' !important;
-            position: absolute !important;
-            bottom: -4px !important;
-            left: 0 !important;
-            width: 60px !important;
-            height: 4px !important;
-            background: linear-gradient(90deg, #e74c3c, #f39c12) !important;
-            border-radius: 2px !important;
-        }
-        
-        .e-content h2,
-        .mdui-card-content.mdui-typo h2 {
-            font-size: 2.1em !important;
-            margin: 1.8em 0 1em 0 !important;
-            font-weight: 700 !important;
-            color: #34495e !important;
-            border-left: 5px solid #3498db !important;
-            padding: 0.5em 0 0.5em 1em !important;
-            background: linear-gradient(135deg, rgba(52, 152, 219, 0.05), transparent) !important;
-            border-radius: 0 8px 8px 0 !important;
-            scroll-margin-top: 100px !important;
-        }
-        
-        .e-content h3,
-        .mdui-card-content.mdui-typo h3 {
-            font-size: 1.7em !important;
-            margin: 1.6em 0 0.8em 0 !important;
-            font-weight: 600 !important;
-            color: #2c3e50 !important;
-            scroll-margin-top: 100px !important;
-            position: relative !important;
-        }
-        
-        .e-content h3::before,
-        .mdui-card-content.mdui-typo h3::before {
-            content: '▶' !important;
-            color: #3498db !important;
-            margin-right: 0.5em !important;
-            font-size: 0.8em !important;
-        }
-        
-        .e-content h4, .e-content h5, .e-content h6,
-        .mdui-card-content.mdui-typo h4, .mdui-card-content.mdui-typo h5, .mdui-card-content.mdui-typo h6 {
-            font-weight: 600 !important;
-            color: #34495e !important;
-            scroll-margin-top: 100px !important;
-        }
-        
-        .e-content h4, .mdui-card-content.mdui-typo h4 { font-size: 1.4em !important; margin: 1.4em 0 0.7em 0 !important; }
-        .e-content h5, .mdui-card-content.mdui-typo h5 { font-size: 1.2em !important; margin: 1.2em 0 0.6em 0 !important; }
-        .e-content h6, .mdui-card-content.mdui-typo h6 { font-size: 1.1em !important; margin: 1em 0 0.5em 0 !important; }
-        
-        /* 코드 스타일 개선 */
-        .e-content pre,
-        .mdui-card-content.mdui-typo pre {
-            background: linear-gradient(135deg, #1e1e1e, #2d2d2d) !important;
-            border: 1px solid #404040 !important;
-            border-radius: 12px !important;
-            padding: 2em !important;
-            margin: 2.5em 0 !important;
-            overflow-x: auto !important;
-            font-family: 'JetBrains Mono', 'Consolas', monospace !important;
-            font-size: 15px !important;
-            line-height: 1.6 !important;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.3) !important;
-            position: relative !important;
-        }
-        
-        .e-content pre::before,
-        .mdui-card-content.mdui-typo pre::before {
-            content: '' !important;
-            position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
-            right: 0 !important;
-            height: 3px !important;
-            background: linear-gradient(90deg, #e74c3c, #f39c12, #2ecc71, #3498db) !important;
-            border-radius: 12px 12px 0 0 !important;
-        }
-        
-        .e-content code,
-        .mdui-card-content.mdui-typo code {
-            background: linear-gradient(135deg, #fff2f2, #ffebee) !important;
-            padding: 4px 10px !important;
-            border-radius: 6px !important;
-            font-family: 'JetBrains Mono', 'Consolas', monospace !important;
-            font-size: 0.9em !important;
-            color: #d73a49 !important;
-            font-weight: 600 !important;
-            border: 1px solid #ffcdd2 !important;
-        }
-        
-        .e-content pre code,
-        .mdui-card-content.mdui-typo pre code {
-            background: none !important;
-            padding: 0 !important;
-            color: #f8f8f2 !important;
-            font-weight: normal !important;
-            border: none !important;
-        }
-        
-        /* 기타 스타일 개선 */
-        .e-content ul, .e-content ol,
-        .mdui-card-content.mdui-typo ul, .mdui-card-content.mdui-typo ol {
-            margin: 1.8em 0 !important;
-            padding-left: 2.5em !important;
-        }
-        
-        .e-content li,
-        .mdui-card-content.mdui-typo li {
-            margin-bottom: 1em !important;
-            font-size: 16px !important;
-            line-height: 1.8 !important;
-        }
-        
-        .e-content img,
-        .mdui-card-content.mdui-typo img {
-            max-width: 100% !important;
-            height: auto !important;
-            margin: 2.5em auto !important;
-            display: block !important;
-            border-radius: 12px !important;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.15) !important;
-            border: 1px solid #e8e8e8 !important;
-            transition: transform 0.3s ease !important;
-        }
-        
-        .e-content img:hover,
-        .mdui-card-content.mdui-typo img:hover {
-            transform: scale(1.02) !important;
-        }
-        
-        .e-content table,
-        .mdui-card-content.mdui-typo table {
-            width: 100% !important;
-            border-collapse: collapse !important;
-            margin: 2.5em 0 !important;
-            font-size: 15px !important;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.1) !important;
-            border-radius: 12px !important;
-            overflow: hidden !important;
-            background: white !important;
-        }
-        
-        .e-content th,
-        .mdui-card-content.mdui-typo th {
-            background: linear-gradient(135deg, #f5f7fa, #c3cfe2) !important;
-            font-weight: 700 !important;
-            color: #2c3e50 !important;
-            border-bottom: 3px solid #3498db !important;
-            padding: 18px !important;
-        }
-        
-        .e-content td,
-        .mdui-card-content.mdui-typo td {
-            border: 1px solid #e8e8e8 !important;
-            padding: 15px !important;
-            transition: background 0.3s ease !important;
-        }
-        
-        .e-content tr:nth-child(even),
-        .mdui-card-content.mdui-typo tr:nth-child(even) {
-            background: #f9f9f9 !important;
-        }
-        
-        .e-content tr:hover,
-        .mdui-card-content.mdui-typo tr:hover {
-            background: #f0f8ff !important;
-        }
-        
-        .e-content blockquote,
-        .mdui-card-content.mdui-typo blockquote {
-            border-left: 6px solid #3498db !important;
-            margin: 2.5em 0 !important;
-            padding: 1.5em 2em !important;
-            background: linear-gradient(135deg, #f8f9ff, #fff) !important;
-            border-radius: 0 12px 12px 0 !important;
-            font-style: italic !important;
-            color: #555 !important;
-            box-shadow: 0 4px 20px rgba(52, 152, 219, 0.1) !important;
-            position: relative !important;
-        }
-        
-        .e-content blockquote::before,
-        .mdui-card-content.mdui-typo blockquote::before {
-            content: '"' !important;
-            font-size: 4em !important;
-            color: #3498db !important;
-            position: absolute !important;
-            top: -10px !important;
-            left: 15px !important;
-            opacity: 0.3 !important;
-            font-family: serif !important;
-        }
-        
-        .e-content a,
-        .mdui-card-content.mdui-typo a {
-            color: #3498db !important;
-            text-decoration: none !important;
-            border-bottom: 2px solid transparent !important;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-            font-weight: 500 !important;
-        }
-        
-        .e-content a:hover,
-        .mdui-card-content.mdui-typo a:hover {
-            color: #2980b9 !important;
-            border-bottom-color: #2980b9 !important;
-            background: rgba(52, 152, 219, 0.1) !important;
-            padding: 2px 4px !important;
-            border-radius: 4px !important;
-        }
-        
-        .e-content strong,
-        .mdui-card-content.mdui-typo strong {
-            color: #2c3e50 !important;
-            font-weight: 700 !important;
-            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), transparent) !important;
-            padding: 2px 4px !important;
-            border-radius: 4px !important;
-        }
-        
-        /* 반응형 디자인 */
-        @media (max-width: 1024px) {
-            .mdui-card-content.mdui-typo {
-                padding: 2.5em 3em !important;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .mdui-card-content.mdui-typo {
-                padding: 2em 2em !important;
-            }
-            
-            .e-content h1, .mdui-card-content.mdui-typo h1 { font-size: 2.2em !important; }
-            .e-content h2, .mdui-card-content.mdui-typo h2 { font-size: 1.8em !important; }
-            .e-content h3, .mdui-card-content.mdui-typo h3 { font-size: 1.5em !important; }
-            
-            .e-content pre, .mdui-card-content.mdui-typo pre {
-                padding: 1.2em !important;
-                font-size: 14px !important;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .mdui-card-content.mdui-typo {
-                padding: 1.5em 1.5em !important;
-            }
-            
-            .e-content, .e-content p, .mdui-card-content.mdui-typo, .mdui-card-content.mdui-typo p {
-                font-size: 16px !important;
-            }
-            
-            .e-content h1, .mdui-card-content.mdui-typo h1 { font-size: 2em !important; }
-            .e-content h2, .mdui-card-content.mdui-typo h2 { font-size: 1.6em !important; }
-            .e-content h3, .mdui-card-content.mdui-typo h3 { font-size: 1.3em !important; }
-        }
-    `;
-    document.head.appendChild(postStyles);
+/* 시리즈 네비게이션 숨기기 */
+#category-series-nav,
+.series-navigation,
+.series-nav,
+.category-series,
+[class*="series"] {
+    display: none !important;
 }
 
+/* 목차 스타일 - Bear 앱처럼 심플하게 */
+#table-of-contents {
+    padding: 1.5em 0 !important;
+    margin: 0 0 2em 0 !important;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+}
 
+#table-of-contents h2 {
+    font-size: 1.2em !important;
+    font-weight: 600 !important;
+    color: #333 !important;
+    margin-bottom: 1em !important;
+    border: none !important;
+    background: none !important;
+    padding: 0 !important;
+}
+
+#table-of-contents .toc-nav {
+    display: block !important;
+    opacity: 1 !important;
+}
+
+#table-of-contents .toc-list {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+#table-of-contents .toc-item {
+    margin: 0.5em 0 !important;
+    line-height: 1.5 !important;
+}
+
+#table-of-contents .toc-level-1 { 
+    display: block !important;
+}
+#table-of-contents .toc-level-2, 
+#table-of-contents .toc-level-3, 
+#table-of-contents .toc-level-4, 
+#table-of-contents .toc-level-5, 
+#table-of-contents .toc-level-6 { 
+    display: none !important;
+}
+
+#table-of-contents .toc-link {
+    color: #666 !important;
+    text-decoration: none !important;
+    padding: 0.3em 0 !important;
+    display: block !important;
+    font-size: 0.95em !important;
+    font-weight: 400 !important;
+    transition: color 0.2s ease !important;
+    border: none !important;
+    background: none !important;
+}
+
+#table-of-contents .toc-link:hover {
+    color: #333 !important;
+}
+
+#table-of-contents .toc-link.active {
+    color: #007AFF !important;
+    font-weight: 500 !important;
+}
+
+/* Bear 앱 스타일 본문 */
+.e-content,
+.mdui-card-content.mdui-typo {
+    font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif !important;
+    padding: 0 !important;
+    line-height: 1.6 !important;
+    color: #333 !important;
+}
+
+.e-content, .e-content p, .e-content div, .e-content span, .e-content li, .e-content td, .e-content th,
+.mdui-card-content.mdui-typo, .mdui-card-content.mdui-typo p, .mdui-card-content.mdui-typo div, 
+.mdui-card-content.mdui-typo span, .mdui-card-content.mdui-typo li, .mdui-card-content.mdui-typo td, 
+.mdui-card-content.mdui-typo th {
+    font-size: 16px !important;
+    line-height: 1.7 !important;
+    color: #333 !important;
+    word-break: keep-all !important;
+    word-wrap: break-word !important;
+}
+
+.e-content p,
+.mdui-card-content.mdui-typo p {
+    margin-bottom: 1.2em !important;
+    font-size: 16px !important;
+}
+
+/* 제목 스타일 - Bear 앱처럼 심플하게 */
+.e-content h1,
+.mdui-card-content.mdui-typo h1 {
+    font-size: 2em !important;
+    margin: 1.5em 0 1em 0 !important;
+    font-weight: 700 !important;
+    color: #1a1a1a !important;
+    border: none !important;
+    padding: 0 !important;
+    scroll-margin-top: 80px !important;
+}
+
+.e-content h1::before,
+.mdui-card-content.mdui-typo h1::before {
+    display: none !important;
+}
+
+.e-content h2,
+.mdui-card-content.mdui-typo h2 {
+    font-size: 1.5em !important;
+    margin: 1.5em 0 0.8em 0 !important;
+    font-weight: 600 !important;
+    color: #1a1a1a !important;
+    border: none !important;
+    padding: 0 !important;
+    background: none !important;
+    border-radius: 0 !important;
+    scroll-margin-top: 80px !important;
+}
+
+.e-content h3,
+.mdui-card-content.mdui-typo h3 {
+    font-size: 1.25em !important;
+    margin: 1.3em 0 0.7em 0 !important;
+    font-weight: 600 !important;
+    color: #1a1a1a !important;
+    scroll-margin-top: 80px !important;
+}
+
+.e-content h3::before,
+.mdui-card-content.mdui-typo h3::before {
+    display: none !important;
+}
+
+.e-content h4, .e-content h5, .e-content h6,
+.mdui-card-content.mdui-typo h4, .mdui-card-content.mdui-typo h5, .mdui-card-content.mdui-typo h6 {
+    font-weight: 600 !important;
+    color: #1a1a1a !important;
+    scroll-margin-top: 80px !important;
+    border: none !important;
+    background: none !important;
+    padding: 0 !important;
+}
+
+.e-content h4, .mdui-card-content.mdui-typo h4 { 
+    font-size: 1.1em !important; 
+    margin: 1.2em 0 0.6em 0 !important; 
+}
+.e-content h5, .mdui-card-content.mdui-typo h5 { 
+    font-size: 1em !important; 
+    margin: 1.1em 0 0.5em 0 !important; 
+}
+.e-content h6, .mdui-card-content.mdui-typo h6 { 
+    font-size: 0.95em !important; 
+    margin: 1em 0 0.5em 0 !important; 
+}
+
+/* 코드 스타일 - Bear 앱처럼 */
+.e-content pre,
+.mdui-card-content.mdui-typo pre {
+    background: #f6f6f6 !important;
+    border: 1px solid #e6e6e6 !important;
+    border-radius: 6px !important;
+    padding: 1.2em !important;
+    margin: 1.5em 0 !important;
+    overflow-x: auto !important;
+    font-family: 'SF Mono', 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    box-shadow: none !important;
+}
+
+.e-content pre::before,
+.mdui-card-content.mdui-typo pre::before {
+    display: none !important;
+}
+
+.e-content code,
+.mdui-card-content.mdui-typo code {
+    background: #f6f6f6 !important;
+    padding: 2px 6px !important;
+    border-radius: 3px !important;
+    font-family: 'SF Mono', 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 0.9em !important;
+    color: #d14 !important;
+    font-weight: normal !important;
+    border: none !important;
+}
+
+.e-content pre code,
+.mdui-card-content.mdui-typo pre code {
+    background: none !important;
+    padding: 0 !important;
+    color: #333 !important;
+    font-weight: normal !important;
+    border: none !important;
+}
+
+/* 리스트 스타일 */
+.e-content ul, .e-content ol,
+.mdui-card-content.mdui-typo ul, .mdui-card-content.mdui-typo ol {
+    margin: 1.2em 0 !important;
+    padding-left: 1.8em !important;
+}
+
+.e-content li,
+.mdui-card-content.mdui-typo li {
+    margin-bottom: 0.5em !important;
+    font-size: 16px !important;
+    line-height: 1.6 !important;
+}
+
+/* 이미지 스타일 - 모든 윤곽선 완전 제거 */
+.e-content img,
+.mdui-card-content.mdui-typo img {
+    max-width: 100% !important;
+    height: auto !important;
+    margin: 1.5em auto !important;
+    display: block !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    outline: none !important;
+    transition: none !important;
+}
+
+/* 모든 이미지 요소에서 윤곽선 제거 */
+img {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* 특정 클래스나 컨테이너 내 이미지 윤곽선 제거 */
+.mdui-card img,
+.mdui-card-content img,
+.mdui-typo img,
+article img {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+}
+
+.e-content img:hover,
+.mdui-card-content.mdui-typo img:hover {
+    transform: none !important;
+}
+
+/* 테이블 스타일 */
+.e-content table,
+.mdui-card-content.mdui-typo table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin: 1.5em 0 !important;
+    font-size: 14px !important;
+    border: 1px solid #e6e6e6 !important;
+    border-radius: 6px !important;
+    overflow: hidden !important;
+    background: white !important;
+    box-shadow: none !important;
+}
+
+.e-content th,
+.mdui-card-content.mdui-typo th {
+    background: #f8f8f8 !important;
+    font-weight: 600 !important;
+    color: #333 !important;
+    border-bottom: 1px solid #e6e6e6 !important;
+    padding: 12px !important;
+}
+
+.e-content td,
+.mdui-card-content.mdui-typo td {
+    border: 1px solid #e6e6e6 !important;
+    padding: 10px !important;
+}
+
+.e-content tr:nth-child(even),
+.mdui-card-content.mdui-typo tr:nth-child(even) {
+    background: #fafafa !important;
+}
+
+.e-content tr:hover,
+.mdui-card-content.mdui-typo tr:hover {
+    background: #f5f5f5 !important;
+}
+
+/* 인용문 스타일 */
+.e-content blockquote,
+.mdui-card-content.mdui-typo blockquote {
+    border-left: 3px solid #ddd !important;
+    margin: 1.5em 0 !important;
+    padding: 0.8em 1.2em !important;
+    background: #f9f9f9 !important;
+    border-radius: 0 4px 4px 0 !important;
+    font-style: normal !important;
+    color: #666 !important;
+    box-shadow: none !important;
+}
+
+.e-content blockquote::before,
+.mdui-card-content.mdui-typo blockquote::before {
+    display: none !important;
+}
+/* Prism.js VSCode 스타일 문법 강조 */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: #6A9955 !important;  /* VSCode 주석 색상 (녹색) */
+    font-style: italic !important;
+}
+
+.token.punctuation {
+    color: #D4D4D4 !important;  /* VSCode 기본 텍스트 색상 */
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+    color: #B5CEA8 !important;  /* VSCode 숫자/상수 색상 */
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+    color: #CE9178 !important;  /* VSCode 문자열 색상 */
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+    color: #D4D4D4 !important;  /* VSCode 연산자 색상 */
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+    color: #569CD6 !important;  /* VSCode 키워드 색상 (파란색) */
+    font-weight: normal !important;
+}
+
+.token.function,
+.token.class-name {
+    color: #DCDCAA !important;  /* VSCode 함수명 색상 (노란색) */
+    font-weight: normal !important;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+    color: #9CDCFE !important;  /* VSCode 변수 색상 (하늘색) */
+}
+
+.token.important,
+.token.bold {
+    font-weight: bold !important;
+}
+
+.token.italic {
+    font-style: italic !important;
+}
+/* 링크 스타일 */
+.e-content a,
+.mdui-card-content.mdui-typo a {
+    color: #007AFF !important;
+    text-decoration: none !important;
+    border-bottom: none !important;
+    transition: color 0.2s ease !important;
+    font-weight: normal !important;
+}
+
+.e-content a:hover,
+.mdui-card-content.mdui-typo a:hover {
+    color: #0051D5 !important;
+    background: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    text-decoration: underline !important;
+}
+
+/* 강조 텍스트 */
+.e-content strong,
+.mdui-card-content.mdui-typo strong {
+    color: #1a1a1a !important;
+    font-weight: 600 !important;
+    background: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1024px) {
+    .mdui-card-content.mdui-typo {
+        padding: 2.5em 3em !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .mdui-card-content.mdui-typo {
+        padding: 2em 1.5em !important;
+    }
+    
+    .e-content h1, .mdui-card-content.mdui-typo h1 { font-size: 1.8em !important; }
+    .e-content h2, .mdui-card-content.mdui-typo h2 { font-size: 1.4em !important; }
+    .e-content h3, .mdui-card-content.mdui-typo h3 { font-size: 1.2em !important; }
+}
+
+@media (max-width: 480px) {
+    .mdui-card-content.mdui-typo {
+        padding: 1.5em 1em !important;
+    }
+    
+    .e-content, .e-content p, .mdui-card-content.mdui-typo, .mdui-card-content.mdui-typo p {
+        font-size: 15px !important;
+    }
+    
+    .e-content h1, .mdui-card-content.mdui-typo h1 { font-size: 1.6em !important; }
+    .e-content h2, .mdui-card-content.mdui-typo h2 { font-size: 1.3em !important; }
+    .e-content h3, .mdui-card-content.mdui-typo h3 { font-size: 1.1em !important; }
+}
+`;
+        document.head.appendChild(postStyles);
+    }
 });
 </script>
     
@@ -830,7 +907,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <span><a class="tag-none-link" href="/tags/BSRR/" rel="tag">BSRR</a> <a class="tag-none-link" href="/tags/%EA%B3%A0%EA%B8%89%EA%B8%B0%EB%B2%95/" rel="tag">고급기법</a> <a class="tag-none-link" href="/tags/%EB%B9%84%ED%8A%B8%ED%95%84%EB%93%9C/" rel="tag">비트필드</a> <a class="tag-none-link" href="/tags/%EC%84%B1%EB%8A%A5%EC%B5%9C%EC%A0%81%ED%99%94/" rel="tag">성능최적화</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'创建时间：2025-06-23 12:00<br>最后更新时间：2025-06-24 09:12'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-06-24 09:12'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/23/cortex-m-code-improvement-advanced/</span>
@@ -843,6 +920,10 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="mdui-card-content mdui-typo">
         
         <div class="p-summary" style="display:none"></div>
+        
+        <!-- TOC 디버깅 및 렌더링 -->
+        
+        
         <main class="e-content"><h1 id="코드-개선-과정-고급-기법과-성능"><a href="#코드-개선-과정-고급-기법과-성능" class="headerlink" title="코드 개선 과정 - 고급 기법과 성능"></a>코드 개선 과정 - 고급 기법과 성능</h1><p>이번 포스트에서는 구조체 기반 코드의 고급 활용 기법과 성능 최적화 방법을 다룬다.</p>
 <h2 id="🔧-고급-활용-기법"><a href="#🔧-고급-활용-기법" class="headerlink" title="🔧 고급 활용 기법"></a>🔧 고급 활용 기법</h2><h3 id="BSRR-레지스터-활용"><a href="#BSRR-레지스터-활용" class="headerlink" title="BSRR 레지스터 활용"></a>BSRR 레지스터 활용</h3><p>BSRR(Bit Set&#x2F;Reset Register)을 사용하면 원자적 연산이 가능하다:</p>
 <pre class="language-c" data-language="c"><code class="language-c"><span class="token comment">// 기존 방식 (Read-Modify-Write, 3단계 연산)</span>
@@ -1077,16 +1158,6 @@ GPIOA<span class="token operator">-></span>  <span class="token comment">// 자�
 <hr>
 <p><strong>이전 포스트</strong>: <a href="/posts/cortex-m-code-improvement-struct">5-2. 코드 개선 과정 - 구조체 활용</a><br><strong>다음 포스트</strong>: <a href="/posts/cortex-m-code-improvement-project">5-4. 코드 개선 과정 - 실제 프로젝트 적용</a></p>
 </main>
-        
-        <blockquote class="mdui-m-x-0 mdui-m-t-4">
-    <strong>
-        作者：<a href="#">고은</a><br>
-        链接：<a href="https://www.goeun-oh.com/2025/06/23/cortex-m-code-improvement-advanced/">https://www.goeun-oh.com/2025/06/23/cortex-m-code-improvement-advanced/</a><br>
-        
-            라이선스
-        
-    </strong>
-</blockquote>
         
     </div>
     
