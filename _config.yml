@@ -46,19 +46,19 @@ post_asset_folder: false
 relative_link: false
 future: true
 
-# Code Highlighting - PrismJS Plugin 설정
-syntax_highlighter: # empty to disable syntax highlighting
+# Code Highlighting - 기본 비활성화
+syntax_highlighter: # empty to disable
 highlight:
-  enable: false  # Hexo 기본 하이라이터 비활성화
+  enable: false
 prismjs:
-  enable: false  # Hexo 기본 PrismJS 비활성화
+  enable: false
 
-# PrismJS Plugin 설정
+# PrismJS Plugin 설정 - 올바른 형식
 prism_plugin:
-  mode: 'preprocess'    # realtime/preprocess
-  theme: 'tomorrow'     # 테마 설정
-  line_number: false    # 라인 넘버 비활성화 (CSS로 구현)
-  custom_css: true      # 커스텀 CSS 사용
+  mode: 'preprocess'
+  theme: 'tomorrow'
+  line_number: false
+  custom_css: ''  # 빈 문자열로 설정
 
 # Table of Contents 설정
 toc:
