@@ -1,95 +1,142 @@
-// 코드 블록 다크 테마 적용 - CORS 오류 해결 버전
-// 외부 리소스 로드 없이 순수 DOM 조작만 사용
+// 최강 코드 블록 다크 테마 강제 적용
+// 모든 방법을 동원한 마지막 수단
 
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('🎨 코드 블록 스타일링 시작');
+(function() {
+    'use strict';
     
-    // 짧은 지연 후 실행 (다른 스크립트 로드 완료 대기)
-    setTimeout(function() {
-        try {
-            // 모든 코드 블록 찾기
-            const codeBlocks = document.querySelectorAll('pre, code[class*="language-"]');
-            
-            console.log('📦 발견된 코드 블록 수:', codeBlocks.length);
-            
-            codeBlocks.forEach(function(element, index) {
-                // pre 태그인지 확인
-                const isPre = element.tagName.toLowerCase() === 'pre';
+    console.log('🔥 최강 코드 블록 스타일링 시작');
+    
+    function forceCodeBlockStyling() {
+        // 모든 가능한 코드 블록 선택자
+        const selectors = [
+            'pre',
+            'code[class*="language"]',
+            '.highlight pre',
+            '.hljs',
+            'pre code',
+            '[class*="language-"] pre',
+            '[class*="lang-"] pre'
+        ];
+        
+        let totalElements = 0;
+        
+        selectors.forEach(selector => {
+            const elements = document.querySelectorAll(selector);
+            elements.forEach(element => {
+                totalElements++;
                 
-                if (isPre) {
-                    // 클래스 추가
-                    element.classList.add('vscode-dark');
-                    element.classList.add('language-c');
-                    
-                    // 강제 스타일 적용
-                    element.style.cssText = `
-                        background: #1e1e1e !important;
+                // 강제 인라인 스타일 적용 (최고 우선순위)
+                element.setAttribute('style', `
+                    background: #1e1e1e !important;
+                    background-color: #1e1e1e !important;
+                    color: #d4d4d4 !important;
+                    border: 1px solid #404040 !important;
+                    border-radius: 8px !important;
+                    padding: 24px !important;
+                    margin: 2em 0 !important;
+                    overflow-x: auto !important;
+                    font-family: 'JetBrains Mono', 'Fira Code', Monaco, monospace !important;
+                    font-size: 16px !important;
+                    line-height: 1.6 !important;
+                    font-weight: 400 !important;
+                    white-space: pre !important;
+                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+                    position: relative !important;
+                    display: block !important;
+                `);
+                
+                // 모든 자식 요소도 스타일링
+                const children = element.querySelectorAll('*');
+                children.forEach(child => {
+                    child.setAttribute('style', `
                         color: #d4d4d4 !important;
-                        border: 1px solid #404040 !important;
-                        border-radius: 8px !important;
-                        padding: 24px !important;
-                        margin: 2em 0 !important;
-                        overflow-x: auto !important;
-                        font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', monospace !important;
-                        font-size: 16px !important;
-                        line-height: 1.6 !important;
-                        font-weight: 400 !important;
-                        white-space: pre !important;
-                        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
-                        position: relative !important;
-                    `;
-                    
-                    // 내부 code 태그도 스타일링
-                    const codeElement = element.querySelector('code');
-                    if (codeElement) {
-                        codeElement.style.cssText = `
-                            background: transparent !important;
-                            color: #d4d4d4 !important;
-                            font-family: inherit !important;
-                            font-size: inherit !important;
-                            padding: 0 !important;
-                            border: none !important;
-                            display: block !important;
-                        `;
-                    }
-                    
-                    console.log(`✅ 코드 블록 ${index + 1} 스타일 적용 완료`);
-                }
-            });
-            
-            console.log('🎉 모든 코드 블록 스타일링 완료!');
-            
-        } catch (error) {
-            console.error('❌ 코드 블록 스타일링 오류:', error);
-        }
-    }, 500); // 500ms 지연
-    
-});
-
-// 동적으로 생성되는 코드 블록을 위한 MutationObserver
-if (window.MutationObserver) {
-    const observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            mutation.addedNodes.forEach(function(node) {
-                if (node.nodeType === 1) { // Element node
-                    const newCodeBlocks = node.querySelectorAll ? node.querySelectorAll('pre') : [];
-                    newCodeBlocks.forEach(function(pre) {
-                        pre.style.cssText = `
-                            background: #1e1e1e !important;
-                            color: #d4d4d4 !important;
-                            padding: 24px !important;
-                            border-radius: 8px !important;
-                            font-family: 'JetBrains Mono', monospace !important;
-                        `;
-                    });
-                }
+                        background: transparent !important;
+                        font-family: inherit !important;
+                        font-size: inherit !important;
+                    `);
+                });
+                
+                console.log('✅ 스타일 적용:', element.tagName, element.className);
             });
         });
+        
+        console.log(`📊 총 ${totalElements}개 요소에 스타일 적용`);
+        return totalElements;
+    }
+    
+    // 즉시 실행
+    forceCodeBlockStyling();
+    
+    // DOM 로드 완료 후 실행
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', forceCodeBlockStyling);
+    }
+    
+    // 추가 지연 실행 (다른 스크립트 간섭 방지)
+    setTimeout(forceCodeBlockStyling, 100);
+    setTimeout(forceCodeBlockStyling, 500);
+    setTimeout(forceCodeBlockStyling, 1000);
+    
+    // MutationObserver로 동적 변화 감시
+    if (window.MutationObserver) {
+        const observer = new MutationObserver(function(mutations) {
+            let needsUpdate = false;
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                    needsUpdate = true;
+                }
+                if (mutation.type === 'attributes' && 
+                    (mutation.attributeName === 'style' || mutation.attributeName === 'class')) {
+                    needsUpdate = true;
+                }
+            });
+            
+            if (needsUpdate) {
+                setTimeout(forceCodeBlockStyling, 50);
+            }
+        });
+        
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['style', 'class']
+        });
+        
+        console.log('👁️ MutationObserver 활성화');
+    }
+    
+    // 페이지 전체 로드 후 마지막 확인
+    window.addEventListener('load', function() {
+        setTimeout(forceCodeBlockStyling, 100);
+        console.log('🎉 페이지 로드 완료 - 최종 스타일링 적용');
     });
     
-    // DOM 변화 감시 시작
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
-}
+})();
+
+// 추가: CSS 클래스 강제 주입
+const style = document.createElement('style');
+style.textContent = `
+    /* 브루트 포스 CSS - 모든 것을 덮어씌움 */
+    pre[style*="background"] {
+        background: #1e1e1e !important;
+        color: #d4d4d4 !important;
+    }
+    
+    code[style*="background"] {
+        background: transparent !important;
+        color: #d4d4d4 !important;
+    }
+    
+    /* 인라인 스타일도 강제로 덮어씌움 */
+    [style*="#f6f6f6"] {
+        background: #1e1e1e !important;
+    }
+    
+    [style*="color: #333"] {
+        color: #d4d4d4 !important;
+    }
+`;
+document.head.appendChild(style);
+
+console.log('💀 브루트 포스 CSS 주입 완료');
