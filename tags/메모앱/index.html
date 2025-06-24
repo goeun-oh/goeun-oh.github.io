@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="ko" >
+<head>
+    <meta charset="utf-8">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+
+
+<link rel=“dns-prefetch” //cdn.jsdelivr.net>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.2/dist/css/mdui.min.css">
+
+
+
+
+
+<meta name="theme-color" content="#3F51B5">
+
+
+<!-- Google Fonts 최적화 -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+    /* 기본 스타일 */
+    html, body {
+        scroll-behavior: smooth;
+        min-height: 100vh;
+    }
+    
+    blockquote > strong > a {
+        word-break: break-all;
+    }
+    
+    .mdui-hoverable:hover, .mdui-hoverable:focus {
+        box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12) !important;
+    }
+    
+    .mdui-card-primary-title a {
+        text-decoration: none !important;
+    }
+    
+    .page-number {
+        display: none !important;
+    }
+    
+    .mdui-container-fluid {
+        transition: opacity .4s;
+    }
+    
+    
+        body{background-color: #f6f6f6}
+
+    
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const hasEContent = document.querySelector('.e-content');
+    const isHomePage = window.location.pathname === '/' || window.location.pathname === '/index.html';
+    const isArchivePage = window.location.pathname.includes('/archives');
+    const isTagPage = window.location.pathname.includes('/tags');
+    const isCategoryPage = window.location.pathname.includes('/categories');
+    
+    // 포스트 페이지 또는 사이드바 콘텐츠 페이지인지 판단
+    const isContentPage = hasEContent || // 포스트 페이지
+                         isArchivePage ||  // 아카이브 페이지  
+                         isTagPage ||      // 태그 페이지
+                         isCategoryPage || // 카테고리 페이지
+                         (!isHomePage && document.querySelector('.mdui-card-content')); // 기타 콘텐츠 페이지
+        
+    if (isContentPage && !isHomePage) {
+        const postStyles = document.createElement('style');
+        postStyles.textContent = `
+/* 콘텐츠 페이지에만 적용될 스타일 */
+.mdui-card-content.mdui-typo {
+padding: 3em 4em !important;
+max-width: 900px !important;
+margin: 0 auto !important;
+}
+
+        /* 시리즈 네비게이션 완전히 숨기기 */
+        #category-series-nav,
+        .series-navigation,
+        .series-nav,
+        .category-series,
+        [class*="series"] {
+            display: none !important;
+        }
+        
+        /* 목차 스타일 - 심플하게 */
+        #table-of-contents .toc-header {
+            display: none !important;
+        }
+
+        #table-of-contents .toc-toggle {
+            display: none !important;
+        }
+
+        #table-of-contents {
+            padding: 1.5em 0 !important;
+            margin: 0 0 2.5em 0 !important;
+            background: none !important;
+            border: none !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+        }
+
+        #table-of-contents .toc-nav {
+            display: block !important;
+            opacity: 1 !important;
+            max-height: none !important;
+        }
+
+        #table-of-contents .toc-list {
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        #table-of-contents .toc-item {
+            margin: 0 !important;
+            line-height: 1.6 !important;
+        }
+
+        #table-of-contents .toc-level-1 { 
+            display: block !important;
+        }
+        #table-of-contents .toc-level-2, 
+        #table-of-contents .toc-level-3, 
+        #table-of-contents .toc-level-4, 
+        #table-of-contents .toc-level-5, 
+        #table-of-contents .toc-level-6 { 
+            display: none !important;
+        }
+
+        #table-of-contents .toc-link {
+            color: #52a9ff !important;
+            text-decoration: none !important;
+            padding: 0.5em 0 !important;
+            display: block !important;
+            font-size: 0.95em !important;
+            font-weight: 500 !important;
+            transition: color 0.3s ease !important;
+            border: none !important;
+            background: none !important;
+            border-bottom: none !important;
+        }
+
+        #table-of-contents .toc-link:hover {
+            color: #2196f3 !important;
+            background: none !important;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        #table-of-contents .toc-link.active {
+            color: #2196f3 !important;
+            font-weight: 600 !important;
+            background: none !important;
+        }
+        
+        /* 본문 스타일 - .e-content와 일반 콘텐츠 모두 */
+        .e-content,
+        .mdui-card-content.mdui-typo {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+            padding: 0 !important;
+        }
+        
+        .e-content, .e-content p, .e-content div, .e-content span, .e-content li, .e-content td, .e-content th,
+        .mdui-card-content.mdui-typo, .mdui-card-content.mdui-typo p, .mdui-card-content.mdui-typo div, 
+        .mdui-card-content.mdui-typo span, .mdui-card-content.mdui-typo li, .mdui-card-content.mdui-typo td, 
+        .mdui-card-content.mdui-typo th {
+            font-size: 17px !important;
+            line-height: 1.8 !important;
+            color: #2c3e50 !important;
+            word-break: keep-all !important;
+            word-wrap: break-word !important;
+        }
+        
+        .e-content p,
+        .mdui-card-content.mdui-typo p {
+            margin-bottom: 1.6em !important;
+            font-size: 17px !important;
+        }
+        
+        .e-content h1,
+        .mdui-card-content.mdui-typo h1 {
+            font-size: 2.5em !important;
+            margin: 2em 0 1.2em 0 !important;
+            font-weight: 800 !important;
+            color: #2c3e50 !important;
+            border-bottom: 4px solid #3498db !important;
+            padding-bottom: 0.6em !important;
+            scroll-margin-top: 100px !important;
+            position: relative !important;
+        }
+        
+        .e-content h1::before,
+        .mdui-card-content.mdui-typo h1::before {
+            content: '' !important;
+            position: absolute !important;
+            bottom: -4px !important;
+            left: 0 !important;
+            width: 60px !important;
+            height: 4px !important;
+            background: linear-gradient(90deg, #e74c3c, #f39c12) !important;
+            border-radius: 2px !important;
+        }
+        
+        .e-content h2,
+        .mdui-card-content.mdui-typo h2 {
+            font-size: 2.1em !important;
+            margin: 1.8em 0 1em 0 !important;
+            font-weight: 700 !important;
+            color: #34495e !important;
+            border-left: 5px solid #3498db !important;
+            padding: 0.5em 0 0.5em 1em !important;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.05), transparent) !important;
+            border-radius: 0 8px 8px 0 !important;
+            scroll-margin-top: 100px !important;
+        }
+        
+        .e-content h3,
+        .mdui-card-content.mdui-typo h3 {
+            font-size: 1.7em !important;
+            margin: 1.6em 0 0.8em 0 !important;
+            font-weight: 600 !important;
+            color: #2c3e50 !important;
+            scroll-margin-top: 100px !important;
+            position: relative !important;
+        }
+        
+        .e-content h3::before,
+        .mdui-card-content.mdui-typo h3::before {
+            content: '▶' !important;
+            color: #3498db !important;
+            margin-right: 0.5em !important;
+            font-size: 0.8em !important;
+        }
+        
+        .e-content h4, .e-content h5, .e-content h6,
+        .mdui-card-content.mdui-typo h4, .mdui-card-content.mdui-typo h5, .mdui-card-content.mdui-typo h6 {
+            font-weight: 600 !important;
+            color: #34495e !important;
+            scroll-margin-top: 100px !important;
+        }
+        
+        .e-content h4, .mdui-card-content.mdui-typo h4 { font-size: 1.4em !important; margin: 1.4em 0 0.7em 0 !important; }
+        .e-content h5, .mdui-card-content.mdui-typo h5 { font-size: 1.2em !important; margin: 1.2em 0 0.6em 0 !important; }
+        .e-content h6, .mdui-card-content.mdui-typo h6 { font-size: 1.1em !important; margin: 1em 0 0.5em 0 !important; }
+        
+        /* 코드 스타일 개선 */
+        .e-content pre,
+        .mdui-card-content.mdui-typo pre {
+            background: linear-gradient(135deg, #1e1e1e, #2d2d2d) !important;
+            border: 1px solid #404040 !important;
+            border-radius: 12px !important;
+            padding: 2em !important;
+            margin: 2.5em 0 !important;
+            overflow-x: auto !important;
+            font-family: 'JetBrains Mono', 'Consolas', monospace !important;
+            font-size: 15px !important;
+            line-height: 1.6 !important;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3) !important;
+            position: relative !important;
+        }
+        
+        .e-content pre::before,
+        .mdui-card-content.mdui-typo pre::before {
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            height: 3px !important;
+            background: linear-gradient(90deg, #e74c3c, #f39c12, #2ecc71, #3498db) !important;
+            border-radius: 12px 12px 0 0 !important;
+        }
+        
+        .e-content code,
+        .mdui-card-content.mdui-typo code {
+            background: linear-gradient(135deg, #fff2f2, #ffebee) !important;
+            padding: 4px 10px !important;
+            border-radius: 6px !important;
+            font-family: 'JetBrains Mono', 'Consolas', monospace !important;
+            font-size: 0.9em !important;
+            color: #d73a49 !important;
+            font-weight: 600 !important;
+            border: 1px solid #ffcdd2 !important;
+        }
+        
+        .e-content pre code,
+        .mdui-card-content.mdui-typo pre code {
+            background: none !important;
+            padding: 0 !important;
+            color: #f8f8f2 !important;
+            font-weight: normal !important;
+            border: none !important;
+        }
+        
+        /* 기타 스타일 개선 */
+        .e-content ul, .e-content ol,
+        .mdui-card-content.mdui-typo ul, .mdui-card-content.mdui-typo ol {
+            margin: 1.8em 0 !important;
+            padding-left: 2.5em !important;
+        }
+        
+        .e-content li,
+        .mdui-card-content.mdui-typo li {
+            margin-bottom: 1em !important;
+            font-size: 16px !important;
+            line-height: 1.8 !important;
+        }
+        
+        .e-content img,
+        .mdui-card-content.mdui-typo img {
+            max-width: 100% !important;
+            height: auto !important;
+            margin: 2.5em auto !important;
+            display: block !important;
+            border-radius: 12px !important;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15) !important;
+            border: 1px solid #e8e8e8 !important;
+            transition: transform 0.3s ease !important;
+        }
+        
+        .e-content img:hover,
+        .mdui-card-content.mdui-typo img:hover {
+            transform: scale(1.02) !important;
+        }
+        
+        .e-content table,
+        .mdui-card-content.mdui-typo table {
+            width: 100% !important;
+            border-collapse: collapse !important;
+            margin: 2.5em 0 !important;
+            font-size: 15px !important;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1) !important;
+            border-radius: 12px !important;
+            overflow: hidden !important;
+            background: white !important;
+        }
+        
+        .e-content th,
+        .mdui-card-content.mdui-typo th {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2) !important;
+            font-weight: 700 !important;
+            color: #2c3e50 !important;
+            border-bottom: 3px solid #3498db !important;
+            padding: 18px !important;
+        }
+        
+        .e-content td,
+        .mdui-card-content.mdui-typo td {
+            border: 1px solid #e8e8e8 !important;
+            padding: 15px !important;
+            transition: background 0.3s ease !important;
+        }
+        
+        .e-content tr:nth-child(even),
+        .mdui-card-content.mdui-typo tr:nth-child(even) {
+            background: #f9f9f9 !important;
+        }
+        
+        .e-content tr:hover,
+        .mdui-card-content.mdui-typo tr:hover {
+            background: #f0f8ff !important;
+        }
+        
+        .e-content blockquote,
+        .mdui-card-content.mdui-typo blockquote {
+            border-left: 6px solid #3498db !important;
+            margin: 2.5em 0 !important;
+            padding: 1.5em 2em !important;
+            background: linear-gradient(135deg, #f8f9ff, #fff) !important;
+            border-radius: 0 12px 12px 0 !important;
+            font-style: italic !important;
+            color: #555 !important;
+            box-shadow: 0 4px 20px rgba(52, 152, 219, 0.1) !important;
+            position: relative !important;
+        }
+        
+        .e-content blockquote::before,
+        .mdui-card-content.mdui-typo blockquote::before {
+            content: '"' !important;
+            font-size: 4em !important;
+            color: #3498db !important;
+            position: absolute !important;
+            top: -10px !important;
+            left: 15px !important;
+            opacity: 0.3 !important;
+            font-family: serif !important;
+        }
+        
+        .e-content a,
+        .mdui-card-content.mdui-typo a {
+            color: #3498db !important;
+            text-decoration: none !important;
+            border-bottom: 2px solid transparent !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            font-weight: 500 !important;
+        }
+        
+        .e-content a:hover,
+        .mdui-card-content.mdui-typo a:hover {
+            color: #2980b9 !important;
+            border-bottom-color: #2980b9 !important;
+            background: rgba(52, 152, 219, 0.1) !important;
+            padding: 2px 4px !important;
+            border-radius: 4px !important;
+        }
+        
+        .e-content strong,
+        .mdui-card-content.mdui-typo strong {
+            color: #2c3e50 !important;
+            font-weight: 700 !important;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), transparent) !important;
+            padding: 2px 4px !important;
+            border-radius: 4px !important;
+        }
+        
+        /* 반응형 디자인 */
+        @media (max-width: 1024px) {
+            .mdui-card-content.mdui-typo {
+                padding: 2.5em 3em !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mdui-card-content.mdui-typo {
+                padding: 2em 2em !important;
+            }
+            
+            .e-content h1, .mdui-card-content.mdui-typo h1 { font-size: 2.2em !important; }
+            .e-content h2, .mdui-card-content.mdui-typo h2 { font-size: 1.8em !important; }
+            .e-content h3, .mdui-card-content.mdui-typo h3 { font-size: 1.5em !important; }
+            
+            .e-content pre, .mdui-card-content.mdui-typo pre {
+                padding: 1.2em !important;
+                font-size: 14px !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .mdui-card-content.mdui-typo {
+                padding: 1.5em 1.5em !important;
+            }
+            
+            .e-content, .e-content p, .mdui-card-content.mdui-typo, .mdui-card-content.mdui-typo p {
+                font-size: 16px !important;
+            }
+            
+            .e-content h1, .mdui-card-content.mdui-typo h1 { font-size: 2em !important; }
+            .e-content h2, .mdui-card-content.mdui-typo h2 { font-size: 1.6em !important; }
+            .e-content h3, .mdui-card-content.mdui-typo h3 { font-size: 1.3em !important; }
+        }
+    `;
+    document.head.appendChild(postStyles);
+}
+
+
+});
+</script>
+    
+    <title>태그: 메모앱 | </title>
+    <link rel="canonical" href="https://www.goeun-oh.com/tags/%EB%A9%94%EB%AA%A8%EC%95%B1/">
+    <meta name="description" content="하드웨어 설계부터 임베디드 시스템까지, 끊임없이 배우고 성장하기">
+<meta property="og:type" content="website">
+<meta property="og:title">
+<meta property="og:url" content="https://www.goeun-oh.com/tags/%EB%A9%94%EB%AA%A8%EC%95%B1/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="하드웨어 설계부터 임베디드 시스템까지, 끊임없이 배우고 성장하기">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:author" content="고은">
+<meta property="article:tag" content="하드웨어 개발자, Verilog, RISC-V, Cortex-M, AXI4, FPGA, 임베디드, 포트폴리오">
+<meta name="twitter:card" content="summary">
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body class="mdui-theme-primary-indigo mdui-theme-accent-pink mdui-appbar-with-toolbar ">
+    <div class="mdui-theme-layout-light">
+    <header id="appbar" class="mdui-appbar mdui-appbar-fixed mdui-shadow-0 mdui-appbar-scroll-hide">
+    <div class="mdui-toolbar">
+        <button mdui-drawer="{target: '.mdui-drawer'}" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon material-icons">menu</i></button>
+        <a href="/" class="mdui-typo-title"></a>
+        <div class="mdui-toolbar-spacer"></div>
+        
+        <a href="/search/" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon material-icons">search</i></a>
+        
+    </div>
+</header>
+    <style>
+.submenu-level-2 {
+    padding-left: 32px !important;
+}
+.submenu-level-3 {
+    padding-left: 56px !important;
+    font-size: 0.9em;
+}
+</style>
+
+<aside class="mdui-drawer mdui-drawer-close">
+    <nav class="mdui-list" mdui-collapse="{accordion: false}">
+        <a href="#" class="mdui-list-item mdui-ripple h-card">
+            <div class="mdui-list-item-avatar">
+                
+                <i class="mdui-color-theme-primary mdui-icon material-icons">person</i>
+                
+            </div>
+            <div class="mdui-list-item-content p-name">고은</div>
+            <span style="display:none" class="u-url u-uid">https://www.goeun-oh.com</span>
+        </a>
+        <div class="mdui-divider"></div>
+        
+        <a href="/search/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">search</i>
+            <div class="mdui-list-item-content">검색</div>
+        </a>
+        
+        <a href="/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
+            <div class="mdui-list-item-content">홈</div>
+        </a>
+        
+    <!-- 프로세서 아키텍처 -->
+    <div class="mdui-collapse-item">
+        <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">memory</i>
+            <div class="mdui-list-item-content">💻 프로세서 아키텍처</div>
+            <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+        </div>
+        <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+            
+            <!-- RISC-V 그룹 헤더 -->
+            <div class="mdui-list-item submenu-level-2" style="background-color: #f5f5f5;">
+                <i class="mdui-list-item-icon mdui-icon material-icons">computer</i>
+                <div class="mdui-list-item-content"><strong>RISC-V</strong></div>
+            </div>
+            
+            <!-- RISC-V 세부 항목들 -->
+            <a href="/categories/RISC-V/basic/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">기초 개념</div>
+            </a>
+            <a href="/categories/RISC-V/instruction/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">명령어 세트</div>
+            </a>
+            <a href="/categories/RISC-V/assembly/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">어셈블리 프로그래밍</div>
+            </a>
+            
+            <!-- Cortex-M 그룹 헤더 -->
+            <div class="mdui-list-item submenu-level-2" style="background-color: #f5f5f5; margin-top: 8px;">
+                <i class="mdui-list-item-icon mdui-icon material-icons">memory</i>
+                <div class="mdui-list-item-content"><strong>Cortex-M</strong></div>
+            </div>
+            
+            <!-- Cortex-M 세부 항목들 -->
+            <a href="/categories/Cortex-M/setup/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">초기환경 세팅</div>
+            </a>
+            <a href="/categories/Cortex-M/peripheral/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">주변장치 제어</div>
+            </a>
+            <a href="/categories/Cortex-M/interrupt/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">인터럽트 처리</div>
+            </a>
+            <a href="/categories/Cortex-M/rtos/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">RTOS 활용</div>
+            </a>
+            
+        </div>
+    </div>
+
+    <!-- 통신 프로토콜 -->
+    <div class="mdui-collapse-item">
+        <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">device_hub</i>
+            <div class="mdui-list-item-content">🔌 통신 프로토콜</div>
+            <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+        </div>
+        <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+            
+            <!-- 버스 프로토콜 그룹 -->
+            <div class="mdui-list-item submenu-level-2" style="background-color: #f5f5f5;">
+                <i class="mdui-list-item-icon mdui-icon material-icons">settings_ethernet</i>
+                <div class="mdui-list-item-content"><strong>버스 프로토콜</strong></div>
+            </div>
+            <a href="/categories/APB/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">APB Protocol</div>
+            </a>
+            <a href="/categories/APB/basic/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ APB 기초</div>
+            </a>
+            
+            <!-- 시리얼 통신 그룹 -->
+            <div class="mdui-list-item submenu-level-2" style="background-color: #f5f5f5; margin-top: 8px;">
+                <i class="mdui-list-item-icon mdui-icon material-icons">cable</i>
+                <div class="mdui-list-item-content"><strong>시리얼 통신</strong></div>
+            </div>
+            <a href="/categories/UART/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">UART</div>
+            </a>
+            <a href="/categories/UART/basic/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ UART 기초</div>
+            </a>
+            <a href="/categories/UART/config/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ 설정 및 사용</div>
+            </a>
+            
+            <a href="/categories/I2C/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">I2C</div>
+            </a>
+            <a href="/categories/I2C/protocol/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ 프로토콜 분석</div>
+            </a>
+            <a href="/categories/I2C/implementation/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ 구현 방법</div>
+            </a>
+            
+            <a href="/categories/SPI/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">SPI</div>
+            </a>
+            <a href="/categories/SPI/basics/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ SPI 기초</div>
+            </a>
+            <a href="/categories/SPI/modes/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ 동작 모드</div>
+            </a>
+            
+        </div>
+    </div>
+
+    <!-- HDL & 설계 -->
+    <div class="mdui-collapse-item">
+        <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">electrical_services</i>
+            <div class="mdui-list-item-content">⚡ HDL & 설계</div>
+            <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+        </div>
+        <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+            
+            <!-- Verilog 그룹 -->
+            <div class="mdui-list-item submenu-level-2" style="background-color: #f5f5f5;">
+                <i class="mdui-list-item-icon mdui-icon material-icons">code</i>
+                <div class="mdui-list-item-content"><strong>Verilog</strong></div>
+            </div>
+            <a href="/categories/Verilog/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">Verilog 기초</div>
+            </a>
+            <a href="/categories/Verilog/syntax/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ 문법 및 구조</div>
+            </a>
+            <a href="/categories/Verilog/modules/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ 모듈 설계</div>
+            </a>
+            <a href="/categories/Verilog/testbench/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ 테스트벤치</div>
+            </a>
+            
+            <!-- FPGA 설계 그룹 -->
+            <div class="mdui-list-item submenu-level-2" style="background-color: #f5f5f5; margin-top: 8px;">
+                <i class="mdui-list-item-icon mdui-icon material-icons">developer_board</i>
+                <div class="mdui-list-item-content"><strong>FPGA 설계</strong></div>
+            </div>
+            <a href="/categories/FPGA/basics/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">FPGA 기초</div>
+            </a>
+            <a href="/categories/FPGA/synthesis/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ 합성 과정</div>
+            </a>
+            <a href="/categories/FPGA/timing/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ 타이밍 분석</div>
+            </a>
+            
+            <!-- 검증 그룹 -->
+            <div class="mdui-list-item submenu-level-2" style="background-color: #f5f5f5; margin-top: 8px;">
+                <i class="mdui-list-item-icon mdui-icon material-icons">verified</i>
+                <div class="mdui-list-item-content"><strong>설계 검증</strong></div>
+            </div>
+            <a href="/categories/Verification/uvm/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">UVM 기초</div>
+            </a>
+            <a href="/categories/Verification/systemverilog/" class="mdui-list-item mdui-ripple submenu-level-3">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chevron_right</i>
+                <div class="mdui-list-item-content">└ SystemVerilog</div>
+            </a>
+            
+        </div>
+    </div>
+
+    
+    <div class="mdui-collapse-item">
+        <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">inbox</i>
+            <div class="mdui-list-item-content">아카이브</div>
+            <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+        </div>
+        <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+            <a class="mdui-list-item mdui-ripple m-link" href="/archives/2025/06/">6월 2025</a><a class="mdui-list-item mdui-ripple m-link" href="/archives/2020/08/">8월 2020</a>
+        </div>
+    </div>
+    
+    <!-- 태그 및 기타 메뉴들을 포함하는 드롭다운 -->
+    <div class="mdui-collapse-item">
+        <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">local_offer</i>
+            <div class="mdui-list-item-content">태그</div>
+            <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+        </div>
+        <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+            
+            <!-- 커스텀 메뉴들 -->
+            <a href="/categories/RISC-V/" class="mdui-list-item mdui-ripple m">
+                <i class="mdui-list-item-icon mdui-icon material-icons">memory</i>
+                <div class="mdui-list-item-content">💻 RISC-V</div>
+            </a>
+            
+            <!-- 커스텀 메뉴들 -->
+            <a href="/categories/Cortex-M/" class="mdui-list-item mdui-ripple m">
+                <i class="mdui-list-item-icon mdui-icon material-icons">developer_board</i>
+                <div class="mdui-list-item-content">🖥️ Cortex-M</div>
+            </a>
+            
+            <!-- 커스텀 메뉴들 -->
+            <a href="/categories/APB/" class="mdui-list-item mdui-ripple m">
+                <i class="mdui-list-item-icon mdui-icon material-icons">device_hub</i>
+                <div class="mdui-list-item-content">📡 APB Protocol</div>
+            </a>
+            
+            <!-- 커스텀 메뉴들 -->
+            <a href="/categories/Verilog/" class="mdui-list-item mdui-ripple m">
+                <i class="mdui-list-item-icon mdui-icon material-icons">electrical_services</i>
+                <div class="mdui-list-item-content">⚡ Verilog</div>
+            </a>
+            
+            <!-- 커스텀 메뉴들 -->
+            <a href="/categories/UART/" class="mdui-list-item mdui-ripple m">
+                <i class="mdui-list-item-icon mdui-icon material-icons">cable</i>
+                <div class="mdui-list-item-content">🔌 UART</div>
+            </a>
+            
+            <!-- 커스텀 메뉴들 -->
+            <a href="/categories/I2C/" class="mdui-list-item mdui-ripple m">
+                <i class="mdui-list-item-icon mdui-icon material-icons">sync_alt</i>
+                <div class="mdui-list-item-content">🔄 I2C</div>
+            </a>
+            
+            <!-- 커스텀 메뉴들 -->
+            <a href="/categories/SPI/" class="mdui-list-item mdui-ripple m">
+                <i class="mdui-list-item-icon mdui-icon material-icons">timeline</i>
+                <div class="mdui-list-item-content">📊 SPI</div>
+            </a>
+            
+        </div>
+    </div>
+    
+</nav>
+<div class="mdui-divider"></div>
+<footer class="mdui-m-l-2 mdui-m-t-1 mdui-typo mdui-text-color-theme-disabled">
+    <p class="mdui-m-b-0">
+        <p>임베디드 시스템과 하드웨어 설계</p>
+<br>
+        © 2024 - 
+        2025 고은<br>
+        
+        Hosted on <a href="/" rel="noreferrer"
+            target="_blank">GitHub Pages</a><br>
+        
+        Powered by <a href="https://hexo.io/" rel="noreferrer" target="_blank">Hexo</a><br>
+        
+        Theme - <a href="https://github.com/kwaa/hexo-theme-m" rel="noreferrer" target="_blank"
+            mdui-tooltip="{position:'right', content: 'by 藍+85CD'}">M</a></p>
+        
+</footer>
+
+</aside>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+        // 중첩된 collapse가 제대로 작동하도록 초기화
+        var collapseElements = document.querySelectorAll('.mdui-collapse-item');
+        collapseElements.forEach(function(element) {
+            if (window.mdui && mdui.Collapse) {
+                new mdui.Collapse(element);
+            }
+        });
+    }, 100);
+});
+</script>
+    </div>
+    <div class="mdui-container-fluid mdui-center" style="max-width:1200px">
+        <section class="h-feed mdui-theme-layout-light mdui-color-transparent">
+    <a href="https://www.goeun-oh.com" class="p-name u-url" style="display:none"></a>
+    
+        <article class="h-entry mdui-card mdui-hoverable mdui-shadow-1 mdui-m-y-2" style="opacity: 1; border-radius: 4px"
+>
+    
+    <div class="mdui-card-primary mdui-ripple">
+    <div class="mdui-card-primary-title">
+        <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" href="/2020/08/19/bear-app-migration-guide/">Bear app으로 메모를 마이그레이션하는 개발자의 해결법 (PenCake to Bear)</a>
+        <a class="p-author h-card" style="display:none" href="https://www.goeun-oh.com">고은</a>
+        
+        <small> <a class="mdui-text-color-theme-text category-link" href="/categories/%EA%B0%9C%EB%B0%9C/">개발</a>><a class="mdui-text-color-theme-text category-link" href="/categories/%EA%B0%9C%EB%B0%9C/%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4%ED%8C%81/">소프트웨어팁</a></small>
+        
+    </div>
+    <div class="mdui-card-primary-subtitle mdui-typo">
+        
+        <span><a class="tag-none-link" href="/tags/Bear/" rel="tag">Bear</a> <a class="tag-none-link" href="/tags/PenCake/" rel="tag">PenCake</a> <a class="tag-none-link" href="/tags/%EA%B0%9C%EB%B0%9C%EC%9E%90%EB%8F%84%EA%B5%AC/" rel="tag">개발자도구</a> <a class="tag-none-link" href="/tags/%EB%A7%88%EC%9D%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%85%98/" rel="tag">마이그레이션</a> <a class="tag-none-link" href="/tags/%EB%A9%94%EB%AA%A8%EC%95%B1/" rel="tag">메모앱</a></span>
+        <span>-</span>
+        <time class="dt-published" mdui-tooltip="{content:'Created: 2020-08-20 12:00<br>Updated: 2025-06-24 09:09'}" datetime="2020-08-19T15:00:00.000Z">2020-08-20</time>
+        <span>-</span>
+        
+            <span>2020/08/19/bear-app-migration-guide/</span>
+        
+    </div>
+</div>
+    
+    
+    <div class="mdui-divider"></div>
+    <div class="mdui-card-content mdui-typo">
+        
+        <div class="p-summary" style="display:none"></div>
+        <main class="e-content"><h1 id="Bear-app으로-메모를-마이그레이션하는-개발자의-해결법-PenCake-to-Bear"><a href="#Bear-app으로-메모를-마이그레이션하는-개발자의-해결법-PenCake-to-Bear" class="headerlink" title="Bear app으로 메모를 마이그레이션하는 개발자의 해결법 (PenCake to Bear)"></a>Bear app으로 메모를 마이그레이션하는 개발자의 해결법 (PenCake to Bear)</h1><p>하루에 한 줄이라도 일기를 쓰는 습관을 들였다. 그렇게 2012년 evernote부터 시작하여, dayone, pencake 등의 앱들 거쳐갔다. 문득 이 앱들이 펀가 조금씩 체 성에 차지 않았던 것 같다.</p>
+<h2 id="Bear-간략-이유"><a href="#Bear-간략-이유" class="headerlink" title="Bear 간략 이유"></a>Bear 간략 이유</h2><p>Bear는 마크다운을 지원하는 깔끔한 메모 앱이다. 개발자들에게 인기가 많은 이유는 다음과 같다:</p>
+<ul>
+<li><strong>마크다운 완벽 지원</strong>: 코드 블록, 테이블, 링크 등 모든 마크다운 문법 지원</li>
+<li><strong>태그 시스템</strong>: 폴더 대신 태그로 메모를 분류하는 유연한 시스템</li>
+<li><strong>빠른 검색</strong>: 전체 텍스트 검색과 태그 검색이 매우 빠름</li>
+<li><strong>크로스 플랫폼</strong>: Mac, iOS, iPadOS에서 완벽한 동기화</li>
+<li><strong>테마 지원</strong>: 다양한 테마로 개인 취향에 맞는 환경 구성</li>
+</ul>
+<p>특히 개발자에게 중요한 것은 코드 하이라이팅과 마크다운 지원이다. Bear는 이 두 가지를 모두 완벽하게 지원한다.</p>
+<h2 id="Bear-단점"><a href="#Bear-단점" class="headerlink" title="Bear 단점"></a>Bear 단점</h2><p>하지만 Bear에도 몇 가지 아쉬운 점들이 있다:</p>
+<ul>
+<li><strong>구독 모델</strong>: Pro 기능을 사용하려면 월 구독료를 지불해야 함</li>
+<li><strong>플랫폼 제한</strong>: Windows나 Android 지원 없음 (Apple 생태계에만 존재)</li>
+<li><strong>웹 버전 없음</strong>: 브라우저에서 접근할 수 없음</li>
+<li><strong>동기화 제한</strong>: 무료 버전에서는 기기 간 동기화 불가</li>
+<li><strong>익스포트 제한</strong>: 일부 고급 익스포트 기능은 Pro 버전에서만 가능</li>
+</ul>
+<p>이런 단점들을 고려해도 Bear의 장점이 더 크다고 판단했다.</p>
+<h2 id="마이그레이션을-잘-하는-방법이-없을까"><a href="#마이그레이션을-잘-하는-방법이-없을까" class="headerlink" title="마이그레이션을 잘 하는 방법이 없을까?"></a>마이그레이션을 잘 하는 방법이 없을까?</h2><p>기존 PenCake에서 Bear로 옮기는 과정에서 여러 방법을 시도해봤다:</p>
+<h3 id="1-수동-복사-붙여넣기"><a href="#1-수동-복사-붙여넣기" class="headerlink" title="1. 수동 복사 붙여넣기"></a>1. 수동 복사 붙여넣기</h3><ul>
+<li><strong>장점</strong>: 확실하고 안전함</li>
+<li><strong>단점</strong>: 메모가 많으면 시간이 오래 걸림</li>
+<li><strong>적합한 경우</strong>: 메모가 50개 이하일 때</li>
+</ul>
+<h3 id="2-CSV-익스포트-임포트"><a href="#2-CSV-익스포트-임포트" class="headerlink" title="2. CSV 익스포트&#x2F;임포트"></a>2. CSV 익스포트&#x2F;임포트</h3><ul>
+<li><strong>장점</strong>: 대량 데이터 처리 가능</li>
+<li><strong>단점</strong>: 포맷이 맞지 않으면 데이터 손실 가능</li>
+<li><strong>적합한 경우</strong>: 단순한 텍스트 메모가 대부분일 때</li>
+</ul>
+<h3 id="3-ENEX-파일-활용"><a href="#3-ENEX-파일-활용" class="headerlink" title="3. ENEX 파일 활용"></a>3. ENEX 파일 활용</h3><ul>
+<li><strong>장점</strong>: 메타데이터(날짜, 태그 등) 보존 가능</li>
+<li><strong>단점</strong>: 중간 변환 과정 필요</li>
+<li><strong>적합한 경우</strong>: 체계적으로 정리된 메모가 많을 때</li>
+</ul>
+<p>결국 ENEX 방식을 선택했다. 이유는 메모의 메타데이터를 최대한 보존하면서도 효율적으로 마이그레이션할 수 있기 때문이다.</p>
+<h2 id="enex를-이용한-마이그레이션"><a href="#enex를-이용한-마이그레이션" class="headerlink" title="enex를 이용한 마이그레이션"></a>enex를 이용한 마이그레이션</h2><p>ENEX(Evernote Export Format)는 Evernote에서 개발한 표준 포맷이다. 많은 메모 앱들이 이 포맷을 지원한다.</p>
+<h3 id="ENEX-파일-구조-이해하기"><a href="#ENEX-파일-구조-이해하기" class="headerlink" title="ENEX 파일 구조 이해하기"></a>ENEX 파일 구조 이해하기</h3><pre class="language-markup" data-language="markup"><code class="language-markup"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
+<span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">en-export</span> <span class="token name">SYSTEM</span> <span class="token string">"http://xml.evernote.com/pub/evernote-export3.dtd"</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>en-export</span> <span class="token attr-name">export-date</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>20201020T120000Z<span class="token punctuation">"</span></span> <span class="token attr-name">application</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>PenCake<span class="token punctuation">"</span></span> <span class="token attr-name">version</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>1.0<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>note</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>메모 제목<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>content</span><span class="token punctuation">></span></span><span class="token cdata">&lt;![CDATA[
+      &lt;en-note>
+        메모 내용
+      &lt;/en-note>
+    ]]></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>content</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>created</span><span class="token punctuation">></span></span>20200820T090000Z<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>created</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>updated</span><span class="token punctuation">></span></span>20200820T090000Z<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>updated</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tag</span><span class="token punctuation">></span></span>개발<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tag</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tag</span><span class="token punctuation">></span></span>아이디어<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tag</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>note</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>en-export</span><span class="token punctuation">></span></span></code></pre>
+
+<h3 id="마이그레이션-단계"><a href="#마이그레이션-단계" class="headerlink" title="마이그레이션 단계"></a>마이그레이션 단계</h3><ol>
+<li><p><strong>PenCake에서 ENEX 익스포트</strong></p>
+<ul>
+<li>PenCake 설정 → 익스포트 → ENEX 선택</li>
+<li>전체 메모 또는 선택한 메모만 익스포트 가능</li>
+</ul>
+</li>
+<li><p><strong>ENEX 파일 전처리</strong></p>
+<ul>
+<li>HTML 태그 제거</li>
+<li>마크다운으로 변환</li>
+<li>메타데이터 추출</li>
+</ul>
+</li>
+<li><p><strong>Bear로 임포트</strong></p>
+<ul>
+<li>Bear에서 File → Import Notes 선택</li>
+<li>변환된 파일들을 일괄 임포트</li>
+</ul>
+</li>
+</ol>
+<h2 id="js-script"><a href="#js-script" class="headerlink" title="js script"></a>js script</h2><p>ENEX 파일을 Bear가 읽을 수 있는 형태로 변환하는 JavaScript 스크립트를 작성했다:</p>
+<pre><code class="language-javascript">const fs = require(&#39;fs&#39;);
+const xml2js = require(&#39;xml2js&#39;);
+const TurndownService = require(&#39;turndown&#39;);
+
+class ENEXToBearConverter &#123;
+    constructor() &#123;
+        this.turndownService = new TurndownService(&#123;
+            headingStyle: &#39;atx&#39;,
+            codeBlockStyle: &#39;fenced&#39;
+        &#125;);
+        
+        // Bear 태그 형식으
+</code></pre>
+</main>
+        
+        <blockquote class="mdui-m-x-0 mdui-m-t-4">
+    <strong>
+        Author: <a href="#">고은</a><br>
+        URL: <a href="https://www.goeun-oh.com/2020/08/19/bear-app-migration-guide/">https://www.goeun-oh.com/2020/08/19/bear-app-migration-guide/</a><br>
+        
+            라이선스
+        
+    </strong>
+</blockquote>
+        
+    </div>
+    
+</article>
+
+    
+    
+</section>
+
+    </div>
+    <a href="#" class="mdui-fab mdui-fab-fixed mdui-hidden-xs mdui-color-theme-accent mdui-ripple"><i class="mdui-icon material-icons">keyboard_arrow_up</i></a>
+
+<script src="https://cdn.jsdelivr.net/npm/mdui@1.0.2/dist/js/mdui.min.js"></script>
+
+
+<script>
+    var $ = mdui.$;
+    function init(){
+        //
+    }
+    window.addEventListener("load", () => {
+        //
+        init()
+    }, {once: true});
+</script>
+
+</body>
+</html>
