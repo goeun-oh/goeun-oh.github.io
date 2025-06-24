@@ -464,8 +464,8 @@ article img {
 <meta property="og:site_name">
 <meta property="og:description" content="32비트 RISC-V 프로세서 - goeun&#39;s space              * {             margin: 0;             padding: 0;             box-sizing: border-box;         }          body {             font-family:">
 <meta property="og:locale" content="ko_KR">
-<meta property="article:published_time" content="2025-06-24T05:38:19.634Z">
-<meta property="article:modified_time" content="2025-06-24T05:38:19.634Z">
+<meta property="article:published_time" content="2025-06-24T05:38:50.830Z">
+<meta property="article:modified_time" content="2025-06-24T05:38:50.830Z">
 <meta property="article:author" content="고은">
 <meta property="article:tag" content="하드웨어 개발자, Verilog, RISC-V, Cortex-M, AXI4, FPGA, 임베디드, 포트폴리오">
 <meta name="twitter:card" content="summary">
@@ -660,7 +660,7 @@ article img {
     </div>
     <div class="mdui-card-primary-subtitle mdui-typo">
         
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-24 02:38<br>수정일: 2025-06-24 02:38'}" datetime="2025-06-24T05:38:19.634Z">2025-06-24</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-24 02:38<br>수정일: 2025-06-24 02:38'}" datetime="2025-06-24T05:38:50.830Z">2025-06-24</time>
         <span>-</span>
         
             <a href="/projects/risc-v-processor.html">projects/risc-v-processor.html</a>
@@ -1095,16 +1095,37 @@ article img {
 <script src="https://cdn.jsdelivr.net/npm/mdui@1.0.2/dist/js/mdui.min.js"></script>
 
 
+
+<!-- Prism.js Core -->
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+
+
+
+
 <script>
     var $ = mdui.$;
     function init(){
         //
+        
+        
+        // Prism.js 설정
+        if (window.Prism) {
+            // 자동 언어 감지
+            Prism.plugins.autoloader.languages_path = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/';
+            // 모든 코드 블록 다시 하이라이트
+            Prism.highlightAll();
+        }
+        
     }
     window.addEventListener("load", () => {
         //
         init()
     }, {once: true});
 </script>
+
 
 </body>
 </html>

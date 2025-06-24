@@ -465,7 +465,7 @@ article img {
 <meta property="og:description" content="코드 개선 과정 - 구조체 활용이번 포스트에서는 Define 방식의 한계를 극복하고 구조체를 활용하여 더욱 체계적이고 재사용 가능한 코드를 만드는 방법을 다룬다. 🚨 Define 방식의 한계기존 Define 방식의 문제점이전 포스트에서 개선한 코드도 여전히 다음과 같은 문제가 있다: &#x2F;&#x2F; 문제가 있는 방식 - 반복적이고 비효율적 #define GPIOA_">
 <meta property="og:locale" content="ko_KR">
 <meta property="article:published_time" content="2025-06-22T15:00:00.000Z">
-<meta property="article:modified_time" content="2025-06-24T05:38:19.630Z">
+<meta property="article:modified_time" content="2025-06-24T05:38:50.826Z">
 <meta property="article:author" content="고은">
 <meta property="article:tag" content="코드개선">
 <meta property="article:tag" content="구조체">
@@ -941,16 +941,37 @@ GPIOA<span class="token operator">-></span>ODR <span class="token operator">^=</
 <script src="https://cdn.jsdelivr.net/npm/mdui@1.0.2/dist/js/mdui.min.js"></script>
 
 
+
+<!-- Prism.js Core -->
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+
+
+
+
 <script>
     var $ = mdui.$;
     function init(){
         //
+        
+        
+        // Prism.js 설정
+        if (window.Prism) {
+            // 자동 언어 감지
+            Prism.plugins.autoloader.languages_path = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/';
+            // 모든 코드 블록 다시 하이라이트
+            Prism.highlightAll();
+        }
+        
     }
     window.addEventListener("load", () => {
         //
         init()
     }, {once: true});
 </script>
+
 
 </body>
 </html>
