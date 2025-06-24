@@ -1,126 +1,131 @@
-// 토큰별 색상 강제 적용 - PrismJS 토큰에 직접 인라인 스타일 주입
+// 최종 해결책 - cssText 직접 조작으로 모든 CSS 규칙 무시
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🎨 PrismJS 토큰 색상 강제 적용 시작');
+    console.log('🔥 최종 해결책 실행 - cssText 직접 조작');
     
-    function applyTokenColors() {
-        // 1. 코드 블록 배경 먼저 변경
+    function nuclearOption() {
+        // 1. 코드 블록 배경 먼저
         const codeBlocks = document.querySelectorAll('pre, pre[class*="language-"]');
         codeBlocks.forEach(pre => {
-            pre.style.setProperty('background', '#1e1e1e', 'important');
-            pre.style.setProperty('background-color', '#1e1e1e', 'important');
-            pre.style.setProperty('border', '1px solid #404040', 'important');
-            pre.style.setProperty('border-radius', '8px', 'important');
-            pre.style.setProperty('padding', '24px', 'important');
-            pre.style.setProperty('box-shadow', '0 4px 20px rgba(0, 0, 0, 0.3)', 'important');
-            pre.style.setProperty('font-family', 'JetBrains Mono, Fira Code, Monaco, monospace', 'important');
-            pre.style.setProperty('font-size', '16px', 'important');
-            pre.style.setProperty('line-height', '1.6', 'important');
+            // cssText로 모든 스타일을 한 번에 덮어씀
+            pre.style.cssText = `
+                background: #1e1e1e !important;
+                background-color: #1e1e1e !important;
+                color: #d4d4d4 !important;
+                border: 1px solid #404040 !important;
+                border-radius: 8px !important;
+                padding: 24px !important;
+                margin: 2em 0 !important;
+                font-family: 'JetBrains Mono', 'Fira Code', Monaco, monospace !important;
+                font-size: 16px !important;
+                line-height: 1.6 !important;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+                overflow-x: auto !important;
+                white-space: pre !important;
+                position: relative !important;
+            `;
         });
         
-        // 2. 토큰별 색상 적용
-        const tokenColors = {
-            // 키워드 (void, int, typedef, volatile 등)
-            'token keyword': '#569CD6',
-            'token directive keyword': '#569CD6',
-            'token directive': '#C586C0',
-            
-            // 함수명
-            'token function': '#DCDCAA',
-            
-            // 주석
-            'token comment': '#6A9955',
-            
-            // 문자열
-            'token string': '#CE9178',
-            
-            // 숫자
-            'token number': '#B5CEA8',
-            
-            // 구두점과 연산자
-            'token punctuation': '#D4D4D4',
-            'token operator': '#D4D4D4',
-            
-            // 매크로와 전처리기
-            'token macro': '#C586C0',
-            'token macro property': '#C586C0',
-            
-            // 변수와 속성
-            'token property': '#9CDCFE',
-            'token variable': '#9CDCFE',
-            
-            // 타입
-            'token class-name': '#4EC9B0',
-            'token type': '#4EC9B0',
-            
-            // 상수
-            'token boolean': '#569CD6',
-            'token constant': '#569CD6'
-        };
+        // 2. 모든 토큰에 cssText로 색상 강제 적용
+        const tokenMappings = [
+            { selector: '.token.comment', color: '#6A9955' },
+            { selector: '.token.keyword', color: '#569CD6' },
+            { selector: '.token.directive', color: '#C586C0' },
+            { selector: '.token.function', color: '#DCDCAA' },
+            { selector: '.token.string', color: '#CE9178' },
+            { selector: '.token.number', color: '#B5CEA8' },
+            { selector: '.token.operator', color: '#D4D4D4' },
+            { selector: '.token.punctuation', color: '#D4D4D4' },
+            { selector: '.token.macro', color: '#C586C0' },
+            { selector: '.token.property', color: '#9CDCFE' },
+            { selector: '.token.variable', color: '#9CDCFE' }
+        ];
         
-        let appliedCount = 0;
+        let totalApplied = 0;
         
-        // 각 토큰 클래스에 색상 적용
-        Object.entries(tokenColors).forEach(([className, color]) => {
-            const elements = document.querySelectorAll(`span.${className.replace(' ', '.')}`);
+        tokenMappings.forEach(({ selector, color }) => {
+            const elements = document.querySelectorAll(selector);
             elements.forEach(element => {
-                element.style.setProperty('color', color, 'important');
-                element.style.setProperty('background', 'transparent', 'important');
-                element.style.setProperty('font-weight', 'inherit', 'important');
-                appliedCount++;
+                // cssText로 완전히 덮어씌움
+                element.style.cssText = `color: ${color} !important; background: transparent !important; font-weight: inherit !important;`;
+                totalApplied++;
             });
         });
         
-        // 일반적인 토큰들도 처리
+        // 3. 모든 토큰을 한 번 더 처리
         const allTokens = document.querySelectorAll('span[class*="token"]');
         allTokens.forEach(token => {
-            // 기본 색상이 적용되지 않은 토큰들은 기본 밝은 색으로
-            if (!token.style.color) {
-                token.style.setProperty('color', '#d4d4d4', 'important');
-                token.style.setProperty('background', 'transparent', 'important');
+            const classList = token.className.split(' ');
+            let applied = false;
+            
+            // 키워드 체크
+            if (classList.includes('keyword') || classList.includes('directive')) {
+                token.style.cssText = `color: #569CD6 !important; background: transparent !important;`;
+                applied = true;
+            }
+            // 주석 체크
+            else if (classList.includes('comment')) {
+                token.style.cssText = `color: #6A9955 !important; background: transparent !important; font-style: italic !important;`;
+                applied = true;
+            }
+            // 함수 체크
+            else if (classList.includes('function')) {
+                token.style.cssText = `color: #DCDCAA !important; background: transparent !important;`;
+                applied = true;
+            }
+            // 숫자 체크
+            else if (classList.includes('number')) {
+                token.style.cssText = `color: #B5CEA8 !important; background: transparent !important;`;
+                applied = true;
+            }
+            // 기본값
+            else if (!applied) {
+                token.style.cssText = `color: #d4d4d4 !important; background: transparent !important;`;
             }
         });
         
-        console.log(`✅ ${appliedCount}개 토큰에 색상 적용 완료`);
-        console.log(`📊 전체 토큰 수: ${allTokens.length}개`);
-        
-        return appliedCount;
+        console.log(`💥 핵폭탄 옵션 완료: ${totalApplied}개 + ${allTokens.length}개 토큰 처리`);
+        return allTokens.length;
     }
     
     // 즉시 실행
-    const initialCount = applyTokenColors();
+    nuclearOption();
     
-    // 여러 번 실행으로 확실하게 적용
-    setTimeout(() => applyTokenColors(), 100);
-    setTimeout(() => applyTokenColors(), 500);
-    setTimeout(() => applyTokenColors(), 1000);
+    // 여러 번 실행
+    setTimeout(nuclearOption, 50);
+    setTimeout(nuclearOption, 100);
+    setTimeout(nuclearOption, 200);
+    setTimeout(nuclearOption, 500);
+    setTimeout(nuclearOption, 1000);
     
-    // MutationObserver로 지속적 감시
+    // 지속적 감시 및 재적용
     const observer = new MutationObserver(() => {
-        applyTokenColors();
+        setTimeout(nuclearOption, 10);
     });
     
     observer.observe(document.body, {
         childList: true,
         subtree: true,
         attributes: true,
-        attributeFilter: ['class', 'style']
+        attributeFilter: ['style', 'class']
     });
     
-    console.log('🎉 토큰 색상 적용 완료! 감시 시작...');
+    // 5초마다 강제 재적용
+    setInterval(nuclearOption, 5000);
+    
+    console.log('💀 핵폭탄 옵션 활성화 - 5초마다 재적용');
 });
 
-// 페이지 완전 로드 후 최종 확인
+// 페이지 로드 후 최종 확인
 window.addEventListener('load', function() {
     setTimeout(() => {
-        const tokens = document.querySelectorAll('span[class*="token"]');
-        console.log(`🔍 최종 확인: ${tokens.length}개 토큰 발견`);
-        
-        // 각 토큰의 클래스와 현재 색상 출력
-        tokens.forEach((token, index) => {
-            if (index < 10) { // 처음 10개만 로그
-                console.log(`토큰 ${index + 1}: ${token.className} → ${token.style.color || '색상 없음'}`);
-            }
-        });
-    }, 500);
+        // 테스트: 첫 번째 토큰이 제대로 적용되었는지 확인
+        const firstToken = document.querySelector('span[class*="token"]');
+        if (firstToken) {
+            console.log('🔍 최종 확인 - 첫 번째 토큰:');
+            console.log('클래스:', firstToken.className);
+            console.log('cssText:', firstToken.style.cssText);
+            console.log('계산된 색상:', getComputedStyle(firstToken).color);
+        }
+    }, 1000);
 });
