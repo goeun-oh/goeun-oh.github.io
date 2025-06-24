@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
     if (isContentPage && !isHomePage) {
         const postStyles = document.createElement('style');
-        postStyles.textContent = `
+        postStyles.textContent = \`
 /* Bear 앱 스타일 - 미니멀하고 깔끔하게 */
 .mdui-card-content.mdui-typo {
     padding: 3em 4em !important;
@@ -264,11 +264,11 @@ document.addEventListener('DOMContentLoaded', function() {
     margin: 1em 0 0.5em 0 !important; 
 }
 
-/* 코드 스타일 - Bear 앱처럼 */
+/* 코드 스타일 - VSCode 다크 테마처럼 */
 .e-content pre,
 .mdui-card-content.mdui-typo pre {
-    background: #f6f6f6 !important;
-    border: 1px solid #e6e6e6 !important;
+    background: #1e1e1e !important;
+    border: 1px solid #333 !important;
     border-radius: 6px !important;
     padding: 1.2em !important;
     margin: 1.5em 0 !important;
@@ -300,9 +300,77 @@ document.addEventListener('DOMContentLoaded', function() {
 .mdui-card-content.mdui-typo pre code {
     background: none !important;
     padding: 0 !important;
-    color: #333 !important;
+    color: #D4D4D4 !important;
     font-weight: normal !important;
     border: none !important;
+}
+
+/* Prism.js VSCode 스타일 문법 강조 */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: #6A9955 !important;
+    font-style: italic !important;
+}
+
+.token.punctuation {
+    color: #D4D4D4 !important;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+    color: #B5CEA8 !important;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+    color: #CE9178 !important;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+    color: #D4D4D4 !important;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+    color: #569CD6 !important;
+    font-weight: normal !important;
+}
+
+.token.function,
+.token.class-name {
+    color: #DCDCAA !important;
+    font-weight: normal !important;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+    color: #9CDCFE !important;
+}
+
+.token.important,
+.token.bold {
+    font-weight: bold !important;
+}
+
+.token.italic {
+    font-style: italic !important;
 }
 
 /* 리스트 스타일 */
@@ -472,7 +540,7 @@ article img {
     .e-content h2, .mdui-card-content.mdui-typo h2 { font-size: 1.3em !important; }
     .e-content h3, .mdui-card-content.mdui-typo h3 { font-size: 1.1em !important; }
 }
-`;
+\`;
         document.head.appendChild(postStyles);
     }
 });
@@ -488,7 +556,7 @@ article img {
 <meta property="og:description" content="코드 개선 과정 - 구조체 활용이번 포스트에서는 Define 방식의 한계를 극복하고 구조체를 활용하여 더욱 체계적이고 재사용 가능한 코드를 만드는 방법을 다룬다. 🚨 Define 방식의 한계기존 Define 방식의 문제점이전 포스트에서 개선한 코드도 여전히 다음과 같은 문제가 있다: &#x2F;&#x2F; 문제가 있는 방식 - 반복적이고 비효율적 #define GPIOA_">
 <meta property="og:locale" content="ko_KR">
 <meta property="article:published_time" content="2025-06-22T15:00:00.000Z">
-<meta property="article:modified_time" content="2025-06-24T00:55:04.420Z">
+<meta property="article:modified_time" content="2025-06-24T01:22:01.407Z">
 <meta property="article:author" content="고은">
 <meta property="article:tag" content="코드개선">
 <meta property="article:tag" content="구조체">
@@ -850,7 +918,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <span><a class="tag-none-link" href="/tags/%EA%B5%AC%EC%A1%B0%EC%B2%B4/" rel="tag">구조체</a> <a class="tag-none-link" href="/tags/%EB%AA%A8%EB%93%88%ED%99%94/" rel="tag">모듈화</a> <a class="tag-none-link" href="/tags/%EC%BD%94%EB%93%9C%EA%B0%9C%EC%84%A0/" rel="tag">코드개선</a> <a class="tag-none-link" href="/tags/%ED%83%80%EC%9E%85%EC%95%88%EC%A0%84%EC%84%B1/" rel="tag">타입안전성</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-06-24 09:55'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-06-24 10:22'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/22/cortex-m-code-improvement-struct/</span>
