@@ -15,11 +15,6 @@
 
 
 
-<link rel="stylesheet" href="/css/prism-m.css">
-
-
-
-
 
 <meta name="theme-color" content="#3F51B5">
 
@@ -758,7 +753,7 @@ article img {
         
         <span><a class="tag-none-link" href="/tags/STM32CubeIDE/" rel="tag">STM32CubeIDE</a> <a class="tag-none-link" href="/tags/Timer/" rel="tag">Timer</a> <a class="tag-none-link" href="/tags/%EA%B3%A0%EA%B8%89%EC%84%A4%EC%A0%95/" rel="tag">고급설정</a> <a class="tag-none-link" href="/tags/%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1/" rel="tag">환경구성</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-06-24 02:13'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-06-24 02:15'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>posts/cortex-m-advanced-setup/</span>
@@ -856,24 +851,24 @@ article img {
 <h3 id="설치-확인"><a href="#설치-확인" class="headerlink" title="설치 확인"></a>설치 확인</h3><p>CMD에서 STM32와 Version 확인:</p>
 <figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/Complie_Program.md%7B2EE09E95-4964-4D1B-9DBF-70E5128423D7%7D.png" alt="버전 확인"class="mdui-img-rounded" loading="lazy"></figure>
 <h2 id="📊-생성된-프로젝트-구조"><a href="#📊-생성된-프로젝트-구조" class="headerlink" title="📊 생성된 프로젝트 구조"></a>📊 생성된 프로젝트 구조</h2><h3 id="파일-구조"><a href="#파일-구조" class="headerlink" title="파일 구조"></a>파일 구조</h3><p>STM32CubeIDE가 생성하는 표준 프로젝트 구조:</p>
-<pre class="language-none"><code class="language-none">Project&#x2F;
-├── Core&#x2F;
-│   ├── Inc&#x2F;
+<pre><code>Project/
+├── Core/
+│   ├── Inc/
 │   │   ├── main.h
 │   │   ├── stm32f4xx_hal_conf.h
 │   │   ├── stm32f4xx_it.h
 │   │   └── gpio.h (설정에 따라 생성)
-│   └── Src&#x2F;
+│   └── Src/
 │       ├── main.c
 │       ├── stm32f4xx_hal_msp.c
 │       ├── stm32f4xx_it.c
 │       ├── system_stm32f4xx.c
 │       └── gpio.c (설정에 따라 생성)
-├── Drivers&#x2F;
-│   ├── CMSIS&#x2F;
-│   └── STM32F4xx_HAL_Driver&#x2F;
-└── Middlewares&#x2F; (필요시)</code></pre>
-
+├── Drivers/
+│   ├── CMSIS/
+│   └── STM32F4xx_HAL_Driver/
+└── Middlewares/ (필요시)
+</code></pre>
 <h3 id="주요-파일-설명"><a href="#주요-파일-설명" class="headerlink" title="주요 파일 설명"></a>주요 파일 설명</h3><p><strong>main.c:</strong></p>
 <ul>
 <li>메인 애플리케이션 로직</li>
