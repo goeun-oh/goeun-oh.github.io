@@ -46,19 +46,16 @@ post_asset_folder: false
 relative_link: false
 future: true
 
-# Code Highlighting - 기본 비활성화
-syntax_highlighter: # empty to disable
+# Code Highlighting - 기본 PrismJS 사용
+syntax_highlighter: prismjs
 highlight:
   enable: false
 prismjs:
-  enable: false
-
-# PrismJS Plugin 설정 - 올바른 형식
-prism_plugin:
-  mode: 'preprocess'
-  theme: 'tomorrow'
+  enable: true
+  preprocess: true
   line_number: false
-  custom_css: ''  # 빈 문자열로 설정
+  tab_replace: '  '
+  theme: 'tomorrow'
 
 # Table of Contents 설정
 toc:
@@ -68,9 +65,6 @@ toc:
   max_depth: 6
 
 # Home page setting - 포트폴리오 메인 페이지가 홈으로 표시되도록 설정
-# path: Root path for your blogs index page. (default = '')
-# per_page: Posts displayed per page. (0 = disable pagination)
-# order_by: Posts order. (Order by date descending by default)
 index_generator:
   path: 'blog'  # 블로그 포스트는 /blog 경로로 이동
   per_page: 10
