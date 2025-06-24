@@ -15,11 +15,6 @@
 
 
 
-<link rel="stylesheet" href="/css/prism-m.css">
-
-
-
-
 
 <meta name="theme-color" content="#3F51B5">
 
@@ -777,7 +772,7 @@ article img {
         
         <main class="e-content"><h1 id="코드-개선-과정-구조체-활용"><a href="#코드-개선-과정-구조체-활용" class="headerlink" title="코드 개선 과정 - 구조체 활용"></a>코드 개선 과정 - 구조체 활용</h1><p>이번 포스트에서는 Define 방식의 한계를 극복하고 구조체를 활용하여 더욱 체계적이고 재사용 가능한 코드를 만드는 방법을 다룬다.</p>
 <h2 id="🚨-Define-방식의-한계"><a href="#🚨-Define-방식의-한계" class="headerlink" title="🚨 Define 방식의 한계"></a>🚨 Define 방식의 한계</h2><h3 id="기존-Define-방식의-문제점"><a href="#기존-Define-방식의-문제점" class="headerlink" title="기존 Define 방식의 문제점"></a>기존 Define 방식의 문제점</h3><p>이전 포스트에서 개선한 코드도 여전히 다음과 같은 문제가 있다:</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">&#x2F;&#x2F; 문제가 있는 방식 - 반복적이고 비효율적
+<pre><code class="language-c">// 문제가 있는 방식 - 반복적이고 비효율적
 #define GPIOA_MODER   *(volatile uint32_t *)(GPIOA_BASE + 0x00)
 #define GPIOA_OTYPER  *(volatile uint32_t *)(GPIOA_BASE + 0x04)
 #define GPIOA_OSPEEDR *(volatile uint32_t *)(GPIOA_BASE + 0x08)
@@ -789,14 +784,14 @@ article img {
 #define GPIOA_AFRL    *(volatile uint32_t *)(GPIOA_BASE + 0x20)
 #define GPIOA_AFRH    *(volatile uint32_t *)(GPIOA_BASE + 0x24)
 
-&#x2F;&#x2F; GPIOB에 대해서도 동일하게 반복
+// GPIOB에 대해서도 동일하게 반복
 #define GPIOB_MODER   *(volatile uint32_t *)(GPIOB_BASE + 0x00)
 #define GPIOB_OTYPER  *(volatile uint32_t *)(GPIOB_BASE + 0x04)
 #define GPIOB_OSPEEDR *(volatile uint32_t *)(GPIOB_BASE + 0x08)
-&#x2F;&#x2F; ... 계속 반복
+// ... 계속 반복
 
-&#x2F;&#x2F; GPIOC, GPIOD, GPIOE... 모두 동일하게 반복해야 함<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+// GPIOC, GPIOD, GPIOE... 모두 동일하게 반복해야 함
+</code></pre>
 <p><strong>주요 문제점:</strong></p>
 <ol>
 <li><strong>반복적 정의</strong>: 각 GPIO마다 동일한 패턴 반복</li>
@@ -805,19 +800,19 @@ article img {
 <li><strong>타입 안전성 없음</strong>: 컴파일러가 잘못된 사용을 감지하기 어려움</li>
 </ol>
 <h2 id="📦-구조체-사용의-중요성"><a href="#📦-구조체-사용의-중요성" class="headerlink" title="📦 구조체 사용의 중요성"></a>📦 구조체 사용의 중요성</h2><h3 id="구조체를-사용한-해결책"><a href="#구조체를-사용한-해결책" class="headerlink" title="구조체를 사용한 해결책"></a>구조체를 사용한 해결책</h3><p>하나의 구조체 정의로 모든 GPIO에 적용할 수 있다:</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">&#x2F;&#x2F; GPIO 레지스터 구조체 정의
+<pre><code class="language-c">// GPIO 레지스터 구조체 정의
 typedef struct&#123;
-   volatile uint32_t MODER;      &#x2F;&#x2F; 0x00 - Mode register
-   volatile uint32_t OTYPER;     &#x2F;&#x2F; 0x04 - Output type register  
-   volatile uint32_t OSPEEDR;    &#x2F;&#x2F; 0x08 - Output speed register
-   volatile uint32_t PUPDR;      &#x2F;&#x2F; 0x0C - Pull-up&#x2F;pull-down register
-   volatile uint32_t IDR;        &#x2F;&#x2F; 0x10 - Input data register
-   volatile uint32_t ODR;        &#x2F;&#x2F; 0x14 - Output data register
-   volatile uint32_t BSRR;       &#x2F;&#x2F; 0x18 - Bit set&#x2F;reset register
-   volatile uint32_t LCKR;       &#x2F;&#x2F; 0x1C - Configuration lock register
-   volatile uint32_t AFR[2];     &#x2F;&#x2F; 0x20, 0x24 - Alternate function registers (AFRL, AFRH)
-&#125;GPIO_TypeDef;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+   volatile uint32_t MODER;      // 0x00 - Mode register
+   volatile uint32_t OTYPER;     // 0x04 - Output type register  
+   volatile uint32_t OSPEEDR;    // 0x08 - Output speed register
+   volatile uint32_t PUPDR;      // 0x0C - Pull-up/pull-down register
+   volatile uint32_t IDR;        // 0x10 - Input data register
+   volatile uint32_t ODR;        // 0x14 - Output data register
+   volatile uint32_t BSRR;       // 0x18 - Bit set/reset register
+   volatile uint32_t LCKR;       // 0x1C - Configuration lock register
+   volatile uint32_t AFR[2];     // 0x20, 0x24 - Alternate function registers (AFRL, AFRH)
+&#125;GPIO_TypeDef;
+</code></pre>
 <h3 id="구조체-멤버-설명"><a href="#구조체-멤버-설명" class="headerlink" title="구조체 멤버 설명"></a>구조체 멤버 설명</h3><p><strong>주요 레지스터별 용도:</strong></p>
 <p><strong>MODER (Mode Register)</strong></p>
 <ul>
@@ -849,15 +844,15 @@ typedef struct&#123;
 <li>대체 기능 설정</li>
 <li>AFR[0]: 핀 0-7, AFR[1]: 핀 8-15</li>
 </ul>
-<h2 id="🎯-구조체-포인터-정의"><a href="#🎯-구조체-포인터-정의" class="headerlink" title="🎯 구조체 포인터 정의"></a>🎯 구조체 포인터 정의</h2><h3 id="각-GPIO를-구조체-포인터로-정의"><a href="#각-GPIO를-구조체-포인터로-정의" class="headerlink" title="각 GPIO를 구조체 포인터로 정의"></a>각 GPIO를 구조체 포인터로 정의</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">&#x2F;&#x2F; 구조체 포인터로 각 GPIO 정의
+<h2 id="🎯-구조체-포인터-정의"><a href="#🎯-구조체-포인터-정의" class="headerlink" title="🎯 구조체 포인터 정의"></a>🎯 구조체 포인터 정의</h2><h3 id="각-GPIO를-구조체-포인터로-정의"><a href="#각-GPIO를-구조체-포인터로-정의" class="headerlink" title="각 GPIO를 구조체 포인터로 정의"></a>각 GPIO를 구조체 포인터로 정의</h3><pre><code class="language-c">// 구조체 포인터로 각 GPIO 정의
 #define GPIOA ((GPIO_TypeDef *)(GPIOA_BASE))
 #define GPIOB ((GPIO_TypeDef *)(GPIOB_BASE))
 #define GPIOC ((GPIO_TypeDef *)(GPIOC_BASE))
 #define GPIOD ((GPIO_TypeDef *)(GPIOD_BASE))
-#define GPIOE ((GPIO_TypeDef *)(GPIOE_BASE))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="포인터-타입-캐스팅-이해"><a href="#포인터-타입-캐스팅-이해" class="headerlink" title="포인터 타입 캐스팅 이해"></a>포인터 타입 캐스팅 이해</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">#define GPIOA ((GPIO_TypeDef *)(GPIOA_BASE))<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
+#define GPIOE ((GPIO_TypeDef *)(GPIOE_BASE))
+</code></pre>
+<h3 id="포인터-타입-캐스팅-이해"><a href="#포인터-타입-캐스팅-이해" class="headerlink" title="포인터 타입 캐스팅 이해"></a>포인터 타입 캐스팅 이해</h3><pre><code class="language-c">#define GPIOA ((GPIO_TypeDef *)(GPIOA_BASE))
+</code></pre>
 <p><strong>동작 원리:</strong></p>
 <ol>
 <li><code>GPIOA_BASE</code>: 32비트 정수 주소값</li>
@@ -865,7 +860,7 @@ typedef struct&#123;
 <li><code>GPIOA-&gt;MODER</code>: 구조체 멤버 접근 연산자 사용</li>
 </ol>
 <p><strong>메모리 매핑:</strong></p>
-<pre class="line-numbers language-none"><code class="language-none">GPIOA_BASE (0x40020000) ──┐
+<pre><code>GPIOA_BASE (0x40020000) ──┐
                           │
                           ▼
 ┌─────────────────────────────┐
@@ -879,19 +874,19 @@ typedef struct&#123;
 │ LCKR     (0x4002001C)      │ ← GPIOA-&gt;LCKR
 │ AFR[0]   (0x40020020)      │ ← GPIOA-&gt;AFR[0]
 │ AFR[1]   (0x40020024)      │ ← GPIOA-&gt;AFR[1]
-└─────────────────────────────┘<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+└─────────────────────────────┘
+</code></pre>
+<h2 id="🚀-구조체를-사용한-최종-코드"><a href="#🚀-구조체를-사용한-최종-코드" class="headerlink" title="🚀 구조체를 사용한 최종 코드"></a>🚀 구조체를 사용한 최종 코드</h2><h3 id="완성된-코드"><a href="#완성된-코드" class="headerlink" title="완성된 코드"></a>완성된 코드</h3><pre><code class="language-c">#include &lt;stdint.h&gt;
+#include &quot;stm32f411xe.h&quot;  // STM32 표준 헤더 파일
 
-<h2 id="🚀-구조체를-사용한-최종-코드"><a href="#🚀-구조체를-사용한-최종-코드" class="headerlink" title="🚀 구조체를 사용한 최종 코드"></a>🚀 구조체를 사용한 최종 코드</h2><h3 id="완성된-코드"><a href="#완성된-코드" class="headerlink" title="완성된 코드"></a>완성된 코드</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">#include &lt;stdint.h&gt;
-#include &quot;stm32f411xe.h&quot;  &#x2F;&#x2F; STM32 표준 헤더 파일
-
-&#x2F;&#x2F; 베이스 주소 정의
+// 베이스 주소 정의
 #define PERIPH_BASE (0x40000000UL)
 #define AHB1PERIPH_OFFSET (0x20000UL)
 #define AHB1PERIPH_BASE (PERIPH_BASE + AHB1PERIPH_OFFSET)
 #define GPIOA_BASE (AHB1PERIPH_BASE + 0x0000UL)
 #define RCC_AHB1ENR *(volatile uint32_t *)0x40023830
 
-&#x2F;&#x2F; GPIO 구조체 정의
+// GPIO 구조체 정의
 typedef struct&#123;
    volatile uint32_t MODER;
    volatile uint32_t OTYPER;
@@ -904,80 +899,80 @@ typedef struct&#123;
    volatile uint32_t AFR[2];
 &#125;GPIO_TypeDef;
 
-&#x2F;&#x2F; GPIO 포인터 정의
+// GPIO 포인터 정의
 #define GPIOA ((GPIO_TypeDef *)(GPIOA_BASE))
 
 void delay();
 
 int main(void)
 &#123;
-   &#x2F;*1. Enable clock access to GPIOA *&#x2F;
-   RCC_AHB1ENR |&#x3D; (1U &lt;&lt; 0);
+   /*1. Enable clock access to GPIOA */
+   RCC_AHB1ENR |= (1U &lt;&lt; 0);
 
-   &#x2F;*2. Set PA5 as output pin *&#x2F;
-   GPIOA-&gt;MODER |&#x3D; (1U &lt;&lt; 10);
-   GPIOA-&gt;MODER &amp;&#x3D; ~(1U &lt;&lt; 11);
+   /*2. Set PA5 as output pin */
+   GPIOA-&gt;MODER |= (1U &lt;&lt; 10);
+   GPIOA-&gt;MODER &amp;= ~(1U &lt;&lt; 11);
 
    while(1)
    &#123;
-      &#x2F;*3. Set PA5 high *&#x2F;
-      GPIOA-&gt;ODR |&#x3D; (1U &lt;&lt; 5);
+      /*3. Set PA5 high */
+      GPIOA-&gt;ODR |= (1U &lt;&lt; 5);
       delay();
       
-      &#x2F;*4. Set PA5 low *&#x2F;
-      GPIOA-&gt;ODR &amp;&#x3D; ~(1U &lt;&lt; 5);
+      /*4. Set PA5 low */
+      GPIOA-&gt;ODR &amp;= ~(1U &lt;&lt; 5);
       delay();
    &#125;
 &#125;
 
 void delay()&#123;
-    for(int i &#x3D; 0; i&lt;100000; i++)&#123;&#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+    for(int i = 0; i&lt;100000; i++)&#123;&#125;
+&#125;
+</code></pre>
 <h2 id="✨-구조체-사용의-장점"><a href="#✨-구조체-사용의-장점" class="headerlink" title="✨ 구조체 사용의 장점"></a>✨ 구조체 사용의 장점</h2><h3 id="1-간결성과-재사용성"><a href="#1-간결성과-재사용성" class="headerlink" title="1. 간결성과 재사용성"></a>1. 간결성과 재사용성</h3><p><strong>Before (Define 방식):</strong></p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">&#x2F;&#x2F; 각 GPIO마다 개별 정의 필요 (40줄 이상)
+<pre><code class="language-c">// 각 GPIO마다 개별 정의 필요 (40줄 이상)
 #define GPIOA_ODR *(volatile uint32_t *)(GPIOA_BASE + 0x14)
 #define GPIOB_ODR *(volatile uint32_t *)(GPIOB_BASE + 0x14)
 #define GPIOC_ODR *(volatile uint32_t *)(GPIOC_BASE + 0x14)
-&#x2F;&#x2F; ... 계속<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+// ... 계속
+</code></pre>
 <p><strong>After (구조체 방식):</strong></p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">&#x2F;&#x2F; 하나의 구조체로 모든 GPIO 커버 (10줄)
+<pre><code class="language-c">// 하나의 구조체로 모든 GPIO 커버 (10줄)
 GPIOA-&gt;ODR
 GPIOB-&gt;ODR  
-GPIOC-&gt;ODR<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
+GPIOC-&gt;ODR
+</code></pre>
 <h3 id="2-확장성"><a href="#2-확장성" class="headerlink" title="2. 확장성"></a>2. 확장성</h3><p>새로운 GPIO 포트 추가가 매우 쉽다:</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">&#x2F;&#x2F; 새 GPIO 추가 (단 한 줄!)
+<pre><code class="language-c">// 새 GPIO 추가 (단 한 줄!)
 #define GPIOF ((GPIO_TypeDef *)(GPIOF_BASE))
 
-&#x2F;&#x2F; 즉시 모든 레지스터 사용 가능
-GPIOF-&gt;MODER &#x3D; 0x12345678;
-GPIOF-&gt;ODR |&#x3D; (1U &lt;&lt; 3);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+// 즉시 모든 레지스터 사용 가능
+GPIOF-&gt;MODER = 0x12345678;
+GPIOF-&gt;ODR |= (1U &lt;&lt; 3);
+</code></pre>
 <h3 id="3-타입-안전성"><a href="#3-타입-안전성" class="headerlink" title="3. 타입 안전성"></a>3. 타입 안전성</h3><p>IDE와 컴파일러가 타입 검사를 수행한다:</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">&#x2F;&#x2F; 잘못된 사용 시 컴파일 에러 발생
-GPIOA-&gt;INVALID_REGISTER &#x3D; 0;  &#x2F;&#x2F; 컴파일 에러!
+<pre><code class="language-c">// 잘못된 사용 시 컴파일 에러 발생
+GPIOA-&gt;INVALID_REGISTER = 0;  // 컴파일 에러!
 
-&#x2F;&#x2F; IDE에서 자동완성 지원
-GPIOA-&gt;  &#x2F;&#x2F; 여기서 자동완성으로 사용 가능한 멤버들을 보여줌<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="4-가독성-향상"><a href="#4-가독성-향상" class="headerlink" title="4. 가독성 향상"></a>4. 가독성 향상</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">&#x2F;&#x2F; 구조체 멤버 접근이 더 직관적
-GPIOA-&gt;MODER |&#x3D; (1U &lt;&lt; 10);   &#x2F;&#x2F; 명확한 의미
-GPIOA-&gt;ODR ^&#x3D; (1U &lt;&lt; 5);      &#x2F;&#x2F; 토글 의미 명확<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
+// IDE에서 자동완성 지원
+GPIOA-&gt;  // 여기서 자동완성으로 사용 가능한 멤버들을 보여줌
+</code></pre>
+<h3 id="4-가독성-향상"><a href="#4-가독성-향상" class="headerlink" title="4. 가독성 향상"></a>4. 가독성 향상</h3><pre><code class="language-c">// 구조체 멤버 접근이 더 직관적
+GPIOA-&gt;MODER |= (1U &lt;&lt; 10);   // 명확한 의미
+GPIOA-&gt;ODR ^= (1U &lt;&lt; 5);      // 토글 의미 명확
+</code></pre>
 <h2 id="💡-핵심-개념-정리"><a href="#💡-핵심-개념-정리" class="headerlink" title="💡 핵심 개념 정리"></a>💡 핵심 개념 정리</h2><h3 id="구조체와-메모리-매핑의-관계"><a href="#구조체와-메모리-매핑의-관계" class="headerlink" title="구조체와 메모리 매핑의 관계"></a>구조체와 메모리 매핑의 관계</h3><p>구조체는 메모리에 연속적으로 배치된다:</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">typedef struct&#123;
-   volatile uint32_t MODER;    &#x2F;&#x2F; +0x00
-   volatile uint32_t OTYPER;   &#x2F;&#x2F; +0x04
-   volatile uint32_t OSPEEDR;  &#x2F;&#x2F; +0x08
-   &#x2F;&#x2F; ...
-&#125;GPIO_TypeDef;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+<pre><code class="language-c">typedef struct&#123;
+   volatile uint32_t MODER;    // +0x00
+   volatile uint32_t OTYPER;   // +0x04
+   volatile uint32_t OSPEEDR;  // +0x08
+   // ...
+&#125;GPIO_TypeDef;
+</code></pre>
 <p>이는 STM32의 실제 하드웨어 레지스터 배치와 정확히 일치한다.</p>
 <h3 id="volatile-키워드의-지속적-중요성"><a href="#volatile-키워드의-지속적-중요성" class="headerlink" title="volatile 키워드의 지속적 중요성"></a>volatile 키워드의 지속적 중요성</h3><p>구조체에서도 <code>volatile</code>은 여전히 중요하다:</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">volatile uint32_t MODER;  &#x2F;&#x2F; 컴파일러 최적화 방지<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
+<pre><code class="language-c">volatile uint32_t MODER;  // 컴파일러 최적화 방지
+</code></pre>
 <p><strong>이유:</strong></p>
 <ul>
 <li>하드웨어 레지스터는 언제든지 값이 변경될 수 있다</li>
@@ -1057,129 +1052,129 @@ GPIOA-&gt;ODR ^&#x3D; (1U &lt;&lt; 5);      &#x2F;&#x2F; 토글 의미 명확<sp
 </ul>
 <h2 id="🏗️-SW-Stack-개념"><a href="#🏗️-SW-Stack-개념" class="headerlink" title="🏗️ SW Stack 개념"></a>🏗️ SW Stack 개념</h2><h3 id="SW의-흐름과-계층-구조"><a href="#SW의-흐름과-계층-구조" class="headerlink" title="SW의 흐름과 계층 구조"></a>SW의 흐름과 계층 구조</h3><p>SW의 흐름은 위에서 아래로 진행된다. SW가 HW를 제어하는 계층적 구조다.</p>
 <figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0619/0.GPIO_BTN_%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0.md%7B237EF5FA-4218-4683-8031-73F87911D2AB%7D.png" alt="SW Stack 구조"class="mdui-img-rounded" loading="lazy"></figure>
-<h3 id="SW-Stack-구조도"><a href="#SW-Stack-구조도" class="headerlink" title="SW Stack 구조도"></a>SW Stack 구조도</h3><pre class="line-numbers language-none"><code class="language-none">+------------------------+
+<h3 id="SW-Stack-구조도"><a href="#SW-Stack-구조도" class="headerlink" title="SW Stack 구조도"></a>SW Stack 구조도</h3><pre><code>+------------------------+
 |         SW            |
 |  +-----------------+  |
 |  |   Application   |  | &lt;- 애플리케이션 레이어
 |  +-----------------+  |
-|  |     API&#x2F;HAL     |  | &lt;- 하드웨어 추상화 계층
+|  |     API/HAL     |  | &lt;- 하드웨어 추상화 계층
 |  +-----------------+  |
 |  |     Driver      |  | &lt;- 드라이버 계층
 |  +-----------------+  |
 +------------------------+
 |         HW            | &lt;- 하드웨어
-+------------------------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="📂-폴더-구조-설계"><a href="#📂-폴더-구조-설계" class="headerlink" title="📂 폴더 구조 설계"></a>📂 폴더 구조 설계</h2><h3 id="계층별-폴더-분리"><a href="#계층별-폴더-분리" class="headerlink" title="계층별 폴더 분리"></a>계층별 폴더 분리</h3><pre class="line-numbers language-none"><code class="language-none">project&#x2F;
-├── App&#x2F;                 # 애플리케이션 계층
++------------------------+
+</code></pre>
+<h2 id="📂-폴더-구조-설계"><a href="#📂-폴더-구조-설계" class="headerlink" title="📂 폴더 구조 설계"></a>📂 폴더 구조 설계</h2><h3 id="계층별-폴더-분리"><a href="#계층별-폴더-분리" class="headerlink" title="계층별 폴더 분리"></a>계층별 폴더 분리</h3><pre><code>project/
+├── App/                 # 애플리케이션 계층
 │   ├── main.c
 │   └── app_config.h
-├── HAL&#x2F;                 # 하드웨어 추상화 계층
+├── HAL/                 # 하드웨어 추상화 계층
 │   ├── gpio_hal.c
 │   ├── gpio_hal.h
 │   ├── led_hal.c
 │   └── led_hal.h
-├── Driver&#x2F;              # 드라이버 계층
+├── Driver/              # 드라이버 계층
 │   ├── gpio_driver.c
 │   ├── gpio_driver.h
 │   └── system_config.h
-└── Hardware&#x2F;            # 하드웨어 정의
+└── Hardware/            # 하드웨어 정의
     ├── stm32f411xx.h
-    └── memory_map.h<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="🔧-GPIO-모듈-분리-실습"><a href="#🔧-GPIO-모듈-분리-실습" class="headerlink" title="🔧 GPIO 모듈 분리 실습"></a>🔧 GPIO 모듈 분리 실습</h2><h3 id="1-GPIO-드라이버-계층-gpio-driver-h"><a href="#1-GPIO-드라이버-계층-gpio-driver-h" class="headerlink" title="1. GPIO 드라이버 계층 (gpio_driver.h)"></a>1. GPIO 드라이버 계층 (gpio_driver.h)</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">#ifndef GPIO_DRIVER_H
+    └── memory_map.h
+</code></pre>
+<h2 id="🔧-GPIO-모듈-분리-실습"><a href="#🔧-GPIO-모듈-분리-실습" class="headerlink" title="🔧 GPIO 모듈 분리 실습"></a>🔧 GPIO 모듈 분리 실습</h2><h3 id="1-GPIO-드라이버-계층-gpio-driver-h"><a href="#1-GPIO-드라이버-계층-gpio-driver-h" class="headerlink" title="1. GPIO 드라이버 계층 (gpio_driver.h)"></a>1. GPIO 드라이버 계층 (gpio_driver.h)</h3><pre><code class="language-c">#ifndef GPIO_DRIVER_H
 #define GPIO_DRIVER_H
 
 #include &lt;stdint.h&gt;
 
-&#x2F;&#x2F; GPIO 베이스 주소 정의
+// GPIO 베이스 주소 정의
 #define GPIOA_BASE    0x40020000
 #define GPIOB_BASE    0x40020400
 #define GPIOC_BASE    0x40020800
 
-&#x2F;&#x2F; GPIO 레지스터 구조체
+// GPIO 레지스터 구조체
 typedef struct &#123;
-    volatile uint32_t MODER;    &#x2F;&#x2F; Mode register
-    volatile uint32_t OTYPER;   &#x2F;&#x2F; Output type register
-    volatile uint32_t OSPEEDR;  &#x2F;&#x2F; Speed register
-    volatile uint32_t PUPDR;    &#x2F;&#x2F; Pull-up&#x2F;pull-down register
-    volatile uint32_t IDR;      &#x2F;&#x2F; Input data register
-    volatile uint32_t ODR;      &#x2F;&#x2F; Output data register
-    volatile uint32_t BSRR;     &#x2F;&#x2F; Bit set&#x2F;reset register
-    volatile uint32_t LCKR;     &#x2F;&#x2F; Lock register
-    volatile uint32_t AFR[2];   &#x2F;&#x2F; Alternate function registers
+    volatile uint32_t MODER;    // Mode register
+    volatile uint32_t OTYPER;   // Output type register
+    volatile uint32_t OSPEEDR;  // Speed register
+    volatile uint32_t PUPDR;    // Pull-up/pull-down register
+    volatile uint32_t IDR;      // Input data register
+    volatile uint32_t ODR;      // Output data register
+    volatile uint32_t BSRR;     // Bit set/reset register
+    volatile uint32_t LCKR;     // Lock register
+    volatile uint32_t AFR[2];   // Alternate function registers
 &#125; GPIO_TypeDef;
 
-&#x2F;&#x2F; GPIO 포트 정의
+// GPIO 포트 정의
 #define GPIOA  ((GPIO_TypeDef*)GPIOA_BASE)
 #define GPIOB  ((GPIO_TypeDef*)GPIOB_BASE)
 #define GPIOC  ((GPIO_TypeDef*)GPIOC_BASE)
 
-&#x2F;&#x2F; 함수 선언
+// 함수 선언
 void gpio_clock_enable(GPIO_TypeDef* gpio);
 void gpio_set_mode(GPIO_TypeDef* gpio, uint8_t pin, uint8_t mode);
 void gpio_write_pin(GPIO_TypeDef* gpio, uint8_t pin, uint8_t state);
 
-#endif<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+#endif
+</code></pre>
+<h3 id="2-GPIO-드라이버-계층-gpio-driver-c"><a href="#2-GPIO-드라이버-계층-gpio-driver-c" class="headerlink" title="2. GPIO 드라이버 계층 (gpio_driver.c)"></a>2. GPIO 드라이버 계층 (gpio_driver.c)</h3><pre><code class="language-c">#include &quot;gpio_driver.h&quot;
 
-<h3 id="2-GPIO-드라이버-계층-gpio-driver-c"><a href="#2-GPIO-드라이버-계층-gpio-driver-c" class="headerlink" title="2. GPIO 드라이버 계층 (gpio_driver.c)"></a>2. GPIO 드라이버 계층 (gpio_driver.c)</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">#include &quot;gpio_driver.h&quot;
-
-&#x2F;&#x2F; RCC 레지스터 주소
+// RCC 레지스터 주소
 #define RCC_BASE      0x40023800
 #define RCC_AHB1ENR   (*(volatile uint32_t*)(RCC_BASE + 0x30))
 
 void gpio_clock_enable(GPIO_TypeDef* gpio) &#123;
-    if (gpio &#x3D;&#x3D; GPIOA) &#123;
-        RCC_AHB1ENR |&#x3D; (1 &lt;&lt; 0);  &#x2F;&#x2F; GPIOA 클록 활성화
-    &#125; else if (gpio &#x3D;&#x3D; GPIOB) &#123;
-        RCC_AHB1ENR |&#x3D; (1 &lt;&lt; 1);  &#x2F;&#x2F; GPIOB 클록 활성화
-    &#125; else if (gpio &#x3D;&#x3D; GPIOC) &#123;
-        RCC_AHB1ENR |&#x3D; (1 &lt;&lt; 2);  &#x2F;&#x2F; GPIOC 클록 활성화
+    if (gpio == GPIOA) &#123;
+        RCC_AHB1ENR |= (1 &lt;&lt; 0);  // GPIOA 클록 활성화
+    &#125; else if (gpio == GPIOB) &#123;
+        RCC_AHB1ENR |= (1 &lt;&lt; 1);  // GPIOB 클록 활성화
+    &#125; else if (gpio == GPIOC) &#123;
+        RCC_AHB1ENR |= (1 &lt;&lt; 2);  // GPIOC 클록 활성화
     &#125;
 &#125;
 
 void gpio_set_mode(GPIO_TypeDef* gpio, uint8_t pin, uint8_t mode) &#123;
-    gpio-&gt;MODER &amp;&#x3D; ~(3 &lt;&lt; (pin * 2));      &#x2F;&#x2F; 기존 모드 클리어
-    gpio-&gt;MODER |&#x3D; (mode &lt;&lt; (pin * 2));    &#x2F;&#x2F; 새 모드 설정
+    gpio-&gt;MODER &amp;= ~(3 &lt;&lt; (pin * 2));      // 기존 모드 클리어
+    gpio-&gt;MODER |= (mode &lt;&lt; (pin * 2));    // 새 모드 설정
 &#125;
 
 void gpio_write_pin(GPIO_TypeDef* gpio, uint8_t pin, uint8_t state) &#123;
     if (state) &#123;
-        gpio-&gt;BSRR &#x3D; (1 &lt;&lt; pin);           &#x2F;&#x2F; Set pin
+        gpio-&gt;BSRR = (1 &lt;&lt; pin);           // Set pin
     &#125; else &#123;
-        gpio-&gt;BSRR &#x3D; (1 &lt;&lt; (pin + 16));    &#x2F;&#x2F; Reset pin
+        gpio-&gt;BSRR = (1 &lt;&lt; (pin + 16));    // Reset pin
     &#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="3-LED-HAL-계층-led-hal-h"><a href="#3-LED-HAL-계층-led-hal-h" class="headerlink" title="3. LED HAL 계층 (led_hal.h)"></a>3. LED HAL 계층 (led_hal.h)</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">#ifndef LED_HAL_H
+&#125;
+</code></pre>
+<h3 id="3-LED-HAL-계층-led-hal-h"><a href="#3-LED-HAL-계층-led-hal-h" class="headerlink" title="3. LED HAL 계층 (led_hal.h)"></a>3. LED HAL 계층 (led_hal.h)</h3><pre><code class="language-c">#ifndef LED_HAL_H
 #define LED_HAL_H
 
-&#x2F;&#x2F; LED 상태 정의
+// LED 상태 정의
 typedef enum &#123;
-    LED_OFF &#x3D; 0,
-    LED_ON  &#x3D; 1
+    LED_OFF = 0,
+    LED_ON  = 1
 &#125; LED_State_t;
 
-&#x2F;&#x2F; LED 초기화 및 제어 함수
+// LED 초기화 및 제어 함수
 void led_init(void);
 void led_set_state(LED_State_t state);
 void led_toggle(void);
 
-#endif<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="4-LED-HAL-계층-led-hal-c"><a href="#4-LED-HAL-계층-led-hal-c" class="headerlink" title="4. LED HAL 계층 (led_hal.c)"></a>4. LED HAL 계층 (led_hal.c)</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">#include &quot;led_hal.h&quot;
+#endif
+</code></pre>
+<h3 id="4-LED-HAL-계층-led-hal-c"><a href="#4-LED-HAL-계층-led-hal-c" class="headerlink" title="4. LED HAL 계층 (led_hal.c)"></a>4. LED HAL 계층 (led_hal.c)</h3><pre><code class="language-c">#include &quot;led_hal.h&quot;
 #include &quot;gpio_driver.h&quot;
 
-&#x2F;&#x2F; LED 핀 정의
+// LED 핀 정의
 #define LED_PORT    GPIOA
 #define LED_PIN     5
 
 void led_init(void) &#123;
-    &#x2F;&#x2F; GPIO 클록 활성화
+    // GPIO 클록 활성화
     gpio_clock_enable(LED_PORT);
     
-    &#x2F;&#x2F; LED 핀을 출력 모드로 설정
-    gpio_set_mode(LED_PORT, LED_PIN, 1);  &#x2F;&#x2F; 1 &#x3D; Output mode
+    // LED 핀을 출력 모드로 설정
+    gpio_set_mode(LED_PORT, LED_PIN, 1);  // 1 = Output mode
 &#125;
 
 void led_set_state(LED_State_t state) &#123;
@@ -1187,30 +1182,30 @@ void led_set_state(LED_State_t state) &#123;
 &#125;
 
 void led_toggle(void) &#123;
-    static LED_State_t current_state &#x3D; LED_OFF;
-    current_state &#x3D; (current_state &#x3D;&#x3D; LED_OFF) ? LED_ON : LED_OFF;
+    static LED_State_t current_state = LED_OFF;
+    current_state = (current_state == LED_OFF) ? LED_ON : LED_OFF;
     led_set_state(current_state);
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;
+</code></pre>
+<h3 id="5-애플리케이션-계층-main-c"><a href="#5-애플리케이션-계층-main-c" class="headerlink" title="5. 애플리케이션 계층 (main.c)"></a>5. 애플리케이션 계층 (main.c)</h3><pre><code class="language-c">#include &quot;led_hal.h&quot;
 
-<h3 id="5-애플리케이션-계층-main-c"><a href="#5-애플리케이션-계층-main-c" class="headerlink" title="5. 애플리케이션 계층 (main.c)"></a>5. 애플리케이션 계층 (main.c)</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">#include &quot;led_hal.h&quot;
-
-&#x2F;&#x2F; 간단한 딜레이 함수
+// 간단한 딜레이 함수
 void delay(volatile uint32_t count) &#123;
     while(count--);
 &#125;
 
 int main(void) &#123;
-    &#x2F;&#x2F; LED 초기화
+    // LED 초기화
     led_init();
     
     while(1) &#123;
-        led_toggle();        &#x2F;&#x2F; LED 토글
-        delay(1000000);      &#x2F;&#x2F; 딜레이
+        led_toggle();        // LED 토글
+        delay(1000000);      // 딜레이
     &#125;
     
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+&#125;
+</code></pre>
 <h2 id="🎯-모듈화의-장점"><a href="#🎯-모듈화의-장점" class="headerlink" title="🎯 모듈화의 장점"></a>🎯 모듈화의 장점</h2><h3 id="1-코드-재사용성"><a href="#1-코드-재사용성" class="headerlink" title="1. 코드 재사용성"></a>1. <strong>코드 재사용성</strong></h3><ul>
 <li>GPIO 드라이버는 다른 프로젝트에서도 사용 가능</li>
 <li>LED HAL은 다른 LED 프로젝트에서 재사용 가능</li>
@@ -1239,24 +1234,24 @@ int main(void) &#123;
 <li>각 계층의 내부 구현은 숨김</li>
 <li>공개 인터페이스만을 통한 접근</li>
 </ul>
-<h2 id="🚀-실제-프로젝트-적용-팁"><a href="#🚀-실제-프로젝트-적용-팁" class="headerlink" title="🚀 실제 프로젝트 적용 팁"></a>🚀 실제 프로젝트 적용 팁</h2><h3 id="1-점진적-리팩토링"><a href="#1-점진적-리팩토링" class="headerlink" title="1. 점진적 리팩토링"></a>1. <strong>점진적 리팩토링</strong></h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">&#x2F;&#x2F; Before: 모든 코드가 main.c에
+<h2 id="🚀-실제-프로젝트-적용-팁"><a href="#🚀-실제-프로젝트-적용-팁" class="headerlink" title="🚀 실제 프로젝트 적용 팁"></a>🚀 실제 프로젝트 적용 팁</h2><h3 id="1-점진적-리팩토링"><a href="#1-점진적-리팩토링" class="headerlink" title="1. 점진적 리팩토링"></a>1. <strong>점진적 리팩토링</strong></h3><pre><code class="language-c">// Before: 모든 코드가 main.c에
 int main(void) &#123;
-    &#x2F;&#x2F; GPIO 클록 설정
-    RCC_AHB1ENR |&#x3D; (1 &lt;&lt; 0);
+    // GPIO 클록 설정
+    RCC_AHB1ENR |= (1 &lt;&lt; 0);
     
-    &#x2F;&#x2F; GPIO 모드 설정
-    GPIOA-&gt;MODER &amp;&#x3D; ~(3 &lt;&lt; 10);
-    GPIOA-&gt;MODER |&#x3D; (1 &lt;&lt; 10);
+    // GPIO 모드 설정
+    GPIOA-&gt;MODER &amp;= ~(3 &lt;&lt; 10);
+    GPIOA-&gt;MODER |= (1 &lt;&lt; 10);
     
     while(1) &#123;
-        GPIOA-&gt;BSRR &#x3D; (1 &lt;&lt; 5);
+        GPIOA-&gt;BSRR = (1 &lt;&lt; 5);
         delay(1000000);
-        GPIOA-&gt;BSRR &#x3D; (1 &lt;&lt; 21);
+        GPIOA-&gt;BSRR = (1 &lt;&lt; 21);
         delay(1000000);
     &#125;
 &#125;
 
-&#x2F;&#x2F; After: 계층별 분리
+// After: 계층별 분리
 int main(void) &#123;
     led_init();
     
@@ -1264,24 +1259,24 @@ int main(void) &#123;
         led_toggle();
         delay(1000000);
     &#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="2-설정-파일-활용"><a href="#2-설정-파일-활용" class="headerlink" title="2. 설정 파일 활용"></a>2. <strong>설정 파일 활용</strong></h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">&#x2F;&#x2F; config.h
+&#125;
+</code></pre>
+<h3 id="2-설정-파일-활용"><a href="#2-설정-파일-활용" class="headerlink" title="2. 설정 파일 활용"></a>2. <strong>설정 파일 활용</strong></h3><pre><code class="language-c">// config.h
 #define LED1_PORT    GPIOA
 #define LED1_PIN     5
 
 #define LED2_PORT    GPIOB
-#define LED2_PIN     3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="3-에러-처리-추가"><a href="#3-에러-처리-추가" class="headerlink" title="3. 에러 처리 추가"></a>3. <strong>에러 처리 추가</strong></h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">typedef enum &#123;
+#define LED2_PIN     3
+</code></pre>
+<h3 id="3-에러-처리-추가"><a href="#3-에러-처리-추가" class="headerlink" title="3. 에러 처리 추가"></a>3. <strong>에러 처리 추가</strong></h3><pre><code class="language-c">typedef enum &#123;
     HAL_OK,
     HAL_ERROR,
     HAL_BUSY,
     HAL_TIMEOUT
 &#125; HAL_StatusTypeDef;
 
-HAL_StatusTypeDef led_init(void);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+HAL_StatusTypeDef led_init(void);
+</code></pre>
 <h2 id="📚-참고-자료"><a href="#📚-참고-자료" class="headerlink" title="📚 참고 자료"></a>📚 참고 자료</h2><p>이 포스트는 다음 GitHub 레포지토리의 실습 내용을 바탕으로 작성되었습니다:</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/goeun-oh/ARM">ARM Repository</a></li>

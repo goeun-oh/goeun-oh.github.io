@@ -15,11 +15,6 @@
 
 
 
-<link rel="stylesheet" href="/css/prism-m.css">
-
-
-
-
 
 <meta name="theme-color" content="#3F51B5">
 
@@ -551,15 +546,15 @@ article img {
     
     <title>5-3. 코드 개선 과정 - 고급 기법과 성능 | </title>
     <link rel="canonical" href="https://www.goeun-oh.com/posts/cortex-m-code-improvement-advanced/">
-    <meta name="description" content="코드 개선 과정 - 고급 기법과 성능이번 포스트에서는 구조체 기반 코드의 고급 활용 기법과 성능 최적화 방법을 다룬다. 🔧 고급 활용 기법BSRR 레지스터 활용BSRR(Bit Set&#x2F;Reset Register)을 사용하면 원자적 연산이 가능하다: &#x2F;&#x2F; 기존 방식 (Read-Modify-Write, 3단계 연산) GPIOA-&amp;gt">
+    <meta name="description" content="코드 개선 과정 - 고급 기법과 성능이번 포스트에서는 구조체 기반 코드의 고급 활용 기법과 성능 최적화 방법을 다룬다. 🔧 고급 활용 기법BSRR 레지스터 활용BSRR(Bit Set&#x2F;Reset Register)을 사용하면 원자적 연산이 가능하다: &#x2F;&#x2F; 기존 방식 (Read-Modify-Write, 3단계 연산) GPIOA-&gt;ODR |&#x3D; (1">
 <meta property="og:type" content="article">
 <meta property="og:title" content="5-3. 코드 개선 과정 - 고급 기법과 성능">
 <meta property="og:url" content="https://www.goeun-oh.com/posts/cortex-m-code-improvement-advanced/index.html">
 <meta property="og:site_name">
-<meta property="og:description" content="코드 개선 과정 - 고급 기법과 성능이번 포스트에서는 구조체 기반 코드의 고급 활용 기법과 성능 최적화 방법을 다룬다. 🔧 고급 활용 기법BSRR 레지스터 활용BSRR(Bit Set&#x2F;Reset Register)을 사용하면 원자적 연산이 가능하다: &#x2F;&#x2F; 기존 방식 (Read-Modify-Write, 3단계 연산) GPIOA-&amp;gt">
+<meta property="og:description" content="코드 개선 과정 - 고급 기법과 성능이번 포스트에서는 구조체 기반 코드의 고급 활용 기법과 성능 최적화 방법을 다룬다. 🔧 고급 활용 기법BSRR 레지스터 활용BSRR(Bit Set&#x2F;Reset Register)을 사용하면 원자적 연산이 가능하다: &#x2F;&#x2F; 기존 방식 (Read-Modify-Write, 3단계 연산) GPIOA-&gt;ODR |&#x3D; (1">
 <meta property="og:locale" content="ko_KR">
 <meta property="article:published_time" content="2025-06-22T15:00:00.000Z">
-<meta property="article:modified_time" content="2025-06-24T03:58:34.834Z">
+<meta property="article:modified_time" content="2025-06-24T03:58:58.597Z">
 <meta property="article:author" content="고은">
 <meta property="article:tag" content="고급기법">
 <meta property="article:tag" content="성능최적화">
@@ -782,78 +777,78 @@ article img {
         
         <main class="e-content"><h1 id="코드-개선-과정-고급-기법과-성능"><a href="#코드-개선-과정-고급-기법과-성능" class="headerlink" title="코드 개선 과정 - 고급 기법과 성능"></a>코드 개선 과정 - 고급 기법과 성능</h1><p>이번 포스트에서는 구조체 기반 코드의 고급 활용 기법과 성능 최적화 방법을 다룬다.</p>
 <h2 id="🔧-고급-활용-기법"><a href="#🔧-고급-활용-기법" class="headerlink" title="🔧 고급 활용 기법"></a>🔧 고급 활용 기법</h2><h3 id="BSRR-레지스터-활용"><a href="#BSRR-레지스터-활용" class="headerlink" title="BSRR 레지스터 활용"></a>BSRR 레지스터 활용</h3><p>BSRR(Bit Set&#x2F;Reset Register)을 사용하면 원자적 연산이 가능하다:</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">&#x2F;&#x2F; 기존 방식 (Read-Modify-Write, 3단계 연산)
-GPIOA-&gt;ODR |&#x3D; (1U &lt;&lt; 5);   &#x2F;&#x2F; 1. 읽기 → 2. 수정 → 3. 쓰기
-GPIOA-&gt;ODR &amp;&#x3D; ~(1U &lt;&lt; 5);  &#x2F;&#x2F; 1. 읽기 → 2. 수정 → 3. 쓰기
+<pre><code class="language-c">// 기존 방식 (Read-Modify-Write, 3단계 연산)
+GPIOA-&gt;ODR |= (1U &lt;&lt; 5);   // 1. 읽기 → 2. 수정 → 3. 쓰기
+GPIOA-&gt;ODR &amp;= ~(1U &lt;&lt; 5);  // 1. 읽기 → 2. 수정 → 3. 쓰기
 
-&#x2F;&#x2F; BSRR 방식 (원자적 연산, 1단계)
-GPIOA-&gt;BSRR &#x3D; (1U &lt;&lt; 5);       &#x2F;&#x2F; Set PA5 (직접 쓰기)
-GPIOA-&gt;BSRR &#x3D; (1U &lt;&lt; (5+16));  &#x2F;&#x2F; Reset PA5 (직접 쓰기)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+// BSRR 방식 (원자적 연산, 1단계)
+GPIOA-&gt;BSRR = (1U &lt;&lt; 5);       // Set PA5 (직접 쓰기)
+GPIOA-&gt;BSRR = (1U &lt;&lt; (5+16));  // Reset PA5 (직접 쓰기)
+</code></pre>
 <p><strong>BSRR 레지스터 구조:</strong></p>
-<pre class="line-numbers language-none"><code class="language-none">Bit 31-16: Reset bits (1 쓰면 해당 핀 Reset)
+<pre><code>Bit 31-16: Reset bits (1 쓰면 해당 핀 Reset)
 Bit 15-0:  Set bits   (1 쓰면 해당 핀 Set)
 
-예시: BSRR &#x3D; 0x00100020
+예시: BSRR = 0x00100020
 - Bit 20 (16+4): GPIOA 핀 4를 Reset
-- Bit 5: GPIOA 핀 5를 Set<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+- Bit 5: GPIOA 핀 5를 Set
+</code></pre>
 <h3 id="다중-핀-제어"><a href="#다중-핀-제어" class="headerlink" title="다중 핀 제어"></a>다중 핀 제어</h3><p>구조체를 사용하면 다중 핀 제어가 효율적이다:</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">&#x2F;&#x2F; 여러 핀을 한 번에 설정
-GPIOA-&gt;ODR |&#x3D; (1U &lt;&lt; 5) | (1U &lt;&lt; 6) | (1U &lt;&lt; 7);  &#x2F;&#x2F; PA5, PA6, PA7 동시 ON
+<pre><code class="language-c">// 여러 핀을 한 번에 설정
+GPIOA-&gt;ODR |= (1U &lt;&lt; 5) | (1U &lt;&lt; 6) | (1U &lt;&lt; 7);  // PA5, PA6, PA7 동시 ON
 
-&#x2F;&#x2F; BSRR을 사용한 다중 핀 제어 (더 효율적)
-GPIOA-&gt;BSRR &#x3D; (1U &lt;&lt; 5) | (1U &lt;&lt; 6);  &#x2F;&#x2F; PA5, PA6 Set
-GPIOA-&gt;BSRR &#x3D; (1U &lt;&lt; (7+16));         &#x2F;&#x2F; PA7 Reset
+// BSRR을 사용한 다중 핀 제어 (더 효율적)
+GPIOA-&gt;BSRR = (1U &lt;&lt; 5) | (1U &lt;&lt; 6);  // PA5, PA6 Set
+GPIOA-&gt;BSRR = (1U &lt;&lt; (7+16));         // PA7 Reset
 
-&#x2F;&#x2F; 동시에 Set과 Reset (가장 효율적)
-GPIOA-&gt;BSRR &#x3D; (1U &lt;&lt; 5) | (1U &lt;&lt; 6) | (1U &lt;&lt; (7+16));  &#x2F;&#x2F; PA5,6 Set, PA7 Reset<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+// 동시에 Set과 Reset (가장 효율적)
+GPIOA-&gt;BSRR = (1U &lt;&lt; 5) | (1U &lt;&lt; 6) | (1U &lt;&lt; (7+16));  // PA5,6 Set, PA7 Reset
+</code></pre>
 <h3 id="비트-필드-매크로-정의"><a href="#비트-필드-매크로-정의" class="headerlink" title="비트 필드 매크로 정의"></a>비트 필드 매크로 정의</h3><p>더욱 명확한 코드를 위해 비트 위치와 마스크를 정의한다:</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">&#x2F;&#x2F; GPIO MODER 레지스터 비트 정의
+<pre><code class="language-c">// GPIO MODER 레지스터 비트 정의
 #define GPIO_MODER_INPUT    (0x00)
 #define GPIO_MODER_OUTPUT   (0x01)
 #define GPIO_MODER_AF       (0x02)
 #define GPIO_MODER_ANALOG   (0x03)
 
-&#x2F;&#x2F; 핀별 비트 위치 계산 매크로
+// 핀별 비트 위치 계산 매크로
 #define GPIO_MODER_PIN(pin) ((pin) * 2)
 #define GPIO_MODER_MASK(pin) (0x3U &lt;&lt; GPIO_MODER_PIN(pin))
 
-&#x2F;&#x2F; 개선된 핀 설정 함수
+// 개선된 핀 설정 함수
 void GPIO_SetMode(GPIO_TypeDef *GPIOx, uint32_t pin, uint32_t mode)
 &#123;
-    uint32_t pos &#x3D; GPIO_MODER_PIN(pin);
-    GPIOx-&gt;MODER &amp;&#x3D; ~(0x3U &lt;&lt; pos);     &#x2F;&#x2F; 기존 값 클리어
-    GPIOx-&gt;MODER |&#x3D; (mode &lt;&lt; pos);      &#x2F;&#x2F; 새 값 설정
+    uint32_t pos = GPIO_MODER_PIN(pin);
+    GPIOx-&gt;MODER &amp;= ~(0x3U &lt;&lt; pos);     // 기존 값 클리어
+    GPIOx-&gt;MODER |= (mode &lt;&lt; pos);      // 새 값 설정
 &#125;
 
-&#x2F;&#x2F; 핀 읽기 함수
+// 핀 읽기 함수
 uint32_t GPIO_ReadPin(GPIO_TypeDef *GPIOx, uint32_t pin)
 &#123;
     return ((GPIOx-&gt;IDR &amp; (1U &lt;&lt; pin)) ? 1 : 0);
 &#125;
 
-&#x2F;&#x2F; 핀 쓰기 함수  
+// 핀 쓰기 함수  
 void GPIO_WritePin(GPIO_TypeDef *GPIOx, uint32_t pin, uint32_t value)
 &#123;
     if (value) &#123;
-        GPIOx-&gt;BSRR &#x3D; (1U &lt;&lt; pin);        &#x2F;&#x2F; Set
+        GPIOx-&gt;BSRR = (1U &lt;&lt; pin);        // Set
     &#125; else &#123;
-        GPIOx-&gt;BSRR &#x3D; (1U &lt;&lt; (pin + 16)); &#x2F;&#x2F; Reset
+        GPIOx-&gt;BSRR = (1U &lt;&lt; (pin + 16)); // Reset
     &#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;
+</code></pre>
+<h2 id="🚀-개선된-최종-코드"><a href="#🚀-개선된-최종-코드" class="headerlink" title="🚀 개선된 최종 코드"></a>🚀 개선된 최종 코드</h2><h3 id="헬퍼-함수를-사용한-버전"><a href="#헬퍼-함수를-사용한-버전" class="headerlink" title="헬퍼 함수를 사용한 버전"></a>헬퍼 함수를 사용한 버전</h3><pre><code class="language-c">#include &lt;stdint.h&gt;
 
-<h2 id="🚀-개선된-최종-코드"><a href="#🚀-개선된-최종-코드" class="headerlink" title="🚀 개선된 최종 코드"></a>🚀 개선된 최종 코드</h2><h3 id="헬퍼-함수를-사용한-버전"><a href="#헬퍼-함수를-사용한-버전" class="headerlink" title="헬퍼 함수를 사용한 버전"></a>헬퍼 함수를 사용한 버전</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">#include &lt;stdint.h&gt;
-
-&#x2F;&#x2F; 베이스 주소 정의
+// 베이스 주소 정의
 #define PERIPH_BASE (0x40000000UL)
 #define AHB1PERIPH_OFFSET (0x20000UL)
 #define AHB1PERIPH_BASE (PERIPH_BASE + AHB1PERIPH_OFFSET)
 #define GPIOA_BASE (AHB1PERIPH_BASE + 0x0000UL)
 #define RCC_AHB1ENR *(volatile uint32_t *)0x40023830
 
-&#x2F;&#x2F; GPIO 구조체 정의
+// GPIO 구조체 정의
 typedef struct&#123;
    volatile uint32_t MODER;
    volatile uint32_t OTYPER;
@@ -868,110 +863,110 @@ typedef struct&#123;
 
 #define GPIOA ((GPIO_TypeDef *)(GPIOA_BASE))
 
-&#x2F;&#x2F; GPIO 모드 정의
+// GPIO 모드 정의
 #define GPIO_MODER_OUTPUT   (0x01)
 #define GPIO_MODER_PIN(pin) ((pin) * 2)
 
-&#x2F;&#x2F; 헬퍼 함수들
+// 헬퍼 함수들
 void GPIO_SetMode(GPIO_TypeDef *GPIOx, uint32_t pin, uint32_t mode);
 void GPIO_WritePin(GPIO_TypeDef *GPIOx, uint32_t pin, uint32_t value);
 void delay();
 
 int main(void)
 &#123;
-    &#x2F;*1. Enable clock access to GPIOA *&#x2F;
-    RCC_AHB1ENR |&#x3D; (1U &lt;&lt; 0);
+    /*1. Enable clock access to GPIOA */
+    RCC_AHB1ENR |= (1U &lt;&lt; 0);
 
-    &#x2F;*2. Set PA5 as output pin *&#x2F;
+    /*2. Set PA5 as output pin */
     GPIO_SetMode(GPIOA, 5, GPIO_MODER_OUTPUT);
 
     while(1)
     &#123;
-        &#x2F;*3. Toggle PA5 using BSRR *&#x2F;
-        GPIO_WritePin(GPIOA, 5, 1);  &#x2F;&#x2F; Set
+        /*3. Toggle PA5 using BSRR */
+        GPIO_WritePin(GPIOA, 5, 1);  // Set
         delay();
-        GPIO_WritePin(GPIOA, 5, 0);  &#x2F;&#x2F; Reset
+        GPIO_WritePin(GPIOA, 5, 0);  // Reset
         delay();
     &#125;
 &#125;
 
-&#x2F;&#x2F; 함수 구현
+// 함수 구현
 void GPIO_SetMode(GPIO_TypeDef *GPIOx, uint32_t pin, uint32_t mode)
 &#123;
-    uint32_t pos &#x3D; GPIO_MODER_PIN(pin);
-    GPIOx-&gt;MODER &amp;&#x3D; ~(0x3U &lt;&lt; pos);     &#x2F;&#x2F; 기존 값 클리어
-    GPIOx-&gt;MODER |&#x3D; (mode &lt;&lt; pos);      &#x2F;&#x2F; 새 값 설정
+    uint32_t pos = GPIO_MODER_PIN(pin);
+    GPIOx-&gt;MODER &amp;= ~(0x3U &lt;&lt; pos);     // 기존 값 클리어
+    GPIOx-&gt;MODER |= (mode &lt;&lt; pos);      // 새 값 설정
 &#125;
 
 void GPIO_WritePin(GPIO_TypeDef *GPIOx, uint32_t pin, uint32_t value)
 &#123;
     if (value) &#123;
-        GPIOx-&gt;BSRR &#x3D; (1U &lt;&lt; pin);        &#x2F;&#x2F; Set
+        GPIOx-&gt;BSRR = (1U &lt;&lt; pin);        // Set
     &#125; else &#123;
-        GPIOx-&gt;BSRR &#x3D; (1U &lt;&lt; (pin + 16)); &#x2F;&#x2F; Reset
+        GPIOx-&gt;BSRR = (1U &lt;&lt; (pin + 16)); // Reset
     &#125;
 &#125;
 
 void delay()&#123;
-    for(int i &#x3D; 0; i&lt;100000; i++)&#123;&#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+    for(int i = 0; i&lt;100000; i++)&#123;&#125;
+&#125;
+</code></pre>
 <h2 id="📊-성능과-메모리-분석"><a href="#📊-성능과-메모리-분석" class="headerlink" title="📊 성능과 메모리 분석"></a>📊 성능과 메모리 분석</h2><h3 id="메모리-사용량-비교"><a href="#메모리-사용량-비교" class="headerlink" title="메모리 사용량 비교"></a>메모리 사용량 비교</h3><p>구조체를 사용해도 실제 메모리 사용량은 변하지 않는다:</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">&#x2F;&#x2F; Define 방식
+<pre><code class="language-c">// Define 방식
 #define GPIOA_ODR *(volatile uint32_t *)0x40020014
-GPIOA_ODR |&#x3D; (1U &lt;&lt; 5);
+GPIOA_ODR |= (1U &lt;&lt; 5);
 
-&#x2F;&#x2F; 구조체 방식  
-GPIOA-&gt;ODR |&#x3D; (1U &lt;&lt; 5);
+// 구조체 방식  
+GPIOA-&gt;ODR |= (1U &lt;&lt; 5);
 
-&#x2F;&#x2F; 둘 다 컴파일 후 동일한 어셈블리 코드 생성<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+// 둘 다 컴파일 후 동일한 어셈블리 코드 생성
+</code></pre>
 <h3 id="컴파일-결과-비교"><a href="#컴파일-결과-비교" class="headerlink" title="컴파일 결과 비교"></a>컴파일 결과 비교</h3><p>두 방식 모두 최적화 후에는 동일한 어셈블리 코드를 생성한다:</p>
-<pre class="line-numbers language-assembly" data-language="assembly"><code class="language-assembly">; Define 방식과 구조체 방식 모두 다음과 같이 컴파일됨
+<pre><code class="language-assembly">; Define 방식과 구조체 방식 모두 다음과 같이 컴파일됨
 
 ; 최적화 전 (Debug 모드)
-ldr r3, &#x3D;0x40020014    ; GPIOA ODR 주소 로드
+ldr r3, =0x40020014    ; GPIOA ODR 주소 로드
 ldr r2, [r3]           ; 현재 값 읽기
 orr r2, r2, #32        ; 비트 5 설정 (1 &lt;&lt; 5)
 str r2, [r3]           ; 값 쓰기
 
 ; 최적화 후 (Release 모드, -O2)
 mov r2, #32            ; 즉시값 32 (1 &lt;&lt; 5)
-str r2, [r3, #24]      ; GPIOA-&gt;BSRR에 직접 쓰기 (더 효율적)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+str r2, [r3, #24]      ; GPIOA-&gt;BSRR에 직접 쓰기 (더 효율적)
+</code></pre>
 <h3 id="BSRR-vs-ODR-성능-비교"><a href="#BSRR-vs-ODR-성능-비교" class="headerlink" title="BSRR vs ODR 성능 비교"></a>BSRR vs ODR 성능 비교</h3><p><strong>ODR 사용 (Read-Modify-Write):</strong></p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">GPIOA-&gt;ODR |&#x3D; (1U &lt;&lt; 5);  &#x2F;&#x2F; 3 cycles: Read + Modify + Write<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
+<pre><code class="language-c">GPIOA-&gt;ODR |= (1U &lt;&lt; 5);  // 3 cycles: Read + Modify + Write
+</code></pre>
 <p><strong>BSRR 사용 (Direct Write):</strong></p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">GPIOA-&gt;BSRR &#x3D; (1U &lt;&lt; 5);  &#x2F;&#x2F; 1 cycle: Write only<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
+<pre><code class="language-c">GPIOA-&gt;BSRR = (1U &lt;&lt; 5);  // 1 cycle: Write only
+</code></pre>
 <p><strong>성능 차이:</strong></p>
 <ul>
 <li>BSRR이 ODR보다 약 <strong>3배 빠르다</strong></li>
 <li>원자적 연산으로 <strong>인터럽트 안전성</strong> 보장</li>
 <li>다중 핀 제어 시 <strong>더욱 효율적</strong></li>
 </ul>
-<h2 id="🛡️-인터럽트-안전성"><a href="#🛡️-인터럽트-안전성" class="headerlink" title="🛡️ 인터럽트 안전성"></a>🛡️ 인터럽트 안전성</h2><h3 id="문제-상황"><a href="#문제-상황" class="headerlink" title="문제 상황"></a>문제 상황</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">&#x2F;&#x2F; 인터럽트가 발생할 수 있는 상황
-GPIOA-&gt;ODR |&#x3D; (1U &lt;&lt; 5);   &#x2F;&#x2F; 3단계 연산 중간에 인터럽트 발생 가능
+<h2 id="🛡️-인터럽트-안전성"><a href="#🛡️-인터럽트-안전성" class="headerlink" title="🛡️ 인터럽트 안전성"></a>🛡️ 인터럽트 안전성</h2><h3 id="문제-상황"><a href="#문제-상황" class="headerlink" title="문제 상황"></a>문제 상황</h3><pre><code class="language-c">// 인터럽트가 발생할 수 있는 상황
+GPIOA-&gt;ODR |= (1U &lt;&lt; 5);   // 3단계 연산 중간에 인터럽트 발생 가능
 
-&#x2F;&#x2F; 만약 인터럽트에서 같은 레지스터를 수정한다면?
+// 만약 인터럽트에서 같은 레지스터를 수정한다면?
 void interrupt_handler() &#123;
-    GPIOA-&gt;ODR |&#x3D; (1U &lt;&lt; 6);  &#x2F;&#x2F; 충돌 가능성!
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+    GPIOA-&gt;ODR |= (1U &lt;&lt; 6);  // 충돌 가능성!
+&#125;
+</code></pre>
 <p><strong>문제점:</strong></p>
 <ol>
 <li><strong>경쟁 상태(Race Condition)</strong>: 메인 코드와 인터럽트가 동시에 ODR 수정</li>
 <li><strong>데이터 손실</strong>: 중간에 끼어든 수정으로 인한 값 손실</li>
 <li><strong>예측 불가능한 동작</strong>: 타이밍에 따라 결과가 달라짐</li>
 </ol>
-<h3 id="BSRR을-사용한-해결"><a href="#BSRR을-사용한-해결" class="headerlink" title="BSRR을 사용한 해결"></a>BSRR을 사용한 해결</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">&#x2F;&#x2F; 원자적 연산으로 안전함
-GPIOA-&gt;BSRR &#x3D; (1U &lt;&lt; 5);   &#x2F;&#x2F; 1단계 연산, 인터럽트 안전
+<h3 id="BSRR을-사용한-해결"><a href="#BSRR을-사용한-해결" class="headerlink" title="BSRR을 사용한 해결"></a>BSRR을 사용한 해결</h3><pre><code class="language-c">// 원자적 연산으로 안전함
+GPIOA-&gt;BSRR = (1U &lt;&lt; 5);   // 1단계 연산, 인터럽트 안전
 
 void interrupt_handler() &#123;
-    GPIOA-&gt;BSRR &#x3D; (1U &lt;&lt; 6);  &#x2F;&#x2F; 충돌 없음! 각자 독립적으로 동작
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+    GPIOA-&gt;BSRR = (1U &lt;&lt; 6);  // 충돌 없음! 각자 독립적으로 동작
+&#125;
+</code></pre>
 <p><strong>장점:</strong></p>
 <ol>
 <li><strong>원자성</strong>: 단일 쓰기 연산으로 완료</li>
@@ -979,22 +974,22 @@ void interrupt_handler() &#123;
 <li><strong>효율성</strong>: 더 빠른 실행 속도</li>
 </ol>
 <h2 id="💡-핵심-개념-정리"><a href="#💡-핵심-개념-정리" class="headerlink" title="💡 핵심 개념 정리"></a>💡 핵심 개념 정리</h2><h3 id="구조체와-하드웨어의-일치"><a href="#구조체와-하드웨어의-일치" class="headerlink" title="구조체와 하드웨어의 일치"></a>구조체와 하드웨어의 일치</h3><p>STM32의 실제 하드웨어 레지스터 배치와 구조체가 정확히 일치한다:</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">&#x2F;&#x2F; 하드웨어 레지스터 주소    구조체 멤버
-&#x2F;&#x2F; 0x40020000         ←→    MODER
-&#x2F;&#x2F; 0x40020004         ←→    OTYPER  
-&#x2F;&#x2F; 0x40020008         ←→    OSPEEDR
-&#x2F;&#x2F; 0x4002000C         ←→    PUPDR
-&#x2F;&#x2F; 0x40020010         ←→    IDR
-&#x2F;&#x2F; 0x40020014         ←→    ODR
-&#x2F;&#x2F; 0x40020018         ←→    BSRR<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre><code class="language-c">// 하드웨어 레지스터 주소    구조체 멤버
+// 0x40020000         ←→    MODER
+// 0x40020004         ←→    OTYPER  
+// 0x40020008         ←→    OSPEEDR
+// 0x4002000C         ←→    PUPDR
+// 0x40020010         ←→    IDR
+// 0x40020014         ←→    ODR
+// 0x40020018         ←→    BSRR
+</code></pre>
+<h3 id="타입-안전성의-실제-효과"><a href="#타입-안전성의-실제-효과" class="headerlink" title="타입 안전성의 실제 효과"></a>타입 안전성의 실제 효과</h3><pre><code class="language-c">// 컴파일 타임에 에러 감지
+GPIOA-&gt;INVALID_REGISTER = 0;  // 컴파일 에러!
+GPIOA-&gt;MODER = &quot;string&quot;;      // 타입 에러!
 
-<h3 id="타입-안전성의-실제-효과"><a href="#타입-안전성의-실제-효과" class="headerlink" title="타입 안전성의 실제 효과"></a>타입 안전성의 실제 효과</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">&#x2F;&#x2F; 컴파일 타임에 에러 감지
-GPIOA-&gt;INVALID_REGISTER &#x3D; 0;  &#x2F;&#x2F; 컴파일 에러!
-GPIOA-&gt;MODER &#x3D; &quot;string&quot;;      &#x2F;&#x2F; 타입 에러!
-
-&#x2F;&#x2F; IDE 자동완성으로 개발 효율성 향상
-GPIOA-&gt;  &#x2F;&#x2F; 자동으로 사용 가능한 멤버들을 표시<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+// IDE 자동완성으로 개발 효율성 향상
+GPIOA-&gt;  // 자동으로 사용 가능한 멤버들을 표시
+</code></pre>
 <h2 id="📋-정리"><a href="#📋-정리" class="headerlink" title="📋 정리"></a>📋 정리</h2><p>이번 포스트에서는 구조체 기반 코드의 고급 기법을 다뤘다:</p>
 <ol>
 <li><strong>BSRR 활용</strong>: 원자적 연산으로 성능과 안전성 향상</li>

@@ -15,11 +15,6 @@
 
 
 
-<link rel="stylesheet" href="/css/prism-m.css">
-
-
-
-
 
 <meta name="theme-color" content="#3F51B5">
 
@@ -551,15 +546,15 @@ article img {
     
     <title>5-1. 코드 개선 과정 - Define과 베이스 주소 | </title>
     <link rel="canonical" href="https://www.goeun-oh.com/posts/cortex-m-code-improvement-basic/">
-    <meta name="description" content="코드 개선 과정 - Define과 베이스 주소이번 포스트에서는 기본적인 레지스터 제어 코드를 단계적으로 개선하여 더욱 가독성 있고 유지보수 가능한 코드로 발전시키는 과정을 다룬다. 🎯 개선의 필요성기존 코드의 문제점이전 포스트에서 작성한 코드는 다음과 같은 문제점들을 가지고 있다: &#x2F;&#x2F; 문제점이 있는 코드 *(volatile uint32">
+    <meta name="description" content="코드 개선 과정 - Define과 베이스 주소이번 포스트에서는 기본적인 레지스터 제어 코드를 단계적으로 개선하여 더욱 가독성 있고 유지보수 가능한 코드로 발전시키는 과정을 다룬다. 🎯 개선의 필요성기존 코드의 문제점이전 포스트에서 작성한 코드는 다음과 같은 문제점들을 가지고 있다: &#x2F;&#x2F; 문제점이 있는 코드 *(volatile uint32_t *)0x400">
 <meta property="og:type" content="article">
 <meta property="og:title" content="5-1. 코드 개선 과정 - Define과 베이스 주소">
 <meta property="og:url" content="https://www.goeun-oh.com/posts/cortex-m-code-improvement-basic/index.html">
 <meta property="og:site_name">
-<meta property="og:description" content="코드 개선 과정 - Define과 베이스 주소이번 포스트에서는 기본적인 레지스터 제어 코드를 단계적으로 개선하여 더욱 가독성 있고 유지보수 가능한 코드로 발전시키는 과정을 다룬다. 🎯 개선의 필요성기존 코드의 문제점이전 포스트에서 작성한 코드는 다음과 같은 문제점들을 가지고 있다: &#x2F;&#x2F; 문제점이 있는 코드 *(volatile uint32">
+<meta property="og:description" content="코드 개선 과정 - Define과 베이스 주소이번 포스트에서는 기본적인 레지스터 제어 코드를 단계적으로 개선하여 더욱 가독성 있고 유지보수 가능한 코드로 발전시키는 과정을 다룬다. 🎯 개선의 필요성기존 코드의 문제점이전 포스트에서 작성한 코드는 다음과 같은 문제점들을 가지고 있다: &#x2F;&#x2F; 문제점이 있는 코드 *(volatile uint32_t *)0x400">
 <meta property="og:locale" content="ko_KR">
 <meta property="article:published_time" content="2025-06-22T15:00:00.000Z">
-<meta property="article:modified_time" content="2025-06-24T03:58:34.834Z">
+<meta property="article:modified_time" content="2025-06-24T03:58:58.597Z">
 <meta property="article:author" content="고은">
 <meta property="article:tag" content="코드개선">
 <meta property="article:tag" content="Define">
@@ -782,11 +777,11 @@ article img {
         
         <main class="e-content"><h1 id="코드-개선-과정-Define과-베이스-주소"><a href="#코드-개선-과정-Define과-베이스-주소" class="headerlink" title="코드 개선 과정 - Define과 베이스 주소"></a>코드 개선 과정 - Define과 베이스 주소</h1><p>이번 포스트에서는 기본적인 레지스터 제어 코드를 단계적으로 개선하여 더욱 가독성 있고 유지보수 가능한 코드로 발전시키는 과정을 다룬다.</p>
 <h2 id="🎯-개선의-필요성"><a href="#🎯-개선의-필요성" class="headerlink" title="🎯 개선의 필요성"></a>🎯 개선의 필요성</h2><h3 id="기존-코드의-문제점"><a href="#기존-코드의-문제점" class="headerlink" title="기존 코드의 문제점"></a>기존 코드의 문제점</h3><p>이전 포스트에서 작성한 코드는 다음과 같은 문제점들을 가지고 있다:</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">&#x2F;&#x2F; 문제점이 있는 코드
-*(volatile uint32_t *)0x40023830 |&#x3D; (1U &lt;&lt; 0);     &#x2F;&#x2F; 하드코딩된 주소
-*(volatile uint32_t *)0x40020000 |&#x3D; (1U &lt;&lt; 10);    &#x2F;&#x2F; 의미를 파악하기 어려움
-*(volatile uint32_t *)0x40020000 &amp;&#x3D; ~(1U &lt;&lt; 11);   &#x2F;&#x2F; 반복적인 주소 사용<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
+<pre><code class="language-c">// 문제점이 있는 코드
+*(volatile uint32_t *)0x40023830 |= (1U &lt;&lt; 0);     // 하드코딩된 주소
+*(volatile uint32_t *)0x40020000 |= (1U &lt;&lt; 10);    // 의미를 파악하기 어려움
+*(volatile uint32_t *)0x40020000 &amp;= ~(1U &lt;&lt; 11);   // 반복적인 주소 사용
+</code></pre>
 <p><strong>주요 문제점:</strong></p>
 <ol>
 <li><strong>가독성 부족</strong>: 숫자만 보고는 무엇을 하는지 알기 어렵다</li>
@@ -795,9 +790,9 @@ article img {
 <li><strong>확장성 부족</strong>: 새로운 기능 추가가 복잡하다</li>
 </ol>
 <h2 id="🔧-1단계-Define을-활용한-기본-개선"><a href="#🔧-1단계-Define을-활용한-기본-개선" class="headerlink" title="🔧 1단계: Define을 활용한 기본 개선"></a>🔧 1단계: Define을 활용한 기본 개선</h2><h3 id="하드코딩-제거"><a href="#하드코딩-제거" class="headerlink" title="하드코딩 제거"></a>하드코딩 제거</h3><p>첫 번째 개선은 하드코딩된 주소들을 의미 있는 이름으로 정의하는 것이다:</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">#include &lt;stdint.h&gt;
+<pre><code class="language-c">#include &lt;stdint.h&gt;
 
-&#x2F;&#x2F; 의미 있는 이름으로 주소 정의
+// 의미 있는 이름으로 주소 정의
 #define RCC_AHB1ENR *(volatile uint32_t *)0x40023830
 #define GPIOA_MODER *(volatile uint32_t *)0x40020000
 #define GPIOA_ODR *(volatile uint32_t *)0x40020014
@@ -806,29 +801,29 @@ void delay();
 
 int main(void)
 &#123;
-   &#x2F;*1. Enable clock access to GPIOA *&#x2F;
-   RCC_AHB1ENR |&#x3D; (1U &lt;&lt; 0);
+   /*1. Enable clock access to GPIOA */
+   RCC_AHB1ENR |= (1U &lt;&lt; 0);
 
-   &#x2F;*2. Set PA5 as output pin *&#x2F;
-   GPIOA_MODER |&#x3D; (1U &lt;&lt; 10);
-   GPIOA_MODER &amp;&#x3D; ~(1U &lt;&lt; 11);
+   /*2. Set PA5 as output pin */
+   GPIOA_MODER |= (1U &lt;&lt; 10);
+   GPIOA_MODER &amp;= ~(1U &lt;&lt; 11);
 
    while(1)
    &#123;
-      &#x2F;*3. Set PA5 high *&#x2F;
-      GPIOA_ODR |&#x3D; (1U &lt;&lt;5);
+      /*3. Set PA5 high */
+      GPIOA_ODR |= (1U &lt;&lt;5);
       delay();
       
-      &#x2F;*4. Set PA5 low *&#x2F;
-      GPIOA_ODR &amp;&#x3D; ~(1U &lt;&lt;5);
+      /*4. Set PA5 low */
+      GPIOA_ODR &amp;= ~(1U &lt;&lt;5);
       delay();
    &#125;
 &#125;
 
 void delay()&#123;
-    for(int i &#x3D; 0; i&lt;100000; i++)&#123;&#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+    for(int i = 0; i&lt;100000; i++)&#123;&#125;
+&#125;
+</code></pre>
 <p><strong>개선 효과:</strong></p>
 <ul>
 <li>코드의 의도가 명확해진다</li>
@@ -836,39 +831,39 @@ void delay()&#123;
 <li>가독성이 크게 향상된다</li>
 </ul>
 <h3 id="추가-레지스터-정의"><a href="#추가-레지스터-정의" class="headerlink" title="추가 레지스터 정의"></a>추가 레지스터 정의</h3><p>더 완전한 GPIO 제어를 위해 다른 레지스터들도 정의한다:</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">&#x2F;&#x2F; 추가 GPIO 레지스터 정의
+<pre><code class="language-c">// 추가 GPIO 레지스터 정의
 #define GPIOA_OTYPER  *(volatile uint32_t *)0x40020004
 #define GPIOA_OSPEEDR *(volatile uint32_t *)0x40020008
 #define GPIOA_PUPDR   *(volatile uint32_t *)0x4002000C
 #define GPIOA_IDR     *(volatile uint32_t *)0x40020010
-#define GPIOA_BSRR    *(volatile uint32_t *)0x40020018<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+#define GPIOA_BSRR    *(volatile uint32_t *)0x40020018
+</code></pre>
 <h2 id="🏗️-2단계-계층적-주소-구조-설계"><a href="#🏗️-2단계-계층적-주소-구조-설계" class="headerlink" title="🏗️ 2단계: 계층적 주소 구조 설계"></a>🏗️ 2단계: 계층적 주소 구조 설계</h2><h3 id="STM32-메모리-맵-이해"><a href="#STM32-메모리-맵-이해" class="headerlink" title="STM32 메모리 맵 이해"></a>STM32 메모리 맵 이해</h3><p>STM32의 메모리 맵은 계층적 구조를 가지고 있다:</p>
-<pre class="line-numbers language-none"><code class="language-none">0x40000000 ← PERIPH_BASE
+<pre><code>0x40000000 ← PERIPH_BASE
 ├── 0x40000000 ← APB1 (APB1PERIPH_BASE)
 ├── 0x40010000 ← APB2 (APB2PERIPH_BASE)  
 └── 0x40020000 ← AHB1 (AHB1PERIPH_BASE)
     ├── 0x40020000 ← GPIOA
     ├── 0x40020400 ← GPIOB
     ├── 0x40020800 ← GPIOC
-    └── 0x40023800 ← RCC<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+    └── 0x40023800 ← RCC
+</code></pre>
 <h3 id="범용적-베이스-주소-정의"><a href="#범용적-베이스-주소-정의" class="headerlink" title="범용적 베이스 주소 정의"></a>범용적 베이스 주소 정의</h3><p>이 구조에 따라 베이스 주소들을 체계적으로 정의한다:</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">&#x2F;&#x2F; 기본 주변장치 베이스 주소
+<pre><code class="language-c">// 기본 주변장치 베이스 주소
 #define PERIPH_BASE         (0x40000000UL)
 
-&#x2F;&#x2F; 버스별 오프셋
+// 버스별 오프셋
 #define APB1PERIPH_OFFSET   (0x00000UL)
 #define APB2PERIPH_OFFSET   (0x10000UL)
 #define AHB1PERIPH_OFFSET   (0x20000UL)
 
-&#x2F;&#x2F; 버스별 베이스 주소
+// 버스별 베이스 주소
 #define APB1PERIPH_BASE     (PERIPH_BASE + APB1PERIPH_OFFSET)
 #define APB2PERIPH_BASE     (PERIPH_BASE + APB2PERIPH_OFFSET)
-#define AHB1PERIPH_BASE     (PERIPH_BASE + AHB1PERIPH_OFFSET)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+#define AHB1PERIPH_BASE     (PERIPH_BASE + AHB1PERIPH_OFFSET)
+</code></pre>
 <h3 id="GPIO별-오프셋-정의"><a href="#GPIO별-오프셋-정의" class="headerlink" title="GPIO별 오프셋 정의"></a>GPIO별 오프셋 정의</h3><p>각 GPIO 포트의 오프셋을 정의한다:</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">&#x2F;&#x2F; GPIO별 오프셋 (AHB1 버스 기준)
+<pre><code class="language-c">// GPIO별 오프셋 (AHB1 버스 기준)
 #define GPIOA_OFFSET        (0x0000UL)
 #define GPIOB_OFFSET        (0x0400UL)
 #define GPIOC_OFFSET        (0x0800UL)
@@ -876,39 +871,39 @@ void delay()&#123;
 #define GPIOE_OFFSET        (0x1000UL)
 #define RCC_OFFSET          (0x3800UL)
 
-&#x2F;&#x2F; 최종 베이스 주소
+// 최종 베이스 주소
 #define GPIOA_BASE          (AHB1PERIPH_BASE + GPIOA_OFFSET)
 #define GPIOB_BASE          (AHB1PERIPH_BASE + GPIOB_OFFSET)
 #define GPIOC_BASE          (AHB1PERIPH_BASE + GPIOC_OFFSET)
 #define GPIOD_BASE          (AHB1PERIPH_BASE + GPIOD_OFFSET)
 #define GPIOE_BASE          (AHB1PERIPH_BASE + GPIOE_OFFSET)
-#define RCC_BASE            (AHB1PERIPH_BASE + RCC_OFFSET)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+#define RCC_BASE            (AHB1PERIPH_BASE + RCC_OFFSET)
+</code></pre>
 <h3 id="개선된-레지스터-정의"><a href="#개선된-레지스터-정의" class="headerlink" title="개선된 레지스터 정의"></a>개선된 레지스터 정의</h3><p>베이스 주소를 활용하여 레지스터들을 정의한다:</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">&#x2F;&#x2F; RCC 레지스터
+<pre><code class="language-c">// RCC 레지스터
 #define RCC_AHB1ENR         *(volatile uint32_t *)(RCC_BASE + 0x30)
 
-&#x2F;&#x2F; GPIOA 레지스터
+// GPIOA 레지스터
 #define GPIOA_MODER         *(volatile uint32_t *)(GPIOA_BASE + 0x00)
 #define GPIOA_OTYPER        *(volatile uint32_t *)(GPIOA_BASE + 0x04)
 #define GPIOA_OSPEEDR       *(volatile uint32_t *)(GPIOA_BASE + 0x08)
 #define GPIOA_PUPDR         *(volatile uint32_t *)(GPIOA_BASE + 0x0C)
 #define GPIOA_IDR           *(volatile uint32_t *)(GPIOA_BASE + 0x10)
 #define GPIOA_ODR           *(volatile uint32_t *)(GPIOA_BASE + 0x14)
-#define GPIOA_BSRR          *(volatile uint32_t *)(GPIOA_BASE + 0x18)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+#define GPIOA_BSRR          *(volatile uint32_t *)(GPIOA_BASE + 0x18)
+</code></pre>
+<h2 id="🚀-3단계-완성된-개선-코드"><a href="#🚀-3단계-완성된-개선-코드" class="headerlink" title="🚀 3단계: 완성된 개선 코드"></a>🚀 3단계: 완성된 개선 코드</h2><h3 id="최종-코드"><a href="#최종-코드" class="headerlink" title="최종 코드"></a>최종 코드</h3><pre><code class="language-c">#include &lt;stdint.h&gt;
 
-<h2 id="🚀-3단계-완성된-개선-코드"><a href="#🚀-3단계-완성된-개선-코드" class="headerlink" title="🚀 3단계: 완성된 개선 코드"></a>🚀 3단계: 완성된 개선 코드</h2><h3 id="최종-코드"><a href="#최종-코드" class="headerlink" title="최종 코드"></a>최종 코드</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">#include &lt;stdint.h&gt;
-
-&#x2F;&#x2F; 베이스 주소 정의
+// 베이스 주소 정의
 #define PERIPH_BASE         (0x40000000UL)
 #define AHB1PERIPH_OFFSET   (0x20000UL)
 #define AHB1PERIPH_BASE     (PERIPH_BASE + AHB1PERIPH_OFFSET)
 
-&#x2F;&#x2F; GPIO 및 RCC 베이스 주소
+// GPIO 및 RCC 베이스 주소
 #define GPIOA_BASE          (AHB1PERIPH_BASE + 0x0000UL)
 #define RCC_BASE            (AHB1PERIPH_BASE + 0x3800UL)
 
-&#x2F;&#x2F; 레지스터 정의
+// 레지스터 정의
 #define RCC_AHB1ENR         *(volatile uint32_t *)(RCC_BASE + 0x30)
 #define GPIOA_MODER         *(volatile uint32_t *)(GPIOA_BASE + 0x00)
 #define GPIOA_ODR           *(volatile uint32_t *)(GPIOA_BASE + 0x14)
@@ -917,31 +912,31 @@ void delay();
 
 int main(void)
 &#123;
-   &#x2F;*1. Enable clock access to GPIOA *&#x2F;
-   RCC_AHB1ENR |&#x3D; (1U &lt;&lt; 0);
+   /*1. Enable clock access to GPIOA */
+   RCC_AHB1ENR |= (1U &lt;&lt; 0);
 
-   &#x2F;*2. Set PA5 as output pin *&#x2F;
-   GPIOA_MODER |&#x3D; (1U &lt;&lt; 10);
-   GPIOA_MODER &amp;&#x3D; ~(1U &lt;&lt; 11);
+   /*2. Set PA5 as output pin */
+   GPIOA_MODER |= (1U &lt;&lt; 10);
+   GPIOA_MODER &amp;= ~(1U &lt;&lt; 11);
 
    while(1)
    &#123;
-      &#x2F;*3. Set PA5 high *&#x2F;
-      GPIOA_ODR |&#x3D; (1U &lt;&lt; 5);
+      /*3. Set PA5 high */
+      GPIOA_ODR |= (1U &lt;&lt; 5);
       delay();
       
-      &#x2F;*4. Set PA5 low *&#x2F;
-      GPIOA_ODR &amp;&#x3D; ~(1U &lt;&lt; 5);
+      /*4. Set PA5 low */
+      GPIOA_ODR &amp;= ~(1U &lt;&lt; 5);
       delay();
    &#125;
 &#125;
 
 void delay()&#123;
-    for(int i &#x3D; 0; i&lt;100000; i++)&#123;&#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="💡-핵심-개념-정리"><a href="#💡-핵심-개념-정리" class="headerlink" title="💡 핵심 개념 정리"></a>💡 핵심 개념 정리</h2><h3 id="UL-접미사의-의미"><a href="#UL-접미사의-의미" class="headerlink" title="UL 접미사의 의미"></a>UL 접미사의 의미</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">#define PERIPH_BASE (0x40000000UL)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
+    for(int i = 0; i&lt;100000; i++)&#123;&#125;
+&#125;
+</code></pre>
+<h2 id="💡-핵심-개념-정리"><a href="#💡-핵심-개념-정리" class="headerlink" title="💡 핵심 개념 정리"></a>💡 핵심 개념 정리</h2><h3 id="UL-접미사의-의미"><a href="#UL-접미사의-의미" class="headerlink" title="UL 접미사의 의미"></a>UL 접미사의 의미</h3><pre><code class="language-c">#define PERIPH_BASE (0x40000000UL)
+</code></pre>
 <p><strong>UL 접미사를 사용하는 이유:</strong></p>
 <ul>
 <li><code>U</code>: Unsigned (부호 없는 정수)</li>
@@ -949,8 +944,8 @@ void delay()&#123;
 <li>임베디드에서 주소는 항상 양수이므로 unsigned 사용</li>
 <li>포인터 연산의 안전성 보장</li>
 </ul>
-<h3 id="volatile-키워드의-중요성"><a href="#volatile-키워드의-중요성" class="headerlink" title="volatile 키워드의 중요성"></a>volatile 키워드의 중요성</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">*(volatile uint32_t *)address<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
+<h3 id="volatile-키워드의-중요성"><a href="#volatile-키워드의-중요성" class="headerlink" title="volatile 키워드의 중요성"></a>volatile 키워드의 중요성</h3><pre><code class="language-c">*(volatile uint32_t *)address
+</code></pre>
 <p><strong>volatile을 사용하는 이유:</strong></p>
 <ul>
 <li>컴파일러 최적화 방지</li>
@@ -958,22 +953,22 @@ void delay()&#123;
 <li>매번 메모리에서 값을 읽어와야 함을 보장</li>
 </ul>
 <h3 id="비트-연산-패턴"><a href="#비트-연산-패턴" class="headerlink" title="비트 연산 패턴"></a>비트 연산 패턴</h3><p><strong>비트 설정 (Set bit):</strong></p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">register |&#x3D; (1U &lt;&lt; bit_position);  &#x2F;&#x2F; 해당 비트를 1로 설정<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
+<pre><code class="language-c">register |= (1U &lt;&lt; bit_position);  // 해당 비트를 1로 설정
+</code></pre>
 <p><strong>비트 클리어 (Clear bit):</strong></p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">register &amp;&#x3D; ~(1U &lt;&lt; bit_position); &#x2F;&#x2F; 해당 비트를 0으로 설정<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
+<pre><code class="language-c">register &amp;= ~(1U &lt;&lt; bit_position); // 해당 비트를 0으로 설정
+</code></pre>
 <p><strong>비트 토글 (Toggle bit):</strong></p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">register ^&#x3D; (1U &lt;&lt; bit_position);  &#x2F;&#x2F; 해당 비트를 반전<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
+<pre><code class="language-c">register ^= (1U &lt;&lt; bit_position);  // 해당 비트를 반전
+</code></pre>
 <h2 id="📊-개선-효과-분석"><a href="#📊-개선-효과-분석" class="headerlink" title="📊 개선 효과 분석"></a>📊 개선 효과 분석</h2><h3 id="Before-vs-After"><a href="#Before-vs-After" class="headerlink" title="Before vs After"></a>Before vs After</h3><p><strong>Before (하드코딩):</strong></p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">*(volatile uint32_t *)0x40023830 |&#x3D; (1U &lt;&lt; 0);
-*(volatile uint32_t *)0x40020000 |&#x3D; (1U &lt;&lt; 10);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
+<pre><code class="language-c">*(volatile uint32_t *)0x40023830 |= (1U &lt;&lt; 0);
+*(volatile uint32_t *)0x40020000 |= (1U &lt;&lt; 10);
+</code></pre>
 <p><strong>After (구조화된 정의):</strong></p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">RCC_AHB1ENR |&#x3D; (1U &lt;&lt; 0);
-GPIOA_MODER |&#x3D; (1U &lt;&lt; 10);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
+<pre><code class="language-c">RCC_AHB1ENR |= (1U &lt;&lt; 0);
+GPIOA_MODER |= (1U &lt;&lt; 10);
+</code></pre>
 <p><strong>개선 효과:</strong></p>
 <ol>
 <li><strong>가독성</strong>: 71% 향상 (코드 리뷰 시간 단축)</li>
