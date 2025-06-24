@@ -129,200 +129,110 @@ body {
 }
 
 /* =================================================================
-   VSCode 스타일 코드 블록 - 모든 pre/code 태그에 강제 적용
+   코드 블록 완전 초기화 및 VSCode 스타일 강제 적용
    ================================================================= */
 
-/* 모든 pre 태그에 VSCode 다크 테마 강제 적용 */
+/* 모든 가능한 pre 선택자를 사용해서 완전히 덮어씌우기 */
 pre,
+pre.language-c,
 pre[class*="language-"],
 .post-content pre,
-.main-content pre {
+.main-content pre,
+article pre,
+.mdui-typo pre,
+code.language-c,
+code[class*="language-"] {
+    /* 기존 스타일 완전 초기화 */
+    all: unset !important;
+    
+    /* VSCode 다크 테마 강제 적용 */
+    display: block !important;
     background: #1e1e1e !important;
+    color: #d4d4d4 !important;
     border: 1px solid #404040 !important;
     border-radius: 8px !important;
-    padding: 24px 28px !important;
+    padding: 24px !important;
     margin: 2em 0 !important;
     overflow-x: auto !important;
     font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
-    position: relative;
-}
-
-/* 모든 code 태그 (pre 안에 있는) */
-pre code,
-pre[class*="language-"] code,
-code[class*="language-"],
-.post-content pre code,
-.main-content pre code {
-    display: block !important;
-    background: transparent !important;
-    color: #d4d4d4 !important;
-    font-family: inherit !important;
     font-size: 16px !important;
-    line-height: 1.7 !important;
+    line-height: 1.6 !important;
     font-weight: 400 !important;
     white-space: pre !important;
-    border: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+    position: relative !important;
+    width: auto !important;
+    height: auto !important;
     letter-spacing: 0.3px !important;
-    text-shadow: none !important;
 }
 
-/* 언어 라벨 - C 언어 기본 적용 */
-pre::before,
-pre[class*="language-"]::before,
-.post-content pre::before,
-.main-content pre::before {
-    content: "C";
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: #007ACC;
-    color: white;
-    padding: 6px 12px;
-    font-size: 12px;
-    font-weight: 500;
-    border-bottom-left-radius: 4px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    z-index: 1;
+/* 코드 블록 안의 모든 텍스트를 밝은 색으로 강제 변경 */
+pre *,
+pre.language-c *,
+pre[class*="language-"] *,
+code.language-c *,
+code[class*="language-"] * {
+    color: #d4d4d4 !important;
+    background: transparent !important;
+    font-family: inherit !important;
+    font-size: inherit !important;
+    font-weight: inherit !important;
 }
 
-/* 언어별 라벨 색상 */
-pre[class*="language-c"]::before,
-.post-content pre[class*="language-c"]::before {
-    content: "C";
-    background: #007ACC;
-}
-
-pre[class*="language-javascript"]::before,
-pre[class*="language-js"]::before,
-.post-content pre[class*="language-javascript"]::before,
-.post-content pre[class*="language-js"]::before {
-    content: "JS";
-    background: #F7DF1E;
-    color: #000;
-}
-
-/* 인라인 코드 스타일 */
-code:not(pre code),
-code:not([class*="language-"]),
-.post-content code:not(pre code),
-.main-content code:not(pre code) {
+/* 인라인 코드는 따로 처리 */
+code:not([class*="language-"]):not(pre code) {
     background: #f6f8fa !important;
     color: #d73a49 !important;
     padding: 4px 8px !important;
     border-radius: 4px !important;
     font-family: 'JetBrains Mono', 'Fira Code', monospace !important;
-    font-size: 0.95em !important;
+    font-size: 0.9em !important;
     font-weight: 500 !important;
     border: 1px solid #e1e4e8 !important;
+}
+
+/* "C" 라벨 추가 */
+pre::after,
+pre.language-c::after,
+pre[class*="language-"]::after {
+    content: "C" !important;
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    background: #007ACC !important;
+    color: white !important;
+    padding: 6px 12px !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    border-bottom-left-radius: 4px !important;
+    text-transform: uppercase !important;
+    z-index: 1 !important;
 }
 
 /* 스크롤바 스타일 */
 pre::-webkit-scrollbar,
 pre[class*="language-"]::-webkit-scrollbar {
-    height: 10px;
+    height: 8px !important;
 }
 
 pre::-webkit-scrollbar-track,
 pre[class*="language-"]::-webkit-scrollbar-track {
-    background: #2d2d30;
-    border-radius: 5px;
+    background: #2d2d30 !important;
+    border-radius: 4px !important;
 }
 
 pre::-webkit-scrollbar-thumb,
 pre[class*="language-"]::-webkit-scrollbar-thumb {
-    background: #424242;
-    border-radius: 5px;
-}
-
-pre::-webkit-scrollbar-thumb:hover,
-pre[class*="language-"]::-webkit-scrollbar-thumb:hover {
-    background: #4f4f4f;
+    background: #424242 !important;
+    border-radius: 4px !important;
 }
 
 /* 호버 효과 */
 pre:hover,
 pre[class*="language-"]:hover {
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
-    transform: translateY(-1px);
-    transition: all 0.2s ease;
-}
-
-/* =================================================================
-   PrismJS 문법 하이라이팅 토큰 스타일 - 전역 적용
-   ================================================================= */
-
-/* PrismJS 토큰 스타일 - VSCode 다크 테마 색상 */
-.token.comment,
-.token.prolog,
-.token.doctype,
-.token.cdata {
-    color: #6A9955 !important;
-    font-style: italic;
-}
-
-.token.punctuation {
-    color: #D4D4D4 !important;
-}
-
-.token.property,
-.token.tag,
-.token.boolean,
-.token.number,
-.token.constant,
-.token.symbol,
-.token.deleted {
-    color: #B5CEA8 !important;
-}
-
-.token.selector,
-.token.attr-name,
-.token.string,
-.token.char,
-.token.builtin,
-.token.inserted {
-    color: #CE9178 !important;
-}
-
-.token.operator,
-.token.entity,
-.token.url,
-.language-css .token.string,
-.style .token.string {
-    color: #D4D4D4 !important;
-}
-
-.token.atrule,
-.token.attr-value,
-.token.keyword {
-    color: #569CD6 !important;
-    font-weight: 600;
-}
-
-.token.function,
-.token.class-name {
-    color: #DCDCAA !important;
-    font-weight: 500;
-}
-
-.token.regex,
-.token.important,
-.token.variable {
-    color: #9CDCFE !important;
-}
-
-/* C언어 특화 토큰 */
-.token.macro,
-.token.directive,
-.token.directive-hash {
-    color: #C586C0 !important;
-}
-
-.token.type-class-name {
-    color: #4EC9B0 !important;
+    transform: translateY(-1px) !important;
+    transition: all 0.2s ease !important;
 }
 
 /* 모바일 반응형 스타일 */
@@ -351,21 +261,14 @@ pre[class*="language-"]:hover {
         font-size: 1.4em !important;
     }
     
-    /* 모바일에서 코드 블록 스타일 조정 */
+    /* 모바일 코드 블록 */
     pre,
-    pre[class*="language-"],
-    .post-content pre {
+    pre[class*="language-"] {
         margin: 1.5em -16px !important;
         border-radius: 0 !important;
         border-left: none !important;
         border-right: none !important;
         padding: 20px 16px !important;
-    }
-    
-    pre code,
-    pre[class*="language-"] code,
-    .post-content pre code {
-        font-size: 15px !important;
-        line-height: 1.6 !important;
+        font-size: 14px !important;
     }
 }
