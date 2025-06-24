@@ -1,7 +1,8 @@
 ---
 title: 6. SW Stack과 모듈화
 date: 2025-06-23
-categories: Cortex-M
+categories:
+  - Cortex-M
 tags:
   - SW Stack
   - 모듈화
@@ -48,177 +49,275 @@ SW의 흐름은 위에서 아래로 진행된다. SW가 HW를 제어하는 계�
 +------------------------+
 |         SW            |
 |  +-----------------+  |
-|  |     main        |  |  ← System 초기화, Application 실행
-|  |  +-----------+  |  |
-|  |  |Application|  |  |  ← 비즈니스 로직 처리
-|  |  +-----------+  |  |
-|  |  |  Driver   |  |  |  ← 하드웨어 추상화 계층
-|  |  +-----------+  |  |
-|  |  | Interface |  |  |  ← 하드웨어 직접 제어
-|  |  +-----------+  |  |
+|  |   Application   |  | <- 애플리케이션 레이어
+|  +-----------------+  |
+|  |     API/HAL     |  | <- 하드웨어 추상화 계층
+|  +-----------------+  |
+|  |     Driver      |  | <- 드라이버 계층
 |  +-----------------+  |
 +------------------------+
-+------------------------+
-|         HW            |  ← 실제 하드웨어
+|         HW            | <- 하드웨어
 +------------------------+
 ```
 
-### 각 계층의 역할
+## 📂 폴더 구조 설계
 
-**main 계층:**
-- `system` 초기화
-- `application` 실행 기능 외에는 고려하지 않는다
+### 계층별 폴더 분리
 
-**Application 계층:**
-- 실제 애플리케이션 로직 구현
-- 비즈니스 요구사항 처리
+```
+project/
+├── App/                 # 애플리케이션 계층
+│   ├── main.c
+│   └── app_config.h
+├── HAL/                 # 하드웨어 추상화 계층
+│   ├── gpio_hal.c
+│   ├── gpio_hal.h
+│   ├── led_hal.c
+│   └── led_hal.h
+├── Driver/              # 드라이버 계층
+│   ├── gpio_driver.c
+│   ├── gpio_driver.h
+│   └── system_config.h
+└── Hardware/            # 하드웨어 정의
+    ├── stm32f411xx.h
+    └── memory_map.h
+```
 
-**Driver 계층:**
-- 하드웨어 추상화
-- 재사용 가능한 기능 제공
+## 🔧 GPIO 모듈 분리 실습
 
-**Interface 계층:**
-- 하드웨어 직접 제어
-- 레지스터 수준 접근
-
-## 🚫 잘못된 접근 방식
-
-### Application에서 Interface 직접 접근 문제
-
-Application에서 바로 GPIO(Interface)로 접근하는 것은 지양해야 한다.
-
-**문제점:**
-- GPIO는 하드웨어에 가까운 부분이기 때문에, Application에서 직접 접근하는 것은 좋지 않다
-- 단지 Driver만 수정하면 되는 것이 Interface까지 수정해야 되어 번거로워진다
-
-### 네트워크 스택 예시
-
-인터넷의 'software stack'에서도 동일한 원칙이 적용된다.
-
-![네트워크 스택 예시](https://raw.githubusercontent.com/goeun-oh/ARM/main/0619/0.GPIO_BTN_%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0.md%7BC210C9A6-E664-471B-8447-DBD93432D92B%7D.png)
-
-Application에서 바로 MAC이나 PHY에 접근하지 않는다.
-
-## 💡 올바른 설계 원칙
-
-### 인접한 Layer를 통한 통신
-
-**핵심 원칙:** Application에서 인접한 Layer는 Driver다.
-
-**인접한 Layer를 통해 메시지를 송수신해야 한다**
-
-이렇게 만들어야 재사용성이 좋다.
-
-## 🔧 실제 적용: GPIO 버튼 추가
-
-### 기존 문제상황
-
-기존의 LED Shifter 기능에서 BTN 기능을 추가하여 BTN을 누르면 LED가 반대 방향으로 SHIFT 하도록 하려고 했다.
-
-하지만 기존에 구현했던 것은 버튼을 누르고 있을 때 LED가 멈추는 문제가 있었다.
-
-### BTN 기능 추가를 위한 SW Stack
-
-![BTN 기능 SW Stack](https://raw.githubusercontent.com/goeun-oh/ARM/main/0619/0.GPIO_BTN_%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0.mdimage-1.png)
-
-### ap_main 계층 추가
-
-`ap_main`을 만들어서 SW Stack Layer를 하나 더 추가한다.
-
-`main.c`의 기능:
-- `system` 초기화
-- `application` 실행 기능 외에는 고려하지 않는다
-
-## 🔘 버튼 하드웨어 이해
-
-### BTN(Push Switch, Tact Switch) 분석
-
-Schematic으로 우리가 가진 BTN이 HW적으로 어떤 형태인지 알 수 있다.
-
-![버튼 회로도](https://raw.githubusercontent.com/goeun-oh/ARM/main/0619/0.GPIO_BTN_%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0.mdimage.png)
-
-BTN이 Pullup 되어있다:
-- BTN이 눌리지 않은 상태: `3.3V` (HIGH)
-- BTN이 눌린 상태: `0V` (LOW)
-
-### Chattering(Bounce) 현상
-
-이상적으로 0 또는 1로 변화하면 완벽하지만 노이즈가 껴서 Chattering(Bounce) 현상이 발생한다.
-
-![Chattering 현상](https://raw.githubusercontent.com/goeun-oh/ARM/main/0619/0.GPIO_BTN_%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0.md%7B7AD34572-2C74-4F83-A793-2E73188AF847%7D.png)
-
-이러한 Noise 또한 고려하면서 코드를 짜야한다. (debounce 코드를 작성해야한다)
-
-## 🔍 버튼 상태 감지 구현
-
-### 버튼 상태 정의
-
-**BTN의 상태:**
-1. Button Normal 상태: RELEASED(`1`) 상태
-2. Button Push: PUSHED(`0`) 상태
-
-### GPIO READ 함수 구현
-
-버튼의 상태를 받고 싶다. `Button_GetState()`: 버튼의 상태를 받아오는 함수
+### 1. GPIO 드라이버 계층 (gpio_driver.h)
 
 ```c
-uint32_t GPIO_ReadPin(GPIO_TypeDef *GPIOx, uint32_t pinNum){
-    return ((GPIOx -> IDR & (1U << pinNum))? 1:0); //0이면 0이나가고, 0이 아닌 값이면 1이나간다
+#ifndef GPIO_DRIVER_H
+#define GPIO_DRIVER_H
+
+#include <stdint.h>
+
+// GPIO 베이스 주소 정의
+#define GPIOA_BASE    0x40020000
+#define GPIOB_BASE    0x40020400
+#define GPIOC_BASE    0x40020800
+
+// GPIO 레지스터 구조체
+typedef struct {
+    volatile uint32_t MODER;    // Mode register
+    volatile uint32_t OTYPER;   // Output type register
+    volatile uint32_t OSPEEDR;  // Speed register
+    volatile uint32_t PUPDR;    // Pull-up/pull-down register
+    volatile uint32_t IDR;      // Input data register
+    volatile uint32_t ODR;      // Output data register
+    volatile uint32_t BSRR;     // Bit set/reset register
+    volatile uint32_t LCKR;     // Lock register
+    volatile uint32_t AFR[2];   // Alternate function registers
+} GPIO_TypeDef;
+
+// GPIO 포트 정의
+#define GPIOA  ((GPIO_TypeDef*)GPIOA_BASE)
+#define GPIOB  ((GPIO_TypeDef*)GPIOB_BASE)
+#define GPIOC  ((GPIO_TypeDef*)GPIOC_BASE)
+
+// 함수 선언
+void gpio_clock_enable(GPIO_TypeDef* gpio);
+void gpio_set_mode(GPIO_TypeDef* gpio, uint8_t pin, uint8_t mode);
+void gpio_write_pin(GPIO_TypeDef* gpio, uint8_t pin, uint8_t state);
+
+#endif
+```
+
+### 2. GPIO 드라이버 계층 (gpio_driver.c)
+
+```c
+#include "gpio_driver.h"
+
+// RCC 레지스터 주소
+#define RCC_BASE      0x40023800
+#define RCC_AHB1ENR   (*(volatile uint32_t*)(RCC_BASE + 0x30))
+
+void gpio_clock_enable(GPIO_TypeDef* gpio) {
+    if (gpio == GPIOA) {
+        RCC_AHB1ENR |= (1 << 0);  // GPIOA 클록 활성화
+    } else if (gpio == GPIOB) {
+        RCC_AHB1ENR |= (1 << 1);  // GPIOB 클록 활성화
+    } else if (gpio == GPIOC) {
+        RCC_AHB1ENR |= (1 << 2);  // GPIOC 클록 활성화
+    }
+}
+
+void gpio_set_mode(GPIO_TypeDef* gpio, uint8_t pin, uint8_t mode) {
+    gpio->MODER &= ~(3 << (pin * 2));      // 기존 모드 클리어
+    gpio->MODER |= (mode << (pin * 2));    // 새 모드 설정
+}
+
+void gpio_write_pin(GPIO_TypeDef* gpio, uint8_t pin, uint8_t state) {
+    if (state) {
+        gpio->BSRR = (1 << pin);           // Set pin
+    } else {
+        gpio->BSRR = (1 << (pin + 16));    // Reset pin
+    }
 }
 ```
 
-### Button Get State 함수
+### 3. LED HAL 계층 (led_hal.h)
 
 ```c
-button_state_t Button_GetState(){
- static uint32_t prevState = RELEASED; //전원을 처음에 넣으면 초기값이 HIGH
- uint32_t curState;
- curState= GPIO_ReadPin(GPIOC, 13);
+#ifndef LED_HAL_H
+#define LED_HAL_H
 
- //처음 누른 경우
- if ((prevState == RELEASED) && (curState == PUSHED)){
-  prevState = PUSHED;
-  return ACT_PUSHED;
- } else if ((prevState == PUSHED) &&(curState == RELEASE)){
-  prevState = RELEASED;
-  return ACT_RELEASED;
- }
- return NO_ACT;
+// LED 상태 정의
+typedef enum {
+    LED_OFF = 0,
+    LED_ON  = 1
+} LED_State_t;
+
+// LED 초기화 및 제어 함수
+void led_init(void);
+void led_set_state(LED_State_t state);
+void led_toggle(void);
+
+#endif
+```
+
+### 4. LED HAL 계층 (led_hal.c)
+
+```c
+#include "led_hal.h"
+#include "gpio_driver.h"
+
+// LED 핀 정의
+#define LED_PORT    GPIOA
+#define LED_PIN     5
+
+void led_init(void) {
+    // GPIO 클록 활성화
+    gpio_clock_enable(LED_PORT);
+    
+    // LED 핀을 출력 모드로 설정
+    gpio_set_mode(LED_PORT, LED_PIN, 1);  // 1 = Output mode
+}
+
+void led_set_state(LED_State_t state) {
+    gpio_write_pin(LED_PORT, LED_PIN, state);
+}
+
+void led_toggle(void) {
+    static LED_State_t current_state = LED_OFF;
+    current_state = (current_state == LED_OFF) ? LED_ON : LED_OFF;
+    led_set_state(current_state);
 }
 ```
 
-**static 변수 사용 이유:**
-- Scope를 벗어나도 메모리 공간이 반환되지 않는다
-- 메모리 재할당을 안하니 이전 값이 계속 유지된다
+### 5. 애플리케이션 계층 (main.c)
 
-## 💻 C언어의 한계
+```c
+#include "led_hal.h"
 
-### Edge Detect의 한계
+// 간단한 딜레이 함수
+void delay(volatile uint32_t count) {
+    while(count--);
+}
 
-- C언어 코드만으로는 edge detect 하는게 없다
-- C언어로 CLK edge 동기화를 할 수 없다
+int main(void) {
+    // LED 초기화
+    led_init();
+    
+    while(1) {
+        led_toggle();        // LED 토글
+        delay(1000000);      // 딜레이
+    }
+    
+    return 0;
+}
+```
 
-이러한 한계 때문에 소프트웨어적으로 상태 변화를 감지해야 한다.
+## 🎯 모듈화의 장점
 
-## 📋 정리
+### 1. **코드 재사용성**
+- GPIO 드라이버는 다른 프로젝트에서도 사용 가능
+- LED HAL은 다른 LED 프로젝트에서 재사용 가능
 
-이번 포스트에서는 SW Stack과 모듈화의 중요성을 다뤘다:
+### 2. **유지보수성**
+- 각 계층별로 독립적인 수정 가능
+- 버그 발생 시 해당 계층만 집중 디버깅
 
-1. **폴더 분리**: GPIO 관련 기능을 별도로 분리
-2. **SW Stack**: 계층적 구조로 소프트웨어 설계
-3. **올바른 접근**: 인접한 Layer를 통한 통신
-4. **실제 적용**: 버튼 기능 추가 사례
-5. **하드웨어 이해**: Chattering 현상과 대응
+### 3. **확장성**
+- 새로운 하드웨어 추가 시 드라이버 계층만 수정
+- 새로운 기능 추가 시 해당 계층에만 추가
 
-**핵심 원칙:**
-- Application에서 Interface로 직접 접근 금지
-- 인접한 계층을 통한 통신
-- 재사용성을 고려한 모듈화
-- 하드웨어 특성을 고려한 소프트웨어 설계
+### 4. **협업 효율성**
+- 계층별로 업무 분담 가능
+- 인터페이스가 명확해 협업 시 충돌 최소화
 
-다음 포스트에서는 STM32CubeIDE를 활용한 고급 초기환경 설정을 알아보겠다.
+## 📝 계층 간 통신 규칙
 
----
+### 1. **단방향 의존성**
+- 상위 계층이 하위 계층을 호출
+- 하위 계층은 상위 계층을 직접 호출하지 않음
 
-**이전 포스트**: [5-4. 코드 개선 과정 - 실제 프로젝트 적용](/posts/cortex-m-code-improvement-project)  
-**다음 포스트**: [7. 고급 초기환경 설정](/posts/cortex-m-advanced-setup)
+### 2. **인터페이스 표준화**
+- 각 계층 간 명확한 인터페이스 정의
+- 헤더 파일을 통한 함수 원형 제공
+
+### 3. **데이터 캡슐화**
+- 각 계층의 내부 구현은 숨김
+- 공개 인터페이스만을 통한 접근
+
+## 🚀 실제 프로젝트 적용 팁
+
+### 1. **점진적 리팩토링**
+```c
+// Before: 모든 코드가 main.c에
+int main(void) {
+    // GPIO 클록 설정
+    RCC_AHB1ENR |= (1 << 0);
+    
+    // GPIO 모드 설정
+    GPIOA->MODER &= ~(3 << 10);
+    GPIOA->MODER |= (1 << 10);
+    
+    while(1) {
+        GPIOA->BSRR = (1 << 5);
+        delay(1000000);
+        GPIOA->BSRR = (1 << 21);
+        delay(1000000);
+    }
+}
+
+// After: 계층별 분리
+int main(void) {
+    led_init();
+    
+    while(1) {
+        led_toggle();
+        delay(1000000);
+    }
+}
+```
+
+### 2. **설정 파일 활용**
+```c
+// config.h
+#define LED1_PORT    GPIOA
+#define LED1_PIN     5
+
+#define LED2_PORT    GPIOB
+#define LED2_PIN     3
+```
+
+### 3. **에러 처리 추가**
+```c
+typedef enum {
+    HAL_OK,
+    HAL_ERROR,
+    HAL_BUSY,
+    HAL_TIMEOUT
+} HAL_StatusTypeDef;
+
+HAL_StatusTypeDef led_init(void);
+```
+
+## 📚 참고 자료
+
+이 포스트는 다음 GitHub 레포지토리의 실습 내용을 바탕으로 작성되었습니다:
+- [ARM Repository](https://github.com/goeun-oh/ARM)
+
+다음 포스트에서는 더 복잡한 하드웨어 추상화 계층 구현에 대해 알아보겠습니다.
