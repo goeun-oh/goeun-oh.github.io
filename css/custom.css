@@ -15,8 +15,6 @@
     max-width: 1200px !important;
 }
 
-/* 기존 코드는 그대로 두고 아래 코드들을 추가하세요 */
-
 /* Google Fonts 추가 - 한글 폰트 개선 */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
@@ -131,10 +129,10 @@ body {
 }
 
 /* =================================================================
-   VSCode 스타일 코드 블록 - PrismJS 호환
+   VSCode 스타일 코드 블록 - 완전히 새로운 스타일 (기본 + 하이라이팅)
    ================================================================= */
 
-/* 코드 블록 컨테이너 - VSCode 다크 테마 */
+/* 코드 블록 기본 스타일 - 하이라이팅 전후 모두 적용 */
 .post-content pre,
 .post-content pre[class*="language-"] {
     background: #1e1e1e !important;
@@ -148,57 +146,7 @@ body {
     position: relative;
 }
 
-/* 코드 블록 헤더 (언어 표시) */
-.post-content pre::before,
-.post-content pre[class*="language-"]::before {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: #2d2d30;
-    color: #cccccc;
-    padding: 6px 12px;
-    font-size: 12px;
-    font-weight: 500;
-    border-bottom-left-radius: 4px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    z-index: 1;
-}
-
-/* 언어별 라벨 */
-.post-content pre[class*="language-c"]::before {
-    content: "C";
-    background: #007ACC;
-}
-
-.post-content pre[class*="language-javascript"]::before,
-.post-content pre[class*="language-js"]::before {
-    content: "JS";
-    background: #F7DF1E;
-    color: #000;
-}
-
-.post-content pre[class*="language-css"]::before {
-    content: "CSS";
-    background: #1572B6;
-}
-
-.post-content pre[class*="language-html"]::before {
-    content: "HTML";
-    background: #E34F26;
-}
-
-.post-content pre[class*="language-python"]::before {
-    content: "PYTHON";
-    background: #3776ab;
-}
-
-.post-content pre[class*="language-bash"]::before {
-    content: "BASH";
-    background: #4EAA25;
-}
-
-/* 코드 내용 스타일 */
+/* 코드 내용 기본 스타일 */
 .post-content pre code,
 .post-content code[class*="language-"],
 .post-content pre[class*="language-"] {
@@ -218,6 +166,50 @@ body {
     text-shadow: none !important;
 }
 
+/* 언어 라벨 스타일 - data-lang 속성 기반 */
+.post-content pre[data-lang]::before {
+    content: attr(data-lang);
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #2d2d30;
+    color: #cccccc;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    border-bottom-left-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 1;
+}
+
+/* 언어별 라벨 색상 */
+.post-content pre[data-lang="c"]::before {
+    background: #007ACC;
+}
+
+.post-content pre[data-lang="javascript"]::before {
+    background: #F7DF1E;
+    color: #000;
+}
+
+.post-content pre[data-lang="css"]::before {
+    background: #1572B6;
+}
+
+.post-content pre[data-lang="markup"]::before,
+.post-content pre[data-lang="html"]::before {
+    background: #E34F26;
+}
+
+.post-content pre[data-lang="python"]::before {
+    background: #3776ab;
+}
+
+.post-content pre[data-lang="bash"]::before {
+    background: #4EAA25;
+}
+
 /* 인라인 코드 스타일 */
 .post-content code:not([class*="language-"]) {
     background: #f6f8fa !important;
@@ -231,7 +223,7 @@ body {
     display: inline !important;
 }
 
-/* 코드 블록 스크롤바 스타일 */
+/* 스크롤바 스타일 */
 .post-content pre::-webkit-scrollbar,
 .post-content pre[class*="language-"]::-webkit-scrollbar {
     height: 10px;
@@ -254,7 +246,7 @@ body {
     background: #4f4f4f;
 }
 
-/* 코드 블록 호버 효과 */
+/* 호버 효과 */
 .post-content pre:hover,
 .post-content pre[class*="language-"]:hover {
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
@@ -262,7 +254,37 @@ body {
     transition: all 0.2s ease;
 }
 
-/* PrismJS 토큰 스타일 - VSCode 다크 테마 색상 */
+/* 복사 버튼 스타일 */
+.post-content pre .copy-button {
+    position: absolute;
+    top: 12px;
+    right: 60px; /* 언어 라벨과 겹치지 않도록 조정 */
+    background: #2d2d30;
+    border: 1px solid #404040;
+    color: #cccccc;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 2;
+}
+
+.post-content pre:hover .copy-button {
+    opacity: 1;
+}
+
+.post-content pre .copy-button:hover {
+    background: #37373d;
+    color: #ffffff;
+}
+
+/* =================================================================
+   PrismJS 문법 하이라이팅 토큰 스타일 - VSCode 다크 테마
+   ================================================================= */
+
+/* PrismJS 기본 색상 오버라이드 */
 .post-content .token.comment,
 .post-content .token.prolog,
 .post-content .token.doctype,
@@ -332,6 +354,19 @@ body {
     color: #4EC9B0 !important;
 }
 
+/* 추가 토큰 스타일 */
+.post-content .token.namespace {
+    color: #4EC9B0 !important;
+}
+
+.post-content .token.annotation {
+    color: #DCDCAA !important;
+}
+
+.post-content .token.generic {
+    color: #9CDCFE !important;
+}
+
 /* 모바일 반응형 스타일 */
 @media (max-width: 768px) {
     .mdui-container {
@@ -373,5 +408,9 @@ body {
         padding: 20px 16px !important;
         font-size: 15px !important;
         line-height: 1.6 !important;
+    }
+    
+    .post-content pre .copy-button {
+        right: 16px !important;
     }
 }
