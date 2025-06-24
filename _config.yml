@@ -59,6 +59,12 @@ prismjs:
   tab_replace: ''
   theme: 'tomorrow'
 
+# Table of Contents 설정
+toc:
+  enable: true
+  number: true
+  min_depth: 1
+  max_depth: 6
 
 # Home page setting - 포트폴리오 메인 페이지가 홈으로 표시되도록 설정
 # path: Root path for your blogs index page. (default = '')
