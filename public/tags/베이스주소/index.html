@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
 
 
-    <link rel="dns-prefetch" //cdn.jsdelivr.net>
+<link rel=“dns-prefetch” //cdn.jsdelivr.net>
 
 
 
@@ -19,18 +19,39 @@
 <meta name="theme-color" content="#3F51B5">
 
 
-<!-- Google Fonts 추가 -->
+<!-- Google Fonts 최적화 -->
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
-    html,body{scroll-behavior:smooth;min-height:100vh}
-    blockquote>strong>a{word-break:break-all}
-    .mdui-hoverable:hover,.mdui-hoverable:focus{-webkit-box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12) !important;box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12) !important;}
-    .mdui-card-primary-title a{text-decoration:none !important}
-    .page-number{display:none !important}
-    .mdui-container-fluid{transition:opacity .4s}
+    /* 기본 스타일 */
+    html, body {
+        scroll-behavior: smooth;
+        min-height: 100vh;
+    }
+    
+    blockquote > strong > a {
+        word-break: break-all;
+    }
+    
+    .mdui-hoverable:hover, .mdui-hoverable:focus {
+        box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12) !important;
+    }
+    
+    .mdui-card-primary-title a {
+        text-decoration: none !important;
+    }
+    
+    .page-number {
+        display: none !important;
+    }
+    
+    .mdui-container-fluid {
+        transition: opacity .4s;
+    }
+    
     
         body{background-color: #f6f6f6}
 
@@ -41,643 +62,408 @@
 document.addEventListener('DOMContentLoaded', function() {
     const hasEContent = document.querySelector('.e-content');
     const isHomePage = window.location.pathname === '/' || window.location.pathname === '/index.html';
+    const isArchivePage = window.location.pathname.includes('/archives');
+    const isTagPage = window.location.pathname.includes('/tags');
+    const isCategoryPage = window.location.pathname.includes('/categories');
     
-    if (hasEContent && !isHomePage) {
-        const categoryPosts = {
-            'Cortex-M': [
-                { title: '1. STM32 보드 소개', url: '/2025/06/23/0.cortex-m-board-introduction/' },
-                { title: '2. STM32CubeIDE 프로젝트 생성', url: '/2025/06/23/1.cortex-m-project-setup/' },
-                { title: '3. Cortex-M 초기환경 세팅 가이드', url: '/2025/06/23/cortex-m-initial-setup-guide/' },
-                { title: '4. 바텀부터 LED 제어하기', url: '/2025/06/23/cortex-m-led-control-basics/' },
-                { title: '5-1. 코드 개선 과정 - Define과 베이스 주소', url: '/2025/06/23/cortex-m-code-improvement-basic/' },
-                { title: '5-2. 코드 개선 과정 - 구조체 활용', url: '/2025/06/23/cortex-m-code-improvement-struct/' },
-                { title: '5-3. 코드 개선 과정 - 고급 기법과 성능', url: '/2025/06/23/cortex-m-code-improvement-advanced/' },
-                { title: '6. SW Stack과 모듈화', url: '/2025/06/23/cortex-m-software-stack/' },
-                { title: '7. 고급 초기환경 설정', url: '/2025/06/23/cortex-m-advanced-setup/' }
-            ]
-        };
-
-        function detectCurrentCategory() {
-            const currentPath = window.location.pathname;
-            if (currentPath.includes('/2025/') && currentPath.includes('cortex-m')) {
-                return 'Cortex-M';
-            }
-            return null;
-        }
-
-        function createCategoryTOC() {
-            if (document.getElementById('category-series-nav')) {
-                return;
-            }
-            
-            const currentCategory = detectCurrentCategory();
-            if (!currentCategory || !categoryPosts[currentCategory]) return;
-            
-            const posts = categoryPosts[currentCategory];
-            const currentPath = window.location.pathname;
-            
-            let tocHTML = `
-                <div id="category-series-nav">
-                    <div class="series-header">
-                        <h3>📚 ${currentCategory} 시리즈</h3>
-                        <div class="series-progress">총 ${posts.length}편</div>
-                    </div>
-                    <ul class="series-list">
-            `;
-            
-            posts.forEach((post, index) => {
-                const isCurrentPost = currentPath.includes(post.url.split('/').pop());
-                const postNumber = index + 1;
-                
-                tocHTML += `
-                    <li class="series-item ${isCurrentPost ? 'current' : ''}">
-                        <span class="series-number">${postNumber}</span>
-                        ${isCurrentPost ? 
-                            `<span class="series-title current-title">${post.title} <span class="current-badge">현재</span></span>` :
-                            `<a href="${post.url}" class="series-link">${post.title}</a>`
-                        }
-                    </li>
-                `;
-            });
-            
-            tocHTML += `</ul></div>`;
-            
-            const content = document.querySelector('.e-content');
-            content.insertAdjacentHTML('afterbegin', tocHTML);
-        }
-
-        function createTOC() {
-            if (document.getElementById('table-of-contents')) {
-                return;
-            }
-            
-            const content = document.querySelector('.e-content');
-            const headings = content.querySelectorAll('h1, h2, h3, h4, h5, h6');
-            
-            if (headings.length < 2) return;
-            
-            headings.forEach((heading, index) => {
-                if (!heading.id) {
-                    const text = heading.textContent.trim();
-                    const id = 'heading-' + index + '-' + text.toLowerCase()
-                        .replace(/[^\w\s-가-힣]/g, '')
-                        .replace(/\s+/g, '-');
-                    heading.id = id;
-                }
-            });
-            
-            let tocHTML = '<div id="table-of-contents"><div class="toc-header"><h3>📑 이 글의 목차</h3><button id="toc-toggle" class="toc-toggle">접기</button></div><nav class="toc-nav"><ul class="toc-list">';
-            
-            headings.forEach((heading) => {
-                const level = parseInt(heading.tagName.charAt(1));
-                const text = heading.textContent.trim();
-                const id = heading.id;
-                
-                tocHTML += `<li class="toc-item toc-level-${level}">
-                    <a href="#${id}" class="toc-link">${text}</a>
-                </li>`;
-            });
-            
-            tocHTML += '</ul></nav></div>';
-            
-            const seriesNav = document.getElementById('category-series-nav');
-            if (seriesNav) {
-                seriesNav.insertAdjacentHTML('afterend', tocHTML);
-            } else {
-                content.insertAdjacentHTML('afterbegin', tocHTML);
-            }
-        }
+    // 포스트 페이지 또는 사이드바 콘텐츠 페이지인지 판단
+    const isContentPage = hasEContent || // 포스트 페이지
+                         isArchivePage ||  // 아카이브 페이지  
+                         isTagPage ||      // 태그 페이지
+                         isCategoryPage || // 카테고리 페이지
+                         (!isHomePage && document.querySelector('.mdui-card-content')); // 기타 콘텐츠 페이지
         
-        function initTOCToggle() {
-            const toggleBtn = document.getElementById('toc-toggle');
-            const tocNav = document.querySelector('.toc-nav');
-            
-            if (toggleBtn && tocNav) {
-                toggleBtn.addEventListener('click', function() {
-                    if (tocNav.style.display === 'none') {
-                        tocNav.style.display = 'block';
-                        toggleBtn.textContent = '접기';
-                    } else {
-                        tocNav.style.display = 'none';
-                        toggleBtn.textContent = '펼치기';
-                    }
-                });
-            }
-        }
-        
-        function initTOCHighlight() {
-            const tocLinks = document.querySelectorAll('.toc-link');
-            const headings = document.querySelectorAll('.e-content h1, .e-content h2, .e-content h3, .e-content h4, .e-content h5, .e-content h6');
-            
-            function updateActiveLink() {
-                let current = '';
-                headings.forEach(heading => {
-                    const rect = heading.getBoundingClientRect();
-                    if (rect.top <= 100) {
-                        current = heading.id;
-                    }
-                });
-                
-                tocLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === '#' + current) {
-                        link.classList.add('active');
-                    }
-                });
-            }
-            
-            window.addEventListener('scroll', updateActiveLink);
-            updateActiveLink();
-        }
-        
+    if (isContentPage && !isHomePage) {
         const postStyles = document.createElement('style');
-        postStyles.textContent = `.mdui-card-content.mdui-typo {
-                padding: 3em 4em !important;
-                max-width: 900px !important;
-                margin: 0 auto !important;
-            }
-            
-            #category-series-nav {
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-                color: white !important;
-                border-radius: 12px !important;
-                padding: 2em !important;
-                margin: 0 0 2em 0 !important;
-                box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3) !important;
-            }
-            
-            .series-header {
-                display: flex !important;
-                justify-content: space-between !important;
-                align-items: center !important;
-                margin-bottom: 1.5em !important;
-                border-bottom: 2px solid rgba(255,255,255,0.3) !important;
-                padding-bottom: 1em !important;
-            }
-            
-            .series-header h3 {
-                margin: 0 !important;
-                font-size: 1.4em !important;
-                font-weight: 700 !important;
-                border: none !important;
-                padding: 0 !important;
-                color: white !important;
-            }
-            
-            .series-progress {
-                background: rgba(255,255,255,0.2) !important;
-                padding: 0.5em 1em !important;
-                border-radius: 20px !important;
-                font-size: 0.9em !important;
-                font-weight: 500 !important;
-            }
-            
-            .series-list {
-                list-style: none !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                display: grid !important;
-                gap: 0.8em !important;
-            }
-            
-            .series-item {
-                display: flex !important;
-                align-items: center !important;
-                background: rgba(255,255,255,0.1) !important;
-                border-radius: 8px !important;
-                padding: 1em !important;
-                transition: all 0.3s ease !important;
-                border: 1px solid rgba(255,255,255,0.2) !important;
-            }
-            
-            .series-item:hover {
-                background: rgba(255,255,255,0.2) !important;
-                transform: translateX(5px) !important;
-            }
-            
-            .series-item.current {
-                background: rgba(255,255,255,0.25) !important;
-                border-color: rgba(255,255,255,0.5) !important;
-                transform: scale(1.02) !important;
-            }
-            
-            .series-number {
-                background: rgba(255,255,255,0.9) !important;
-                color: #667eea !important;
-                width: 30px !important;
-                height: 30px !important;
-                border-radius: 50% !important;
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                font-weight: 700 !important;
-                font-size: 0.9em !important;
-                margin-right: 1em !important;
-                flex-shrink: 0 !important;
-            }
-            
-            .series-link {
-                color: white !important;
-                text-decoration: none !important;
-                font-weight: 500 !important;
-                font-size: 0.95em !important;
-                line-height: 1.4 !important;
-                flex: 1 !important;
-            }
-            
-            .series-link:hover {
-                color: #fff !important;
-            }
-            
-            .current-title {
-                color: white !important;
-                font-weight: 600 !important;
-                font-size: 0.95em !important;
-                line-height: 1.4 !important;
-                flex: 1 !important;
-            }
-            
-            .current-badge {
-                background: #28a745 !important;
-                color: white !important;
-                padding: 0.2em 0.6em !important;
-                border-radius: 12px !important;
-                font-size: 0.7em !important;
-                font-weight: 600 !important;
-                margin-left: 1em !important;
-            }
-            
-            #table-of-contents {
-                background: #f8f9ff !important;
-                border: 2px solid #e3f2fd !important;
-                border-radius: 12px !important;
-                padding: 1.5em !important;
-                margin: 0 0 3em 0 !important;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
-            }
-            
-            .toc-header {
-                display: flex !important;
-                justify-content: space-between !important;
-                align-items: center !important;
-                margin-bottom: 1em !important;
-                border-bottom: 2px solid #3498db !important;
-                padding-bottom: 0.5em !important;
-            }
-            
-            .toc-header h3 {
-                margin: 0 !important;
-                color: #2c3e50 !important;
-                font-size: 1.2em !important;
-                font-weight: 600 !important;
-                border: none !important;
-                padding: 0 !important;
-            }
-            
-            .toc-toggle {
-                background: #3498db !important;
-                color: white !important;
-                border: none !important;
-                padding: 0.3em 0.8em !important;
-                border-radius: 15px !important;
-                font-size: 0.8em !important;
-                cursor: pointer !important;
-                transition: all 0.3s ease !important;
-            }
-            
-            .toc-toggle:hover {
-                background: #2980b9 !important;
-                transform: scale(1.05) !important;
-            }
-            
-            .toc-nav {
-                transition: all 0.3s ease !important;
-            }
-            
-            .toc-list {
-                list-style: none !important;
-                padding: 0 !important;
-                margin: 0 !important;
-            }
-            
-            .toc-item {
-                margin: 0.3em 0 !important;
-                line-height: 1.4 !important;
-            }
-            
-            .toc-level-1 { font-weight: 600 !important; }
-            .toc-level-2 { padding-left: 1em !important; font-weight: 500 !important; }
-            .toc-level-3 { padding-left: 2em !important; }
-            .toc-level-4 { padding-left: 3em !important; font-size: 0.9em !important; }
-            .toc-level-5, .toc-level-6 { padding-left: 4em !important; font-size: 0.85em !important; }
-            
-            .toc-link {
-                color: #34495e !important;
-                text-decoration: none !important;
-                padding: 0.2em 0.5em !important;
-                border-radius: 4px !important;
-                display: block !important;
-                transition: all 0.3s ease !important;
-                border-left: 3px solid transparent !important;
-            }
-            
-            .toc-link:hover {
-                background: #e8f4fd !important;
-                color: #2980b9 !important;
-                border-left-color: #3498db !important;
-                transform: translateX(3px) !important;
-            }
-            
-            .toc-link.active {
-                background: #3498db !important;
-                color: white !important;
-                font-weight: 600 !important;
-                border-left-color: #2980b9 !important;
-            }
-            
-            .e-content {
-                font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-                padding: 0 !important;
-            }
-            
-            .e-content, .e-content p, .e-content div, .e-content span, .e-content li, .e-content td, .e-content th {
-                font-size: 17px !important;
-                line-height: 1.8 !important;
-                color: #333 !important;
-                word-break: keep-all !important;
-                word-wrap: break-word !important;
-            }
-            
-            .e-content p {
-                margin-bottom: 1.4em !important;
-                font-size: 17px !important;
-            }
-            
-            .e-content h1 {
-                font-size: 2.4em !important;
-                margin: 1.8em 0 1.2em 0 !important;
-                font-weight: 700 !important;
-                color: #2c3e50 !important;
-                border-bottom: 3px solid #3498db !important;
-                padding-bottom: 0.5em !important;
-                scroll-margin-top: 100px !important;
-            }
-            
-            .e-content h2 {
-                font-size: 2.0em !important;
-                margin: 1.6em 0 1.0em 0 !important;
-                font-weight: 600 !important;
-                color: #34495e !important;
-                border-left: 4px solid #3498db !important;
-                padding-left: 0.8em !important;
-                scroll-margin-top: 100px !important;
-            }
-            
-            .e-content h3 {
-                font-size: 1.6em !important;
-                margin: 1.4em 0 0.8em 0 !important;
-                font-weight: 600 !important;
-                color: #2c3e50 !important;
-                scroll-margin-top: 100px !important;
-            }
-            
-            .e-content h4 {
-                font-size: 1.3em !important;
-                margin: 1.2em 0 0.6em 0 !important;
-                font-weight: 600 !important;
-                color: #34495e !important;
-                scroll-margin-top: 100px !important;
-            }
-            
-            .e-content h5, .e-content h6 {
-                font-size: 1.1em !important;
-                margin: 1em 0 0.5em 0 !important;
-                font-weight: 600 !important;
-                color: #34495e !important;
-                scroll-margin-top: 100px !important;
-            }
-            
-            .e-content ul, .e-content ol {
-                margin: 1.5em 0 !important;
-                padding-left: 2.2em !important;
-            }
-            
-            .e-content li {
-                margin-bottom: 0.8em !important;
-                font-size: 16px !important;
-                line-height: 1.8 !important;
-            }
-            
-            .e-content pre {
-                background: #f8f9fa !important;
-                border: 1px solid #e9ecef !important;
-                border-radius: 8px !important;
-                padding: 1.5em !important;
-                margin: 2em 0 !important;
-                overflow-x: auto !important;
-                font-size: 15px !important;
-                line-height: 1.6 !important;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
-            }
-            
-            .e-content code {
-                background: #f1f3f4 !important;
-                padding: 3px 8px !important;
-                border-radius: 4px !important;
-                font-size: 0.9em !important;
-                color: #d73a49 !important;
-                font-weight: 500 !important;
-            }
-            
-            .e-content pre code {
-                background: none !important;
-                padding: 0 !important;
-                color: inherit !important;
-                font-weight: normal !important;
-            }
-            
-            .e-content p code, .e-content li code {
-                background: #fff2f2 !important;
-                color: #d73a49 !important;
-                font-weight: 600 !important;
-                border: 1px solid #ffebee !important;
-            }
-            
-            .e-content img {
-                max-width: 100% !important;
-                height: auto !important;
-                margin: 2em auto !important;
-                display: block !important;
-                border-radius: 10px !important;
-                box-shadow: 0 6px 20px rgba(0,0,0,0.15) !important;
-                border: 1px solid #eee !important;
-            }
-            
-            .e-content table {
-                width: 100% !important;
-                border-collapse: collapse !important;
-                margin: 2em 0 !important;
-                font-size: 15px !important;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
-                border-radius: 8px !important;
-                overflow: hidden !important;
-            }
-            
-            .e-content th, .e-content td {
-                border: 1px solid #ddd !important;
-                padding: 15px !important;
-                text-align: left !important;
-                font-size: 15px !important;
-                line-height: 1.6 !important;
-            }
-            
-            .e-content th {
-                background: #f5f7fa !important;
-                font-weight: 600 !important;
-                color: #2c3e50 !important;
-                border-bottom: 2px solid #3498db !important;
-            }
-            
-            .e-content tr:nth-child(even) {
-                background: #f9f9f9 !important;
-            }
-            
-            .e-content tr:hover {
-                background: #f5f5f5 !important;
-            }
-            
-            .e-content blockquote {
-                border-left: 5px solid #3498db !important;
-                margin: 2em 0 !important;
-                padding: 1.2em 1.8em !important;
-                background: #f8f9ff !important;
-                border-radius: 0 8px 8px 0 !important;
-                font-style: italic !important;
-                color: #555 !important;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.05) !important;
-            }
-            
-            .e-content a {
-                color: #3498db !important;
-                text-decoration: none !important;
-                border-bottom: 1px solid transparent !important;
-                transition: all 0.3s ease !important;
-            }
-            
-            .e-content a:hover {
-                color: #2980b9 !important;
-                border-bottom-color: #2980b9 !important;
-            }
-            
-            .e-content strong {
-                color: #2c3e50 !important;
-                font-weight: 700 !important;
-            }
-            
-            .e-content em {
-                color: #34495e !important;
-                font-style: italic !important;
-            }
-            
-            @media (max-width: 1024px) {
-                .mdui-card-content.mdui-typo {
-                    padding: 2.5em 3em !important;
-                }
-            }
-            
-            @media (max-width: 768px) {
-                .mdui-card-content.mdui-typo {
-                    padding: 2em 2em !important;
-                }
-                
-                #category-series-nav {
-                    padding: 1.5em !important;
-                    margin: 0 0 1.5em 0 !important;
-                }
-                
-                .series-header {
-                    flex-direction: column !important;
-                    gap: 0.5em !important;
-                    text-align: center !important;
-                }
-                
-                .series-item {
-                    padding: 0.8em !important;
-                }
-                
-                .series-number {
-                    width: 25px !important;
-                    height: 25px !important;
-                    font-size: 0.8em !important;
-                    margin-right: 0.8em !important;
-                }
-                
-                .series-link, .current-title {
-                    font-size: 0.9em !important;
-                }
-                
-                #table-of-contents {
-                    padding: 1em !important;
-                    margin: 0 0 2em 0 !important;
-                }
-                
-                .toc-header {
-                    flex-direction: column !important;
-                    gap: 0.5em !important;
-                }
-                
-                .toc-level-2 { padding-left: 0.5em !important; }
-                .toc-level-3 { padding-left: 1em !important; }
-                .toc-level-4 { padding-left: 1.5em !important; }
-                .toc-level-5, .toc-level-6 { padding-left: 2em !important; }
-                
-                .e-content, .e-content p, .e-content div, .e-content span, .e-content li {
-                    font-size: 16px !important;
-                }
-                
-                .e-content h1 { font-size: 2.0em !important; }
-                .e-content h2 { font-size: 1.7em !important; }
-                .e-content h3 { font-size: 1.4em !important; }
-                
-                .e-content pre {
-                    padding: 1em !important;
-                    font-size: 14px !important;
-                }
-                
-                .e-content table { font-size: 14px !important; }
-                .e-content th, .e-content td {
-                    padding: 10px !important;
-                    font-size: 14px !important;
-                }
-            }
-            
-            @media (max-width: 480px) {
-                .mdui-card-content.mdui-typo {
-                    padding: 1.5em 1.5em !important;
-                }
-                
-                .e-content, .e-content p, .e-content div, .e-content span, .e-content li {
-                    font-size: 15px !important;
-                }
-                
-                .e-content h1 {
-                    font-size: 1.8em !important;
-                }
-                
-                .e-content h2 {
-                    font-size: 1.5em !important;
-                }
-            }
-        `;
-        document.head.appendChild(postStyles);
+        postStyles.textContent = `
+/* 콘텐츠 페이지에만 적용될 스타일 */
+.mdui-card-content.mdui-typo {
+padding: 3em 4em !important;
+max-width: 900px !important;
+margin: 0 auto !important;
+}
+
+        /* 시리즈 네비게이션 완전히 숨기기 */
+        #category-series-nav,
+        .series-navigation,
+        .series-nav,
+        .category-series,
+        [class*="series"] {
+            display: none !important;
+        }
         
-        setTimeout(() => {
-            createCategoryTOC();
-            createTOC();
-            initTOCToggle();
-            initTOCHighlight();
-        }, 100);
-    }
+        /* 목차 스타일 - 심플하게 */
+        #table-of-contents .toc-header {
+            display: none !important;
+        }
+
+        #table-of-contents .toc-toggle {
+            display: none !important;
+        }
+
+        #table-of-contents {
+            padding: 1.5em 0 !important;
+            margin: 0 0 2.5em 0 !important;
+            background: none !important;
+            border: none !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+        }
+
+        #table-of-contents .toc-nav {
+            display: block !important;
+            opacity: 1 !important;
+            max-height: none !important;
+        }
+
+        #table-of-contents .toc-list {
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        #table-of-contents .toc-item {
+            margin: 0 !important;
+            line-height: 1.6 !important;
+        }
+
+        #table-of-contents .toc-level-1 { 
+            display: block !important;
+        }
+        #table-of-contents .toc-level-2, 
+        #table-of-contents .toc-level-3, 
+        #table-of-contents .toc-level-4, 
+        #table-of-contents .toc-level-5, 
+        #table-of-contents .toc-level-6 { 
+            display: none !important;
+        }
+
+        #table-of-contents .toc-link {
+            color: #52a9ff !important;
+            text-decoration: none !important;
+            padding: 0.5em 0 !important;
+            display: block !important;
+            font-size: 0.95em !important;
+            font-weight: 500 !important;
+            transition: color 0.3s ease !important;
+            border: none !important;
+            background: none !important;
+            border-bottom: none !important;
+        }
+
+        #table-of-contents .toc-link:hover {
+            color: #2196f3 !important;
+            background: none !important;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        #table-of-contents .toc-link.active {
+            color: #2196f3 !important;
+            font-weight: 600 !important;
+            background: none !important;
+        }
+        
+        /* 본문 스타일 - .e-content와 일반 콘텐츠 모두 */
+        .e-content,
+        .mdui-card-content.mdui-typo {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+            padding: 0 !important;
+        }
+        
+        .e-content, .e-content p, .e-content div, .e-content span, .e-content li, .e-content td, .e-content th,
+        .mdui-card-content.mdui-typo, .mdui-card-content.mdui-typo p, .mdui-card-content.mdui-typo div, 
+        .mdui-card-content.mdui-typo span, .mdui-card-content.mdui-typo li, .mdui-card-content.mdui-typo td, 
+        .mdui-card-content.mdui-typo th {
+            font-size: 17px !important;
+            line-height: 1.8 !important;
+            color: #2c3e50 !important;
+            word-break: keep-all !important;
+            word-wrap: break-word !important;
+        }
+        
+        .e-content p,
+        .mdui-card-content.mdui-typo p {
+            margin-bottom: 1.6em !important;
+            font-size: 17px !important;
+        }
+        
+        .e-content h1,
+        .mdui-card-content.mdui-typo h1 {
+            font-size: 2.5em !important;
+            margin: 2em 0 1.2em 0 !important;
+            font-weight: 800 !important;
+            color: #2c3e50 !important;
+            border-bottom: 4px solid #3498db !important;
+            padding-bottom: 0.6em !important;
+            scroll-margin-top: 100px !important;
+            position: relative !important;
+        }
+        
+        .e-content h1::before,
+        .mdui-card-content.mdui-typo h1::before {
+            content: '' !important;
+            position: absolute !important;
+            bottom: -4px !important;
+            left: 0 !important;
+            width: 60px !important;
+            height: 4px !important;
+            background: linear-gradient(90deg, #e74c3c, #f39c12) !important;
+            border-radius: 2px !important;
+        }
+        
+        .e-content h2,
+        .mdui-card-content.mdui-typo h2 {
+            font-size: 2.1em !important;
+            margin: 1.8em 0 1em 0 !important;
+            font-weight: 700 !important;
+            color: #34495e !important;
+            border-left: 5px solid #3498db !important;
+            padding: 0.5em 0 0.5em 1em !important;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.05), transparent) !important;
+            border-radius: 0 8px 8px 0 !important;
+            scroll-margin-top: 100px !important;
+        }
+        
+        .e-content h3,
+        .mdui-card-content.mdui-typo h3 {
+            font-size: 1.7em !important;
+            margin: 1.6em 0 0.8em 0 !important;
+            font-weight: 600 !important;
+            color: #2c3e50 !important;
+            scroll-margin-top: 100px !important;
+            position: relative !important;
+        }
+        
+        .e-content h3::before,
+        .mdui-card-content.mdui-typo h3::before {
+            content: '▶' !important;
+            color: #3498db !important;
+            margin-right: 0.5em !important;
+            font-size: 0.8em !important;
+        }
+        
+        .e-content h4, .e-content h5, .e-content h6,
+        .mdui-card-content.mdui-typo h4, .mdui-card-content.mdui-typo h5, .mdui-card-content.mdui-typo h6 {
+            font-weight: 600 !important;
+            color: #34495e !important;
+            scroll-margin-top: 100px !important;
+        }
+        
+        .e-content h4, .mdui-card-content.mdui-typo h4 { font-size: 1.4em !important; margin: 1.4em 0 0.7em 0 !important; }
+        .e-content h5, .mdui-card-content.mdui-typo h5 { font-size: 1.2em !important; margin: 1.2em 0 0.6em 0 !important; }
+        .e-content h6, .mdui-card-content.mdui-typo h6 { font-size: 1.1em !important; margin: 1em 0 0.5em 0 !important; }
+        
+        /* 코드 스타일 개선 */
+        .e-content pre,
+        .mdui-card-content.mdui-typo pre {
+            background: linear-gradient(135deg, #1e1e1e, #2d2d2d) !important;
+            border: 1px solid #404040 !important;
+            border-radius: 12px !important;
+            padding: 2em !important;
+            margin: 2.5em 0 !important;
+            overflow-x: auto !important;
+            font-family: 'JetBrains Mono', 'Consolas', monospace !important;
+            font-size: 15px !important;
+            line-height: 1.6 !important;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3) !important;
+            position: relative !important;
+        }
+        
+        .e-content pre::before,
+        .mdui-card-content.mdui-typo pre::before {
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            height: 3px !important;
+            background: linear-gradient(90deg, #e74c3c, #f39c12, #2ecc71, #3498db) !important;
+            border-radius: 12px 12px 0 0 !important;
+        }
+        
+        .e-content code,
+        .mdui-card-content.mdui-typo code {
+            background: linear-gradient(135deg, #fff2f2, #ffebee) !important;
+            padding: 4px 10px !important;
+            border-radius: 6px !important;
+            font-family: 'JetBrains Mono', 'Consolas', monospace !important;
+            font-size: 0.9em !important;
+            color: #d73a49 !important;
+            font-weight: 600 !important;
+            border: 1px solid #ffcdd2 !important;
+        }
+        
+        .e-content pre code,
+        .mdui-card-content.mdui-typo pre code {
+            background: none !important;
+            padding: 0 !important;
+            color: #f8f8f2 !important;
+            font-weight: normal !important;
+            border: none !important;
+        }
+        
+        /* 기타 스타일 개선 */
+        .e-content ul, .e-content ol,
+        .mdui-card-content.mdui-typo ul, .mdui-card-content.mdui-typo ol {
+            margin: 1.8em 0 !important;
+            padding-left: 2.5em !important;
+        }
+        
+        .e-content li,
+        .mdui-card-content.mdui-typo li {
+            margin-bottom: 1em !important;
+            font-size: 16px !important;
+            line-height: 1.8 !important;
+        }
+        
+        .e-content img,
+        .mdui-card-content.mdui-typo img {
+            max-width: 100% !important;
+            height: auto !important;
+            margin: 2.5em auto !important;
+            display: block !important;
+            border-radius: 12px !important;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15) !important;
+            border: 1px solid #e8e8e8 !important;
+            transition: transform 0.3s ease !important;
+        }
+        
+        .e-content img:hover,
+        .mdui-card-content.mdui-typo img:hover {
+            transform: scale(1.02) !important;
+        }
+        
+        .e-content table,
+        .mdui-card-content.mdui-typo table {
+            width: 100% !important;
+            border-collapse: collapse !important;
+            margin: 2.5em 0 !important;
+            font-size: 15px !important;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1) !important;
+            border-radius: 12px !important;
+            overflow: hidden !important;
+            background: white !important;
+        }
+        
+        .e-content th,
+        .mdui-card-content.mdui-typo th {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2) !important;
+            font-weight: 700 !important;
+            color: #2c3e50 !important;
+            border-bottom: 3px solid #3498db !important;
+            padding: 18px !important;
+        }
+        
+        .e-content td,
+        .mdui-card-content.mdui-typo td {
+            border: 1px solid #e8e8e8 !important;
+            padding: 15px !important;
+            transition: background 0.3s ease !important;
+        }
+        
+        .e-content tr:nth-child(even),
+        .mdui-card-content.mdui-typo tr:nth-child(even) {
+            background: #f9f9f9 !important;
+        }
+        
+        .e-content tr:hover,
+        .mdui-card-content.mdui-typo tr:hover {
+            background: #f0f8ff !important;
+        }
+        
+        .e-content blockquote,
+        .mdui-card-content.mdui-typo blockquote {
+            border-left: 6px solid #3498db !important;
+            margin: 2.5em 0 !important;
+            padding: 1.5em 2em !important;
+            background: linear-gradient(135deg, #f8f9ff, #fff) !important;
+            border-radius: 0 12px 12px 0 !important;
+            font-style: italic !important;
+            color: #555 !important;
+            box-shadow: 0 4px 20px rgba(52, 152, 219, 0.1) !important;
+            position: relative !important;
+        }
+        
+        .e-content blockquote::before,
+        .mdui-card-content.mdui-typo blockquote::before {
+            content: '"' !important;
+            font-size: 4em !important;
+            color: #3498db !important;
+            position: absolute !important;
+            top: -10px !important;
+            left: 15px !important;
+            opacity: 0.3 !important;
+            font-family: serif !important;
+        }
+        
+        .e-content a,
+        .mdui-card-content.mdui-typo a {
+            color: #3498db !important;
+            text-decoration: none !important;
+            border-bottom: 2px solid transparent !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            font-weight: 500 !important;
+        }
+        
+        .e-content a:hover,
+        .mdui-card-content.mdui-typo a:hover {
+            color: #2980b9 !important;
+            border-bottom-color: #2980b9 !important;
+            background: rgba(52, 152, 219, 0.1) !important;
+            padding: 2px 4px !important;
+            border-radius: 4px !important;
+        }
+        
+        .e-content strong,
+        .mdui-card-content.mdui-typo strong {
+            color: #2c3e50 !important;
+            font-weight: 700 !important;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), transparent) !important;
+            padding: 2px 4px !important;
+            border-radius: 4px !important;
+        }
+        
+        /* 반응형 디자인 */
+        @media (max-width: 1024px) {
+            .mdui-card-content.mdui-typo {
+                padding: 2.5em 3em !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mdui-card-content.mdui-typo {
+                padding: 2em 2em !important;
+            }
+            
+            .e-content h1, .mdui-card-content.mdui-typo h1 { font-size: 2.2em !important; }
+            .e-content h2, .mdui-card-content.mdui-typo h2 { font-size: 1.8em !important; }
+            .e-content h3, .mdui-card-content.mdui-typo h3 { font-size: 1.5em !important; }
+            
+            .e-content pre, .mdui-card-content.mdui-typo pre {
+                padding: 1.2em !important;
+                font-size: 14px !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .mdui-card-content.mdui-typo {
+                padding: 1.5em 1.5em !important;
+            }
+            
+            .e-content, .e-content p, .mdui-card-content.mdui-typo, .mdui-card-content.mdui-typo p {
+                font-size: 16px !important;
+            }
+            
+            .e-content h1, .mdui-card-content.mdui-typo h1 { font-size: 2em !important; }
+            .e-content h2, .mdui-card-content.mdui-typo h2 { font-size: 1.6em !important; }
+            .e-content h3, .mdui-card-content.mdui-typo h3 { font-size: 1.3em !important; }
+        }
+    `;
+    document.head.appendChild(postStyles);
+}
+
+
 });
 </script>
     
@@ -721,7 +507,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <a href="#" class="mdui-list-item mdui-ripple h-card">
             <div class="mdui-list-item-avatar">
                 
-                <i class="mdui-color-theme-primary mdui-icon material-icons">person</i>
+                <img alt="고은" class="u-photo" src="/images/avatar.jpg" />
                 
             </div>
             <div class="mdui-list-item-content p-name">고은</div>
@@ -932,70 +718,63 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
 
     
-    <div class="mdui-collapse-item">
-        <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
-            <i class="mdui-list-item-icon mdui-icon material-icons">inbox</i>
-            <div class="mdui-list-item-content">아카이브</div>
-            <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
-        </div>
-        <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
-            <a class="mdui-list-item mdui-ripple m-link" href="/archives/2025/06/">6월 2025</a>
-        </div>
-    </div>
+    <!-- 태그가 비활성화된 경우에도 다른 메뉴들 표시 -->
     
-    <!-- 태그 및 기타 메뉴들을 포함하는 드롭다운 -->
-    <div class="mdui-collapse-item">
-        <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+        <a href="/categories/RISC-V/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">memory</i>
+            <div class="mdui-list-item-content">💻 RISC-V</div>
+        </a>
+    
+        <a href="/categories/Cortex-M/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">developer_board</i>
+            <div class="mdui-list-item-content">🖥️ Cortex-M</div>
+        </a>
+    
+        <a href="/categories/APB/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">device_hub</i>
+            <div class="mdui-list-item-content">📡 APB Protocol</div>
+        </a>
+    
+        <a href="/categories/Verilog/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">electrical_services</i>
+            <div class="mdui-list-item-content">⚡ Verilog</div>
+        </a>
+    
+        <a href="/categories/UART/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">cable</i>
+            <div class="mdui-list-item-content">🔌 UART</div>
+        </a>
+    
+        <a href="/categories/I2C/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">sync_alt</i>
+            <div class="mdui-list-item-content">🔄 I2C</div>
+        </a>
+    
+        <a href="/categories/SPI/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">timeline</i>
+            <div class="mdui-list-item-content">📊 SPI</div>
+        </a>
+    
+        <a href="/categories/RISC-V/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">memory</i>
+            <div class="mdui-list-item-content">🔧 RISC-V</div>
+        </a>
+    
+        <a href="/categories/Verilog/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">electrical_services</i>
+            <div class="mdui-list-item-content">⚡ Verilog 기초</div>
+        </a>
+    
+        <a href="/archives/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">archive</i>
+            <div class="mdui-list-item-content">📚 전체 아카이브</div>
+        </a>
+    
+        <a href="/tags/" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">local_offer</i>
-            <div class="mdui-list-item-content">태그</div>
-            <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
-        </div>
-        <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
-            
-            <!-- 커스텀 메뉴들 -->
-            <a href="/categories/RISC-V/" class="mdui-list-item mdui-ripple m">
-                <i class="mdui-list-item-icon mdui-icon material-icons">memory</i>
-                <div class="mdui-list-item-content">💻 RISC-V</div>
-            </a>
-            
-            <!-- 커스텀 메뉴들 -->
-            <a href="/categories/Cortex-M/" class="mdui-list-item mdui-ripple m">
-                <i class="mdui-list-item-icon mdui-icon material-icons">developer_board</i>
-                <div class="mdui-list-item-content">🖥️ Cortex-M</div>
-            </a>
-            
-            <!-- 커스텀 메뉴들 -->
-            <a href="/categories/APB/" class="mdui-list-item mdui-ripple m">
-                <i class="mdui-list-item-icon mdui-icon material-icons">device_hub</i>
-                <div class="mdui-list-item-content">📡 APB Protocol</div>
-            </a>
-            
-            <!-- 커스텀 메뉴들 -->
-            <a href="/categories/Verilog/" class="mdui-list-item mdui-ripple m">
-                <i class="mdui-list-item-icon mdui-icon material-icons">electrical_services</i>
-                <div class="mdui-list-item-content">⚡ Verilog</div>
-            </a>
-            
-            <!-- 커스텀 메뉴들 -->
-            <a href="/categories/UART/" class="mdui-list-item mdui-ripple m">
-                <i class="mdui-list-item-icon mdui-icon material-icons">cable</i>
-                <div class="mdui-list-item-content">🔌 UART</div>
-            </a>
-            
-            <!-- 커스텀 메뉴들 -->
-            <a href="/categories/I2C/" class="mdui-list-item mdui-ripple m">
-                <i class="mdui-list-item-icon mdui-icon material-icons">sync_alt</i>
-                <div class="mdui-list-item-content">🔄 I2C</div>
-            </a>
-            
-            <!-- 커스텀 메뉴들 -->
-            <a href="/categories/SPI/" class="mdui-list-item mdui-ripple m">
-                <i class="mdui-list-item-icon mdui-icon material-icons">timeline</i>
-                <div class="mdui-list-item-content">📊 SPI</div>
-            </a>
-            
-        </div>
-    </div>
+            <div class="mdui-list-item-content">🏷️ 태그</div>
+        </a>
+    
     
 </nav>
 <div class="mdui-divider"></div>
@@ -1051,7 +830,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <span><a class="tag-none-link" href="/tags/Define/" rel="tag">Define</a> <a class="tag-none-link" href="/tags/%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81/" rel="tag">리팩토링</a> <a class="tag-none-link" href="/tags/%EB%B2%A0%EC%9D%B4%EC%8A%A4%EC%A3%BC%EC%86%8C/" rel="tag">베이스주소</a> <a class="tag-none-link" href="/tags/%EC%BD%94%EB%93%9C%EA%B0%9C%EC%84%A0/" rel="tag">코드개선</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'Created: 2025-06-23 12:00<br>Updated: 2025-06-23 09:10'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'创建时间：2025-06-23 12:00<br>最后更新时间：2025-06-24 09:12'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>2025/06/23/cortex-m-code-improvement-basic/</span>
@@ -1066,7 +845,10 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="p-summary" style="display:none"></div>
         <main class="e-content"><h1 id="코드-개선-과정-Define과-베이스-주소"><a href="#코드-개선-과정-Define과-베이스-주소" class="headerlink" title="코드 개선 과정 - Define과 베이스 주소"></a>코드 개선 과정 - Define과 베이스 주소</h1><p>이번 포스트에서는 기본적인 레지스터 제어 코드를 단계적으로 개선하여 더욱 가독성 있고 유지보수 가능한 코드로 발전시키는 과정을 다룬다.</p>
 <h2 id="🎯-개선의-필요성"><a href="#🎯-개선의-필요성" class="headerlink" title="🎯 개선의 필요성"></a>🎯 개선의 필요성</h2><h3 id="기존-코드의-문제점"><a href="#기존-코드의-문제점" class="headerlink" title="기존 코드의 문제점"></a>기존 코드의 문제점</h3><p>이전 포스트에서 작성한 코드는 다음과 같은 문제점들을 가지고 있다:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 문제점이 있는 코드</span></span><br><span class="line">*(<span class="keyword">volatile</span> <span class="type">uint32_t</span> *)<span class="number">0x40023830</span> |= (<span class="number">1U</span> &lt;&lt; <span class="number">0</span>);     <span class="comment">// 하드코딩된 주소</span></span><br><span class="line">*(<span class="keyword">volatile</span> <span class="type">uint32_t</span> *)<span class="number">0x40020000</span> |= (<span class="number">1U</span> &lt;&lt; <span class="number">10</span>);    <span class="comment">// 의미를 파악하기 어려움</span></span><br><span class="line">*(<span class="keyword">volatile</span> <span class="type">uint32_t</span> *)<span class="number">0x40020000</span> &amp;= ~(<span class="number">1U</span> &lt;&lt; <span class="number">11</span>);   <span class="comment">// 반복적인 주소 사용</span></span><br></pre></td></tr></table></figure>
+<pre class="language-c" data-language="c"><code class="language-c"><span class="token comment">// 문제점이 있는 코드</span>
+<span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token number">0x40023830</span> <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token comment">// 하드코딩된 주소</span>
+<span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token number">0x40020000</span> <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">// 의미를 파악하기 어려움</span>
+<span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token number">0x40020000</span> <span class="token operator">&amp;=</span> <span class="token operator">~</span><span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">11</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">// 반복적인 주소 사용</span></code></pre>
 
 <p><strong>주요 문제점:</strong></p>
 <ol>
@@ -1076,7 +858,39 @@ document.addEventListener('DOMContentLoaded', function() {
 <li><strong>확장성 부족</strong>: 새로운 기능 추가가 복잡하다</li>
 </ol>
 <h2 id="🔧-1단계-Define을-활용한-기본-개선"><a href="#🔧-1단계-Define을-활용한-기본-개선" class="headerlink" title="🔧 1단계: Define을 활용한 기본 개선"></a>🔧 1단계: Define을 활용한 기본 개선</h2><h3 id="하드코딩-제거"><a href="#하드코딩-제거" class="headerlink" title="하드코딩 제거"></a>하드코딩 제거</h3><p>첫 번째 개선은 하드코딩된 주소들을 의미 있는 이름으로 정의하는 것이다:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdint.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 의미 있는 이름으로 주소 정의</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> RCC_AHB1ENR *(volatile uint32_t *)0x40023830</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA_MODER *(volatile uint32_t *)0x40020000</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA_ODR *(volatile uint32_t *)0x40020014</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">delay</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">   <span class="comment">/*1. Enable clock access to GPIOA */</span></span><br><span class="line">   RCC_AHB1ENR |= (<span class="number">1U</span> &lt;&lt; <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">   <span class="comment">/*2. Set PA5 as output pin */</span></span><br><span class="line">   GPIOA_MODER |= (<span class="number">1U</span> &lt;&lt; <span class="number">10</span>);</span><br><span class="line">   GPIOA_MODER &amp;= ~(<span class="number">1U</span> &lt;&lt; <span class="number">11</span>);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">   &#123;</span><br><span class="line">      <span class="comment">/*3. Set PA5 high */</span></span><br><span class="line">      GPIOA_ODR |= (<span class="number">1U</span> &lt;&lt;<span class="number">5</span>);</span><br><span class="line">      delay();</span><br><span class="line">      </span><br><span class="line">      <span class="comment">/*4. Set PA5 low */</span></span><br><span class="line">      GPIOA_ODR &amp;= ~(<span class="number">1U</span> &lt;&lt;<span class="number">5</span>);</span><br><span class="line">      delay();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">delay</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i&lt;<span class="number">100000</span>; i++)&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdint.h></span></span>
+
+<span class="token comment">// 의미 있는 이름으로 주소 정의</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">RCC_AHB1ENR</span> <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token number">0x40023830</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_MODER</span> <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token number">0x40020000</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_ODR</span> <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token number">0x40020014</span></span></span>
+
+<span class="token keyword">void</span> <span class="token function">delay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+   <span class="token comment">/*1. Enable clock access to GPIOA */</span>
+   RCC_AHB1ENR <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   <span class="token comment">/*2. Set PA5 as output pin */</span>
+   GPIOA_MODER <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   GPIOA_MODER <span class="token operator">&amp;=</span> <span class="token operator">~</span><span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">11</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+   <span class="token punctuation">&#123;</span>
+      <span class="token comment">/*3. Set PA5 high */</span>
+      GPIOA_ODR <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">delay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      
+      <span class="token comment">/*4. Set PA5 low */</span>
+      GPIOA_ODR <span class="token operator">&amp;=</span> <span class="token operator">~</span><span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">delay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">void</span> <span class="token function">delay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span><span class="token number">100000</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
 
 <p><strong>개선 효과:</strong></p>
 <ul>
@@ -1085,23 +899,111 @@ document.addEventListener('DOMContentLoaded', function() {
 <li>가독성이 크게 향상된다</li>
 </ul>
 <h3 id="추가-레지스터-정의"><a href="#추가-레지스터-정의" class="headerlink" title="추가 레지스터 정의"></a>추가 레지스터 정의</h3><p>더 완전한 GPIO 제어를 위해 다른 레지스터들도 정의한다:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 추가 GPIO 레지스터 정의</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA_OTYPER  *(volatile uint32_t *)0x40020004</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA_OSPEEDR *(volatile uint32_t *)0x40020008</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA_PUPDR   *(volatile uint32_t *)0x4002000C</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA_IDR     *(volatile uint32_t *)0x40020010</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA_BSRR    *(volatile uint32_t *)0x40020018</span></span><br></pre></td></tr></table></figure>
+<pre class="language-c" data-language="c"><code class="language-c"><span class="token comment">// 추가 GPIO 레지스터 정의</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_OTYPER</span>  <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token number">0x40020004</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_OSPEEDR</span> <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token number">0x40020008</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_PUPDR</span>   <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token number">0x4002000C</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_IDR</span>     <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token number">0x40020010</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_BSRR</span>    <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token number">0x40020018</span></span></span></code></pre>
 
 <h2 id="🏗️-2단계-계층적-주소-구조-설계"><a href="#🏗️-2단계-계층적-주소-구조-설계" class="headerlink" title="🏗️ 2단계: 계층적 주소 구조 설계"></a>🏗️ 2단계: 계층적 주소 구조 설계</h2><h3 id="STM32-메모리-맵-이해"><a href="#STM32-메모리-맵-이해" class="headerlink" title="STM32 메모리 맵 이해"></a>STM32 메모리 맵 이해</h3><p>STM32의 메모리 맵은 계층적 구조를 가지고 있다:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">0x40000000 ← PERIPH_BASE</span><br><span class="line">├── 0x40000000 ← APB1 (APB1PERIPH_BASE)</span><br><span class="line">├── 0x40010000 ← APB2 (APB2PERIPH_BASE)  </span><br><span class="line">└── 0x40020000 ← AHB1 (AHB1PERIPH_BASE)</span><br><span class="line">    ├── 0x40020000 ← GPIOA</span><br><span class="line">    ├── 0x40020400 ← GPIOB</span><br><span class="line">    ├── 0x40020800 ← GPIOC</span><br><span class="line">    └── 0x40023800 ← RCC</span><br></pre></td></tr></table></figure>
+<pre class="language-none"><code class="language-none">0x40000000 ← PERIPH_BASE
+├── 0x40000000 ← APB1 (APB1PERIPH_BASE)
+├── 0x40010000 ← APB2 (APB2PERIPH_BASE)  
+└── 0x40020000 ← AHB1 (AHB1PERIPH_BASE)
+    ├── 0x40020000 ← GPIOA
+    ├── 0x40020400 ← GPIOB
+    ├── 0x40020800 ← GPIOC
+    └── 0x40023800 ← RCC</code></pre>
 
 <h3 id="범용적-베이스-주소-정의"><a href="#범용적-베이스-주소-정의" class="headerlink" title="범용적 베이스 주소 정의"></a>범용적 베이스 주소 정의</h3><p>이 구조에 따라 베이스 주소들을 체계적으로 정의한다:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 기본 주변장치 베이스 주소</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PERIPH_BASE         (0x40000000UL)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 버스별 오프셋</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> APB1PERIPH_OFFSET   (0x00000UL)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> APB2PERIPH_OFFSET   (0x10000UL)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> AHB1PERIPH_OFFSET   (0x20000UL)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 버스별 베이스 주소</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> APB1PERIPH_BASE     (PERIPH_BASE + APB1PERIPH_OFFSET)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> APB2PERIPH_BASE     (PERIPH_BASE + APB2PERIPH_OFFSET)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> AHB1PERIPH_BASE     (PERIPH_BASE + AHB1PERIPH_OFFSET)</span></span><br></pre></td></tr></table></figure>
+<pre class="language-c" data-language="c"><code class="language-c"><span class="token comment">// 기본 주변장치 베이스 주소</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">PERIPH_BASE</span>         <span class="token expression"><span class="token punctuation">(</span><span class="token number">0x40000000UL</span><span class="token punctuation">)</span></span></span>
+
+<span class="token comment">// 버스별 오프셋</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">APB1PERIPH_OFFSET</span>   <span class="token expression"><span class="token punctuation">(</span><span class="token number">0x00000UL</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">APB2PERIPH_OFFSET</span>   <span class="token expression"><span class="token punctuation">(</span><span class="token number">0x10000UL</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">AHB1PERIPH_OFFSET</span>   <span class="token expression"><span class="token punctuation">(</span><span class="token number">0x20000UL</span><span class="token punctuation">)</span></span></span>
+
+<span class="token comment">// 버스별 베이스 주소</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">APB1PERIPH_BASE</span>     <span class="token expression"><span class="token punctuation">(</span>PERIPH_BASE <span class="token operator">+</span> APB1PERIPH_OFFSET<span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">APB2PERIPH_BASE</span>     <span class="token expression"><span class="token punctuation">(</span>PERIPH_BASE <span class="token operator">+</span> APB2PERIPH_OFFSET<span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">AHB1PERIPH_BASE</span>     <span class="token expression"><span class="token punctuation">(</span>PERIPH_BASE <span class="token operator">+</span> AHB1PERIPH_OFFSET<span class="token punctuation">)</span></span></span></code></pre>
 
 <h3 id="GPIO별-오프셋-정의"><a href="#GPIO별-오프셋-정의" class="headerlink" title="GPIO별 오프셋 정의"></a>GPIO별 오프셋 정의</h3><p>각 GPIO 포트의 오프셋을 정의한다:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// GPIO별 오프셋 (AHB1 버스 기준)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA_OFFSET        (0x0000UL)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOB_OFFSET        (0x0400UL)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOC_OFFSET        (0x0800UL)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOD_OFFSET        (0x0C00UL)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOE_OFFSET        (0x1000UL)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> RCC_OFFSET          (0x3800UL)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 최종 베이스 주소</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA_BASE          (AHB1PERIPH_BASE + GPIOA_OFFSET)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOB_BASE          (AHB1PERIPH_BASE + GPIOB_OFFSET)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOC_BASE          (AHB1PERIPH_BASE + GPIOC_OFFSET)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOD_BASE          (AHB1PERIPH_BASE + GPIOD_OFFSET)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOE_BASE          (AHB1PERIPH_BASE + GPIOE_OFFSET)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> RCC_BASE            (AHB1PERIPH_BASE + RCC_OFFSET)</span></span><br></pre></td></tr></table></figure>
+<pre class="language-c" data-language="c"><code class="language-c"><span class="token comment">// GPIO별 오프셋 (AHB1 버스 기준)</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_OFFSET</span>        <span class="token expression"><span class="token punctuation">(</span><span class="token number">0x0000UL</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOB_OFFSET</span>        <span class="token expression"><span class="token punctuation">(</span><span class="token number">0x0400UL</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOC_OFFSET</span>        <span class="token expression"><span class="token punctuation">(</span><span class="token number">0x0800UL</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOD_OFFSET</span>        <span class="token expression"><span class="token punctuation">(</span><span class="token number">0x0C00UL</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOE_OFFSET</span>        <span class="token expression"><span class="token punctuation">(</span><span class="token number">0x1000UL</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">RCC_OFFSET</span>          <span class="token expression"><span class="token punctuation">(</span><span class="token number">0x3800UL</span><span class="token punctuation">)</span></span></span>
+
+<span class="token comment">// 최종 베이스 주소</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_BASE</span>          <span class="token expression"><span class="token punctuation">(</span>AHB1PERIPH_BASE <span class="token operator">+</span> GPIOA_OFFSET<span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOB_BASE</span>          <span class="token expression"><span class="token punctuation">(</span>AHB1PERIPH_BASE <span class="token operator">+</span> GPIOB_OFFSET<span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOC_BASE</span>          <span class="token expression"><span class="token punctuation">(</span>AHB1PERIPH_BASE <span class="token operator">+</span> GPIOC_OFFSET<span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOD_BASE</span>          <span class="token expression"><span class="token punctuation">(</span>AHB1PERIPH_BASE <span class="token operator">+</span> GPIOD_OFFSET<span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOE_BASE</span>          <span class="token expression"><span class="token punctuation">(</span>AHB1PERIPH_BASE <span class="token operator">+</span> GPIOE_OFFSET<span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">RCC_BASE</span>            <span class="token expression"><span class="token punctuation">(</span>AHB1PERIPH_BASE <span class="token operator">+</span> RCC_OFFSET<span class="token punctuation">)</span></span></span></code></pre>
 
 <h3 id="개선된-레지스터-정의"><a href="#개선된-레지스터-정의" class="headerlink" title="개선된 레지스터 정의"></a>개선된 레지스터 정의</h3><p>베이스 주소를 활용하여 레지스터들을 정의한다:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// RCC 레지스터</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> RCC_AHB1ENR         *(volatile uint32_t *)(RCC_BASE + 0x30)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// GPIOA 레지스터</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA_MODER         *(volatile uint32_t *)(GPIOA_BASE + 0x00)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA_OTYPER        *(volatile uint32_t *)(GPIOA_BASE + 0x04)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA_OSPEEDR       *(volatile uint32_t *)(GPIOA_BASE + 0x08)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA_PUPDR         *(volatile uint32_t *)(GPIOA_BASE + 0x0C)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA_IDR           *(volatile uint32_t *)(GPIOA_BASE + 0x10)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA_ODR           *(volatile uint32_t *)(GPIOA_BASE + 0x14)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA_BSRR          *(volatile uint32_t *)(GPIOA_BASE + 0x18)</span></span><br></pre></td></tr></table></figure>
+<pre class="language-c" data-language="c"><code class="language-c"><span class="token comment">// RCC 레지스터</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">RCC_AHB1ENR</span>         <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>RCC_BASE <span class="token operator">+</span> <span class="token number">0x30</span><span class="token punctuation">)</span></span></span>
 
-<h2 id="🚀-3단계-완성된-개선-코드"><a href="#🚀-3단계-완성된-개선-코드" class="headerlink" title="🚀 3단계: 완성된 개선 코드"></a>🚀 3단계: 완성된 개선 코드</h2><h3 id="최종-코드"><a href="#최종-코드" class="headerlink" title="최종 코드"></a>최종 코드</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdint.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 베이스 주소 정의</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PERIPH_BASE         (0x40000000UL)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> AHB1PERIPH_OFFSET   (0x20000UL)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> AHB1PERIPH_BASE     (PERIPH_BASE + AHB1PERIPH_OFFSET)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// GPIO 및 RCC 베이스 주소</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA_BASE          (AHB1PERIPH_BASE + 0x0000UL)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> RCC_BASE            (AHB1PERIPH_BASE + 0x3800UL)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 레지스터 정의</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> RCC_AHB1ENR         *(volatile uint32_t *)(RCC_BASE + 0x30)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA_MODER         *(volatile uint32_t *)(GPIOA_BASE + 0x00)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA_ODR           *(volatile uint32_t *)(GPIOA_BASE + 0x14)</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">delay</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">   <span class="comment">/*1. Enable clock access to GPIOA */</span></span><br><span class="line">   RCC_AHB1ENR |= (<span class="number">1U</span> &lt;&lt; <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">   <span class="comment">/*2. Set PA5 as output pin */</span></span><br><span class="line">   GPIOA_MODER |= (<span class="number">1U</span> &lt;&lt; <span class="number">10</span>);</span><br><span class="line">   GPIOA_MODER &amp;= ~(<span class="number">1U</span> &lt;&lt; <span class="number">11</span>);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">   &#123;</span><br><span class="line">      <span class="comment">/*3. Set PA5 high */</span></span><br><span class="line">      GPIOA_ODR |= (<span class="number">1U</span> &lt;&lt; <span class="number">5</span>);</span><br><span class="line">      delay();</span><br><span class="line">      </span><br><span class="line">      <span class="comment">/*4. Set PA5 low */</span></span><br><span class="line">      GPIOA_ODR &amp;= ~(<span class="number">1U</span> &lt;&lt; <span class="number">5</span>);</span><br><span class="line">      delay();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">delay</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i&lt;<span class="number">100000</span>; i++)&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<span class="token comment">// GPIOA 레지스터</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_MODER</span>         <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOA_BASE <span class="token operator">+</span> <span class="token number">0x00</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_OTYPER</span>        <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOA_BASE <span class="token operator">+</span> <span class="token number">0x04</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_OSPEEDR</span>       <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOA_BASE <span class="token operator">+</span> <span class="token number">0x08</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_PUPDR</span>         <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOA_BASE <span class="token operator">+</span> <span class="token number">0x0C</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_IDR</span>           <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOA_BASE <span class="token operator">+</span> <span class="token number">0x10</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_ODR</span>           <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOA_BASE <span class="token operator">+</span> <span class="token number">0x14</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_BSRR</span>          <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOA_BASE <span class="token operator">+</span> <span class="token number">0x18</span><span class="token punctuation">)</span></span></span></code></pre>
 
-<h2 id="💡-핵심-개념-정리"><a href="#💡-핵심-개념-정리" class="headerlink" title="💡 핵심 개념 정리"></a>💡 핵심 개념 정리</h2><h3 id="UL-접미사의-의미"><a href="#UL-접미사의-의미" class="headerlink" title="UL 접미사의 의미"></a>UL 접미사의 의미</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> PERIPH_BASE (0x40000000UL)</span></span><br></pre></td></tr></table></figure>
+<h2 id="🚀-3단계-완성된-개선-코드"><a href="#🚀-3단계-완성된-개선-코드" class="headerlink" title="🚀 3단계: 완성된 개선 코드"></a>🚀 3단계: 완성된 개선 코드</h2><h3 id="최종-코드"><a href="#최종-코드" class="headerlink" title="최종 코드"></a>최종 코드</h3><pre class="language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdint.h></span></span>
+
+<span class="token comment">// 베이스 주소 정의</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">PERIPH_BASE</span>         <span class="token expression"><span class="token punctuation">(</span><span class="token number">0x40000000UL</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">AHB1PERIPH_OFFSET</span>   <span class="token expression"><span class="token punctuation">(</span><span class="token number">0x20000UL</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">AHB1PERIPH_BASE</span>     <span class="token expression"><span class="token punctuation">(</span>PERIPH_BASE <span class="token operator">+</span> AHB1PERIPH_OFFSET<span class="token punctuation">)</span></span></span>
+
+<span class="token comment">// GPIO 및 RCC 베이스 주소</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_BASE</span>          <span class="token expression"><span class="token punctuation">(</span>AHB1PERIPH_BASE <span class="token operator">+</span> <span class="token number">0x0000UL</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">RCC_BASE</span>            <span class="token expression"><span class="token punctuation">(</span>AHB1PERIPH_BASE <span class="token operator">+</span> <span class="token number">0x3800UL</span><span class="token punctuation">)</span></span></span>
+
+<span class="token comment">// 레지스터 정의</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">RCC_AHB1ENR</span>         <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>RCC_BASE <span class="token operator">+</span> <span class="token number">0x30</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_MODER</span>         <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOA_BASE <span class="token operator">+</span> <span class="token number">0x00</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_ODR</span>           <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOA_BASE <span class="token operator">+</span> <span class="token number">0x14</span><span class="token punctuation">)</span></span></span>
+
+<span class="token keyword">void</span> <span class="token function">delay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+   <span class="token comment">/*1. Enable clock access to GPIOA */</span>
+   RCC_AHB1ENR <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   <span class="token comment">/*2. Set PA5 as output pin */</span>
+   GPIOA_MODER <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   GPIOA_MODER <span class="token operator">&amp;=</span> <span class="token operator">~</span><span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">11</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+   <span class="token punctuation">&#123;</span>
+      <span class="token comment">/*3. Set PA5 high */</span>
+      GPIOA_ODR <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">delay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      
+      <span class="token comment">/*4. Set PA5 low */</span>
+      GPIOA_ODR <span class="token operator">&amp;=</span> <span class="token operator">~</span><span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">delay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">void</span> <span class="token function">delay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span><span class="token number">100000</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<h2 id="💡-핵심-개념-정리"><a href="#💡-핵심-개념-정리" class="headerlink" title="💡 핵심 개념 정리"></a>💡 핵심 개념 정리</h2><h3 id="UL-접미사의-의미"><a href="#UL-접미사의-의미" class="headerlink" title="UL 접미사의 의미"></a>UL 접미사의 의미</h3><pre class="language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">PERIPH_BASE</span> <span class="token expression"><span class="token punctuation">(</span><span class="token number">0x40000000UL</span><span class="token punctuation">)</span></span></span></code></pre>
 
 <p><strong>UL 접미사를 사용하는 이유:</strong></p>
 <ul>
@@ -1110,7 +1012,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li>임베디드에서 주소는 항상 양수이므로 unsigned 사용</li>
 <li>포인터 연산의 안전성 보장</li>
 </ul>
-<h3 id="volatile-키워드의-중요성"><a href="#volatile-키워드의-중요성" class="headerlink" title="volatile 키워드의 중요성"></a>volatile 키워드의 중요성</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*(<span class="keyword">volatile</span> <span class="type">uint32_t</span> *)address</span><br></pre></td></tr></table></figure>
+<h3 id="volatile-키워드의-중요성"><a href="#volatile-키워드의-중요성" class="headerlink" title="volatile 키워드의 중요성"></a>volatile 키워드의 중요성</h3><pre class="language-c" data-language="c"><code class="language-c"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span>address</code></pre>
 
 <p><strong>volatile을 사용하는 이유:</strong></p>
 <ul>
@@ -1119,19 +1021,21 @@ document.addEventListener('DOMContentLoaded', function() {
 <li>매번 메모리에서 값을 읽어와야 함을 보장</li>
 </ul>
 <h3 id="비트-연산-패턴"><a href="#비트-연산-패턴" class="headerlink" title="비트 연산 패턴"></a>비트 연산 패턴</h3><p><strong>비트 설정 (Set bit):</strong></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">register</span> |= (<span class="number">1U</span> &lt;&lt; bit_position);  <span class="comment">// 해당 비트를 1로 설정</span></span><br></pre></td></tr></table></figure>
+<pre class="language-c" data-language="c"><code class="language-c"><span class="token keyword">register</span> <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> bit_position<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 해당 비트를 1로 설정</span></code></pre>
 
 <p><strong>비트 클리어 (Clear bit):</strong></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">register</span> &amp;= ~(<span class="number">1U</span> &lt;&lt; bit_position); <span class="comment">// 해당 비트를 0으로 설정</span></span><br></pre></td></tr></table></figure>
+<pre class="language-c" data-language="c"><code class="language-c"><span class="token keyword">register</span> <span class="token operator">&amp;=</span> <span class="token operator">~</span><span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> bit_position<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 해당 비트를 0으로 설정</span></code></pre>
 
 <p><strong>비트 토글 (Toggle bit):</strong></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">register</span> ^= (<span class="number">1U</span> &lt;&lt; bit_position);  <span class="comment">// 해당 비트를 반전</span></span><br></pre></td></tr></table></figure>
+<pre class="language-c" data-language="c"><code class="language-c"><span class="token keyword">register</span> <span class="token operator">^=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> bit_position<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 해당 비트를 반전</span></code></pre>
 
 <h2 id="📊-개선-효과-분석"><a href="#📊-개선-효과-분석" class="headerlink" title="📊 개선 효과 분석"></a>📊 개선 효과 분석</h2><h3 id="Before-vs-After"><a href="#Before-vs-After" class="headerlink" title="Before vs After"></a>Before vs After</h3><p><strong>Before (하드코딩):</strong></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*(<span class="keyword">volatile</span> <span class="type">uint32_t</span> *)<span class="number">0x40023830</span> |= (<span class="number">1U</span> &lt;&lt; <span class="number">0</span>);</span><br><span class="line">*(<span class="keyword">volatile</span> <span class="type">uint32_t</span> *)<span class="number">0x40020000</span> |= (<span class="number">1U</span> &lt;&lt; <span class="number">10</span>);</span><br></pre></td></tr></table></figure>
+<pre class="language-c" data-language="c"><code class="language-c"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token number">0x40023830</span> <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token number">0x40020000</span> <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 
 <p><strong>After (구조화된 정의):</strong></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RCC_AHB1ENR |= (<span class="number">1U</span> &lt;&lt; <span class="number">0</span>);</span><br><span class="line">GPIOA_MODER |= (<span class="number">1U</span> &lt;&lt; <span class="number">10</span>);</span><br></pre></td></tr></table></figure>
+<pre class="language-c" data-language="c"><code class="language-c">RCC_AHB1ENR <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+GPIOA_MODER <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 
 <p><strong>개선 효과:</strong></p>
 <ol>
@@ -1160,8 +1064,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <blockquote class="mdui-m-x-0 mdui-m-t-4">
     <strong>
-        Author: <a href="#">고은</a><br>
-        URL: <a href="https://www.goeun-oh.com/2025/06/23/cortex-m-code-improvement-basic/">https://www.goeun-oh.com/2025/06/23/cortex-m-code-improvement-basic/</a><br>
+        作者：<a href="#">고은</a><br>
+        链接：<a href="https://www.goeun-oh.com/2025/06/23/cortex-m-code-improvement-basic/">https://www.goeun-oh.com/2025/06/23/cortex-m-code-improvement-basic/</a><br>
         
             라이선스
         
