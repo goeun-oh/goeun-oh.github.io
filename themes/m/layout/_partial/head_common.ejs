@@ -16,13 +16,6 @@
 
 <%- css(theme.vendors.mdui_css) %>
 
-<% if(config.prismjs.enable) { %>
-<%- css(theme.vendors.prism_theme) %>
-<% if(config.prismjs.line_numbers) { %>
-<%- css(theme.vendors.prism_line_numbers) %>
-<% } %>
-<% } %>
-
 <% if(theme.head.favicon) { %>
 
 <link rel="icon shortcut" href="<%= theme.head.favicon %>">
@@ -88,6 +81,14 @@
         <%- theme.m.css %>
     <% } %>
 </style>
+
+<!-- Prism.js CSS는 커스텀 스타일 다음에 로드 -->
+<% if(config.prismjs.enable) { %>
+<%- css(theme.vendors.prism_theme) %>
+<% if(config.prismjs.line_number) { %>
+<%- css(theme.vendors.prism_line_numbers) %>
+<% } %>
+<% } %>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -287,9 +288,9 @@ document.addEventListener('DOMContentLoaded', function() {
     margin: 1em 0 0.5em 0 !important; 
 }
 
-/* 인라인 코드 스타일 - Prism.js와 구분 */
-.e-content code:not(pre code),
-.mdui-card-content.mdui-typo code:not(pre code) {
+/* 인라인 코드만 Bear 스타일 적용, Prism.js 코드 블록은 제외 */
+.e-content code:not([class*="language-"]):not(pre code),
+.mdui-card-content.mdui-typo code:not([class*="language-"]):not(pre code) {
     background: #f6f6f6 !important;
     padding: 2px 6px !important;
     border-radius: 3px !important;
