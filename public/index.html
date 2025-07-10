@@ -554,9 +554,15 @@ article img {
 <meta property="og:description" content="@import url(&#39;https:&#x2F;&#x2F;fonts.googleapis.com&#x2F;css2?family&#x3D;Inter:wght@300;400;500;600;700&amp;family&#x3D;JetBrains+Mono:wght@400;500;600&amp;display&#x3D;swap&#39;);  * {   margin: 0;   padding: 0;   box-sizing: border-box;">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:image" content="https://www.goeun-oh.com/images/projects/i2c-fpga-game.png">
+<meta property="og:image" content="https://www.goeun-oh.com/images/projects/i2c_interface.png">
+<meta property="og:image" content="https://www.goeun-oh.com/images/projects/risc_v_amba.png">
+<meta property="og:image" content="https://www.goeun-oh.com/images/projects/risc-v.png">
+<meta property="og:image" content="https://www.goeun-oh.com/images/projects/sensor_project.png">
+<meta property="og:image" content="https://www.goeun-oh.com/images/projects/verification_tool.png">
+<meta property="og:image" content="https://www.goeun-oh.com/images/projects/sensor_interface.png">
 <meta property="og:image" content="https://www.goeun-oh.com/$%7Burl%7D">
-<meta property="article:published_time" content="2025-07-10T12:44:47.867Z">
-<meta property="article:modified_time" content="2025-07-10T12:44:47.867Z">
+<meta property="article:published_time" content="2025-07-10T14:02:22.586Z">
+<meta property="article:modified_time" content="2025-07-10T14:02:22.586Z">
 <meta property="article:author" content="고은">
 <meta property="article:tag" content="하드웨어 개발자, Verilog, RISC-V, Cortex-M, AXI4, FPGA, 임베디드, 포트폴리오">
 <meta name="twitter:card" content="summary">
@@ -668,7 +674,7 @@ article img {
     </div>
     <div class="mdui-card-primary-subtitle mdui-typo">
         
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-07-10 09:44<br>수정일: 2025-07-10 09:44'}" datetime="2025-07-10T12:44:47.867Z">2025-07-10</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-07-10 11:02<br>수정일: 2025-07-10 11:02'}" datetime="2025-07-10T14:02:22.586Z">2025-07-10</time>
         <span>-</span>
         
             <span>index.html</span>
@@ -2094,94 +2100,181 @@ body {
             </div>
             <div class="tech-stack">
                 <span class="tech-tag">systemVerilog</span>
-                <span class="tech-tag">Vivado</span>
                 <span class="tech-tag">Python</span>
+                <span class="tech-tag">Vivado</span>
+                <span class="tech-tag">VGA</span>
                 <span class="tech-tag">Github</span>
                 <span class="tech-tag">Jira</span>
             </div>
         </div>
-        <!-- Project 2: IT 엘도라도 블로그 -->
-        <div class="project-card" data-readme="I2C">
+        <!-- Project 2: AXI4-Lite 인터페이스 기반 SPI/I2C 통신 프로토콜 설계 -->
+        <div class="project-card" data-readme="AXI4-Lite 기반 SPI/I2C 통신 프로토콜 설계">
             <div class="project-header">
-                <span class="project-title">IT 엘도라도 (블로그)</span>
-                <span class="project-date">2024.09 (1人 개인 프로젝트)</span>
+                <span class="project-title">Peripheral 설계 </span>
+                <span class="project-date">2025.05.21 ~ 2025.05.25 (4人 팀 프로젝트)</span>
             </div>
-            <h3 class="project-name">Notion API/DB와 연동하여 개발한 개인 블로그</h3>
+            <h3 class="project-name">AXI4-Lite 기반 SPI/I2C 통신 프로토콜 설계</h3>
+                        <!-- 프로젝트 이미지 -->
+            <div class="project-image">
+                <img src="images/projects/i2c_interface.png" alt="I2C Interface" />
+            </div>
             <div class="project-description">
                 <ul>
-                    <li>티스토리 블로그에서의 불편함을 해소하고자 직접 개발</li>
-                    <li>별도의 데이터베이스 서버 없이 Notion API/DB와 연동하여 개발</li>
-                    <li>감성 연간 최적화(SEO) 고도화 및 검색 마이그레이션 등의 기능</li>
-                    <li>무한 스크롤, 방문/조회 수 추적, 댓글/좋아요 등의 커뮤니티 기능 개발</li>
+                    <li>AXI4-Lite 기반의 SPI, I2C 통신 프로토콜 구현</li>
+                    <li>I2C 기반 보드 간 직렬 통신 인터페이스 설계</li>
+                    <li>Synopsys VCS, Verdi를 활용하여 검증</li>
                 </ul>
             </div>
             <div class="tech-stack">
-                <span class="tech-tag">TypeScript</span>
-                <span class="tech-tag">Next.js</span>
-                <span class="tech-tag">Zustand</span>
-                <span class="tech-tag">React-Query</span>
-                <span class="tech-tag">Tailwind CSS</span>
-                <span class="tech-tag">Notion</span>
-                <span class="tech-tag">Vercel</span>
+                <span class="tech-tag">systemVerilog</span>
+                <span class="tech-tag">Vivado</span>
+                <span class="tech-tag">Microblaze</span>
+                <span class="tech-tag">Synopsys VCS</span>
+                <span class="tech-tag">Synopsys Verdi</span>
             </div>
         </div>
-        <!-- Project 3: FOSSLight Hub Lite -->
+        <!-- Project 3: APB 기반 RISC-V Peripheral 설계 -->
         <div class="project-card" data-readme="fosslight">
             <div class="project-header">
-                <span class="project-title">FOSSLight Hub Lite</span>
-                <span class="project-date">2023.09 - 2023.12 (2人 팀 프로젝트)</span>
+                <span class="project-title">RISC-V</span>
+                <span class="project-date">2025.04.30 - 2025.05.06 (4人 팀 프로젝트)</span>
             </div>
-            <h3 class="project-name">LG 전자의 FOSSLight Hub 웹사이트를 사용자 기능 중심으로 리모델링한 웹사이트</h3>
+            <h3 class="project-name"> RISC-V AMBA Peripheral 설계</h3>
+                                    <!-- 프로젝트 이미지 -->
+            <div class="project-image">
+                <img src="images/projects/risc_v_amba.png" alt="I2C Interface" />
+            </div>
             <div class="project-description">
                 <ul>
-                    <li>LG 전자에서 라이선스 어디 사용자를 위한 간소화 버전의 웹사이트 개발을 요청</li>
-                    <li>기존 FOSSLight Hub 프로젝트의 환경에 특사시 기존 사용자들의 접근성 화면</li>
-                    <li>내부 UI 웹이 리신시 서클 취득 서비스 화 시 자상하들의 안내성 화인</li>
-                    <li>URL 위리 라이터피어 연동하는 정보/빌더 기능 및 모의 발기/단기 기능 구현</li>
-                    <li>전반적인 UI/UX를 새롭게 설계하여 종합적인 사용성 개선</li>
+                    <li>RV32I 기반 Multi-Cycle CPU Core end-to-end 설계</li>
+                    <li>AMBA APB 프로토콜 기반 각종 Peripheral 연동</li>
+                    <li>UVM-lite 구조 기반 System Verilog Testbench를 활용한 Peripheral 기능 검증</li>
+                    <li>C 기반 애플리케이션 설계</li>
                 </ul>
             </div>
             <div class="tech-stack">
-                <span class="tech-tag">TypeScript</span>
-                <span class="tech-tag">Next.js</span>
-                <span class="tech-tag">Recoil</span>
-                <span class="tech-tag">React-Query</span>
-                <span class="tech-tag">React-Hook-Form</span>
-                <span class="tech-tag">Tailwind CSS</span>
+                <span class="tech-tag">systemVerilog</span>
+                <span class="tech-tag">UVM-lite</span>
+                <span class="tech-tag">RISC-V</span>
+                <span class="tech-tag">AMBA APB</span>
+                <span class="tech-tag">DHT-11</span>
+                <span class="tech-tag">Ultrasonic</span>
+                <span class="tech-tag">basys3</span>
+                <span class="tech-tag">Vivado</span>
+                <span class="tech-tag">Vitis</span>
             </div>
             <div class="project-buttons">
-                <a href="#" class="btn btn-primary" onclick="event.stopPropagation(); openReadme('fosslight')">📖 README</a>
-                <a href="#" class="btn btn-secondary">🎥 영상</a>
+                <a href="#" class="btn btn-primary" onclick="event.stopPropagation(); openReadme('fosslight')">📖 Document</a>
+                <a href="#" class="btn btn-secondary">🎥 발표 영상</a>
             </div>
         </div>
-        <!-- Project 4: 메이플 경매장 올리기 -->
+        <!-- Project 4: RISC-V 명령어 집합을 활용한 Single Cycle CPU 설계 -->
         <div class="project-card">
             <div class="project-header">
-                <span class="project-title">메이플 경매장 올리기</span>
-                <span class="project-date">2023.08 - 2023.09 (2人 팀 프로젝트)</span>
+                <span class="project-title">RISC-V</span>
+                <span class="project-date">2025.04.09 - 2025.04.13 (1人 프로젝트)</span>
             </div>
-            <h3 class="project-name">메이플스토리의 아이템이 찾아는 조건으로 경매장에 올리곤을 떼 일일펄을 받아보기 위한 웹사이트</h3>
+            <h3 class="project-name">RISC-V RV32I 기반 CPU Core 설계</h3>
+                                                <!-- 프로젝트 이미지 -->
+            <div class="project-image">
+                <img src="images/projects/risc-v.png" alt="RISC-V" />
+            </div>
             <div class="project-description">
                 <ul>
-                    <li>메이플스토리 특정 아이템의 확정적인 아이템이 찾아하여 개발</li>
-                    <li>Nexus의 React 18 기반의 Next.js 13 업을 및 측위</li>
-                    <li>React-Query, React-Hook-Form을 활용하여 API 요청 및 입력 폼 처리</li>
-                    <li>Next.js 서버를 리페삼 프밗시를 활용하여 IP 노출 및 CORS 문제 해결</li>
+                    <li>RISC-V RV32I 명령어 구조의 Single Cycle CPU 설계</li>
+                    <li>R, I, S, B, U, J 타입별 명령어 설계</li>
+                    <li>테스트 벤치를 활용한 설계 내용 검증</li>
                 </ul>
             </div>
             <div class="tech-stack">
-                <span class="tech-tag">TypeScript</span>
-                <span class="tech-tag">Next.js</span>
-                <span class="tech-tag">Recoil</span>
-                <span class="tech-tag">React-Query</span>
-                <span class="tech-tag">React-Hook-Form</span>
-                <span class="tech-tag">Sass</span>
-                <span class="tech-tag">Tailwind CSS</span>
-                <span class="tech-tag">Vercel</span>
+                <span class="tech-tag">verilog</span>
+                <span class="tech-tag">systemVerilog</span>
+                <span class="tech-tag">RISC-V</span>
+                <span class="tech-tag">Vivado</span>
             </div>
             <div class="project-buttons">
-                <a href="#" class="btn btn-primary">📖 README</a>
-                <a href="#" class="btn btn-secondary">🖥 이미지</a>
+                <a href="#" class="btn btn-primary">발표 영상</a>
+            </div>
+        </div>
+        <!-- Project 5: FPGA를 이용한 UART 통신 기반 통합 제어 시스템 구현-->
+        <div class="project-card">
+            <div class="project-header">
+                <span class="project-title">센서 제어</span>
+                <span class="project-date">2025.03.27 - 2025.03.30 (4人 프로젝트)</span>
+            </div>
+            <h3 class="project-name">FPGA, UART 통신을 활용한 다기능 디스플레이 모듈 개발</h3>
+                                                <!-- 프로젝트 이미지 -->
+            <div class="project-image">
+                <img src="images/projects/sensor_project.png" alt="seonsor_project" />
+            </div>
+            <div class="project-description">
+                <ul>
+                    <li>Basys3 FPGA 보드를 활용하여 시계, 스톱워치, 온습도 및 거리 측정 기능이 통합된 다기능 디스플레이 모듈 개발</li>
+                    <li>Basys 3 보드의 버튼과 UART RX 입력을 통한 모듈의 모드 제어</li>
+                    <li>FND, PC 화면을 통해 모듈의 출력값 표시</li>
+                </ul>
+            </div>
+            <div class="tech-stack">
+                <span class="tech-tag">verilog</span>
+                <span class="tech-tag">UART</span>
+                <span class="tech-tag">Vivado</span>
+            </div>
+            <div class="project-buttons">
+                <a href="#" class="btn btn-primary">발표 영상</a>
+            </div>
+        </div>
+        <!-- Project 6:Python 기반의 Verilog 검증 자동화툴 개발-->
+        <div class="project-card">
+            <div class="project-header">
+                <span class="project-title">자동화툴 개발</span>
+                <span class="project-date">2025.02.20 - 2025.02.25 (4人 프로젝트)</span>
+            </div>
+            <h3 class="project-name">Python 기반의 Verilog 검증 자동화툴 개발</h3>
+                                                <!-- 프로젝트 이미지 -->
+            <div class="project-image">
+                <img src="images/projects/verification_tool.png" alt="verification tool" />
+            </div>
+            <div class="project-description">
+                <ul>
+                    <li>Verilog로 작성된 모듈을 자동으로 검증하는 도구 개발</li>
+                    <li>Python을 활용하여 입력 값을 자동으로 생성하고, 실제 DUT의 출력과 Python 시뮬레이션의 결과가 동일한지 확인</li>
+                    <li>GIT Actions을 활용하여 테스트 모듈을 주기적으로 검사하도록 설정</li>
+                </ul>
+            </div>
+            <div class="tech-stack">
+                <span class="tech-tag">verilog</span>
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">Github</span>
+                <span class="tech-tag">CI/CD</span>
+            </div>
+            <div class="project-buttons">
+                <a href="#" class="btn btn-primary">발표 영상</a>
+            </div>
+        </div>
+        <!-- Project 7:최종 오차 0.01% 미만의 센서 인터페이스 설계 - PCB, FPGA 로직 설계-->
+        <div class="project-card">
+            <div class="project-header">
+                <span class="project-title">센서 인터페이스 설계</span>
+                <span class="project-date">2024.03 - 2024.12 (2人 프로젝트)</span>
+            </div>
+            <h3 class="project-name">최종 오차 0.01% 미만의 센서 인터페이스 설계 - PCB, FPGA 로직 설계</h3>
+                                                <!-- 프로젝트 이미지 -->
+            <div class="project-image">
+                <img src="images/projects/sensor_interface.png" alt="sensor-interface" />
+            </div>
+            <div class="project-description">
+                <ul>
+                    <li>코로나 방전 현상 방지를 위해 UV-C 방사를 안정적으로 감지하고 출력하는 센서 인터페이스 시스템 설계</li>
+                </ul>
+            </div>
+            <div class="tech-stack">
+                <span class="tech-tag">verilog</span>
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">PCB</span>
+                <span class="tech-tag">UV-C Sensor</span>
+            </div>
+            <div class="project-buttons">
+                <a href="#" class="btn btn-primary">발표 영상</a>
             </div>
         </div>
         <!-- Project 5: 우는 노래 부우자? -->
@@ -2353,7 +2446,7 @@ document.addEventListener('DOMContentLoaded', function() {
             projectCards.forEach((card, index) => {
                 if (this.checked) {
                     // 주요 프로젝트만 보기 (처음 4개만 표시)
-                    card.style.display = index < 4 ? 'block' : 'none';
+                    card.style.display = index < 7 ? 'block' : 'none';
                 } else {
                     // 모든 프로젝트 보기
                     card.style.display = 'block';
