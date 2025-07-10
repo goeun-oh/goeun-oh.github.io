@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="ko" >
+<head>
+    <meta charset="utf-8">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+
+
+<link rel="dns-prefetch" //cdn.jsdelivr.net>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.2/dist/css/mdui.min.css">
+
+
+
+
+
+<meta name="theme-color" content="#3F51B5">
+
+
+<!-- Bear 스타일 폰트 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600&family=SF+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+    /* 기본 스타일 */
+    html, body {
+        scroll-behavior: smooth;
+        min-height: 100vh;
+        background-color: #fafafa !important;
+    }
+    
+    /* 모든 이미지에서 윤곽선 완전 제거 */
+    * img {
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+    }
+    
+    blockquote > strong > a {
+        word-break: break-all;
+    }
+    
+    .mdui-hoverable:hover, .mdui-hoverable:focus {
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+    }
+    
+    .mdui-card-primary-title a {
+        text-decoration: none !important;
+    }
+    
+    .page-number {
+        display: none !important;
+    }
+    
+    .mdui-container-fluid {
+        transition: opacity .4s;
+    }
+    
+    
+        body{background-color: #f6f6f6}
+
+    
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const hasEContent = document.querySelector('.e-content');
+    const isHomePage = window.location.pathname === '/' || window.location.pathname === '/index.html';
+    const isArchivePage = window.location.pathname.includes('/archives');
+    const isTagPage = window.location.pathname.includes('/tags');
+    const isCategoryPage = window.location.pathname.includes('/categories');
+    
+    // 포스트 페이지 또는 사이드바 콘텐츠 페이지인지 판단
+    const isContentPage = hasEContent || // 포스트 페이지
+                         isArchivePage ||  // 아카이브 페이지  
+                         isTagPage ||      // 태그 페이지
+                         isCategoryPage || // 카테고리 페이지
+                         (!isHomePage && document.querySelector('.mdui-card-content')); // 기타 콘텐츠 페이지
+        
+    if (isContentPage && !isHomePage) {
+        const postStyles = document.createElement('style');
+        postStyles.textContent = `
+/* Bear 앱 스타일 - 미니멀하고 깔끔하게 */
+.mdui-card-content.mdui-typo {
+    padding: 3em 4em !important;
+    max-width: 800px !important;
+    margin: 0 auto !important;
+    background-color: #ffffff !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+    border-radius: 8px !important;
+}
+
+/* 시리즈 네비게이션 숨기기 */
+#category-series-nav,
+.series-navigation,
+.series-nav,
+.category-series,
+[class*="series"] {
+    display: none !important;
+}
+
+/* 목차 스타일 - Bear 앱처럼 심플하게 */
+#table-of-contents {
+    padding: 1.5em 0 !important;
+    margin: 0 0 2em 0 !important;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+}
+
+#table-of-contents h2 {
+    font-size: 1.2em !important;
+    font-weight: 600 !important;
+    color: #333 !important;
+    margin-bottom: 1em !important;
+    border: none !important;
+    background: none !important;
+    padding: 0 !important;
+}
+
+#table-of-contents .toc-nav {
+    display: block !important;
+    opacity: 1 !important;
+}
+
+#table-of-contents .toc-list {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+#table-of-contents .toc-item {
+    margin: 0.5em 0 !important;
+    line-height: 1.5 !important;
+}
+
+#table-of-contents .toc-level-1 { 
+    display: block !important;
+}
+#table-of-contents .toc-level-2, 
+#table-of-contents .toc-level-3, 
+#table-of-contents .toc-level-4, 
+#table-of-contents .toc-level-5, 
+#table-of-contents .toc-level-6 { 
+    display: none !important;
+}
+
+#table-of-contents .toc-link {
+    color: #666 !important;
+    text-decoration: none !important;
+    padding: 0.3em 0 !important;
+    display: block !important;
+    font-size: 0.95em !important;
+    font-weight: 400 !important;
+    transition: color 0.2s ease !important;
+    border: none !important;
+    background: none !important;
+}
+
+#table-of-contents .toc-link:hover {
+    color: #333 !important;
+}
+
+#table-of-contents .toc-link.active {
+    color: #007AFF !important;
+    font-weight: 500 !important;
+}
+
+/* Bear 앱 스타일 본문 */
+.e-content,
+.mdui-card-content.mdui-typo {
+    font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif !important;
+    padding: 0 !important;
+    line-height: 1.6 !important;
+    color: #333 !important;
+}
+
+.e-content, .e-content p, .e-content div, .e-content span, .e-content li, .e-content td, .e-content th,
+.mdui-card-content.mdui-typo, .mdui-card-content.mdui-typo p, .mdui-card-content.mdui-typo div, 
+.mdui-card-content.mdui-typo span, .mdui-card-content.mdui-typo li, .mdui-card-content.mdui-typo td, 
+.mdui-card-content.mdui-typo th {
+    font-size: 16px !important;
+    line-height: 1.7 !important;
+    color: #333 !important;
+    word-break: keep-all !important;
+    word-wrap: break-word !important;
+}
+
+.e-content p,
+.mdui-card-content.mdui-typo p {
+    margin-bottom: 1.2em !important;
+    font-size: 16px !important;
+}
+
+/* 제목 스타일 - Bear 앱처럼 심플하게 */
+.e-content h1,
+.mdui-card-content.mdui-typo h1 {
+    font-size: 2em !important;
+    margin: 1.5em 0 1em 0 !important;
+    font-weight: 700 !important;
+    color: #1a1a1a !important;
+    border: none !important;
+    padding: 0 !important;
+    scroll-margin-top: 80px !important;
+}
+
+.e-content h1::before,
+.mdui-card-content.mdui-typo h1::before {
+    display: none !important;
+}
+
+.e-content h2,
+.mdui-card-content.mdui-typo h2 {
+    font-size: 1.5em !important;
+    margin: 1.5em 0 0.8em 0 !important;
+    font-weight: 600 !important;
+    color: #1a1a1a !important;
+    border: none !important;
+    padding: 0 !important;
+    background: none !important;
+    border-radius: 0 !important;
+    scroll-margin-top: 80px !important;
+}
+
+.e-content h3,
+.mdui-card-content.mdui-typo h3 {
+    font-size: 1.25em !important;
+    margin: 1.3em 0 0.7em 0 !important;
+    font-weight: 600 !important;
+    color: #1a1a1a !important;
+    scroll-margin-top: 80px !important;
+}
+
+.e-content h3::before,
+.mdui-card-content.mdui-typo h3::before {
+    display: none !important;
+}
+
+.e-content h4, .e-content h5, .e-content h6,
+.mdui-card-content.mdui-typo h4, .mdui-card-content.mdui-typo h5, .mdui-card-content.mdui-typo h6 {
+    font-weight: 600 !important;
+    color: #1a1a1a !important;
+    scroll-margin-top: 80px !important;
+    border: none !important;
+    background: none !important;
+    padding: 0 !important;
+}
+
+.e-content h4, .mdui-card-content.mdui-typo h4 { 
+    font-size: 1.1em !important; 
+    margin: 1.2em 0 0.6em 0 !important; 
+}
+.e-content h5, .mdui-card-content.mdui-typo h5 { 
+    font-size: 1em !important; 
+    margin: 1.1em 0 0.5em 0 !important; 
+}
+.e-content h6, .mdui-card-content.mdui-typo h6 { 
+    font-size: 0.95em !important; 
+    margin: 1em 0 0.5em 0 !important; 
+}
+
+/* 코드 스타일 - Bear 앱처럼 */
+.e-content pre,
+.mdui-card-content.mdui-typo pre {
+    background: #f6f6f6 !important;
+    border: 1px solid #e6e6e6 !important;
+    border-radius: 6px !important;
+    padding: 1.2em !important;
+    margin: 1.5em 0 !important;
+    overflow-x: auto !important;
+    font-family: 'SF Mono', 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    box-shadow: none !important;
+}
+
+.e-content pre::before,
+.mdui-card-content.mdui-typo pre::before {
+    display: none !important;
+}
+
+.e-content code,
+.mdui-card-content.mdui-typo code {
+    background: #f6f6f6 !important;
+    padding: 2px 6px !important;
+    border-radius: 3px !important;
+    font-family: 'SF Mono', 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 0.9em !important;
+    color: #d14 !important;
+    font-weight: normal !important;
+    border: none !important;
+}
+
+.e-content pre code,
+.mdui-card-content.mdui-typo pre code {
+    background: none !important;
+    padding: 0 !important;
+    color: #333 !important;
+    font-weight: normal !important;
+    border: none !important;
+}
+
+/* 리스트 스타일 */
+.e-content ul, .e-content ol,
+.mdui-card-content.mdui-typo ul, .mdui-card-content.mdui-typo ol {
+    margin: 1.2em 0 !important;
+    padding-left: 1.8em !important;
+}
+
+.e-content li,
+.mdui-card-content.mdui-typo li {
+    margin-bottom: 0.5em !important;
+    font-size: 16px !important;
+    line-height: 1.6 !important;
+}
+
+/* 이미지 스타일 - 모든 윤곽선 완전 제거 */
+.e-content img,
+.mdui-card-content.mdui-typo img {
+    max-width: 100% !important;
+    height: auto !important;
+    margin: 1.5em auto !important;
+    display: block !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    outline: none !important;
+    transition: none !important;
+}
+
+/* 모든 이미지 요소에서 윤곽선 제거 */
+img {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* 특정 클래스나 컨테이너 내 이미지 윤곽선 제거 */
+.mdui-card img,
+.mdui-card-content img,
+.mdui-typo img,
+article img {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+}
+
+.e-content img:hover,
+.mdui-card-content.mdui-typo img:hover {
+    transform: none !important;
+}
+
+/* 테이블 스타일 */
+.e-content table,
+.mdui-card-content.mdui-typo table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin: 1.5em 0 !important;
+    font-size: 14px !important;
+    border: 1px solid #e6e6e6 !important;
+    border-radius: 6px !important;
+    overflow: hidden !important;
+    background: white !important;
+    box-shadow: none !important;
+}
+
+.e-content th,
+.mdui-card-content.mdui-typo th {
+    background: #f8f8f8 !important;
+    font-weight: 600 !important;
+    color: #333 !important;
+    border-bottom: 1px solid #e6e6e6 !important;
+    padding: 12px !important;
+}
+
+.e-content td,
+.mdui-card-content.mdui-typo td {
+    border: 1px solid #e6e6e6 !important;
+    padding: 10px !important;
+}
+
+.e-content tr:nth-child(even),
+.mdui-card-content.mdui-typo tr:nth-child(even) {
+    background: #fafafa !important;
+}
+
+.e-content tr:hover,
+.mdui-card-content.mdui-typo tr:hover {
+    background: #f5f5f5 !important;
+}
+
+/* 인용문 스타일 */
+.e-content blockquote,
+.mdui-card-content.mdui-typo blockquote {
+    border-left: 3px solid #ddd !important;
+    margin: 1.5em 0 !important;
+    padding: 0.8em 1.2em !important;
+    background: #f9f9f9 !important;
+    border-radius: 0 4px 4px 0 !important;
+    font-style: normal !important;
+    color: #666 !important;
+    box-shadow: none !important;
+}
+
+.e-content blockquote::before,
+.mdui-card-content.mdui-typo blockquote::before {
+    display: none !important;
+}
+/* Prism.js VSCode 스타일 문법 강조 */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: #6A9955 !important;  /* VSCode 주석 색상 (녹색) */
+    font-style: italic !important;
+}
+
+.token.punctuation {
+    color: #D4D4D4 !important;  /* VSCode 기본 텍스트 색상 */
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+    color: #B5CEA8 !important;  /* VSCode 숫자/상수 색상 */
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+    color: #CE9178 !important;  /* VSCode 문자열 색상 */
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+    color: #D4D4D4 !important;  /* VSCode 연산자 색상 */
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+    color: #569CD6 !important;  /* VSCode 키워드 색상 (파란색) */
+    font-weight: normal !important;
+}
+
+.token.function,
+.token.class-name {
+    color: #DCDCAA !important;  /* VSCode 함수명 색상 (노란색) */
+    font-weight: normal !important;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+    color: #9CDCFE !important;  /* VSCode 변수 색상 (하늘색) */
+}
+
+.token.important,
+.token.bold {
+    font-weight: bold !important;
+}
+
+.token.italic {
+    font-style: italic !important;
+}
+/* 링크 스타일 */
+.e-content a,
+.mdui-card-content.mdui-typo a {
+    color: #007AFF !important;
+    text-decoration: none !important;
+    border-bottom: none !important;
+    transition: color 0.2s ease !important;
+    font-weight: normal !important;
+}
+
+.e-content a:hover,
+.mdui-card-content.mdui-typo a:hover {
+    color: #0051D5 !important;
+    background: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    text-decoration: underline !important;
+}
+
+/* 강조 텍스트 */
+.e-content strong,
+.mdui-card-content.mdui-typo strong {
+    color: #1a1a1a !important;
+    font-weight: 600 !important;
+    background: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1024px) {
+    .mdui-card-content.mdui-typo {
+        padding: 2.5em 3em !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .mdui-card-content.mdui-typo {
+        padding: 2em 1.5em !important;
+    }
+    
+    .e-content h1, .mdui-card-content.mdui-typo h1 { font-size: 1.8em !important; }
+    .e-content h2, .mdui-card-content.mdui-typo h2 { font-size: 1.4em !important; }
+    .e-content h3, .mdui-card-content.mdui-typo h3 { font-size: 1.2em !important; }
+}
+
+@media (max-width: 480px) {
+    .mdui-card-content.mdui-typo {
+        padding: 1.5em 1em !important;
+    }
+    
+    .e-content, .e-content p, .mdui-card-content.mdui-typo, .mdui-card-content.mdui-typo p {
+        font-size: 15px !important;
+    }
+    
+    .e-content h1, .mdui-card-content.mdui-typo h1 { font-size: 1.6em !important; }
+    .e-content h2, .mdui-card-content.mdui-typo h2 { font-size: 1.3em !important; }
+    .e-content h3, .mdui-card-content.mdui-typo h3 { font-size: 1.1em !important; }
+}
+`;
+        document.head.appendChild(postStyles);
+    }
+});
+</script>
+    
+    <title></title>
+    <link rel="canonical" href="https://www.goeun-oh.com/posts/hello-world/">
+    <meta name="description" content="About Me Demo              @import url(&#39;https:&#x2F;&#x2F;fonts.googleapis.com&#x2F;css2?family&#x3D;Pretendard:wght@300;400;500;600;700;800;900&amp;family&#x3D;Noto+Sans+KR:wght@300;400;500;600;700;800;900&amp;di">
+<meta property="og:type" content="article">
+<meta property="og:title">
+<meta property="og:url" content="https://www.goeun-oh.com/posts/hello-world/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="About Me Demo              @import url(&#39;https:&#x2F;&#x2F;fonts.googleapis.com&#x2F;css2?family&#x3D;Pretendard:wght@300;400;500;600;700;800;900&amp;family&#x3D;Noto+Sans+KR:wght@300;400;500;600;700;800;900&amp;di">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:published_time" content="2025-06-20T10:33:27.555Z">
+<meta property="article:modified_time" content="2025-06-20T11:23:39.312Z">
+<meta property="article:author" content="고은">
+<meta property="article:tag" content="하드웨어 개발자, Verilog, RISC-V, Cortex-M, AXI4, FPGA, 임베디드, 포트폴리오">
+<meta name="twitter:card" content="summary">
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body class="mdui-theme-primary-indigo mdui-theme-accent-pink mdui-appbar-with-toolbar ">
+    <div class="mdui-theme-layout-light">
+    <header id="appbar" class="mdui-appbar mdui-appbar-fixed mdui-shadow-0 mdui-appbar-scroll-hide">
+    <div class="mdui-toolbar">
+        <button mdui-drawer="{target: '.mdui-drawer'}" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon material-icons">menu</i></button>
+        <a href="/" class="mdui-typo-title"></a>
+        <div class="mdui-toolbar-spacer"></div>
+        
+        <a href="/search/" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon material-icons">search</i></a>
+        
+    </div>
+</header>
+    
+
+<style>
+.category-group {
+    padding-left: 24px !important;
+}
+.category-item {
+    padding-left: 48px !important;
+    font-size: 0.9em;
+}
+.post-count {
+    color: #757575;
+    font-size: 0.8em;
+    margin-left: 8px;
+}
+
+/* 푸터 텍스트 줄바꿈 및 여백 조정 */
+.drawer-footer {
+    padding: 8px 12px !important;
+    margin: 8px 4px !important;
+    word-wrap: break-word;
+    word-break: keep-all;
+    line-height: 1.4 !important;
+    font-size: 0.85em !important;
+}
+
+.drawer-footer p {
+    margin-bottom: 0 !important;
+    word-wrap: break-word;
+}
+</style>
+
+<aside class="mdui-drawer mdui-drawer-close">
+    <nav class="mdui-list" mdui-collapse="{accordion: false}">
+        <!-- 프로필 영역 -->
+        <a href="#" class="mdui-list-item mdui-ripple h-card">
+            <div class="mdui-list-item-avatar">
+                
+                <i class="mdui-color-theme-primary mdui-icon material-icons">person</i>
+                
+            </div>
+            <div class="mdui-list-item-content p-name">고은</div>
+            <span style="display:none" class="u-url u-uid">https://www.goeun-oh.com</span>
+        </a>
+        
+        <div class="mdui-divider"></div>
+        
+        <!-- 홈 메뉴만 유지 -->
+        
+        <a href="/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
+            <div class="mdui-list-item-content">홈</div>
+        </a>
+        
+
+    </nav>
+    
+    <div class="mdui-divider"></div>
+    
+    <!-- 푸터 -->
+    <footer class="drawer-footer mdui-typo mdui-text-color-theme-disabled">
+        <p class="mdui-m-b-0">
+            <p>임베디드 시스템과 하드웨어 설계</p>
+<br>
+            © 2024 - 
+            2025 고은<br>
+            
+            Hosted on <a href="/" rel="noreferrer"
+                target="_blank">GitHub Pages</a><br>
+            
+            Powered by <a href="https://hexo.io/" rel="noreferrer" target="_blank">Hexo</a><br>
+            
+            Theme - <a href="https://github.com/kwaa/hexo-theme-m" rel="noreferrer" target="_blank"
+                mdui-tooltip="{position:'right', content: 'by 藍+85CD'}">M</a>
+            
+        </p>
+    </footer>
+
+</aside>
+
+    </div>
+    <div class="mdui-container-fluid mdui-center" style="max-width:1200px">
+        <article class="h-entry mdui-card mdui-hoverable mdui-shadow-1 mdui-m-y-2" style="opacity: 1; border-radius: 4px"
+>
+    
+    <div class="mdui-card-primary mdui-ripple">
+    <div class="mdui-card-primary-title">
+        <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" ></a>
+        <a class="p-author h-card" style="display:none" href="https://www.goeun-oh.com">고은</a>
+        
+    </div>
+    <div class="mdui-card-primary-subtitle mdui-typo">
+        
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-20 07:33<br>수정일: 2025-06-20 08:23'}" datetime="2025-06-20T10:33:27.555Z">2025-06-20</time>
+        <span>-</span>
+        
+            <a href="/posts/hello-world/">posts/hello-world/</a>
+        
+    </div>
+</div>
+    
+    
+    <div class="mdui-divider"></div>
+    <div class="mdui-card-content mdui-typo">
+        
+        <div class="p-summary" style="display:none"></div>
+        
+        <!-- TOC 디버깅 및 렌더링 -->
+        
+            
+            
+        
+        
+        <main class="e-content">
+
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me Demo</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap');
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+        font-family: 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+        background-color: #ffffff;
+        color: #000000;
+        line-height: 1.6;
+        padding: 40px 20px;
+        font-weight: 400;
+    }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .numbered-heading {
+        font-family: __Black_Han_Sans_1e1a52,__Black_Han_Sans_Fallback_1e1a52 !important;
+        font-style: normal !important;
+        display: inline-block;
+        margin: 0 auto 60px auto;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 60px !important;
+        font-size: 44px !important;
+        font-weight: 800 !important;
+        color: #000000;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+        position: relative;
+        white-space: nowrap;
+        flex-wrap: nowrap;
+        border-bottom: 3px solid #000000 !important;
+        padding-bottom: 8px;
+    }
+.about-info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px 40px;
+    max-width: 1000px;
+    margin: 0 auto; /* 추가: 가운데 정렬 */
+}
+@media (max-width: 768px) {
+        .about-info-grid {
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }   
+        .numbered-heading {
+            font-size: 36px;
+        }
+        .numbered-heading::before,
+        .numbered-heading:after {
+            width: 50px;
+        }
+    }
+.about-section {
+  max-width: 1000px;
+  margin: 0 auto; /* 섹션 자체를 가운데 정렬 */
+  text-align: center; /* center에서 left로 변경 */
+}
+.about-info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px 40px;
+    max-width: 1000px;
+    margin: 0 auto; /* 추가: 가운데 정렬 */
+    text-align: left;
+}
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px; /* 기존 0에서 여백 추가 */
+    background: #ffffff; /* 또는 #fafafa */
+    border: 1px solid #e5e7eb; /* 경계선 추가 */
+    border-radius: 8px; /* 둥근 모서리 */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* 가벼운 그림자 */
+    transition: all 0.2s ease; /* 호버 효과를 위한 트랜지션 */
+}
+.info-icon {
+    width: 24px;
+    height: 24px;
+    color: #000000;
+    flex-shrink: 0;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.info-content {
+    flex: 1;
+}
+.info-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.info-value {
+    font-size: 16px;
+    color: #000000;
+    line-height: 1.5;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+@media (max-width: 1024px) and (min-width: 769px) {
+    .about-info-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px 30px;
+    }
+}
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <section id="about" class="about-section">
+            <h2 class="numbered-heading">ABOUT ME</h2>
+        <div class="about-info-grid">
+            <div class="info-item">
+                <div class="info-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </div>
+                <div class="info-content">
+                    <div class="info-label">이름</div>
+                    <div class="info-value">오고은</div>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                    </svg>
+                </div>
+                <div class="info-content">
+                    <div class="info-label">생년월일</div>
+                    <div class="info-value">98.01.10</div>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                </div>
+                <div class="info-content">
+                    <div class="info-label">위치</div>
+                    <div class="info-value">경기도 용인시</div>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                    </svg>
+                </div>
+                <div class="info-content">
+                    <div class="info-label">연락처</div>
+                    <div class="info-value">010-7251-3263</div>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                </div>
+                <div class="info-content">
+                    <div class="info-label">이메일</div>
+                    <div class="info-value">qw433812@gmail.com</div>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
+                    </svg>
+                </div>
+                <div class="info-content">
+                    <div class="info-label">학력</div>
+                    <div class="info-value">아주대학교 (전자공학과)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+</body>
+</html>
+</main>
+        
+    </div>
+    
+</article>
+
+<nav class="mdui-theme-layout-light mdui-color-transparent mdui-row mdui-m-b-2">
+    
+        <div class="mdui-col-xs-12 mdui-m-b-2">
+            <a class="extend prev mdui-btn mdui-ripple mdui-float-left mdui-text-truncate" rel="prev"
+                style="max-width: 100%" href="/posts/1.cortex-m-project-setup/">
+                <i class="mdui-icon mdui-icon-left material-icons">arrow_back</i>2. STM32CubeIDE 프로젝트 생성
+            </a>
+        </div>
+    
+        <div class="mdui-col-xs-12">
+            <span disabled class="extend next mdui-btn mdui-ripple mdui-float-right" rel="next">
+                <i class="mdui-icon mdui-icon-right material-icons">arrow_forward</i>
+            </span>
+        </div>
+    
+</nav>
+
+    </div>
+    <a href="#" class="mdui-fab mdui-fab-fixed mdui-hidden-xs mdui-color-theme-accent mdui-ripple"><i class="mdui-icon material-icons">keyboard_arrow_up</i></a>
+
+<script src="https://cdn.jsdelivr.net/npm/mdui@1.0.2/dist/js/mdui.min.js"></script>
+
+
+<script>
+    var $ = mdui.$;
+    function init(){
+        //
+    }
+    window.addEventListener("load", () => {
+        //
+        init()
+    }, {once: true});
+</script>
+
+</body>
+</html>
