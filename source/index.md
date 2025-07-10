@@ -303,8 +303,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Projects Section Styles */
-/* 프로젝트 이미지 스타일 - Part 2에 추가 */
+/* 프로젝트 이미지 스타일 - Part 2에 추가/수정 */
 .project-image {
     width: 100%;
     margin: 15px 0 20px 0;
@@ -312,34 +311,48 @@ body {
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
+    background: #f8f9fa; /* 이미지 배경색 */
 }
 
 .project-image img {
     width: 100%;
-    height: 200px;
-    object-fit: cover;
+    height: 250px; /* 높이 증가 */
+    object-fit: contain; /* cover → contain으로 변경 (잘림 방지) */
+    object-position: center;
     transition: transform 0.3s ease;
+    background: #ffffff; /* 이미지 자체 배경 */
 }
 
 .project-card:hover .project-image img {
-    transform: scale(1.05);
+    transform: scale(1.02); /* 확대 효과 줄임 */
 }
 
 .project-image img:hover {
-    transform: scale(1.1);
+    transform: scale(1.05); /* 확대 효과 줄임 */
 }
 
-/* 프로젝트별 이미지 높이 조정 */
+/* 프로젝트별 이미지 높이 개별 조정 */
 .project-card:nth-child(1) .project-image img {
-    height: 180px; /* I2C 프로젝트 */
+    height: 280px; /* I2C FPGA 게임 - 가로가 긴 이미지 */
 }
 
 .project-card:nth-child(2) .project-image img {
-    height: 220px; /* IT 엘도라도 */
+    height: 260px; /* IT 엘도라도 */
 }
 
 .project-card:nth-child(3) .project-image img {
-    height: 200px; /* FOSSLight */
+    height: 240px; /* FOSSLight */
+}
+
+.project-card:nth-child(4) .project-image img {
+    height: 220px; /* react-bulk-form */
+}
+
+/* 이미지 비율 유지 옵션 (선택사항) */
+.project-image.maintain-ratio img {
+    height: auto;
+    max-height: 250px;
+    min-height: 180px;
 }
 
 /* 이미지 로딩 상태 */
@@ -373,6 +386,16 @@ body {
     content: "이미지를 불러올 수 없습니다";
 }
 
+/* 이미지 여백 추가 (잘림 방지) */
+.project-image.padded {
+    padding: 10px;
+    background: #ffffff;
+}
+
+.project-image.padded img {
+    border-radius: 8px;
+}
+
 /* 모바일 반응형 */
 @media (max-width: 768px) {
     .project-image {
@@ -380,8 +403,28 @@ body {
     }
     
     .project-image img {
-        height: 160px;
+        height: 200px; /* 모바일에서 높이 조정 */
     }
+    
+    .project-card:nth-child(1) .project-image img {
+        height: 220px; /* 모바일에서 I2C 프로젝트 */
+    }
+    
+    .project-card:nth-child(2) .project-image img {
+        height: 200px; /* 모바일에서 IT 엘도라도 */
+    }
+}
+
+/* 🔥 추가 옵션: 이미지가 특히 잘릴 것 같은 경우 */
+.project-image.full-view {
+    padding: 15px;
+    background: #f8f9fa;
+}
+
+.project-image.full-view img {
+    object-fit: scale-down; /* 이미지가 완전히 보이도록 */
+    max-width: 100%;
+    max-height: 100%;
 }
 .projects-section {
     background: #f8fafc;
@@ -520,20 +563,24 @@ body {
 }
 
 .project-description {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .project-description ul {
     list-style: none;
     padding-left: 0;
+    margin: 0;
 }
 
 .project-description li {
-    margin-bottom: 8px;
-    padding-left: 20px;
+    margin-bottom: 12px;
+    padding-left: 24px;
     position: relative;
-    color: #555;
-    font-size: 0.95rem;
+    color: #2d3748;
+    font-size: 1rem;
+    line-height: 1.6;
+    font-weight: 500;
+    letter-spacing: -0.01em;
 }
 
 .project-description li::before {
@@ -542,6 +589,8 @@ body {
     position: absolute;
     left: 0;
     font-weight: bold;
+    font-size: 1.1em;
+    line-height:1.6;
 }
 
 .tech-stack {
@@ -690,7 +739,9 @@ body {
 .readme-content {
     font-family: var(--font-sans);
     line-height: 1.7;
-    color: #374151;
+    color: #2d3748;
+    font-size:1rem;
+    font-weight:500;
 }
 
 .readme-content h1 {
@@ -725,7 +776,9 @@ body {
 .readme-content p {
     line-height: 1.7;
     margin-bottom: 15px;
-    color: #4a5568;
+    color: #2d3748;
+    font-size:1rem;
+    font-weight:500;
 }
 
 .readme-content ul {
@@ -735,8 +788,11 @@ body {
 
 .readme-content li {
     margin-bottom: 8px;
-    line-height: 1.6;
-    color: #4a5568;
+    line-height: 1.4;
+    color:rgb(64, 71, 83);
+    font-size: 1rem;
+    font-weight: 400;
+    padding-left: 8px;
 }
 
 .readme-content a {
@@ -1041,7 +1097,7 @@ body {
         </label>
     </div>
     <div class="projects-grid">
-        <!-- Project 1: react-bulk-form -->
+        <!-- Project 1 -->
         <div class="project-card" data-readme="i2c_vga_videoProcessing">
             <div class="project-header">
                 <span class="project-title">vga 영상처리</span>
@@ -1056,21 +1112,20 @@ body {
             <div class="project-description">
                 <ul>
                     <li>FPGA 기반 VGA 영상처리 시스템 구현</li>
-                    <li>충돌 감지 및 물리 모델 기반 운동 시뮬레이션</li>
-                    <li>I2C 통신 기반 좌표 공유 및 시스템 확장 구현</li>
+                    <li>특정 색상 충돌 감지 및 물리 모델 기반 운동 시뮬레이션</li>
+                    <li>I2C 통신을 통해 2개 보드 간 공의 좌표를 공유하여 2인 게임으로 확장</li>
                 </ul>
             </div>
             <div class="tech-stack">
                 <span class="tech-tag">systemVerilog</span>
+                <span class="tech-tag">Vivado</span>
                 <span class="tech-tag">Python</span>
-                <span class="tech-tag">Github, Jira</span>
-            </div>
-            <div class="project-buttons">
-                <a href="#" class="btn btn-primary" onclick="event.stopPropagation(); openReadme('react-bulk-form')">📖 README</a>
+                <span class="tech-tag">Github</span>
+                <span class="tech-tag">Jira</span>
             </div>
         </div>
         <!-- Project 2: IT 엘도라도 블로그 -->
-        <div class="project-card" data-readme="it-eldorado">
+        <div class="project-card" data-readme="I2C">
             <div class="project-header">
                 <span class="project-title">IT 엘도라도 (블로그)</span>
                 <span class="project-date">2024.09 (1人 개인 프로젝트)</span>
@@ -1092,9 +1147,6 @@ body {
                 <span class="tech-tag">Tailwind CSS</span>
                 <span class="tech-tag">Notion</span>
                 <span class="tech-tag">Vercel</span>
-            </div>
-            <div class="project-buttons">
-                <a href="#" class="btn btn-primary" onclick="event.stopPropagation(); openReadme('it-eldorado')">📖 README</a>
             </div>
         </div>
         <!-- Project 3: FOSSLight Hub Lite -->
