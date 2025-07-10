@@ -737,11 +737,12 @@ body {
 
 /* README 내용 스타일 */
 .readme-content {
-    font-family: var(--font-sans);
-    line-height: 1.7;
-    color: #2d3748;
-    font-size:1rem;
-    font-weight:500;
+    margin-bottom: 10px;
+    line-height: 1.4;
+    color:rgb(64, 71, 83);
+    font-size: 1rem;
+    font-weight: 400;
+    padding-bottom: 10px;
 }
 
 .readme-content h1 {
@@ -775,11 +776,12 @@ body {
 }
 
 .readme-content p {
-    line-height: 1.7;
-    margin-bottom: 15px;
-    color: #2d3748;
-    font-size:1rem;
-    font-weight:500;
+    margin-bottom: 8px;
+    line-height: 1.4;
+    color:rgb(64, 71, 83);
+    font-size: 1rem;
+    font-weight: 400;
+    padding-left: 25px;
 }
 
 .readme-content ul {
@@ -957,7 +959,86 @@ body {
 .image-error {
     margin: 20px 0;
 }
+/* 이미지 나란히 배치 CSS - Part 3에 추가 */
 
+/* 이미지 그룹 컨테이너 */
+.image-row {
+    display: flex;
+    gap: 15px;
+    margin: 25px 0;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.image-row .readme-img {
+    flex: 1;
+    min-width: 200px;
+    max-width: 45%;
+    margin: 0;
+}
+
+/* 2개 이미지 나란히 */
+.image-pair {
+    display: flex;
+    gap: 15px;
+    margin: 25px 0;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.image-pair .readme-img {
+    width: 48%;
+    max-width: 300px;
+    margin: 0;
+}
+
+/* 3개 이미지 나란히 */
+.image-triple {
+    display: flex;
+    gap: 12px;
+    margin: 25px 0;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.image-triple .readme-img {
+    width: 30%;
+    min-width: 150px;
+    margin: 0;
+}
+
+/* 모바일에서는 세로로 배치 */
+@media (max-width: 768px) {
+    .image-row,
+    .image-pair,
+    .image-triple {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .image-row .readme-img,
+    .image-pair .readme-img,
+    .image-triple .readme-img {
+        width: 90%;
+        max-width: 100%;
+    }
+}
+
+/* 이미지에 캡션 추가 (선택사항) */
+.image-with-caption {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.image-with-caption .caption {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 8px;
+    font-style: italic;
+}
 /* 모바일 반응형 */
 @media (max-width: 768px) {
     .readme-image-wrapper {
