@@ -17,6 +17,21 @@
     font-size: 0.8em;
     margin-left: 8px;
 }
+
+/* 푸터 텍스트 줄바꿈 및 여백 조정 */
+.drawer-footer {
+    padding: 8px 12px !important;
+    margin: 8px 4px !important;
+    word-wrap: break-word;
+    word-break: keep-all;
+    line-height: 1.4 !important;
+    font-size: 0.85em !important;
+}
+
+.drawer-footer p {
+    margin-bottom: 0 !important;
+    word-wrap: break-word;
+}
 </style>
 
 <aside class="mdui-drawer<% if(theme.mdui.drawer_close == true) { %> mdui-drawer-close<% } %>">
@@ -49,7 +64,7 @@
     <div class="mdui-divider"></div>
     
     <!-- 푸터 -->
-    <footer class="mdui-m-l-2 mdui-m-t-1 mdui-typo mdui-text-color-theme-disabled">
+    <footer class="drawer-footer mdui-typo mdui-text-color-theme-disabled">
         <p class="mdui-m-b-0">
             <% if(theme.footer.custom) { %><%- theme.footer.custom %><br><% } %>
             ©<% if(theme.footer.since) { %> <%= theme.footer.since %> - <% } %>
