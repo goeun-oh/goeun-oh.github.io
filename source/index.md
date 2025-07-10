@@ -1119,7 +1119,6 @@ body {
     </div>
 </section>
 </div>
-
 <!-- README 모달 -->
 <div id="readmeModal" class="modal-overlay">
     <div class="modal-content">
@@ -1268,7 +1267,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// README 모달 관련 함수들
+// README 모달 관련 함수들 - skip_render 사용
 function openReadme(projectId) {
     const modal = document.getElementById('readmeModal');
     const modalTitle = document.getElementById('modalTitle');
@@ -1286,8 +1285,8 @@ function openReadme(projectId) {
     modal.classList.add('show');
     document.body.style.overflow = 'hidden';
     
-    // README 파일 가져오기
-    const readmeUrl = `/readmes/${projectId}.md`;
+    // ✅ skip_render 덕분에 이제 이 경로가 작동합니다!
+    const readmeUrl = `readmes/${projectId}.md`;
     
     fetch(readmeUrl)
         .then(response => {
@@ -1297,7 +1296,7 @@ function openReadme(projectId) {
             return response.text();
         })
         .then(markdownText => {
-            // 간단한 마크다운 파싱 (기본적인 것만)
+            // 간단한 마크다운 파싱
             const htmlContent = parseMarkdown(markdownText);
             readmeContent.innerHTML = htmlContent;
             
@@ -1349,16 +1348,22 @@ function parseMarkdown(markdown) {
     
     // 리스트
     html = html.replace(/^- (.*)$/gm, '<li>$1</li>');
-    html = html.replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>');
+    html = html.replace(/(<li>.*?<\/li>)/gs, function(match) {
+        return '<ul>' + match + '</ul>';
+    });
     
     // 줄바꿈
     html = html.replace(/\n\n/g, '</p><p>');
     html = '<p>' + html + '</p>';
     
-    // 빈 p 태그 제거
+    // 빈 p 태그 및 불필요한 태그 정리
     html = html.replace(/<p><\/p>/g, '');
     html = html.replace(/<p>(<h[1-6]>)/g, '$1');
     html = html.replace(/(<\/h[1-6]>)<\/p>/g, '$1');
+    html = html.replace(/<p>(<ul>)/g, '$1');
+    html = html.replace(/(<\/ul>)<\/p>/g, '$1');
+    html = html.replace(/<p>(<blockquote>)/g, '$1');
+    html = html.replace(/(<\/blockquote>)<\/p>/g, '$1');
     
     return html;
 }
