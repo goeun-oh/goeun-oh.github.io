@@ -926,6 +926,54 @@ body {
     }
 }
 
+/* README 이미지 래퍼 CSS - Part 3에 추가 */
+.readme-image-wrapper {
+    text-align: center;
+    margin: 25px 0;
+    line-height: 0; /* 이미지 아래 여백 제거 */
+}
+
+.readme-image-wrapper img {
+    display: inline-block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+.readme-image-wrapper img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* GIF 특별 처리 */
+.readme-image-wrapper img[src*=".gif"] {
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    background: #f8fafc;
+    padding: 4px;
+}
+
+.readme-image-wrapper img[src*=".gif"]:hover {
+    border-color: #3182ce;
+    transform: scale(1.05);
+}
+
+/* 이미지 에러 처리 */
+.image-error {
+    margin: 20px 0;
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+    .readme-image-wrapper {
+        margin: 15px 0;
+    }
+    
+    .readme-image-wrapper img {
+        border-radius: 6px;
+    }
+}
 /* 이미지 에러 상태 */
 .readme-content img:not([src]),
 .readme-content img[alt]:not([src]) {
@@ -1631,9 +1679,12 @@ function closeReadme() {
     document.body.style.overflow = 'auto';
 }
 
-// 간단한 마크다운 파서
+// 개선된 마크다운 파서 - Part 6의 parseMarkdown 함수 교체
 function parseMarkdown(markdown) {
     let html = markdown;
+    
+    // 🔥 이미지 먼저 처리 (링크보다 우선)
+    html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" />');
     
     // 제목들
     html = html.replace(/^# (.*$)/gm, '<h1>$1</h1>');
@@ -1644,23 +1695,32 @@ function parseMarkdown(markdown) {
     html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
     html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
     
-    // 링크
+    // 링크 (이미지 처리 후)
     html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
     
     // 인용구
     html = html.replace(/^> (.*)$/gm, '<blockquote>$1</blockquote>');
     
-    // 리스트
+    // 🔥 리스트 처리 개선
     html = html.replace(/^- (.*)$/gm, '<li>$1</li>');
-    html = html.replace(/(<li>.*?<\/li>)/gs, function(match) {
+    
+    // 연속된 li를 ul로 감싸기
+    html = html.replace(/(<li>.*<\/li>[\s\S]*?<li>.*<\/li>)/g, function(match) {
         return '<ul>' + match + '</ul>';
     });
     
-    // 줄바꿈
-    html = html.replace(/\n\n/g, '</p><p>');
+    // 단일 li도 ul로 감싸기
+    html = html.replace(/(<li>.*<\/li>)(?!\s*<\/ul>)(?!\s*<li>)/g, '<ul>$1</ul>');
+    
+    // 🔥 코드 블록 처리
+    html = html.replace(/```([^`]+)```/g, '<pre><code>$1</code></pre>');
+    html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+    
+    // 🔥 줄바꿈 처리 개선
+    html = html.replace(/\n\s*\n/g, '</p><p>');
     html = '<p>' + html + '</p>';
     
-    // 빈 p 태그 및 불필요한 태그 정리
+    // 🔥 불필요한 p 태그 정리
     html = html.replace(/<p><\/p>/g, '');
     html = html.replace(/<p>(<h[1-6]>)/g, '$1');
     html = html.replace(/(<\/h[1-6]>)<\/p>/g, '$1');
@@ -1668,18 +1728,46 @@ function parseMarkdown(markdown) {
     html = html.replace(/(<\/ul>)<\/p>/g, '$1');
     html = html.replace(/<p>(<blockquote>)/g, '$1');
     html = html.replace(/(<\/blockquote>)<\/p>/g, '$1');
+    html = html.replace(/<p>(<img)/g, '$1');
+    html = html.replace(/(\/img>)<\/p>/g, '$1');
+    html = html.replace(/<p>(<pre>)/g, '$1');
+    html = html.replace(/(<\/pre>)<\/p>/g, '$1');
+    
+    // 🔥 이미지 주변 여백 처리
+    html = html.replace(/(<img[^>]*>)/g, '<div class="readme-image-wrapper">$1</div>');
     
     return html;
 }
 
-// 모달 바깥 클릭 시 닫기
+// 🔥 추가: 이미지 로드 에러 처리
 document.addEventListener('DOMContentLoaded', function() {
+    // 모달이 열릴 때마다 이미지 에러 처리
     const modal = document.getElementById('readmeModal');
     if (modal) {
-        modal.addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeReadme();
-            }
+        modal.addEventListener('DOMNodeInserted', function() {
+            const images = modal.querySelectorAll('img');
+            images.forEach(img => {
+                img.addEventListener('error', function() {
+                    this.style.display = 'none';
+                    const errorDiv = document.createElement('div');
+                    errorDiv.className = 'image-error';
+                    errorDiv.innerHTML = `
+                        <div style="
+                            background: #f8f9fa; 
+                            border: 2px dashed #cbd5e0; 
+                            padding: 20px; 
+                            text-align: center; 
+                            color: #718096;
+                            border-radius: 8px;
+                            margin: 20px 0;
+                        ">
+                            🖼️ 이미지를 불러올 수 없습니다<br>
+                            <small>${this.alt || '이미지'}</small>
+                        </div>
+                    `;
+                    this.parentNode.insertBefore(errorDiv, this.nextSibling);
+                });
+            });
         });
     }
 });
