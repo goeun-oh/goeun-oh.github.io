@@ -771,6 +771,7 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
+    margin-bottom: 15px
 }
 
 .readme-content p {
@@ -825,7 +826,173 @@ body {
     padding: 50px 20px;
     color: #666;
 }
+/* README 모달 내 이미지 및 GIF 스타일 - Part 3에 추가 */
 
+/* 기본 이미지 스타일 */
+.readme-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.readme-content img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* GIF 전용 스타일 */
+.readme-content img[src*=".gif"] {
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    background: #f8fafc;
+    padding: 4px;
+    margin: 25px 0;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.readme-content img[src*=".gif"]:hover {
+    transform: scale(1.05);
+    border-color: #3182ce;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* 큰 GIF (메인 데모용) */
+.readme-content img[alt*="플레이"],
+.readme-content img[alt*="데모"],
+.readme-content img[alt*="시연"] {
+    max-width: 100%;
+    min-height: 300px;
+    object-fit: contain;
+    background: #000;
+    border-radius: 16px;
+    margin: 30px 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* 작은 GIF (기능 설명용) */
+.readme-content img[alt*="기능"],
+.readme-content img[alt*="과정"],
+.readme-content img[alt*="화면"] {
+    max-width: 400px;
+    margin: 15px auto;
+    display: block;
+}
+
+/* 이미지 캡션 스타일 */
+.readme-content p img + br + em,
+.readme-content p img + em {
+    display: block;
+    text-align: center;
+    font-size: 0.9em;
+    color: #718096;
+    margin-top: 8px;
+    font-style: italic;
+}
+
+/* 이미지 그룹 (여러 이미지를 나란히) */
+.readme-content .image-group {
+    display: flex;
+    gap: 15px;
+    margin: 25px 0;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.readme-content .image-group img {
+    flex: 1;
+    min-width: 200px;
+    max-width: 300px;
+    margin: 0;
+}
+
+/* 로딩 상태 */
+.readme-content img[src=""] {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: imageLoading 1.5s infinite;
+    min-height: 200px;
+}
+
+@keyframes imageLoading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* 이미지 에러 상태 */
+.readme-content img:not([src]),
+.readme-content img[alt]:not([src]) {
+    background: #f8f9fa;
+    border: 2px dashed #cbd5e0;
+    color: #718096;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 150px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.readme-content img:not([src])::after {
+    content: "🖼️ 이미지를 불러올 수 없습니다";
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+    .readme-content img {
+        margin: 15px 0;
+        border-radius: 6px;
+    }
+    
+    .readme-content img[src*=".gif"] {
+        margin: 20px 0;
+        padding: 2px;
+    }
+    
+    .readme-content img[alt*="플레이"],
+    .readme-content img[alt*="데모"],
+    .readme-content img[alt*="시연"] {
+        min-height: 200px;
+        margin: 20px 0;
+    }
+    
+    .readme-content .image-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .readme-content .image-group img {
+        max-width: 100%;
+        min-width: auto;
+    }
+}
+
+/* 🔥 특별한 GIF 효과 */
+.readme-content img[src*=".gif"]:hover::after {
+    content: "▶️ 재생 중";
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+/* 고해상도 GIF 처리 */
+.readme-content img[src*=".gif"][width],
+.readme-content img[src*=".gif"][height] {
+    max-width: 100% !important;
+    height: auto !important;
+}
 .loading-spinner {
     width: 40px;
     height: 40px;
