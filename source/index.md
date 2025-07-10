@@ -1678,49 +1678,43 @@ function closeReadme() {
     modal.classList.remove('show');
     document.body.style.overflow = 'auto';
 }
-
-// 개선된 마크다운 파서 - Part 6의 parseMarkdown 함수 교체
+// 🔥 수정된 마크다운 파서 (deprecated 이벤트 제거) - Part 6 교체
 function parseMarkdown(markdown) {
     let html = markdown;
     
-    // 🔥 이미지 먼저 처리 (링크보다 우선)
-    html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" />');
+    // 🔥 1. 이미지 처리 (가장 먼저)
+    html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, url) {
+        return `<div class="readme-image-wrapper"><img src="${url}" alt="${alt}" class="readme-img" /></div>`;
+    });
     
-    // 제목들
+    // 🔥 2. 제목들
     html = html.replace(/^# (.*$)/gm, '<h1>$1</h1>');
     html = html.replace(/^## (.*$)/gm, '<h2>$1</h2>');
     html = html.replace(/^### (.*$)/gm, '<h3>$1</h3>');
     
-    // 강조
+    // 🔥 3. 강조
     html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
     html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
     
-    // 링크 (이미지 처리 후)
+    // 🔥 4. 링크 (이미지 처리 후)
     html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
     
-    // 인용구
+    // 🔥 5. 인용구
     html = html.replace(/^> (.*)$/gm, '<blockquote>$1</blockquote>');
     
-    // 🔥 리스트 처리 개선
+    // 🔥 6. 리스트
     html = html.replace(/^- (.*)$/gm, '<li>$1</li>');
     
-    // 연속된 li를 ul로 감싸기
-    html = html.replace(/(<li>.*<\/li>[\s\S]*?<li>.*<\/li>)/g, function(match) {
+    // 🔥 7. 줄바꿈
+    html = html.replace(/\n\n/g, '</p><p>');
+    html = '<p>' + html + '</p>';
+    
+    // 🔥 8. 리스트를 ul로 감싸기
+    html = html.replace(/(<li>.*?<\/li>)+/gs, function(match) {
         return '<ul>' + match + '</ul>';
     });
     
-    // 단일 li도 ul로 감싸기
-    html = html.replace(/(<li>.*<\/li>)(?!\s*<\/ul>)(?!\s*<li>)/g, '<ul>$1</ul>');
-    
-    // 🔥 코드 블록 처리
-    html = html.replace(/```([^`]+)```/g, '<pre><code>$1</code></pre>');
-    html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
-    
-    // 🔥 줄바꿈 처리 개선
-    html = html.replace(/\n\s*\n/g, '</p><p>');
-    html = '<p>' + html + '</p>';
-    
-    // 🔥 불필요한 p 태그 정리
+    // 🔥 9. 불필요한 태그 정리
     html = html.replace(/<p><\/p>/g, '');
     html = html.replace(/<p>(<h[1-6]>)/g, '$1');
     html = html.replace(/(<\/h[1-6]>)<\/p>/g, '$1');
@@ -1728,29 +1722,56 @@ function parseMarkdown(markdown) {
     html = html.replace(/(<\/ul>)<\/p>/g, '$1');
     html = html.replace(/<p>(<blockquote>)/g, '$1');
     html = html.replace(/(<\/blockquote>)<\/p>/g, '$1');
-    html = html.replace(/<p>(<img)/g, '$1');
-    html = html.replace(/(\/img>)<\/p>/g, '$1');
-    html = html.replace(/<p>(<pre>)/g, '$1');
-    html = html.replace(/(<\/pre>)<\/p>/g, '$1');
-    
-    // 🔥 이미지 주변 여백 처리
-    html = html.replace(/(<img[^>]*>)/g, '<div class="readme-image-wrapper">$1</div>');
+    html = html.replace(/<p>(<div)/g, '$1');
+    html = html.replace(/(<\/div>)<\/p>/g, '$1');
     
     return html;
 }
 
-// 🔥 추가: 이미지 로드 에러 처리
-document.addEventListener('DOMContentLoaded', function() {
-    // 모달이 열릴 때마다 이미지 에러 처리
+// 🔥 openReadme 함수도 수정 (deprecated 이벤트 제거)
+function openReadme(projectId) {
     const modal = document.getElementById('readmeModal');
-    if (modal) {
-        modal.addEventListener('DOMNodeInserted', function() {
-            const images = modal.querySelectorAll('img');
+    const modalTitle = document.getElementById('modalTitle');
+    const readmeContent = document.getElementById('readmeContent');
+    
+    // 로딩 상태 표시
+    modalTitle.textContent = 'README.md';
+    readmeContent.innerHTML = `
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p>README 파일을 불러오는 중...</p>
+        </div>
+    `;
+    
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    
+    // README 파일 가져오기
+    const readmeUrl = `readmes/${projectId}.md`;
+    
+    fetch(readmeUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`README 파일을 찾을 수 없습니다: ${response.status}`);
+            }
+            return response.text();
+        })
+        .then(markdownText => {
+            // 마크다운 파싱
+            const htmlContent = parseMarkdown(markdownText);
+            readmeContent.innerHTML = htmlContent;
+            
+            // 🔥 이미지 로딩 처리 (deprecated 이벤트 대신 직접 처리)
+            const images = readmeContent.querySelectorAll('img');
             images.forEach(img => {
+                img.addEventListener('load', function() {
+                    this.style.opacity = '1';
+                });
+                
                 img.addEventListener('error', function() {
+                    console.log('이미지 로딩 실패:', this.src);
                     this.style.display = 'none';
                     const errorDiv = document.createElement('div');
-                    errorDiv.className = 'image-error';
                     errorDiv.innerHTML = `
                         <div style="
                             background: #f8f9fa; 
@@ -1762,24 +1783,42 @@ document.addEventListener('DOMContentLoaded', function() {
                             margin: 20px 0;
                         ">
                             🖼️ 이미지를 불러올 수 없습니다<br>
-                            <small>${this.alt || '이미지'}</small>
+                            <small>${this.alt || this.src}</small>
                         </div>
                     `;
-                    this.parentNode.insertBefore(errorDiv, this.nextSibling);
+                    this.parentNode.appendChild(errorDiv);
                 });
+                
+                // 초기 설정
+                img.style.opacity = '0';
+                img.style.transition = 'opacity 0.3s ease';
             });
+            
+            // 프로젝트 이름을 타이틀로 설정
+            const projectTitles = {
+                'it-eldorado': 'IT 엘도라도 (블로그)',
+                'fosslight': 'FOSSLight Hub Lite',
+                'react-bulk-form': 'react-bulk-form',
+                'i2c-fpga-game': 'I2C 통신 기반 듀얼 FPGA 탁구 게임'
+            };
+            modalTitle.textContent = projectTitles[projectId] || 'README.md';
+        })
+        .catch(error => {
+            console.error('README 로딩 오류:', error);
+            readmeContent.innerHTML = `
+                <div class="error-content">
+                    <h3>❌ 오류가 발생했습니다</h3>
+                    <p>${error.message}</p>
+                    <p>README 파일이 아직 준비되지 않았을 수 있습니다.</p>
+                </div>
+            `;
         });
-    }
-});
+}
 
-// ESC 키로 모달 닫기
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        const modal = document.getElementById('readmeModal');
-        if (modal && modal.classList.contains('show')) {
-            closeReadme();
-        }
-    }
+// 🔥 DOMContentLoaded에서 deprecated 이벤트 제거
+document.addEventListener('DOMContentLoaded', function() {
+    // 기존의 DOMNodeInserted 이벤트 리스너 제거
+    // 대신 직접 이미지 처리를 openReadme 함수에서 수행
 });
 </script>
 
