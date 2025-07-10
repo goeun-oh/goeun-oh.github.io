@@ -18,7 +18,7 @@ I2C 통신을 활용한 듀얼 FPGA 기반 탁구 게임 시스템 구현
 - System Verilog
 - Python
 - GitHub, Jira : 협업 관리
-
+  
 ## 역할
 - 팀장으로서 프로젝트 전체 기획 및 일정 관리
 - SCCB 설계를 통해 OV7670 카메라 설정 자동화
