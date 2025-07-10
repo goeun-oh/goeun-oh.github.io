@@ -4,13 +4,120 @@
 @import url('https://cdn.jsdelivr.net/gh/PrismJS/prism-themes/themes/prism-material-dark.css')
 (prefers-color-scheme: dark);
 
+/* Prism.js 강제 스타일 적용 */
 code[class*='language-'],
 pre[class*='language-'] {
-  font-family: Source Code Pro, Roboto Mono, Consolas, Courier, 'Courier New',
-    monospace !important;
+  font-family: Source Code Pro, Roboto Mono, Consolas, Courier, 'Courier New', monospace !important;
+  background: #263238 !important;
+  color: #eeffff !important;
 }
 
 pre[class*='language-'] {
   border: none !important;
   margin: 1em 0 !important;
+  padding: 1em !important;
+  border-radius: 6px !important;
+  overflow: auto !important;
+}
+
+/* 토큰 색상 강제 적용 */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #546e7a !important;
+  font-style: italic !important;
+}
+
+.token.punctuation {
+  color: #89ddff !important;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #f07178 !important;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #c3e88d !important;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #89ddff !important;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #c792ea !important;
+}
+
+.token.function,
+.token.class-name {
+  color: #82aaff !important;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: #f07178 !important;
+}
+
+.token.important,
+.token.bold {
+  font-weight: bold !important;
+}
+
+.token.italic {
+  font-style: italic !important;
+}
+
+/* 라이트 모드 덮어쓰기 */
+@media (prefers-color-scheme: light) {
+  code[class*='language-'],
+  pre[class*='language-'] {
+    background: #fafafa !important;
+    color: #333 !important;
+  }
+  
+  .token.comment,
+  .token.prolog,
+  .token.doctype,
+  .token.cdata {
+    color: #6a9955 !important;
+  }
+  
+  .token.punctuation {
+    color: #999 !important;
+  }
+  
+  .token.keyword {
+    color: #0000ff !important;
+  }
+  
+  .token.string {
+    color: #a31515 !important;
+  }
+  
+  .token.function {
+    color: #795e26 !important;
+  }
+  
+  .token.number {
+    color: #098658 !important;
+  }
 }

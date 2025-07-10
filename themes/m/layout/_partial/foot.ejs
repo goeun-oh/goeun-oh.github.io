@@ -1,4 +1,14 @@
 <%- js(theme.vendors.mdui_js) %>
+
+<% if(config.prismjs.enable) { %>
+<!-- Prism.js Core -->
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<% if(config.prismjs.line_number) { %>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+<% } %>
+<% } %>
+
 <% if(theme.plugins.pangu) { %>
     <script src="<%= theme.vendors.pangu_js %>"></script>
 <% } if(theme.plugins.script) { theme.plugins.script.forEach(function(link) { %>
@@ -10,6 +20,16 @@
         //<% if(theme.plugins.pangu == true) { %>
         pangu.autoSpacingPage();
         //<% } %>
+        
+        <% if(config.prismjs.enable) { %>
+        // Prism.js 설정
+        if (window.Prism) {
+            // 자동 언어 감지
+            Prism.plugins.autoloader.languages_path = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/';
+            // 모든 코드 블록 다시 하이라이트
+            Prism.highlightAll();
+        }
+        <% } %>
     }
     window.addEventListener("load", () => {
         //<% if(theme.plugins.pwa == true) { %>
