@@ -4,11 +4,10 @@
 
 ## 요약
 I2C 통신을 활용한 듀얼 FPGA 기반 탁구 게임 시스템 구현  
-
-[I2C FPGA 탁구 게임 플레이 영상](images/projects/gifs/vga_i2c/vga1.gif)  
-
-[I2C FPGA 탁구 게임 플레이 영상](images/projects/gifs/vga_i2c/vga2.gif)  
-
+<div style="display: flex; justify-content: center; gap: 20px; align-items: center;">
+    <img src="images/projects/gifs/vga_i2c/vga1.gif" alt="VGA 게임 화면" style="max-width: 400px; width: 40%;" />
+    <img src="images/projects/gifs/vga_i2c/vga2.gif" alt="VGA 게임 화면" style="max-width: 600px; width: 60%;" />
+</div>
 
 - 2개의 FPGA 보드가 I2C 통신으로 공의 정보를(좌표, 속도, 종류 등) 실시간으로 주고받으며 양방향 탁구 게임을 구성
 - VGA 출력 회로를 설계해 사용자가 실제 패들로 화면 속 공을 튕기는 인터랙션을 구현하고, 충돌 시의 애니메이션 구현

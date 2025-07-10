@@ -926,37 +926,31 @@ body {
     }
 }
 
-/* README 이미지 래퍼 CSS - Part 3에 추가 */
+/* README 이미지 CSS - Part 3에 추가 */
 .readme-image-wrapper {
     text-align: center;
-    margin: 25px 0;
-    line-height: 0; /* 이미지 아래 여백 제거 */
+    margin: 20px 0;
 }
 
-.readme-image-wrapper img {
-    display: inline-block;
+.readme-img {
     max-width: 100%;
     height: auto;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
 }
-.readme-image-wrapper img:hover {
+
+.readme-img:hover {
     transform: scale(1.02);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 /* GIF 특별 처리 */
-.readme-image-wrapper img[src*=".gif"] {
+.readme-img[src*=".gif"] {
     border: 2px solid #e2e8f0;
     border-radius: 12px;
     background: #f8fafc;
     padding: 4px;
-}
-
-.readme-image-wrapper img[src*=".gif"]:hover {
-    border-color: #3182ce;
-    transform: scale(1.05);
 }
 
 /* 이미지 에러 처리 */
@@ -1678,43 +1672,64 @@ function closeReadme() {
     modal.classList.remove('show');
     document.body.style.overflow = 'auto';
 }
-// 🔥 수정된 마크다운 파서 (deprecated 이벤트 제거) - Part 6 교체
+// 🔥 이미지 우선 처리 마크다운 파서 - Part 6 교체
 function parseMarkdown(markdown) {
     let html = markdown;
     
-    // 🔥 1. 이미지 처리 (가장 먼저)
+    console.log('원본 마크다운:', markdown);
+    
+    // 🔥 STEP 1: 이미지를 먼저 임시 플레이스홀더로 변경
+    const imagePlaceholders = [];
     html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, url) {
-        return `<div class="readme-image-wrapper"><img src="${url}" alt="${alt}" class="readme-img" /></div>`;
+        const placeholder = `___IMAGE_PLACEHOLDER_${imagePlaceholders.length}___`;
+        imagePlaceholders.push({
+            alt: alt,
+            url: url,
+            html: `<div class="readme-image-wrapper"><img src="${url}" alt="${alt}" class="readme-img" /></div>`
+        });
+        console.log('이미지 발견:', { alt, url, placeholder });
+        return placeholder;
     });
     
-    // 🔥 2. 제목들
+    console.log('플레이스홀더 처리 후:', html);
+    console.log('저장된 이미지들:', imagePlaceholders);
+    
+    // 🔥 STEP 2: 나머지 마크다운 처리
+    // 제목들
     html = html.replace(/^# (.*$)/gm, '<h1>$1</h1>');
     html = html.replace(/^## (.*$)/gm, '<h2>$1</h2>');
     html = html.replace(/^### (.*$)/gm, '<h3>$1</h3>');
     
-    // 🔥 3. 강조
+    // 강조
     html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
     html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
     
-    // 🔥 4. 링크 (이미지 처리 후)
+    // 링크 (이제 이미지는 플레이스홀더라서 안전)
     html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
     
-    // 🔥 5. 인용구
+    // 인용구
     html = html.replace(/^> (.*)$/gm, '<blockquote>$1</blockquote>');
     
-    // 🔥 6. 리스트
+    // 리스트
     html = html.replace(/^- (.*)$/gm, '<li>$1</li>');
     
-    // 🔥 7. 줄바꿈
+    // 줄바꿈
     html = html.replace(/\n\n/g, '</p><p>');
     html = '<p>' + html + '</p>';
     
-    // 🔥 8. 리스트를 ul로 감싸기
+    // 리스트를 ul로 감싸기
     html = html.replace(/(<li>.*?<\/li>)+/gs, function(match) {
         return '<ul>' + match + '</ul>';
     });
     
-    // 🔥 9. 불필요한 태그 정리
+    // 🔥 STEP 3: 플레이스홀더를 실제 이미지로 복원
+    imagePlaceholders.forEach((img, index) => {
+        const placeholder = `___IMAGE_PLACEHOLDER_${index}___`;
+        html = html.replace(placeholder, img.html);
+        console.log('플레이스홀더 복원:', placeholder, '→', img.html);
+    });
+    
+    // 불필요한 태그 정리
     html = html.replace(/<p><\/p>/g, '');
     html = html.replace(/<p>(<h[1-6]>)/g, '$1');
     html = html.replace(/(<\/h[1-6]>)<\/p>/g, '$1');
@@ -1725,9 +1740,10 @@ function parseMarkdown(markdown) {
     html = html.replace(/<p>(<div)/g, '$1');
     html = html.replace(/(<\/div>)<\/p>/g, '$1');
     
+    console.log('최종 HTML:', html);
+    
     return html;
 }
-
 // 🔥 openReadme 함수도 수정 (deprecated 이벤트 제거)
 function openReadme(projectId) {
     const modal = document.getElementById('readmeModal');
