@@ -1,8 +1,7 @@
 <%# 
   간소화된 Drawer 메뉴 구조
-  - 복잡한 하드코딩된 메뉴 제거
-  - 동적 카테고리 기반 메뉴로 변경
-  - 깔끔하고 유지보수 가능한 구조
+  - 홈 메뉴만 유지
+  - 다른 모든 메뉴 항목 제거
 %>
 
 <style>
@@ -37,130 +36,12 @@
         
         <div class="mdui-divider"></div>
         
-        <!-- 기본 메뉴 -->
-        <% if(theme.drawer.search == true) { %>
-        <a href="<%- url_for(theme.url.search) %>" class="mdui-list-item mdui-ripple">
-            <i class="mdui-list-item-icon mdui-icon material-icons">search</i>
-            <div class="mdui-list-item-content"><%= __("common.search") %></div>
-        </a>
-        <% } %>
-        
+        <!-- 홈 메뉴만 유지 -->
         <% if(theme.drawer.home == true) { %>
         <a href="<%= config.root %>" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
             <div class="mdui-list-item-content"><%= __("common.home") %></div>
         </a>
-        <% } %>
-
-        <!-- 카테고리 메뉴 (동적 생성) -->
-        <% if(theme.drawer.categories == true) { %>
-        <div class="mdui-collapse-item">
-            <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
-                <i class="mdui-list-item-icon mdui-icon material-icons">folder</i>
-                <div class="mdui-list-item-content">📚 카테고리</div>
-                <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
-            </div>
-            <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
-                
-                <!-- RISC-V 카테고리 -->
-                <%
-                var riscvPosts = site.categories.findOne({name: 'RISC-V'});
-                var riscvCount = riscvPosts ? riscvPosts.posts.length : 0;
-                %>
-                <a href="<%= url_for('/categories/RISC-V/') %>" class="mdui-list-item mdui-ripple category-group">
-                    <i class="mdui-list-item-icon mdui-icon material-icons">computer</i>
-                    <div class="mdui-list-item-content">
-                        RISC-V
-                        <span class="post-count">(<%= riscvCount %>)</span>
-                    </div>
-                </a>
-                
-                <!-- Cortex-M 카테고리 -->
-                <%
-                var cortexPosts = site.categories.findOne({name: 'Cortex-M'});
-                var cortexCount = cortexPosts ? cortexPosts.posts.length : 0;
-                %>
-                <a href="<%= url_for('/categories/Cortex-M/') %>" class="mdui-list-item mdui-ripple category-group">
-                    <i class="mdui-list-item-icon mdui-icon material-icons">memory</i>
-                    <div class="mdui-list-item-content">
-                        Cortex-M
-                        <span class="post-count">(<%= cortexCount %>)</span>
-                    </div>
-                </a>
-                
-                <!-- 기타 카테고리들 (동적 생성) -->
-                <% site.categories.each(function(category) { %>
-                    <% if(category.name !== 'RISC-V' && category.name !== 'Cortex-M' && category.name !== 'ARM' && category.name !== 'Embedded') { %>
-                    <a href="<%= url_for(category.path) %>" class="mdui-list-item mdui-ripple category-group">
-                        <i class="mdui-list-item-icon mdui-icon material-icons">label</i>
-                        <div class="mdui-list-item-content">
-                            <%= category.name %>
-                            <span class="post-count">(<%= category.posts.length %>)</span>
-                        </div>
-                    </a>
-                    <% } %>
-                <% }); %>
-                
-            </div>
-        </div>
-        <% } %>
-
-        <!-- 목차 (포스트 페이지에서만) -->
-        <% if(theme.drawer.toc == true && is_post()) { %>
-        <div class="mdui-collapse-item">
-            <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
-                <i class="mdui-list-item-icon mdui-icon material-icons">list</i>
-                <div class="mdui-list-item-content"><%= __("drawer.toc") %></div>
-                <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
-            </div>
-            <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
-                <div id="toc-content" style="padding: 8px 16px;">
-                    <%- toc(page.content, {list_number: false, max_depth: 3}) %>
-                </div>
-            </div>
-        </div>
-        <% } %>
-
-        <!-- 아카이브 -->
-        <% if(theme.drawer.archives == true) { %>
-        <a href="<%= url_for('/archives/') %>" class="mdui-list-item mdui-ripple">
-            <i class="mdui-list-item-icon mdui-icon material-icons">archive</i>
-            <div class="mdui-list-item-content">📑 전체 글</div>
-        </a>
-        <% } %>
-
-        <!-- 태그 -->
-        <% if(theme.drawer.tags == true) { %>
-        <a href="<%= url_for('/tags/') %>" class="mdui-list-item mdui-ripple">
-            <i class="mdui-list-item-icon mdui-icon material-icons">local_offer</i>
-            <div class="mdui-list-item-content">🏷️ 태그</div>
-        </a>
-        <% } %>
-
-        <!-- 링크 -->
-        <% if(theme.drawer.links == true) { %>
-        <a href="<%- url_for(theme.url.links) %>" class="mdui-list-item mdui-ripple">
-            <i class="mdui-list-item-icon mdui-icon material-icons">link</i>
-            <div class="mdui-list-item-content"><%= __("drawer.links") %></div>
-        </a>
-        <% } %>
-
-        <!-- RSS -->
-        <% if(theme.drawer.rss == true) { %>
-        <a href="<%- url_for(theme.url.rss) %>" class="mdui-list-item mdui-ripple">
-            <i class="mdui-list-item-icon mdui-icon material-icons">rss_feed</i>
-            <div class="mdui-list-item-content">RSS</div>
-        </a>
-        <% } %>
-
-        <!-- 커스텀 메뉴 -->
-        <% if(theme.drawer.custom) { %>
-            <% for(var i in theme.drawer.custom) { %>
-            <a <% if(theme.drawer.custom[i].href) { %>href="<%= theme.drawer.custom[i].href %>"<% } if(theme.drawer.custom[i].onclick) { %>onclick="<%- theme.drawer.custom[i].onclick%>"<% } %> class="mdui-list-item mdui-ripple">
-                <i class="mdui-list-item-icon mdui-icon <%= theme.drawer.custom[i].class %>"><%= theme.drawer.custom[i].content %></i>
-                <div class="mdui-list-item-content"><%= i %></div>
-            </a>
-            <% } %>
         <% } %>
 
     </nav>
@@ -186,28 +67,3 @@
     </footer>
 
 </aside>
-
-<style>
-/* TOC 스타일링 */
-#toc-content ol {
-    padding-left: 16px;
-    margin: 4px 0;
-}
-#toc-content .toc-link {
-    color: #666;
-    text-decoration: none;
-    font-size: 0.85em;
-    line-height: 1.4;
-    display: block;
-    padding: 2px 0;
-}
-#toc-content .toc-link:hover {
-    color: #1976d2;
-}
-#toc-content .toc-level-2 {
-    padding-left: 12px;
-}
-#toc-content .toc-level-3 {
-    padding-left: 24px;
-}
-</style>
