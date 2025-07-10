@@ -553,11 +553,13 @@ article img {
 <meta property="og:site_name">
 <meta property="og:description" content="@import url(&#39;https:&#x2F;&#x2F;fonts.googleapis.com&#x2F;css2?family&#x3D;Inter:wght@300;400;500;600;700&amp;family&#x3D;JetBrains+Mono:wght@400;500;600&amp;display&#x3D;swap&#39;);  * {   margin: 0;   padding: 0;   box-sizing: border-box;">
 <meta property="og:locale" content="ko_KR">
-<meta property="article:published_time" content="2025-07-10T08:40:43.671Z">
-<meta property="article:modified_time" content="2025-07-10T08:40:43.671Z">
+<meta property="og:image" content="https://www.goeun-oh.com/images/projects/i2c-fpga-game.png">
+<meta property="article:published_time" content="2025-07-10T09:00:13.420Z">
+<meta property="article:modified_time" content="2025-07-10T09:00:13.420Z">
 <meta property="article:author" content="고은">
 <meta property="article:tag" content="하드웨어 개발자, Verilog, RISC-V, Cortex-M, AXI4, FPGA, 임베디드, 포트폴리오">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.goeun-oh.com/images/projects/i2c-fpga-game.png">
 <meta name="generator" content="Hexo 7.3.0"></head>
 <body class="mdui-theme-primary-indigo mdui-theme-accent-pink mdui-appbar-with-toolbar ">
     <div class="mdui-theme-layout-light">
@@ -665,7 +667,7 @@ article img {
     </div>
     <div class="mdui-card-primary-subtitle mdui-typo">
         
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-07-10 05:40<br>수정일: 2025-07-10 05:40'}" datetime="2025-07-10T08:40:43.671Z">2025-07-10</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-07-10 06:00<br>수정일: 2025-07-10 06:00'}" datetime="2025-07-10T09:00:13.420Z">2025-07-10</time>
         <span>-</span>
         
             <span>index.html</span>
@@ -987,6 +989,85 @@ body {
 }
 
 /* Projects Section Styles */
+/* 프로젝트 이미지 스타일 - Part 2에 추가 */
+.project-image {
+    width: 100%;
+    margin: 15px 0 20px 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.project-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover .project-image img {
+    transform: scale(1.05);
+}
+
+.project-image img:hover {
+    transform: scale(1.1);
+}
+
+/* 프로젝트별 이미지 높이 조정 */
+.project-card:nth-child(1) .project-image img {
+    height: 180px; /* I2C 프로젝트 */
+}
+
+.project-card:nth-child(2) .project-image img {
+    height: 220px; /* IT 엘도라도 */
+}
+
+.project-card:nth-child(3) .project-image img {
+    height: 200px; /* FOSSLight */
+}
+
+/* 이미지 로딩 상태 */
+.project-image img[src=""] {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* 이미지 에러 상태 */
+.project-image img:not([src]),
+.project-image img[src=""] {
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 14px;
+}
+
+.project-image img:not([src])::before {
+    content: "이미지를 불러올 수 없습니다";
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+    .project-image {
+        margin: 10px 0 15px 0;
+    }
+    
+    .project-image img {
+        height: 160px;
+    }
+}
 .projects-section {
     background: #f8fafc;
     max-width: 1200px;
@@ -1646,22 +1727,28 @@ body {
     </div>
     <div class="projects-grid">
         <!-- Project 1: react-bulk-form -->
-        <div class="project-card" data-readme="react-bulk-form">
+        <div class="project-card" data-readme="i2c_vga_videoProcessing">
             <div class="project-header">
-                <span class="project-title">react-bulk-form</span>
-                <span class="project-date">2025.03</span>
+                <span class="project-title">vga 영상처리</span>
+                <span class="project-date">2025.06.03 ~ 2025.06.12 (4人 팀 프로젝트) </span>
             </div>
-            <h3 class="project-name">Form 상태의 일괄 관리를 위한 간단한 React 라이브러리</h3>
+            <h3 class="project-name">I2C 통신 기반 듀얼 FPGA 탁구 게임</h3>
+                        <!-- 🔥 프로젝트 이미지 추가 -->
+            <!-- 프로젝트 이미지 -->
+            <div class="project-image">
+                <img src="images/projects/i2c-fpga-game.png" alt="I2C FPGA 탁구 게임 스크린샷" />
+            </div>
             <div class="project-description">
                 <ul>
-                    <li>Form 필드 간의 요통성 편성 기반의 통합 절차의 일괄 관리</li>
-                    <li>Form 노드 필드 단위의 상태 추적</li>
-                    <li>Form 상태에 따른 컴포넌트 세이별 단계의 부가적인 인터페이스 최소화</li>
+                    <li>FPGA 기반 VGA 영상처리 시스템 구현</li>
+                    <li>충돌 감지 및 물리 모델 기반 운동 시뮬레이션</li>
+                    <li>I2C 통신 기반 좌표 공유 및 시스템 확장 구현</li>
                 </ul>
             </div>
             <div class="tech-stack">
-                <span class="tech-tag">TypeScript</span>
-                <span class="tech-tag">React</span>
+                <span class="tech-tag">systemVerilog</span>
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">Github, Jira</span>
             </div>
             <div class="project-buttons">
                 <a href="#" class="btn btn-primary" onclick="event.stopPropagation(); openReadme('react-bulk-form')">📖 README</a>
@@ -1987,7 +2074,7 @@ function openReadme(projectId) {
             const projectTitles = {
                 'it-eldorado': 'IT 엘도라도 (블로그)',
                 'fosslight': 'FOSSLight Hub Lite',
-                'react-bulk-form': 'react-bulk-form'
+                'i2c_vga_videoProcessing': 'i2c 통신 기반 듀얼 FPGA 탁구 게임'
             };
             modalTitle.textContent = projectTitles[projectId] || 'README.md';
         })
