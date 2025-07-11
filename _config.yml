@@ -32,6 +32,7 @@ code_dir: downloads/code
 i18n_dir: :lang
 skip_render:
   - readmes/*.md
+  - "projects/**/*.pdf"
 
 # Writing
 new_post_name: :title.md # File name of new posts
@@ -109,8 +110,14 @@ ignore:
 theme: m
 theme_config:
   max_width: 1200px
+
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
+deploy:
+  type: git
+  repo: https://github.com/goeun-oh/goeun-oh.github.io.git
+  branch: gh-pages
+
 # Hexo M Theme Configuration
 # Header
 #menu:
@@ -128,8 +135,3 @@ menu:
   UART: /categories/UART/
   I2C: /categories/I2C/
   SPI: /categories/SPI/
-
-deploy:
-  type: git
-  repo: https://github.com/goeun-oh/goeun-oh.github.io.git
-  branch: gh-pages
