@@ -661,6 +661,252 @@ article img {
     
     <div class="mdui-card-primary mdui-ripple">
     <div class="mdui-card-primary-title">
+        <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" href="/posts/hello-world/"></a>
+        <a class="p-author h-card" style="display:none" href="https://www.goeun-oh.com">고은</a>
+        
+    </div>
+    <div class="mdui-card-primary-subtitle mdui-typo">
+        
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-07-11 02:25<br>수정일: 2025-07-11 02:25'}" datetime="2025-07-11T05:25:18.880Z">2025-07-11</time>
+        <span>-</span>
+        
+            <a href="/posts/hello-world/">posts/hello-world/</a>
+        
+    </div>
+</div>
+    
+    
+    <div class="mdui-divider"></div>
+    <div class="mdui-card-content mdui-typo">
+        
+        <div class="p-summary" style="display:none"></div>
+        
+        <!-- TOC 디버깅 및 렌더링 -->
+        
+        
+        <main class="e-content">
+
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me Demo</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap');
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+        font-family: 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+        background-color: #ffffff;
+        color: #000000;
+        line-height: 1.6;
+        padding: 40px 20px;
+        font-weight: 400;
+    }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .numbered-heading {
+        font-family: __Black_Han_Sans_1e1a52,__Black_Han_Sans_Fallback_1e1a52 !important;
+        font-style: normal !important;
+        display: inline-block;
+        margin: 0 auto 60px auto;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 60px !important;
+        font-size: 44px !important;
+        font-weight: 800 !important;
+        color: #000000;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+        position: relative;
+        white-space: nowrap;
+        flex-wrap: nowrap;
+        border-bottom: 3px solid #000000 !important;
+        padding-bottom: 8px;
+    }
+.about-info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px 40px;
+    max-width: 1000px;
+    margin: 0 auto; /* 추가: 가운데 정렬 */
+}
+@media (max-width: 768px) {
+        .about-info-grid {
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }   
+        .numbered-heading {
+            font-size: 36px;
+        }
+        .numbered-heading::before,
+        .numbered-heading:after {
+            width: 50px;
+        }
+    }
+.about-section {
+  max-width: 1000px;
+  margin: 0 auto; /* 섹션 자체를 가운데 정렬 */
+  text-align: center; /* center에서 left로 변경 */
+}
+.about-info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px 40px;
+    max-width: 1000px;
+    margin: 0 auto; /* 추가: 가운데 정렬 */
+    text-align: left;
+}
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px; /* 기존 0에서 여백 추가 */
+    background: #ffffff; /* 또는 #fafafa */
+    border: 1px solid #e5e7eb; /* 경계선 추가 */
+    border-radius: 8px; /* 둥근 모서리 */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* 가벼운 그림자 */
+    transition: all 0.2s ease; /* 호버 효과를 위한 트랜지션 */
+}
+.info-icon {
+    width: 24px;
+    height: 24px;
+    color: #000000;
+    flex-shrink: 0;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.info-content {
+    flex: 1;
+}
+.info-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.info-value {
+    font-size: 16px;
+    color: #000000;
+    line-height: 1.5;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+@media (max-width: 1024px) and (min-width: 769px) {
+    .about-info-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px 30px;
+    }
+}
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <section id="about" class="about-section">
+            <h2 class="numbered-heading">ABOUT ME</h2>
+        <div class="about-info-grid">
+            <div class="info-item">
+                <div class="info-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </div>
+                <div class="info-content">
+                    <div class="info-label">이름</div>
+                    <div class="info-value">오고은</div>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                    </svg>
+                </div>
+                <div class="info-content">
+                    <div class="info-label">생년월일</div>
+                    <div class="info-value">98.01.10</div>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                </div>
+                <div class="info-content">
+                    <div class="info-label">위치</div>
+                    <div class="info-value">경기도 용인시</div>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                    </svg>
+                </div>
+                <div class="info-content">
+                    <div class="info-label">연락처</div>
+                    <div class="info-value">010-7251-3263</div>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                </div>
+                <div class="info-content">
+                    <div class="info-label">이메일</div>
+                    <div class="info-value">qw433812@gmail.com</div>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
+                    </svg>
+                </div>
+                <div class="info-content">
+                    <div class="info-label">학력</div>
+                    <div class="info-value">아주대학교 (전자공학과)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+</body>
+</html>
+</main>
+        
+    </div>
+    
+</article>
+
+    
+        <article class="h-entry mdui-card mdui-hoverable mdui-shadow-1 mdui-m-y-2" style="opacity: 1; border-radius: 4px"
+>
+    
+    <div class="mdui-card-primary mdui-ripple">
+    <div class="mdui-card-primary-title">
         <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" href="/posts/cortex-m-advanced-setup/">7. 고급 초기환경 설정 (STM32CubeIDE 활용)</a>
         <a class="p-author h-card" style="display:none" href="https://www.goeun-oh.com">고은</a>
         
@@ -671,7 +917,7 @@ article img {
         
         <span><a class="tag-none-link" href="/tags/STM32CubeIDE/" rel="tag">STM32CubeIDE</a> <a class="tag-none-link" href="/tags/Timer/" rel="tag">Timer</a> <a class="tag-none-link" href="/tags/%EA%B3%A0%EA%B8%89%EC%84%A4%EC%A0%95/" rel="tag">고급설정</a> <a class="tag-none-link" href="/tags/%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1/" rel="tag">환경구성</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-10 04:57'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-11 02:25'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>posts/cortex-m-advanced-setup/</span>
@@ -870,7 +1116,7 @@ article img {
         
         <span><a class="tag-none-link" href="/tags/BSRR/" rel="tag">BSRR</a> <a class="tag-none-link" href="/tags/%EA%B3%A0%EA%B8%89%EA%B8%B0%EB%B2%95/" rel="tag">고급기법</a> <a class="tag-none-link" href="/tags/%EB%B9%84%ED%8A%B8%ED%95%84%EB%93%9C/" rel="tag">비트필드</a> <a class="tag-none-link" href="/tags/%EC%84%B1%EB%8A%A5%EC%B5%9C%EC%A0%81%ED%99%94/" rel="tag">성능최적화</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-06-23 09:10'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-11 02:25'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>posts/cortex-m-code-improvement-advanced/</span>
@@ -1142,7 +1388,7 @@ GPIOA<span class="token operator">-></span>  <span class="token comment">// 자�
         
         <span><a class="tag-none-link" href="/tags/Define/" rel="tag">Define</a> <a class="tag-none-link" href="/tags/%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81/" rel="tag">리팩토링</a> <a class="tag-none-link" href="/tags/%EB%B2%A0%EC%9D%B4%EC%8A%A4%EC%A3%BC%EC%86%8C/" rel="tag">베이스주소</a> <a class="tag-none-link" href="/tags/%EC%BD%94%EB%93%9C%EA%B0%9C%EC%84%A0/" rel="tag">코드개선</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-06-23 09:10'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-11 02:25'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>posts/cortex-m-code-improvement-basic/</span>
@@ -1398,7 +1644,7 @@ GPIOA_MODER <span class="token operator">|=</span> <span class="token punctuatio
         
         <span><a class="tag-none-link" href="/tags/%EA%B5%AC%EC%A1%B0%EC%B2%B4/" rel="tag">구조체</a> <a class="tag-none-link" href="/tags/%EB%AA%A8%EB%93%88%ED%99%94/" rel="tag">모듈화</a> <a class="tag-none-link" href="/tags/%EC%BD%94%EB%93%9C%EA%B0%9C%EC%84%A0/" rel="tag">코드개선</a> <a class="tag-none-link" href="/tags/%ED%83%80%EC%9E%85%EC%95%88%EC%A0%84%EC%84%B1/" rel="tag">타입안전성</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-06-23 09:10'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-11 02:25'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>posts/cortex-m-code-improvement-struct/</span>
@@ -1662,7 +1908,7 @@ GPIOA<span class="token operator">-></span>ODR <span class="token operator">^=</
         
         <span><a class="tag-none-link" href="/tags/STM32/" rel="tag">STM32</a> <a class="tag-none-link" href="/tags/%EA%B0%80%EC%9D%B4%EB%93%9C/" rel="tag">가이드</a> <a class="tag-none-link" href="/tags/%EC%B4%88%EA%B8%B0%ED%99%98%EA%B2%BD/" rel="tag">초기환경</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-10 04:57'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-11 02:25'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>posts/cortex-m-initial-setup-guide/</span>
@@ -1761,7 +2007,7 @@ GPIOA<span class="token operator">-></span>ODR <span class="token operator">^=</
         
         <span><a class="tag-none-link" href="/tags/GPIO/" rel="tag">GPIO</a> <a class="tag-none-link" href="/tags/LED%EC%A0%9C%EC%96%B4/" rel="tag">LED제어</a> <a class="tag-none-link" href="/tags/RCC/" rel="tag">RCC</a> <a class="tag-none-link" href="/tags/%EB%A0%88%EC%A7%80%EC%8A%A4%ED%84%B0/" rel="tag">레지스터</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-10 04:57'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-11 02:25'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>posts/cortex-m-led-control-basics/</span>
@@ -1988,7 +2234,7 @@ GPIOA<span class="token operator">-></span>ODR <span class="token operator">^=</
         
         <span><a class="tag-none-link" href="/tags/ARM/" rel="tag">ARM</a> <a class="tag-none-link" href="/tags/Embedded/" rel="tag">Embedded</a> <a class="tag-none-link" href="/tags/SW-Stack/" rel="tag">SW Stack</a> <a class="tag-none-link" href="/tags/%EA%B3%84%EC%B8%B5%EA%B5%AC%EC%A1%B0/" rel="tag">계층구조</a> <a class="tag-none-link" href="/tags/%EB%AA%A8%EB%93%88%ED%99%94/" rel="tag">모듈화</a> <a class="tag-none-link" href="/tags/%ED%8F%B4%EB%8D%94%EB%B6%84%EB%A6%AC/" rel="tag">폴더분리</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-10 04:57'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-11 02:25'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>posts/cortex-m-software-stack/</span>
@@ -2275,7 +2521,7 @@ HAL_StatusTypeDef <span class="token function">led_init</span><span class="token
         
         <span><a class="tag-none-link" href="/tags/Nucleo-64/" rel="tag">Nucleo-64</a> <a class="tag-none-link" href="/tags/STM32F411/" rel="tag">STM32F411</a> <a class="tag-none-link" href="/tags/%ED%95%98%EB%93%9C%EC%9B%A8%EC%96%B4/" rel="tag">하드웨어</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-22 12:00<br>수정일: 2025-07-10 04:57'}" datetime="2025-06-21T15:00:00.000Z">2025-06-22</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-22 12:00<br>수정일: 2025-07-11 02:25'}" datetime="2025-06-21T15:00:00.000Z">2025-06-22</time>
         <span>-</span>
         
             <span>posts/0.cortex-m-board-introduction/</span>
@@ -2420,7 +2666,7 @@ HAL_StatusTypeDef <span class="token function">led_init</span><span class="token
         
         <span><a class="tag-none-link" href="/tags/GPIO/" rel="tag">GPIO</a> <a class="tag-none-link" href="/tags/RCC/" rel="tag">RCC</a> <a class="tag-none-link" href="/tags/STM32CubeIDE/" rel="tag">STM32CubeIDE</a> <a class="tag-none-link" href="/tags/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%84%A4%EC%A0%95/" rel="tag">프로젝트설정</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-22 12:00<br>수정일: 2025-07-10 04:57'}" datetime="2025-06-21T15:00:00.000Z">2025-06-22</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-22 12:00<br>수정일: 2025-07-11 02:25'}" datetime="2025-06-21T15:00:00.000Z">2025-06-22</time>
         <span>-</span>
         
             <span>posts/1.cortex-m-project-setup/</span>
@@ -2573,252 +2819,6 @@ HAL_StatusTypeDef <span class="token function">led_init</span><span class="token
 <p>다음 포스트에서는 개발에 필요한 도구들을 설치하고 빌드 환경을 구성해보겠다.</p>
 <hr>
 <p><strong>이전 포스트</strong>: <a href="/posts/0.cortex-m-board-introduction/">1. STM32 보드 소개</a><br><strong>다음 포스트</strong>: <a href="/posts/cortex-m-development-environment">3. 개발 환경 구성</a></p>
-</main>
-        
-    </div>
-    
-</article>
-
-    
-        <article class="h-entry mdui-card mdui-hoverable mdui-shadow-1 mdui-m-y-2" style="opacity: 1; border-radius: 4px"
->
-    
-    <div class="mdui-card-primary mdui-ripple">
-    <div class="mdui-card-primary-title">
-        <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" href="/posts/hello-world/"></a>
-        <a class="p-author h-card" style="display:none" href="https://www.goeun-oh.com">고은</a>
-        
-    </div>
-    <div class="mdui-card-primary-subtitle mdui-typo">
-        
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-20 07:33<br>수정일: 2025-06-20 08:23'}" datetime="2025-06-20T10:33:27.555Z">2025-06-20</time>
-        <span>-</span>
-        
-            <a href="/posts/hello-world/">posts/hello-world/</a>
-        
-    </div>
-</div>
-    
-    
-    <div class="mdui-divider"></div>
-    <div class="mdui-card-content mdui-typo">
-        
-        <div class="p-summary" style="display:none"></div>
-        
-        <!-- TOC 디버깅 및 렌더링 -->
-        
-        
-        <main class="e-content">
-
-<!DOCTYPE html>
-
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Me Demo</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap');
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-    body {
-        font-family: 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-        background-color: #ffffff;
-        color: #000000;
-        line-height: 1.6;
-        padding: 40px 20px;
-        font-weight: 400;
-    }
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-    .numbered-heading {
-        font-family: __Black_Han_Sans_1e1a52,__Black_Han_Sans_Fallback_1e1a52 !important;
-        font-style: normal !important;
-        display: inline-block;
-        margin: 0 auto 60px auto;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 60px !important;
-        font-size: 44px !important;
-        font-weight: 800 !important;
-        color: #000000;
-        letter-spacing: 0.02em;
-        text-transform: uppercase;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        text-rendering: optimizeLegibility;
-        position: relative;
-        white-space: nowrap;
-        flex-wrap: nowrap;
-        border-bottom: 3px solid #000000 !important;
-        padding-bottom: 8px;
-    }
-.about-info-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px 40px;
-    max-width: 1000px;
-    margin: 0 auto; /* 추가: 가운데 정렬 */
-}
-@media (max-width: 768px) {
-        .about-info-grid {
-            grid-template-columns: 1fr;
-            gap: 25px;
-        }   
-        .numbered-heading {
-            font-size: 36px;
-        }
-        .numbered-heading::before,
-        .numbered-heading:after {
-            width: 50px;
-        }
-    }
-.about-section {
-  max-width: 1000px;
-  margin: 0 auto; /* 섹션 자체를 가운데 정렬 */
-  text-align: center; /* center에서 left로 변경 */
-}
-.about-info-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px 40px;
-    max-width: 1000px;
-    margin: 0 auto; /* 추가: 가운데 정렬 */
-    text-align: left;
-}
-.info-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-    padding: 20px; /* 기존 0에서 여백 추가 */
-    background: #ffffff; /* 또는 #fafafa */
-    border: 1px solid #e5e7eb; /* 경계선 추가 */
-    border-radius: 8px; /* 둥근 모서리 */
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* 가벼운 그림자 */
-    transition: all 0.2s ease; /* 호버 효과를 위한 트랜지션 */
-}
-.info-icon {
-    width: 24px;
-    height: 24px;
-    color: #000000;
-    flex-shrink: 0;
-    margin-top: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.info-content {
-    flex: 1;
-}
-.info-label {
-    font-size: 16px;
-    font-weight: 600;
-    color: #000000;
-    margin-bottom: 4px;
-    letter-spacing: -0.01em;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-.info-value {
-    font-size: 16px;
-    color: #000000;
-    line-height: 1.5;
-    font-weight: 500;
-    letter-spacing: -0.01em;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-@media (max-width: 1024px) and (min-width: 769px) {
-    .about-info-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 25px 30px;
-    }
-}
-</style>
-
-</head>
-<body>
-    <div class="container">
-        <section id="about" class="about-section">
-            <h2 class="numbered-heading">ABOUT ME</h2>
-        <div class="about-info-grid">
-            <div class="info-item">
-                <div class="info-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                    </svg>
-                </div>
-                <div class="info-content">
-                    <div class="info-label">이름</div>
-                    <div class="info-value">오고은</div>
-                </div>
-            </div>
-            <div class="info-item">
-                <div class="info-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
-                    </svg>
-                </div>
-                <div class="info-content">
-                    <div class="info-label">생년월일</div>
-                    <div class="info-value">98.01.10</div>
-                </div>
-            </div>
-            <div class="info-item">
-                <div class="info-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                    </svg>
-                </div>
-                <div class="info-content">
-                    <div class="info-label">위치</div>
-                    <div class="info-value">경기도 용인시</div>
-                </div>
-            </div>
-            <div class="info-item">
-                <div class="info-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-                    </svg>
-                </div>
-                <div class="info-content">
-                    <div class="info-label">연락처</div>
-                    <div class="info-value">010-7251-3263</div>
-                </div>
-            </div>
-            <div class="info-item">
-                <div class="info-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                    </svg>
-                </div>
-                <div class="info-content">
-                    <div class="info-label">이메일</div>
-                    <div class="info-value">qw433812@gmail.com</div>
-                </div>
-            </div>
-            <div class="info-item">
-                <div class="info-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
-                    </svg>
-                </div>
-                <div class="info-content">
-                    <div class="info-label">학력</div>
-                    <div class="info-value">아주대학교 (전자공학과)</div>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
-
-</body>
-</html>
 </main>
         
     </div>
