@@ -1976,7 +1976,7 @@ function openReadme(projectId) {
             const htmlContent = parseMarkdown(markdownText);
                     
 if (projectId === 'i2c_vga_videoProcessing') {
-    const isMobile = window.innerWidth <= 768;
+    const isMobile = window.innerWidth <= 1024;
     
     const pdfSection = isMobile ? `
         <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
