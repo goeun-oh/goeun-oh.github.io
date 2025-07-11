@@ -563,8 +563,8 @@ article img {
 <meta property="og:image" content="https://www.goeun-oh.com/images/projects/verification_tool.png">
 <meta property="og:image" content="https://www.goeun-oh.com/images/projects/sensor_interface.png">
 <meta property="og:image" content="https://www.goeun-oh.com/$%7Burl%7D">
-<meta property="article:published_time" content="2025-07-11T07:50:29.141Z">
-<meta property="article:modified_time" content="2025-07-11T07:50:29.141Z">
+<meta property="article:published_time" content="2025-07-11T07:56:02.247Z">
+<meta property="article:modified_time" content="2025-07-11T07:56:02.247Z">
 <meta property="article:author" content="고은">
 <meta property="article:tag" content="하드웨어 개발자, Verilog, RISC-V, Cortex-M, AXI4, FPGA, 임베디드, 포트폴리오">
 <meta name="twitter:card" content="summary">
@@ -676,7 +676,7 @@ article img {
     </div>
     <div class="mdui-card-primary-subtitle mdui-typo">
         
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-07-11 04:50<br>수정일: 2025-07-11 04:50'}" datetime="2025-07-11T07:50:29.141Z">2025-07-11</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-07-11 04:56<br>수정일: 2025-07-11 04:56'}" datetime="2025-07-11T07:56:02.247Z">2025-07-11</time>
         <span>-</span>
         
             <span>index.html</span>
@@ -2719,7 +2719,7 @@ function openReadme(projectId) {
             <div style="display: grid; gap: 15px;">
                 <!-- 문서 1 -->
                 <div style="display: flex; align-items: center; padding: 15px; background: white; border-radius: 8px; border: 1px solid #e2e8f0; cursor: pointer; transition: all 0.2s ease;" 
-                     onclick="downloadFile('/projects/docs/i2c-design-spec.pdf', 'i2c-design-spec.pdf')"
+                     onclick="downloadFile('/projects/pdf/i2c-design-spec.pdf', 'i2c-design-spec.pdf')"
                      onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'; this.style.transform='translateY(-2px)'"
                      onmouseout="this.style.boxShadow=''; this.style.transform=''">
                     <div style="color: #e74c3c; font-size: 24px; margin-right: 15px;">📋</div>
@@ -2732,7 +2732,7 @@ function openReadme(projectId) {
                 
                 <!-- 문서 2 -->
                 <div style="display: flex; align-items: center; padding: 15px; background: white; border-radius: 8px; border: 1px solid #e2e8f0; cursor: pointer; transition: all 0.2s ease;" 
-                     onclick="downloadFile('/projects/docs/spi-design-spec.pdf', 'spi-design-spec.pdf')"
+                     onclick="downloadFile('/projects/pdf/spi-design-spec.pdf', 'spi-design-spec.pdf')"
                      onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'; this.style.transform='translateY(-2px)'"
                      onmouseout="this.style.boxShadow=''; this.style.transform=''">
                     <div style="color: #9b59b6; font-size: 24px; margin-right: 15px;">🔧</div>
@@ -2770,7 +2770,7 @@ function openReadme(projectId) {
                     </div>
                 `;
                 
-                readmeContent.innerHTML = htmlContent + pdfSection;
+                readmeContent.innerHTML = htmlContent + documentsSection + pdfSection;
             }else {
                 readmeContent.innerHTML = htmlContent;
             }
@@ -2927,6 +2927,17 @@ function parseMarkdown(markdown) {
     html = html.replace(/(<\/div>)<\/p>/g, '$1');
     
     return html;
+}
+// 파일 다운로드 함수 (스크립트 어디든 추가)
+function downloadFile(fileUrl, fileName) {
+    const link = document.createElement('a');
+    link.href = fileUrl;
+    link.download = fileName;
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    console.log(`📥 다운로드 시작: ${fileName}`);
 }
 // 🔥 DOMContentLoaded에서 deprecated 이벤트 제거
 document.addEventListener('DOMContentLoaded', function() {
