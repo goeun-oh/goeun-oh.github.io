@@ -1719,6 +1719,33 @@ body {
 </div>
 
 <script>
+
+let scrollY = 0;
+
+function lockScroll() {
+  scrollY = window.scrollY || window.pageYOffset;
+  document.body.style.position = 'fixed';
+  document.body.style.top = `-${scrollY}px`;
+  document.body.style.left = '0';
+  document.body.style.width = '100%';
+}
+
+function unlockScroll() {
+  const scrollY = parseInt(document.body.style.top || '0') * -1;
+
+  // 스타일 초기화 먼저
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.left = '';
+  document.body.style.right = '';
+  document.body.style.width = '';
+
+  // 스크롤 복원은 다음 렌더 프레임에 실행
+  requestAnimationFrame(() => {
+    window.scrollTo(0, scrollY);
+  });
+}
+
 // 페이지 로드 후 네비게이션 메뉴 동적 추가
 document.addEventListener('DOMContentLoaded', function () {
   const toolbar = document.querySelector('.mdui-toolbar');
@@ -1850,37 +1877,46 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+
+let savedScrollY = 0;
+
 // let savedScrollPosition = 0;
 // README 모달 열기 함수
+const modal = document.getElementById('readmeModal');
+
+modal.addEventListener('transitionend', function handler() {
+  unlockScroll();
+  modal.removeEventListener('transitionend', handler);
+});
+
 function openReadme(projectId) {
-    // 스크롤 위치 저장용 변수
-    // 🔥 현재 스크롤 위치 저장
     const modal = document.getElementById('readmeModal');
     const modalTitle = document.getElementById('modalTitle');
     const readmeContent = document.getElementById('readmeContent');
-    // const scrollY = window.scrollY || window.pageYOffset;
 
-    // // 🔥 스크롤 위치 저장
-    // savedScrollPosition = scrollY;
+    // 스크롤 잠금
+    savedScrollY = window.scrollY || window.pageYOffset;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${savedScrollY}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.width = '100%';
+    document.body.style.overflowY = 'scroll';  // 스크롤바 강제 표시 (방지용)
 
-    
+    modal.style.display = 'block';
+    modal.classList.add('show');
 
-    // // 🔥 body를 고정하고 top 위치를 지정
-    // document.body.classList.add('no-scroll');
-    // document.body.style.top = `-${scrollY}px`;
-    
-    // 로딩 상태 표시
+    modalTitle.textContent = 'README.md';
     readmeContent.innerHTML = `
         <div class="loading-content">
-            <div class="loading-spinner"></div>
-            <p>README 파일을 불러오는 중...</p>
+        <div class="loading-spinner"></div>
+        <p>README 파일을 불러오는 중...</p>
         </div>
     `;
-    
-    // 🔥 모달 열기 (스타일 조작 없음)
-    modal.classList.add('show');
-    
-    // README 파일 가져오기
+
     const readmeUrl = `readmes/${projectId}.md`;
     
     fetch(readmeUrl)
@@ -1975,19 +2011,30 @@ function openReadme(projectId) {
             `;
         });
 }
-// 모달 닫기
 function closeReadme() {
-    const modal = document.getElementById('readmeModal');
-    modal.classList.remove('show');
+  const modal = document.getElementById('readmeModal');
 
-    // // 🔥 고정 해제
-    // document.body.classList.remove('no-scroll');
+  modal.classList.remove('show');
 
-    // // 🔥 기존 위치로 복구
-    // const scrollY = parseInt(document.body.style.top || '0') * -1;
-    // document.body.style.top = '';
-    // window.scrollTo(0, scrollY);
+  // position 해제
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.left = '';
+  document.body.style.right = '';
+  document.body.style.width = '';
+  document.body.style.overflowY = '';
+
+  // scroll 복원은 2번 rAF 후 → display:none 처리
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      window.scrollTo(0, savedScrollY);
+
+      // scrollTo 이후에 display: none
+      modal.style.display = 'none';
+    });
+  });
 }
+
 // 마크다운 파서
 function parseMarkdown(markdown) {
     let html = markdown;
@@ -2131,6 +2178,8 @@ function openVideoModal(projectId) {
     // savedScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
     // document.body.style.overflow = 'hidden';
 }
+
+
 </script>
 
 {% endraw %}
