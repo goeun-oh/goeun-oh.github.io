@@ -1569,9 +1569,8 @@ body {
             <div class="project-description">
                 <ul>
                     <li>RV32I 기반 Multi-Cycle CPU Core end-to-end 설계</li>
-                    <li>AMBA APB 프로토콜 기반 각종 Peripheral 연동</li>
+                    <li>AMBA APB 프로토콜 기반 각종 Peripheral 연동, C기반 애플리케이션 설계</li>
                     <li>UVM-lite 구조 기반 System Verilog Testbench를 활용한 Peripheral 기능 검증</li>
-                    <li>C 기반 애플리케이션 설계</li>
                 </ul>
             </div>
             <div class="tech-stack">
@@ -2411,7 +2410,7 @@ function openVideoModal(projectId) {
                 <h3>🎥 RISC-V AMBA Peripheral 설계 발표 영상</h3>
                 <div style="position: relative; padding-bottom: 56.25%; height: 0; margin: 20px 0;">
                     <iframe 
-                        src="https://www.youtube.com/embed/V-OUSXCUVzI" 
+                        src="https://www.youtube.com/embed/hDBSv9B4-6g" 
                         style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; border-radius: 8px;"
                         allowfullscreen
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
