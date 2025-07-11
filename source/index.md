@@ -1268,6 +1268,12 @@ body {
     .modal-body {
         padding: 20px;
     }
+    .modal-body iframe {
+        transform: scale(0.7);
+        transform-origin: top left;
+        width: 142.857%; /* 100% / 0.7 = 142.857% */
+        height: 142.857%;
+    }
 
     .readme-content h1 {
         font-size: 1.6rem;
