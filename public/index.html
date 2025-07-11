@@ -563,8 +563,8 @@ article img {
 <meta property="og:image" content="https://www.goeun-oh.com/images/projects/verification_tool.png">
 <meta property="og:image" content="https://www.goeun-oh.com/images/projects/sensor_interface.png">
 <meta property="og:image" content="https://www.goeun-oh.com/$%7Burl%7D">
-<meta property="article:published_time" content="2025-07-11T06:02:57.158Z">
-<meta property="article:modified_time" content="2025-07-11T06:02:57.158Z">
+<meta property="article:published_time" content="2025-07-11T06:11:52.532Z">
+<meta property="article:modified_time" content="2025-07-11T06:11:52.532Z">
 <meta property="article:author" content="고은">
 <meta property="article:tag" content="하드웨어 개발자, Verilog, RISC-V, Cortex-M, AXI4, FPGA, 임베디드, 포트폴리오">
 <meta name="twitter:card" content="summary">
@@ -676,7 +676,7 @@ article img {
     </div>
     <div class="mdui-card-primary-subtitle mdui-typo">
         
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-07-11 03:02<br>수정일: 2025-07-11 03:02'}" datetime="2025-07-11T06:02:57.158Z">2025-07-11</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-07-11 03:11<br>수정일: 2025-07-11 03:11'}" datetime="2025-07-11T06:11:52.532Z">2025-07-11</time>
         <span>-</span>
         
             <span>index.html</span>
@@ -1480,6 +1480,8 @@ body {
     padding: 30px;
     overflow-y: auto;
     max-height: calc(90vh - 100px);
+    -webkit-overflow-scrolling: touch; /* iOS 스크롤 활성화 */
+    overscroll-behavior: contain; /* 스크롤 경계 처리 */
 }
 
 /* README 내용 스타일 */
@@ -2449,9 +2451,16 @@ function unlockScroll() {
 }
 // 🔥 터치 스크롤 방지 함수
 function preventScroll(e) {
-  e.preventDefault();
+  // 모달 내부 스크롤은 허용
+  const modal = document.getElementById('readmeModal');
+  const modalBody = modal?.querySelector('.modal-body');
+  
+  if (modalBody && modalBody.contains(e.target)) {
+    return; // 모달 내부에서는 스크롤 허용
+  }
+  
+  e.preventDefault(); // 배경 스크롤만 차단
 }
-
 // 페이지 로드 후 네비게이션 메뉴 동적 추가
 document.addEventListener('DOMContentLoaded', function () {
   const toolbar = document.querySelector('.mdui-toolbar');

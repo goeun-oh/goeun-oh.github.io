@@ -1757,9 +1757,16 @@ function unlockScroll() {
 }
 // 🔥 터치 스크롤 방지 함수
 function preventScroll(e) {
-  e.preventDefault();
+  // 모달 내부 스크롤은 허용
+  const modal = document.getElementById('readmeModal');
+  const modalBody = modal?.querySelector('.modal-body');
+  
+  if (modalBody && modalBody.contains(e.target)) {
+    return; // 모달 내부에서는 스크롤 허용
+  }
+  
+  e.preventDefault(); // 배경 스크롤만 차단
 }
-
 // 페이지 로드 후 네비게이션 메뉴 동적 추가
 document.addEventListener('DOMContentLoaded', function () {
   const toolbar = document.querySelector('.mdui-toolbar');
