@@ -1300,7 +1300,34 @@ body {
         padding: 6px 8px !important;
     }
 }
+/* PDF 모바일 반응형 */
+.pdf-desktop {
+    display: block;
+}
 
+.pdf-mobile {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .pdf-desktop {
+        display: none !important;
+    }
+    
+    .pdf-mobile {
+        display: block !important;
+    }
+}
+
+@media (min-width: 769px) {
+    .pdf-desktop {
+        display: block !important;
+    }
+    
+    .pdf-mobile {
+        display: none !important;
+    }
+}
 @media (max-width: 375px) {
     .site-title {
         font-size: 16px !important;
@@ -1942,29 +1969,22 @@ function openReadme(projectId) {
         .then(markdownText => {
             const htmlContent = parseMarkdown(markdownText);
             
-            // I2C 프로젝트인 경우 PDF 섹션 추가 (수정된 버전)
             if (projectId === 'i2c_vga_videoProcessing') {
                 const pdfSection = `
                     <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
                     <h2>📋 프로젝트 상세 문서</h2>
-                        <div style="width: 100%; height: 600px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; margin: 20px 0;">
-    <iframe 
-        src="projects/pdf/VGA_video_processing.pdf#toolbar=0&navpanes=0&scrollbar=1&view=FitH" 
-        style="width: 100%; height: 100%; border: none;"
-        type="application/pdf">
-        <div style="padding: 40px; text-align: center; color: #666;">
-            <p>PDF를 표시할 수 없습니다.</p>
-            <a href="projects/pdf/VGA_video_processing.pdf" target="_blank" 
-               style="color: #3182ce; text-decoration: none;">
-                📄 PDF 파일 다운로드
-            </a>
-        </div>
-    </iframe>
-</div>
+                    <div style="width: 100%; height: 600px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; margin: 20px 0;">
+                        <iframe 
+                            src="/projects/pdf/VGA_video_processing.pdf#zoom=50&view=FitH" 
+                            style="width: 100%; height: 100%; border: none;">
+                        </iframe>
                     </div>
+                    <p style="color: #666; font-size: 0.9rem; text-align: center;">
+                        💡 PDF 내에서 확대/축소하여 크기를 조정할 수 있습니다
+                    </p>
                 `;
                 readmeContent.innerHTML = htmlContent + pdfSection;
-            } else {
+            }else {
                 readmeContent.innerHTML = htmlContent;
             }
             
