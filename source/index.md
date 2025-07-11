@@ -2013,7 +2013,47 @@ function openReadme(projectId) {
             }
             else if (projectId === 'AXI4-Lite') {
                 const isMobile = window.innerWidth <= 1024;
+                    // 🔥 문서 다운로드 섹션 추가
+    const documentsSection = `
+        <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
+        <h2>📄 프로젝트 문서 다운로드</h2>
+        <div style="background: #f8fafc; border-radius: 12px; padding: 30px; margin: 20px 0;">
+            <p style="color: #4a5568; margin-bottom: 25px; font-size: 1rem;">
+                프로젝트에서 작성한 상세 문서들을 다운로드하여 확인할 수 있습니다.
+            </p>
+            
+            <div style="display: grid; gap: 15px;">
+                <!-- 문서 1 -->
+                <div style="display: flex; align-items: center; padding: 15px; background: white; border-radius: 8px; border: 1px solid #e2e8f0; cursor: pointer; transition: all 0.2s ease;" 
+                     onclick="downloadFile('/projects/docs/i2c-design-spec.pdf', 'i2c-design-spec.pdf')"
+                     onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'; this.style.transform='translateY(-2px)'"
+                     onmouseout="this.style.boxShadow=''; this.style.transform=''">
+                    <div style="color: #e74c3c; font-size: 24px; margin-right: 15px;">📋</div>
+                    <div style="flex: 1;">
+                        <h4 style="margin: 0 0 5px 0; color: #2d3748; font-size: 1.1rem;">I2C 통신 프로토콜 설계서</h4>
+                        <p style="margin: 0; color: #718096; font-size: 0.9rem;">I2C 통신 프로토콜 구현 문서</p>
+                    </div>
+                    <div style="color: #3182ce; font-size: 20px;">⬇️</div>
+                </div>
                 
+                <!-- 문서 2 -->
+                <div style="display: flex; align-items: center; padding: 15px; background: white; border-radius: 8px; border: 1px solid #e2e8f0; cursor: pointer; transition: all 0.2s ease;" 
+                     onclick="downloadFile('/projects/docs/spi-design-spec.pdf', 'spi-design-spec.pdf')"
+                     onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'; this.style.transform='translateY(-2px)'"
+                     onmouseout="this.style.boxShadow=''; this.style.transform=''">
+                    <div style="color: #9b59b6; font-size: 24px; margin-right: 15px;">🔧</div>
+                    <div style="flex: 1;">
+                        <h4 style="margin: 0 0 5px 0; color: #2d3748; font-size: 1.1rem;">SPI 통신 프로토콜 설계서</h4>
+                        <p style="margin: 0; color: #718096; font-size: 0.9rem;">SPI 통신 프로토콜 구현 문서</p>
+                    </div>
+                    <div style="color: #3182ce; font-size: 20px;">⬇️</div>
+                </div>
+                
+            <p style="color: #718096; font-size: 0.8rem; margin-top: 20px; text-align: center;">
+                💡 문서를 클릭하면 자동으로 다운로드됩니다
+            </p>
+        </div>
+    `;
                 const pdfSection = isMobile ? `
                     <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
                     <h2>📋 프로젝트 상세 문서</h2>
