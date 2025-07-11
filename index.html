@@ -563,8 +563,8 @@ article img {
 <meta property="og:image" content="https://www.goeun-oh.com/images/projects/verification_tool.png">
 <meta property="og:image" content="https://www.goeun-oh.com/images/projects/sensor_interface.png">
 <meta property="og:image" content="https://www.goeun-oh.com/$%7Burl%7D">
-<meta property="article:published_time" content="2025-07-11T06:55:46.856Z">
-<meta property="article:modified_time" content="2025-07-11T06:55:46.856Z">
+<meta property="article:published_time" content="2025-07-11T07:36:25.920Z">
+<meta property="article:modified_time" content="2025-07-11T07:36:25.920Z">
 <meta property="article:author" content="고은">
 <meta property="article:tag" content="하드웨어 개발자, Verilog, RISC-V, Cortex-M, AXI4, FPGA, 임베디드, 포트폴리오">
 <meta name="twitter:card" content="summary">
@@ -676,7 +676,7 @@ article img {
     </div>
     <div class="mdui-card-primary-subtitle mdui-typo">
         
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-07-11 03:55<br>수정일: 2025-07-11 03:55'}" datetime="2025-07-11T06:55:46.856Z">2025-07-11</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-07-11 04:36<br>수정일: 2025-07-11 04:36'}" datetime="2025-07-11T07:36:25.920Z">2025-07-11</time>
         <span>-</span>
         
             <span>index.html</span>
@@ -2215,7 +2215,7 @@ body {
         </div>
         </div>
         <!-- Project 2: AXI4-Lite 인터페이스 기반 SPI/I2C 통신 프로토콜 설계 -->
-        <div class="project-card" data-readme="AXI4-Lite 기반 SPI/I2C 통신 프로토콜 설계">
+        <div class="project-card" data-readme="AXI4-Lite">
             <div class="project-header">
                 <span class="project-title">Peripheral 설계 </span>
                 <span class="project-date">2025.05.21 ~ 2025.05.25 (4人 팀 프로젝트)</span>
@@ -2235,10 +2235,19 @@ body {
             <div class="tech-stack">
                 <span class="tech-tag">systemVerilog</span>
                 <span class="tech-tag">Vivado</span>
-                <span class="tech-tag">Microblaze</span>
                 <span class="tech-tag">Synopsys VCS</span>
                 <span class="tech-tag">Synopsys Verdi</span>
             </div>
+            <div class="project-buttons">
+            <a href="#" class="btn-minimal" onclick="event.preventDefault(); event.stopPropagation(); openReadme('AXI4-Lite')">📋 자세히보기</a>
+            <a href="#" class="btn-minimal" onclick="event.preventDefault(); event.stopPropagation(); openVideoModal('i2c-video')">🎥 발표 영상</a>
+            <a href="#" class="btn-minimal" onclick="event.preventDefault(); event.stopPropagation(); window.open('https://github.com/goeun-oh/SPI-I2C.git', '_blank')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.30 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                Github
+            </a>
+        </div>
         </div>
         <!-- Project 3: APB 기반 RISC-V Peripheral 설계 -->
         <div class="project-card" data-readme="fosslight">
@@ -2669,33 +2678,60 @@ function openReadme(projectId) {
         .then(markdownText => {
             const htmlContent = parseMarkdown(markdownText);
                     
-if (projectId === 'i2c_vga_videoProcessing') {
-    const isMobile = window.innerWidth <= 1024;
-    
-    const pdfSection = isMobile ? `
-        <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
-        <h2>📋 프로젝트 상세 문서</h2>
-        <div style="width: 100%; height: 70vh; border: 1px solid #e2e8f0; border-radius: 8px; overflow: auto; margin: 20px 0; -webkit-overflow-scrolling: touch; padding: 10px;">
-            <object 
-                data="/projects/pdf/VGA_video_processing.pdf" 
-                type="application/pdf" 
-                style="width: 100%; height: 800px;">
-                <p>PDF를 표시할 수 없습니다. <a href="/projects/pdf/VGA_video_processing.pdf" target="_blank">여기를 클릭하여 PDF 보기</a></p>
-            </object>
-        </div>
-    ` : `
-        <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
-        <h2>📋 프로젝트 상세 문서</h2>
-        <div style="width: 100%; height: 800px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; margin: 20px 0;">
-            <iframe 
-                src="/projects/pdf/VGA_video_processing.pdf#zoom=page-width&toolbar=0&navpanes=0&scrollbar=0&view=FitH" 
-                style="width: 100%; height: 100%; border: none;">
-            </iframe>
-        </div>
-    `;
-    
-    readmeContent.innerHTML = htmlContent + pdfSection;
-}else {
+            if (projectId === 'i2c_vga_videoProcessing') {
+                const isMobile = window.innerWidth <= 1024;
+                
+                const pdfSection = isMobile ? `
+                    <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
+                    <h2>📋 프로젝트 상세 문서</h2>
+                    <div style="width: 100%; height: 70vh; border: 1px solid #e2e8f0; border-radius: 8px; overflow: auto; margin: 20px 0; -webkit-overflow-scrolling: touch; padding: 10px;">
+                        <object 
+                            data="/projects/pdf/VGA_video_processing.pdf" 
+                            type="application/pdf" 
+                            style="width: 100%; height: 800px;">
+                            <p>PDF를 표시할 수 없습니다. <a href="/projects/pdf/VGA_video_processing.pdf" target="_blank">여기를 클릭하여 PDF 보기</a></p>
+                        </object>
+                    </div>
+                ` : `
+                    <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
+                    <h2>📋 프로젝트 상세 문서</h2>
+                    <div style="width: 100%; height: 800px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; margin: 20px 0;">
+                        <iframe 
+                            src="/projects/pdf/VGA_video_processing.pdf#zoom=page-width&toolbar=0&navpanes=0&scrollbar=0&view=FitH" 
+                            style="width: 100%; height: 100%; border: none;">
+                        </iframe>
+                    </div>
+                `;
+                
+                readmeContent.innerHTML = htmlContent + pdfSection;
+            }
+            else if (projectId === 'AXI4-Lite') {
+                const isMobile = window.innerWidth <= 1024;
+                
+                const pdfSection = isMobile ? `
+                    <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
+                    <h2>📋 프로젝트 상세 문서</h2>
+                    <div style="width: 100%; height: 70vh; border: 1px solid #e2e8f0; border-radius: 8px; overflow: auto; margin: 20px 0; -webkit-overflow-scrolling: touch; padding: 10px;">
+                        <object 
+                            data="/projects/pdf/i2c.pdf" 
+                            type="application/pdf" 
+                            style="width: 100%; height: 800px;">
+                            <p>PDF를 표시할 수 없습니다. <a href="/projects/pdf/VGA_video_processing.pdf" target="_blank">여기를 클릭하여 PDF 보기</a></p>
+                        </object>
+                    </div>
+                ` : `
+                    <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
+                    <h2>📋 프로젝트 상세 문서</h2>
+                    <div style="width: 100%; height: 800px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; margin: 20px 0;">
+                        <iframe 
+                            src="/projects/pdf/i2c.pdf#zoom=page-width&toolbar=0&navpanes=0&scrollbar=0&view=FitH" 
+                            style="width: 100%; height: 100%; border: none;">
+                        </iframe>
+                    </div>
+                `;
+                
+                readmeContent.innerHTML = htmlContent + pdfSection;
+            }else {
                 readmeContent.innerHTML = htmlContent;
             }
             
@@ -2735,7 +2771,7 @@ if (projectId === 'i2c_vga_videoProcessing') {
             const projectTitles = {
                 'it-eldorado': 'IT 엘도라도 (블로그)',
                 'fosslight': 'FOSSLight Hub Lite',
-                'react-bulk-form': 'react-bulk-form',
+                'AXI4-Lite': 'AXI4-Lite 인터페이스 기반 SPI/I2C 통신 프로토콜 설계',
                 'i2c_vga_videoProcessing': 'I2C 통신 기반 듀얼 FPGA 탁구 게임'
             };
             modalTitle.textContent = projectTitles[projectId] || 'README.md';
@@ -2932,6 +2968,22 @@ function openVideoModal(projectId) {
             </div>
         `;
     }
+    else if (projectId === 'i2c-video') {
+        readmeContent.innerHTML = `
+            <div style="text-align: center;">
+                <h3>🎥 I2C 기반 보드 간 직렬 통신 인터페이스 설계 발표 영상</h3>
+                <div style="position: relative; padding-bottom: 56.25%; height: 0; margin: 20px 0;">
+                    <iframe 
+                        src="https://www.youtube.com/embed/V-OUSXCUVzI" 
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; border-radius: 8px;"
+                        allowfullscreen
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                    </iframe>
+                </div>
+                <p style="color: #666; font-size: 0.9rem; margin-bottom: 40px;">
+                    📅 2025.05.25 | 4인 팀 프로젝트 발표
+                </p>`
+            }
 }
 
 
