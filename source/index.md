@@ -786,6 +786,8 @@ body {
     padding: 30px;
     overflow-y: auto;
     max-height: calc(90vh - 100px);
+    -webkit-overflow-scrolling: touch; /* iOS 스크롤 활성화 */
+    overscroll-behavior: contain; /* 스크롤 경계 처리 */
 }
 
 /* README 내용 스타일 */
