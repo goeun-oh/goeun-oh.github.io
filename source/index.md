@@ -1975,31 +1975,33 @@ function openReadme(projectId) {
         .then(markdownText => {
             const htmlContent = parseMarkdown(markdownText);
                     
-        if (projectId === 'i2c_vga_videoProcessing') {
-            const isMobile = window.innerWidth <= 768;
-            
-            const pdfSection = isMobile ? `
-                <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
-                <h2>📋 프로젝트 상세 문서</h2>
-                <div style="width: 100%; height: 60vh; border: 1px solid #e2e8f0; border-radius: 8px; overflow: auto; margin: 20px 0;">
-                    <embed 
-                        src="/projects/pdf/VGA_video_processing.pdf" 
-                        type="application/pdf" 
-                        style="width: 100%; height: 100vh;">
-                </div>
-            ` : `
-                <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
-                <h2>📋 프로젝트 상세 문서</h2>
-                <div style="width: 100%; height: 800px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; margin: 20px 0;">
-                    <iframe 
-                        src="/projects/pdf/VGA_video_processing.pdf#zoom=page-width&toolbar=0&navpanes=0&scrollbar=0&view=FitH" 
-                        style="width: 100%; height: 100%; border: none;">
-                    </iframe>
-                </div>
-            `;
-            
-            readmeContent.innerHTML = htmlContent + pdfSection;
-        }else {
+if (projectId === 'i2c_vga_videoProcessing') {
+    const isMobile = window.innerWidth <= 768;
+    
+    const pdfSection = isMobile ? `
+        <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
+        <h2>📋 프로젝트 상세 문서</h2>
+        <div style="width: 100%; height: 70vh; border: 1px solid #e2e8f0; border-radius: 8px; overflow: auto; margin: 20px 0; -webkit-overflow-scrolling: touch; padding: 10px;">
+            <object 
+                data="/projects/pdf/VGA_video_processing.pdf" 
+                type="application/pdf" 
+                style="width: 100%; height: 800px;">
+                <p>PDF를 표시할 수 없습니다. <a href="/projects/pdf/VGA_video_processing.pdf" target="_blank">여기를 클릭하여 PDF 보기</a></p>
+            </object>
+        </div>
+    ` : `
+        <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
+        <h2>📋 프로젝트 상세 문서</h2>
+        <div style="width: 100%; height: 800px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; margin: 20px 0;">
+            <iframe 
+                src="/projects/pdf/VGA_video_processing.pdf#zoom=page-width&toolbar=0&navpanes=0&scrollbar=0&view=FitH" 
+                style="width: 100%; height: 100%; border: none;">
+            </iframe>
+        </div>
+    `;
+    
+    readmeContent.innerHTML = htmlContent + pdfSection;
+}else {
                 readmeContent.innerHTML = htmlContent;
             }
             
