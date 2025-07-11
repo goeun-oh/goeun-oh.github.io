@@ -563,8 +563,8 @@ article img {
 <meta property="og:image" content="https://www.goeun-oh.com/images/projects/verification_tool.png">
 <meta property="og:image" content="https://www.goeun-oh.com/images/projects/sensor_interface.png">
 <meta property="og:image" content="https://www.goeun-oh.com/$%7Burl%7D">
-<meta property="article:published_time" content="2025-07-11T05:19:41.723Z">
-<meta property="article:modified_time" content="2025-07-11T05:19:41.723Z">
+<meta property="article:published_time" content="2025-07-11T05:43:30.276Z">
+<meta property="article:modified_time" content="2025-07-11T05:43:30.276Z">
 <meta property="article:author" content="고은">
 <meta property="article:tag" content="하드웨어 개발자, Verilog, RISC-V, Cortex-M, AXI4, FPGA, 임베디드, 포트폴리오">
 <meta name="twitter:card" content="summary">
@@ -676,7 +676,7 @@ article img {
     </div>
     <div class="mdui-card-primary-subtitle mdui-typo">
         
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-07-11 02:19<br>수정일: 2025-07-11 02:19'}" datetime="2025-07-11T05:19:41.723Z">2025-07-11</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-07-11 02:43<br>수정일: 2025-07-11 02:43'}" datetime="2025-07-11T05:43:30.276Z">2025-07-11</time>
         <span>-</span>
         
             <span>index.html</span>
@@ -1402,20 +1402,20 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     background: rgba(0, 0, 0, 0.8);
     display: none;
     justify-content: center;
     align-items: center;
     z-index: 2000;
     padding: 20px;
+    box-sizing: border-box;
 }
 
 .modal-overlay.show {
     display: flex;
 }
-
 .modal-content {
     background: white;
     border-radius: 15px;
@@ -1425,8 +1425,8 @@ body {
     overflow: hidden;
     position: relative;
     animation: modalSlideIn 0.3s ease;
+    margin: 0 auto;  /* 🔥 이 줄 추가 */
 }
-
 @keyframes modalSlideIn {
     from {
         opacity: 0;
@@ -2169,7 +2169,7 @@ body {
                 <span class="tech-tag">Jira</span>
             </div>
             <div class="project-buttons">
-            <a href="#" class="btn-minimal" onclick="event.stopPropagation(); openReadme('i2c_vga_videoProcessing')">📋 자세히보기</a>
+            <a href="#" class="btn-minimal" onclick="event.preventDefault(); event.stopPropagation(); openReadme('i2c_vga_videoProcessing')">📋 자세히보기</a>
             <a href="#" class="btn-minimal" onclick="event.stopPropagation(); openVideoModal('i2c-fpga-game')">🎥 발표/동작 영상</a>
             <a href="#" class="btn-minimal" onclick="event.stopPropagation(); window.open('https://github.com/goeun-oh/video_processing.git', '_blank')">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -2414,38 +2414,44 @@ body {
 
 <script>
 
+
 let scrollY = 0;
 
-// 모달 열기 시 스크롤 잠금 (개선된 버전)
 function lockScroll() {
-  scrollY = window.scrollY || window.pageYOffset;
+  // 🔥 먼저 현재 위치를 저장
+  scrollY = window.scrollY;
   
-  // 스크롤바 너비 계산 (스크롤바 떨림 방지)
-  const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+  console.log('🔒 lockScroll 호출됨');
+  console.log('   현재 scrollY:', window.scrollY);
+  console.log('   저장된 scrollY:', scrollY);
+  console.log('   body overflow 상태:', document.body.style.overflow);
   
-  document.body.style.position = 'fixed';
-  document.body.style.top = `-${scrollY}px`;
-  document.body.style.left = '0';
-  document.body.style.right = '0';
-  document.body.style.width = '100%';
-  document.body.style.paddingRight = `${scrollBarWidth}px`; // 스크롤바 보상
   document.body.style.overflow = 'hidden';
+  document.body.style.height = '100%';
+  
+  document.addEventListener('touchmove', preventScroll, { passive: false });
 }
 
-// 모달 닫기 시 스크롤 복원 (개선된 버전)
 function unlockScroll() {
-  // 스타일 초기화
-  document.body.style.position = '';
-  document.body.style.top = '';
-  document.body.style.left = '';
-  document.body.style.right = '';
-  document.body.style.width = '';
-  document.body.style.paddingRight = '';
+  console.log('🔓 unlockScroll 호출됨');
+  console.log('   복원할 scrollY:', scrollY);
+  console.log('   현재 실제 scrollY:', window.scrollY);
+  console.log('   body overflow 상태:', document.body.style.overflow);
+  
   document.body.style.overflow = '';
-
-  // 스크롤 복원 (즉시 실행)
+  document.body.style.height = '';
+  
+  console.log('   스크롤 복원 전 위치:', window.scrollY);
   window.scrollTo(0, scrollY);
+  console.log('   스크롤 복원 후 위치:', window.scrollY);
+  
+  document.removeEventListener('touchmove', preventScroll);
 }
+// 🔥 터치 스크롤 방지 함수
+function preventScroll(e) {
+  e.preventDefault();
+}
+
 // 페이지 로드 후 네비게이션 메뉴 동적 추가
 document.addEventListener('DOMContentLoaded', function () {
   const toolbar = document.querySelector('.mdui-toolbar');
@@ -2563,34 +2569,42 @@ document.addEventListener('DOMContentLoaded', function() {
         filterCheckbox.dispatchEvent(new Event('change'));
     }
 });
-
-// 프로젝트 카드 클릭 이벤트 (README가 있는 경우)
+// 프로젝트 카드 클릭 이벤트
 document.addEventListener('DOMContentLoaded', function() {
     const projectCards = document.querySelectorAll('.project-card[data-readme]');
     
     projectCards.forEach(card => {
-        card.addEventListener('click', function() {
+        card.addEventListener('click', function(e) {
+            console.log('🃏 프로젝트 카드 클릭됨');
+            console.log('   클릭된 요소:', e.target);
+            console.log('   버튼 클릭인가?:', e.target.closest('.btn, .btn-minimal, .btn-primary, .btn-secondary'));
+            
+            if (e.target.closest('.btn, .btn-minimal, .btn-primary, .btn-secondary')) {
+                console.log('   → 버튼이므로 카드 클릭 무시');
+                return;
+            }
+            
             const readmeFile = this.getAttribute('data-readme');
             if (readmeFile) {
+                console.log('   → 카드 클릭으로 README 열기:', readmeFile);
                 openReadme(readmeFile);
             }
         });
     });
 });
-if ('scrollRestoration' in history) {
-  history.scrollRestoration = 'manual';
-}
-
 // 수정된 README 열기 함수
 function openReadme(projectId) {
+    console.log('📖 openReadme 호출됨 - 프로젝트:', projectId);
+    console.log('   호출 스택:', new Error().stack);
+    
     const modal = document.getElementById('readmeModal');
     const modalTitle = document.getElementById('modalTitle');
     const readmeContent = document.getElementById('readmeContent');
 
-    // 스크롤 잠금 (개선된 함수 사용)
+    // 스크롤 잠금
     lockScroll();
 
-    modal.style.display = 'block';
+    modal.style.display = 'flex';
     modal.classList.add('show');
 
     modalTitle.textContent = 'README.md';
@@ -2618,16 +2632,20 @@ function openReadme(projectId) {
                 const pdfSection = `
                     <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
                     <h2>📋 프로젝트 상세 문서</h2>
-                    <div style="text-align: center; padding: 40px; background: #f8f9fa; border-radius: 8px; margin: 20px 0;">
-                        <div style="color: #e74c3c; font-size: 48px; margin-bottom: 20px;">📄</div>
-                        <h3 style="color: #2c3e50; margin-bottom: 15px;">PDF 문서가 준비 중입니다</h3>
-                        <p style="color: #666; margin-bottom: 20px;">
-                            현재 VGA_video_processing.pdf 파일이 업로드되지 않았습니다.<br>
-                            파일을 업로드하면 여기에 표시됩니다.
-                        </p>
-                        <div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 6px; padding: 15px; margin: 15px 0;">
-                            <strong>📂 업로드 경로:</strong> <code>public/projects/pdf/VGA_video_processing.pdf</code>
-                        </div>
+                        <div style="width: 100%; height: 600px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; margin: 20px 0;">
+    <iframe 
+        src="projects/pdf/VGA_video_processing.pdf#toolbar=0&navpanes=0&scrollbar=1&view=FitH" 
+        style="width: 100%; height: 100%; border: none;"
+        type="application/pdf">
+        <div style="padding: 40px; text-align: center; color: #666;">
+            <p>PDF를 표시할 수 없습니다.</p>
+            <a href="projects/pdf/VGA_video_processing.pdf" target="_blank" 
+               style="color: #3182ce; text-decoration: none;">
+                📄 PDF 파일 다운로드
+            </a>
+        </div>
+    </iframe>
+</div>
                     </div>
                 `;
                 readmeContent.innerHTML = htmlContent + pdfSection;
@@ -2688,20 +2706,22 @@ function openReadme(projectId) {
         });
 }
 
-// 수정된 모달 닫기 함수
 function closeReadme() {
+  console.log('❌ closeReadme 호출됨');
+  console.log('   호출 스택:', new Error().stack);
+  
   const modal = document.getElementById('readmeModal');
-
-  // 모달 숨기기 애니메이션 시작
+  
+  // 애니메이션 시작
   modal.classList.remove('show');
-
-  // 애니메이션 완료 후 스크롤 복원 및 모달 숨기기
+  
+  // 300ms 후 완전히 정리
   setTimeout(() => {
-    unlockScroll(); // 개선된 스크롤 복원 함수 사용
+    console.log('⏰ setTimeout 실행됨 (300ms 후)');
     modal.style.display = 'none';
-  }, 300); // CSS 애니메이션 시간에 맞춰 조정
+    unlockScroll(); // 스크롤 복원
+  }, 300);
 }
-
 // ESC 키로 모달 닫기
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
@@ -2798,8 +2818,11 @@ function openVideoModal(projectId) {
     const modalTitle = document.getElementById('modalTitle');
     const readmeContent = document.getElementById('readmeContent');
     
-    // // 🔥 현재 스크롤 위치 저장
-    // savedScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+    // 스크롤 잠금
+    lockScroll();
+    
+    modal.style.display = 'flex';
+    modal.classList.add('show');
     
     modalTitle.textContent = '발표 영상 & 동작 영상';
     
