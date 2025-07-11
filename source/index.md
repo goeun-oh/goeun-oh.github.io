@@ -697,11 +697,11 @@ body {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 /* 모달 열릴 때 배경 스크롤 방지 - 다른 방식 */
-body.no-scroll {
+/* body.no-scroll {
   position: fixed;
   width: 100%;
-  overflow-y: scroll;
-}
+  /* overflow-y: scroll; */
+/*} */
 
 /* README 모달 스타일 */
 .modal-overlay {
@@ -1850,7 +1850,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-let savedScrollPosition = 0;
+// let savedScrollPosition = 0;
 // README 모달 열기 함수
 function openReadme(projectId) {
     // 스크롤 위치 저장용 변수
@@ -1858,19 +1858,18 @@ function openReadme(projectId) {
     const modal = document.getElementById('readmeModal');
     const modalTitle = document.getElementById('modalTitle');
     const readmeContent = document.getElementById('readmeContent');
-    const scrollY = window.scrollY || window.pageYOffset;
+    // const scrollY = window.scrollY || window.pageYOffset;
 
-    // 🔥 스크롤 위치 저장
-    savedScrollPosition = scrollY;
+    // // 🔥 스크롤 위치 저장
+    // savedScrollPosition = scrollY;
 
     
 
-    // 🔥 body를 고정하고 top 위치를 지정
-    document.body.classList.add('no-scroll');
-    document.body.style.top = `-${scrollY}px`;
+    // // 🔥 body를 고정하고 top 위치를 지정
+    // document.body.classList.add('no-scroll');
+    // document.body.style.top = `-${scrollY}px`;
     
     // 로딩 상태 표시
-    modalTitle.textContent = 'README.md';
     readmeContent.innerHTML = `
         <div class="loading-content">
             <div class="loading-spinner"></div>
@@ -1981,13 +1980,13 @@ function closeReadme() {
     const modal = document.getElementById('readmeModal');
     modal.classList.remove('show');
 
-    // 🔥 고정 해제
-    document.body.classList.remove('no-scroll');
+    // // 🔥 고정 해제
+    // document.body.classList.remove('no-scroll');
 
-    // 🔥 기존 위치로 복구
-    const scrollY = parseInt(document.body.style.top || '0') * -1;
-    document.body.style.top = '';
-    window.scrollTo(0, scrollY);
+    // // 🔥 기존 위치로 복구
+    // const scrollY = parseInt(document.body.style.top || '0') * -1;
+    // document.body.style.top = '';
+    // window.scrollTo(0, scrollY);
 }
 // 마크다운 파서
 function parseMarkdown(markdown) {
@@ -2064,8 +2063,8 @@ function openVideoModal(projectId) {
     const modalTitle = document.getElementById('modalTitle');
     const readmeContent = document.getElementById('readmeContent');
     
-    // 🔥 현재 스크롤 위치 저장
-    savedScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+    // // 🔥 현재 스크롤 위치 저장
+    // savedScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
     
     modalTitle.textContent = '발표 영상 & 동작 영상';
     
@@ -2127,10 +2126,10 @@ function openVideoModal(projectId) {
         `;
     }
     
-    // 🔥 새로운 코드 (교체)
-    modal.classList.add('show');
-    savedScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-    document.body.style.overflow = 'hidden';
+    // // 🔥 새로운 코드 (교체)
+    // modal.classList.add('show');
+    // savedScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+    // document.body.style.overflow = 'hidden';
 }
 </script>
 
