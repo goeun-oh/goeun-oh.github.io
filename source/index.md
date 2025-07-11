@@ -698,12 +698,11 @@ body {
 }
 /* 모달 열릴 때 배경 스크롤 방지 - 다른 방식 */
 body.no-scroll {
-    overflow: hidden;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
+  position: fixed;
+  width: 100%;
+  overflow-y: scroll;
 }
+
 /* README 모달 스타일 */
 .modal-overlay {
     position: fixed;
@@ -1859,9 +1858,16 @@ function openReadme(projectId) {
     const modal = document.getElementById('readmeModal');
     const modalTitle = document.getElementById('modalTitle');
     const readmeContent = document.getElementById('readmeContent');
+    const scrollY = window.scrollY || window.pageYOffset;
+
+    // 🔥 스크롤 위치 저장
+    savedScrollPosition = scrollY;
+
     
-    // 🔥 현재 스크롤 위치 저장
-    savedScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+
+    // 🔥 body를 고정하고 top 위치를 지정
+    document.body.classList.add('no-scroll');
+    document.body.style.top = `-${scrollY}px`;
     
     // 로딩 상태 표시
     modalTitle.textContent = 'README.md';
@@ -1970,11 +1976,18 @@ function openReadme(projectId) {
             `;
         });
 }
-
+// 모달 닫기
 function closeReadme() {
     const modal = document.getElementById('readmeModal');
     modal.classList.remove('show');
-    // 🔥 아무것도 하지 않음 - 스크롤 위치 그대로 두기
+
+    // 🔥 고정 해제
+    document.body.classList.remove('no-scroll');
+
+    // 🔥 기존 위치로 복구
+    const scrollY = parseInt(document.body.style.top || '0') * -1;
+    document.body.style.top = '';
+    window.scrollTo(0, scrollY);
 }
 // 마크다운 파서
 function parseMarkdown(markdown) {
