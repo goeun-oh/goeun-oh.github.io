@@ -1523,7 +1523,7 @@ body {
         <!-- Project 2: AXI4-Lite 인터페이스 기반 SPI/I2C 통신 프로토콜 설계 -->
         <div class="project-card" data-readme="AXI4-Lite">
             <div class="project-header">
-                <span class="project-title">Peripheral 설계 </span>
+                <span class="project-title">AXI4-Lite </span>
                 <span class="project-date">2025.05.21 ~ 2025.05.25 (4人 팀 프로젝트)</span>
             </div>
             <h3 class="project-name">AXI4-Lite 기반 SPI/I2C 통신 프로토콜 설계</h3>
@@ -1558,7 +1558,7 @@ body {
         <!-- Project 3: APB 기반 RISC-V Peripheral 설계 -->
         <div class="project-card" data-readme="RISC-V-Peripheral">
             <div class="project-header">
-                <span class="project-title">RISC-V</span>
+                <span class="project-title">AMBA APB</span>
                 <span class="project-date">2025.04.30 - 2025.05.06 (4人 팀 프로젝트)</span>
             </div>
             <h3 class="project-name"> RISC-V AMBA Peripheral 설계</h3>
@@ -2030,7 +2030,6 @@ function openReadme(projectId) {
                      onmouseout="this.style.boxShadow=''; this.style.transform=''">
                     <div style="flex: 1;">
                         <h4 style="margin: 0 0 5px 0; color: #2d3748; font-size: 1.1rem;">I2C 통신 프로토콜 설계서</h4>
-                        <p style="margin: 0; color: #718096; font-size: 0.9rem;">I2C 통신 프로토콜 구현 문서</p>
                     </div>
                     <div style="color: #3182ce; font-size: 20px;">⬇️</div>
                 </div>
@@ -2042,7 +2041,6 @@ function openReadme(projectId) {
                      onmouseout="this.style.boxShadow=''; this.style.transform=''">
                     <div style="flex: 1;">
                         <h4 style="margin: 0 0 5px 0; color: #2d3748; font-size: 1.1rem;">SPI 통신 프로토콜 설계서</h4>
-                        <p style="margin: 0; color: #718096; font-size: 0.9rem;">SPI 통신 프로토콜 구현 문서</p>
                     </div>
                     <div style="color: #3182ce; font-size: 20px;">⬇️</div>
                 </div>
@@ -2094,23 +2092,11 @@ function openReadme(projectId) {
                      onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'; this.style.transform='translateY(-2px)'"
                      onmouseout="this.style.boxShadow=''; this.style.transform=''">
                     <div style="flex: 1;">
-                        <h4 style="margin: 0 0 5px 0; color: #2d3748; font-size: 1.1rem;">I2C 통신 프로토콜 설계서</h4>
-                        <p style="margin: 0; color: #718096; font-size: 0.9rem;">I2C 통신 프로토콜 구현 문서</p>
+                        <h4 style="margin: 0 0 5px 0; color: #2d3748; font-size: 1.1rem;">APB Periph Deisgn 설계서</h4>
                     </div>
                     <div style="color: #3182ce; font-size: 20px;">⬇️</div>
                 </div>
-                
-                <!-- 문서 2 -->
-                <div style="display: flex; align-items: center; padding: 15px; background: white; border-radius: 8px; border: 1px solid #e2e8f0; cursor: pointer; transition: all 0.2s ease;" 
-                     onclick="downloadFile('/projects/pdf/spi-design-spec.pdf', 'spi-design-spec.pdf')"
-                     onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'; this.style.transform='translateY(-2px)'"
-                     onmouseout="this.style.boxShadow=''; this.style.transform=''">
-                    <div style="flex: 1;">
-                        <h4 style="margin: 0 0 5px 0; color: #2d3748; font-size: 1.1rem;">SPI 통신 프로토콜 설계서</h4>
-                        <p style="margin: 0; color: #718096; font-size: 0.9rem;">SPI 통신 프로토콜 구현 문서</p>
-                    </div>
-                    <div style="color: #3182ce; font-size: 20px;">⬇️</div>
-                </div>
+
                 
             <p style="color: #718096; font-size: 0.8rem; margin-top: 20px; text-align: center;">
                 💡 문서를 클릭하면 자동으로 다운로드됩니다
@@ -2122,10 +2108,10 @@ function openReadme(projectId) {
                     <h2>📋 프로젝트 상세 문서</h2>
                     <div style="width: 100%; height: 70vh; border: 1px solid #e2e8f0; border-radius: 8px; overflow: auto; margin: 20px 0; -webkit-overflow-scrolling: touch; padding: 10px;">
                         <object 
-                            data="/projects/pdf/i2c.pdf" 
+                            data="/projects/pdf/risc-v-periph.pdf" 
                             type="application/pdf" 
                             style="width: 100%; height: 800px;">
-                            <p>PDF를 표시할 수 없습니다. <a href="/projects/pdf/i2c.pdf" target="_blank">여기를 클릭하여 PDF 보기</a></p>
+                            <p>PDF를 표시할 수 없습니다. <a href="/projects/pdf/risc-v-periph.pdf" target="_blank">여기를 클릭하여 PDF 보기</a></p>
                         </object>
                     </div>
                 ` : `
@@ -2133,7 +2119,7 @@ function openReadme(projectId) {
                     <h2>📋 프로젝트 상세 문서</h2>
                     <div style="width: 100%; height: 800px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; margin: 20px 0;">
                         <iframe 
-                            src="/projects/pdf/i2c.pdf#zoom=page-width&toolbar=0&navpanes=0&scrollbar=0&view=FitH" 
+                            src="/projects/pdf/risc-v-periph.pdf#zoom=page-width&toolbar=0&navpanes=0&scrollbar=0&view=FitH" 
                             style="width: 100%; height: 100%; border: none;">
                         </iframe>
                     </div>
