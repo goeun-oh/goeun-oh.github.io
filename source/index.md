@@ -1976,18 +1976,21 @@ function openReadme(projectId) {
             const htmlContent = parseMarkdown(markdownText);
             
             if (projectId === 'i2c_vga_videoProcessing') {
+                const isMobile = window.innerWidth <= 768;
+                const pdfParams = isMobile ? 
+                    "#zoom=50&toolbar=0&navpanes=0&scrollbar=0&view=FitH" : 
+                    "#zoom=page-width&toolbar=0&navpanes=0&scrollbar=0&view=FitH";
+                const height = isMobile ? "500px" : "800px";
+                
                 const pdfSection = `
                     <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
                     <h2>📋 프로젝트 상세 문서</h2>
-                    <div style="width: 100%; height: 600px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; margin: 20px 0;">
+                    <div style="width: 100%; height: ${height}; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; margin: 20px 0;">
                         <iframe 
-                            src="/projects/pdf/VGA_video_processing.pdf#zoom=50&view=FitH" 
+                            src="/projects/pdf/VGA_video_processing.pdf${pdfParams}" 
                             style="width: 100%; height: 100%; border: none;">
                         </iframe>
                     </div>
-                    <p style="color: #666; font-size: 0.9rem; text-align: center;">
-                        💡 PDF 내에서 확대/축소하여 크기를 조정할 수 있습니다
-                    </p>
                 `;
                 readmeContent.innerHTML = htmlContent + pdfSection;
             }else {
