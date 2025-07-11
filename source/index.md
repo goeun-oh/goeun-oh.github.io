@@ -2025,7 +2025,7 @@ function openReadme(projectId) {
             <div style="display: grid; gap: 15px;">
                 <!-- 문서 1 -->
                 <div style="display: flex; align-items: center; padding: 15px; background: white; border-radius: 8px; border: 1px solid #e2e8f0; cursor: pointer; transition: all 0.2s ease;" 
-                     onclick="downloadFile('/projects/docs/i2c-design-spec.pdf', 'i2c-design-spec.pdf')"
+                     onclick="downloadFile('/projects/pdf/i2c-design-spec.pdf', 'i2c-design-spec.pdf')"
                      onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'; this.style.transform='translateY(-2px)'"
                      onmouseout="this.style.boxShadow=''; this.style.transform=''">
                     <div style="color: #e74c3c; font-size: 24px; margin-right: 15px;">📋</div>
@@ -2038,7 +2038,7 @@ function openReadme(projectId) {
                 
                 <!-- 문서 2 -->
                 <div style="display: flex; align-items: center; padding: 15px; background: white; border-radius: 8px; border: 1px solid #e2e8f0; cursor: pointer; transition: all 0.2s ease;" 
-                     onclick="downloadFile('/projects/docs/spi-design-spec.pdf', 'spi-design-spec.pdf')"
+                     onclick="downloadFile('/projects/pdf/spi-design-spec.pdf', 'spi-design-spec.pdf')"
                      onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'; this.style.transform='translateY(-2px)'"
                      onmouseout="this.style.boxShadow=''; this.style.transform=''">
                     <div style="color: #9b59b6; font-size: 24px; margin-right: 15px;">🔧</div>
@@ -2076,7 +2076,7 @@ function openReadme(projectId) {
                     </div>
                 `;
                 
-                readmeContent.innerHTML = htmlContent + pdfSection;
+                readmeContent.innerHTML = htmlContent + documentsSection + pdfSection;
             }else {
                 readmeContent.innerHTML = htmlContent;
             }
@@ -2233,6 +2233,17 @@ function parseMarkdown(markdown) {
     html = html.replace(/(<\/div>)<\/p>/g, '$1');
     
     return html;
+}
+// 파일 다운로드 함수 (스크립트 어디든 추가)
+function downloadFile(fileUrl, fileName) {
+    const link = document.createElement('a');
+    link.href = fileUrl;
+    link.download = fileName;
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    console.log(`📥 다운로드 시작: ${fileName}`);
 }
 // 🔥 DOMContentLoaded에서 deprecated 이벤트 제거
 document.addEventListener('DOMContentLoaded', function() {
