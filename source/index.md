@@ -1718,6 +1718,7 @@ body {
                 <span class="tech-tag">Verilog</span>
                 <span class="tech-tag">ModelSim</span>
             </div>
+        </div>
         <!-- Project 6: 계산기설계 -->
         <div class="project-card">
             <div class="project-header">
