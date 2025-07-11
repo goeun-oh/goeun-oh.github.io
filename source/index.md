@@ -649,7 +649,61 @@ body {
     background: #d5dbdb;
     transform: translateY(-2px);
 }
+/* 미니멀 버튼 스타일 */
+/* 미니멀 버튼 스타일 */
+.btn-minimal {
+    background: white;
+    color: #333;
+    border: 1.5px solid #ccc;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
 
+.btn-minimal:hover {
+    background: #f8f9fa;
+    border-color: #999;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.btn-minimal-dark {
+    background: #2c3e50;
+    color: #333;
+    border: 1.5px solid #ccc;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.btn-minimal-dark:hover {
+    background: #2c3e50;
+    border-color: #999;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+/* 모달 열릴 때 배경 스크롤 방지 - 다른 방식 */
+body.no-scroll {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
 /* README 모달 스타일 */
 .modal-overlay {
     position: fixed;
@@ -1422,8 +1476,9 @@ body {
                 <span class="tech-tag">Jira</span>
             </div>
             <div class="project-buttons">
-            <a href="#" class="btn btn-secondary" onclick="event.stopPropagation(); openVideoModal('i2c-fpga-game')">🎥 발표/동작 영상</a>
-            <a href="#" class="btn btn-primary" onclick="event.stopPropagation(); window.open('https://github.com/goeun-oh/video_processing.git', '_blank')">
+            <a href="#" class="btn-minimal" onclick="event.stopPropagation(); openReadme('i2c_vga_videoProcessing')">📋 자세히보기</a>
+            <a href="#" class="btn-minimal" onclick="event.stopPropagation(); openVideoModal('i2c-fpga-game')">🎥 발표/동작 영상</a>
+            <a href="#" class="btn-minimal" onclick="event.stopPropagation(); window.open('https://github.com/goeun-oh/video_processing.git', '_blank')">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.30 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                 </svg>
@@ -1796,12 +1851,17 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-
-// README 모달 관련 함수들 - skip_render 사용
+let savedScrollPosition = 0;
+// README 모달 열기 함수
 function openReadme(projectId) {
+    // 스크롤 위치 저장용 변수
+    // 🔥 현재 스크롤 위치 저장
     const modal = document.getElementById('readmeModal');
     const modalTitle = document.getElementById('modalTitle');
     const readmeContent = document.getElementById('readmeContent');
+    
+    // 🔥 현재 스크롤 위치 저장
+    savedScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
     
     // 로딩 상태 표시
     modalTitle.textContent = 'README.md';
@@ -1812,139 +1872,8 @@ function openReadme(projectId) {
         </div>
     `;
     
+    // 🔥 모달 열기 (스타일 조작 없음)
     modal.classList.add('show');
-    document.body.style.overflow = 'hidden';
-    
-    // ✅ skip_render 덕분에 이제 이 경로가 작동합니다!
-    const readmeUrl = `readmes/${projectId}.md`;
-    
-    fetch(readmeUrl)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`README 파일을 찾을 수 없습니다: ${response.status}`);
-            }
-            return response.text();
-        })
-        .then(markdownText => {
-            // 간단한 마크다운 파싱
-            const htmlContent = parseMarkdown(markdownText);
-            readmeContent.innerHTML = htmlContent;
-            
-            // 프로젝트 이름을 타이틀로 설정
-            const projectTitles = {
-                'it-eldorado': 'IT 엘도라도 (블로그)',
-                'fosslight': 'FOSSLight Hub Lite',
-                'i2c_vga_videoProcessing': 'i2c 통신 기반 듀얼 FPGA 탁구 게임'
-            };
-            modalTitle.textContent = projectTitles[projectId] || 'README.md';
-        })
-        .catch(error => {
-            console.error('README 로딩 오류:', error);
-            readmeContent.innerHTML = `
-                <div class="error-content">
-                    <h3>❌ 오류가 발생했습니다</h3>
-                    <p>${error.message}</p>
-                    <p>README 파일이 아직 준비되지 않았을 수 있습니다.</p>
-                </div>
-            `;
-        });
-}
-
-// README 모달 닫기
-function closeReadme() {
-    const modal = document.getElementById('readmeModal');
-    modal.classList.remove('show');
-    document.body.style.overflow = 'auto';
-}
-// 🔥 이미지 우선 처리 마크다운 파서 - Part 6 교체
-function parseMarkdown(markdown) {
-    let html = markdown;
-    
-    console.log('원본 마크다운:', markdown);
-    
-    // 🔥 STEP 1: 이미지를 먼저 임시 플레이스홀더로 변경
-    const imagePlaceholders = [];
-    html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, url) {
-        const placeholder = `___IMAGE_PLACEHOLDER_${imagePlaceholders.length}___`;
-        imagePlaceholders.push({
-            alt: alt,
-            url: url,
-            html: `<div class="readme-image-wrapper"><img src="${url}" alt="${alt}" class="readme-img" /></div>`
-        });
-        console.log('이미지 발견:', { alt, url, placeholder });
-        return placeholder;
-    });
-    
-    console.log('플레이스홀더 처리 후:', html);
-    console.log('저장된 이미지들:', imagePlaceholders);
-    
-    // 🔥 STEP 2: 나머지 마크다운 처리
-    // 제목들
-    html = html.replace(/^# (.*$)/gm, '<h1>$1</h1>');
-    html = html.replace(/^## (.*$)/gm, '<h2>$1</h2>');
-    html = html.replace(/^### (.*$)/gm, '<h3>$1</h3>');
-    
-    // 강조
-    html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
-    
-    // 링크 (이제 이미지는 플레이스홀더라서 안전)
-    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
-    
-    // 인용구
-    html = html.replace(/^> (.*)$/gm, '<blockquote>$1</blockquote>');
-    
-    // 리스트
-    html = html.replace(/^- (.*)$/gm, '<li>$1</li>');
-    
-    // 줄바꿈
-    html = html.replace(/\n\n/g, '</p><p>');
-    html = '<p>' + html + '</p>';
-    
-    // 리스트를 ul로 감싸기
-    html = html.replace(/(<li>.*?<\/li>)+/gs, function(match) {
-        return '<ul>' + match + '</ul>';
-    });
-    
-    // 🔥 STEP 3: 플레이스홀더를 실제 이미지로 복원
-    imagePlaceholders.forEach((img, index) => {
-        const placeholder = `___IMAGE_PLACEHOLDER_${index}___`;
-        html = html.replace(placeholder, img.html);
-        console.log('플레이스홀더 복원:', placeholder, '→', img.html);
-    });
-    
-    // 불필요한 태그 정리
-    html = html.replace(/<p><\/p>/g, '');
-    html = html.replace(/<p>(<h[1-6]>)/g, '$1');
-    html = html.replace(/(<\/h[1-6]>)<\/p>/g, '$1');
-    html = html.replace(/<p>(<ul>)/g, '$1');
-    html = html.replace(/(<\/ul>)<\/p>/g, '$1');
-    html = html.replace(/<p>(<blockquote>)/g, '$1');
-    html = html.replace(/(<\/blockquote>)<\/p>/g, '$1');
-    html = html.replace(/<p>(<div)/g, '$1');
-    html = html.replace(/(<\/div>)<\/p>/g, '$1');
-    
-    console.log('최종 HTML:', html);
-    
-    return html;
-}
-// 🔥 openReadme 함수도 수정 (deprecated 이벤트 제거)
-function openReadme(projectId) {
-    const modal = document.getElementById('readmeModal');
-    const modalTitle = document.getElementById('modalTitle');
-    const readmeContent = document.getElementById('readmeContent');
-    
-    // 로딩 상태 표시
-    modalTitle.textContent = 'README.md';
-    readmeContent.innerHTML = `
-        <div class="loading-content">
-            <div class="loading-spinner"></div>
-            <p>README 파일을 불러오는 중...</p>
-        </div>
-    `;
-    
-    modal.classList.add('show');
-    document.body.style.overflow = 'hidden';
     
     // README 파일 가져오기
     const readmeUrl = `readmes/${projectId}.md`;
@@ -1959,8 +1888,8 @@ function openReadme(projectId) {
         .then(markdownText => {
             // 마크다운 파싱
             const htmlContent = parseMarkdown(markdownText);
+            
             // I2C 프로젝트인 경우 PDF 섹션 추가
-            // 기존 코드에서 이 부분만 교체
             if (projectId === 'i2c_vga_videoProcessing') {
                 const pdfSection = `
                     <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
@@ -1973,7 +1902,7 @@ function openReadme(projectId) {
                             <div style="padding: 40px; text-align: center; color: #666;">
                                 <p>PDF를 표시할 수 없습니다.</p>
                                 <a href="projects/pdf/VGA_video_processing.pdf" target="_blank" 
-                                style="color: #3182ce; text-decoration: none;">
+                                   style="color: #3182ce; text-decoration: none;">
                                     📄 PDF 파일 다운로드
                                 </a>
                             </div>
@@ -1984,9 +1913,10 @@ function openReadme(projectId) {
                     </p>
                 `;
                 readmeContent.innerHTML = htmlContent + pdfSection;
-            }else {
+            } else {
                 readmeContent.innerHTML = htmlContent;
-            }            
+            }
+            
             // 🔥 이미지 로딩 처리 (deprecated 이벤트 대신 직접 처리)
             const images = readmeContent.querySelectorAll('img');
             images.forEach(img => {
@@ -2025,7 +1955,7 @@ function openReadme(projectId) {
                 'it-eldorado': 'IT 엘도라도 (블로그)',
                 'fosslight': 'FOSSLight Hub Lite',
                 'react-bulk-form': 'react-bulk-form',
-                'i2c-fpga-game': 'I2C 통신 기반 듀얼 FPGA 탁구 게임'
+                'i2c_vga_videoProcessing': 'I2C 통신 기반 듀얼 FPGA 탁구 게임'
             };
             modalTitle.textContent = projectTitles[projectId] || 'README.md';
         })
@@ -2040,17 +1970,89 @@ function openReadme(projectId) {
             `;
         });
 }
+
+function closeReadme() {
+    const modal = document.getElementById('readmeModal');
+    modal.classList.remove('show');
+    // 🔥 아무것도 하지 않음 - 스크롤 위치 그대로 두기
+}
+// 마크다운 파서
+function parseMarkdown(markdown) {
+    let html = markdown;
+    
+    // 🔥 STEP 1: 이미지를 먼저 임시 플레이스홀더로 변경
+    const imagePlaceholders = [];
+    html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, url) {
+        const placeholder = `___IMAGE_PLACEHOLDER_${imagePlaceholders.length}___`;
+        imagePlaceholders.push({
+            alt: alt,
+            url: url,
+            html: `<div class="readme-image-wrapper"><img src="${url}" alt="${alt}" class="readme-img" /></div>`
+        });
+        return placeholder;
+    });
+    
+    // 🔥 STEP 2: 나머지 마크다운 처리
+    // 제목들
+    html = html.replace(/^# (.*$)/gm, '<h1>$1</h1>');
+    html = html.replace(/^## (.*$)/gm, '<h2>$1</h2>');
+    html = html.replace(/^### (.*$)/gm, '<h3>$1</h3>');
+    
+    // 강조
+    html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    
+    // 링크 (이제 이미지는 플레이스홀더라서 안전)
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+    
+    // 인용구
+    html = html.replace(/^> (.*)$/gm, '<blockquote>$1</blockquote>');
+    
+    // 리스트
+    html = html.replace(/^- (.*)$/gm, '<li>$1</li>');
+    
+    // 줄바꿈
+    html = html.replace(/\n\n/g, '</p><p>');
+    html = '<p>' + html + '</p>';
+    
+    // 리스트를 ul로 감싸기
+    html = html.replace(/(<li>.*?<\/li>)+/gs, function(match) {
+        return '<ul>' + match + '</ul>';
+    });
+    
+    // 🔥 STEP 3: 플레이스홀더를 실제 이미지로 복원
+    imagePlaceholders.forEach((img, index) => {
+        const placeholder = `___IMAGE_PLACEHOLDER_${index}___`;
+        html = html.replace(placeholder, img.html);
+    });
+    
+    // 불필요한 태그 정리
+    html = html.replace(/<p><\/p>/g, '');
+    html = html.replace(/<p>(<h[1-6]>)/g, '$1');
+    html = html.replace(/(<\/h[1-6]>)<\/p>/g, '$1');
+    html = html.replace(/<p>(<ul>)/g, '$1');
+    html = html.replace(/(<\/ul>)<\/p>/g, '$1');
+    html = html.replace(/<p>(<blockquote>)/g, '$1');
+    html = html.replace(/(<\/blockquote>)<\/p>/g, '$1');
+    html = html.replace(/<p>(<div)/g, '$1');
+    html = html.replace(/(<\/div>)<\/p>/g, '$1');
+    
+    return html;
+}
 // 🔥 DOMContentLoaded에서 deprecated 이벤트 제거
 document.addEventListener('DOMContentLoaded', function() {
     // 기존의 DOMNodeInserted 이벤트 리스너 제거
     // 대신 직접 이미지 처리를 openReadme 함수에서 수행
 });
 
-// 🔥 여기에 openVideoModal 함수를 추가하세요
+// 비디오 모달 열기
 function openVideoModal(projectId) {
     const modal = document.getElementById('readmeModal');
     const modalTitle = document.getElementById('modalTitle');
     const readmeContent = document.getElementById('readmeContent');
+    
+    // 🔥 현재 스크롤 위치 저장
+    savedScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
     
     modalTitle.textContent = '발표 영상 & 동작 영상';
     
@@ -2112,7 +2114,9 @@ function openVideoModal(projectId) {
         `;
     }
     
+    // 🔥 새로운 코드 (교체)
     modal.classList.add('show');
+    savedScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
     document.body.style.overflow = 'hidden';
 }
 </script>
