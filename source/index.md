@@ -2028,7 +2028,6 @@ function openReadme(projectId) {
                      onclick="downloadFile('/projects/pdf/i2c-design-spec.pdf', 'i2c-design-spec.pdf')"
                      onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'; this.style.transform='translateY(-2px)'"
                      onmouseout="this.style.boxShadow=''; this.style.transform=''">
-                    <div style="color: #e74c3c; font-size: 24px; margin-right: 15px;">📋</div>
                     <div style="flex: 1;">
                         <h4 style="margin: 0 0 5px 0; color: #2d3748; font-size: 1.1rem;">I2C 통신 프로토콜 설계서</h4>
                         <p style="margin: 0; color: #718096; font-size: 0.9rem;">I2C 통신 프로토콜 구현 문서</p>
@@ -2041,7 +2040,6 @@ function openReadme(projectId) {
                      onclick="downloadFile('/projects/pdf/spi-design-spec.pdf', 'spi-design-spec.pdf')"
                      onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'; this.style.transform='translateY(-2px)'"
                      onmouseout="this.style.boxShadow=''; this.style.transform=''">
-                    <div style="color: #9b59b6; font-size: 24px; margin-right: 15px;">🔧</div>
                     <div style="flex: 1;">
                         <h4 style="margin: 0 0 5px 0; color: #2d3748; font-size: 1.1rem;">SPI 통신 프로토콜 설계서</h4>
                         <p style="margin: 0; color: #718096; font-size: 0.9rem;">SPI 통신 프로토콜 구현 문서</p>
