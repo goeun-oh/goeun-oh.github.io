@@ -2022,7 +2022,7 @@ function openReadme(projectId) {
                             data="/projects/pdf/i2c.pdf" 
                             type="application/pdf" 
                             style="width: 100%; height: 800px;">
-                            <p>PDF를 표시할 수 없습니다. <a href="/projects/pdf/VGA_video_processing.pdf" target="_blank">여기를 클릭하여 PDF 보기</a></p>
+                            <p>PDF를 표시할 수 없습니다. <a href="/projects/pdf/i2c.pdf" target="_blank">여기를 클릭하여 PDF 보기</a></p>
                         </object>
                     </div>
                 ` : `
