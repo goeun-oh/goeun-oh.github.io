@@ -1556,7 +1556,7 @@ body {
         </div>
         </div>
         <!-- Project 3: APB 기반 RISC-V Peripheral 설계 -->
-        <div class="project-card" data-readme="fosslight">
+        <div class="project-card" data-readme="RISC-V-Peripheral">
             <div class="project-header">
                 <span class="project-title">RISC-V</span>
                 <span class="project-date">2025.04.30 - 2025.05.06 (4人 팀 프로젝트)</span>
@@ -1579,16 +1579,17 @@ body {
                 <span class="tech-tag">UVM-lite</span>
                 <span class="tech-tag">RISC-V</span>
                 <span class="tech-tag">AMBA APB</span>
-                <span class="tech-tag">DHT-11</span>
-                <span class="tech-tag">Ultrasonic</span>
-                <span class="tech-tag">basys3</span>
-                <span class="tech-tag">Vivado</span>
-                <span class="tech-tag">Vitis</span>
             </div>
             <div class="project-buttons">
-                <a href="#" class="btn btn-primary" onclick="event.stopPropagation(); openReadme('fosslight')">📖 Document</a>
-                <a href="#" class="btn btn-secondary">🎥 발표 영상</a>
-            </div>
+            <a href="#" class="btn-minimal" onclick="event.preventDefault(); event.stopPropagation(); openReadme('RISC-V-Peripheral')">📋 자세히보기</a>
+            <a href="#" class="btn-minimal" onclick="event.preventDefault(); event.stopPropagation(); openVideoModal('risc-v-periph-video')">🎥 발표 영상</a>
+            <a href="#" class="btn-minimal" onclick="event.preventDefault(); event.stopPropagation(); window.open('https://github.com/goeun-oh/AXI4_Lite.git', '_blank')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.30 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                Github
+            </a>
+        </div>
         </div>
         <!-- Project 4: RISC-V 명령어 집합을 활용한 Single Cycle CPU 설계 -->
         <div class="project-card">
@@ -2075,6 +2076,71 @@ function openReadme(projectId) {
                 `;
                 
                 readmeContent.innerHTML = htmlContent + documentsSection + pdfSection;
+            }
+            else if (projectId === 'RISC-V-Peripheral') {
+                const isMobile = window.innerWidth <= 1024;
+                    // 🔥 문서 다운로드 섹션 추가
+    const documentsSection = `
+        <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
+        <h2>📄 프로젝트 문서 다운로드</h2>
+        <div style="background: #f8fafc; border-radius: 12px; padding: 30px; margin: 20px 0;">
+            <p style="color: #4a5568; margin-bottom: 25px; font-size: 1rem;">
+                프로젝트에서 작성한 상세 문서들을 다운로드하여 확인할 수 있습니다.
+            </p>
+            
+            <div style="display: grid; gap: 15px;">
+                <!-- 문서 1 -->
+                <div style="display: flex; align-items: center; padding: 15px; background: white; border-radius: 8px; border: 1px solid #e2e8f0; cursor: pointer; transition: all 0.2s ease;" 
+                     onclick="downloadFile('/projects/pdf/i2c-design-spec.pdf', 'i2c-design-spec.pdf')"
+                     onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'; this.style.transform='translateY(-2px)'"
+                     onmouseout="this.style.boxShadow=''; this.style.transform=''">
+                    <div style="flex: 1;">
+                        <h4 style="margin: 0 0 5px 0; color: #2d3748; font-size: 1.1rem;">I2C 통신 프로토콜 설계서</h4>
+                        <p style="margin: 0; color: #718096; font-size: 0.9rem;">I2C 통신 프로토콜 구현 문서</p>
+                    </div>
+                    <div style="color: #3182ce; font-size: 20px;">⬇️</div>
+                </div>
+                
+                <!-- 문서 2 -->
+                <div style="display: flex; align-items: center; padding: 15px; background: white; border-radius: 8px; border: 1px solid #e2e8f0; cursor: pointer; transition: all 0.2s ease;" 
+                     onclick="downloadFile('/projects/pdf/spi-design-spec.pdf', 'spi-design-spec.pdf')"
+                     onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'; this.style.transform='translateY(-2px)'"
+                     onmouseout="this.style.boxShadow=''; this.style.transform=''">
+                    <div style="flex: 1;">
+                        <h4 style="margin: 0 0 5px 0; color: #2d3748; font-size: 1.1rem;">SPI 통신 프로토콜 설계서</h4>
+                        <p style="margin: 0; color: #718096; font-size: 0.9rem;">SPI 통신 프로토콜 구현 문서</p>
+                    </div>
+                    <div style="color: #3182ce; font-size: 20px;">⬇️</div>
+                </div>
+                
+            <p style="color: #718096; font-size: 0.8rem; margin-top: 20px; text-align: center;">
+                💡 문서를 클릭하면 자동으로 다운로드됩니다
+            </p>
+        </div>
+    `;
+                const pdfSection = isMobile ? `
+                    <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
+                    <h2>📋 프로젝트 상세 문서</h2>
+                    <div style="width: 100%; height: 70vh; border: 1px solid #e2e8f0; border-radius: 8px; overflow: auto; margin: 20px 0; -webkit-overflow-scrolling: touch; padding: 10px;">
+                        <object 
+                            data="/projects/pdf/i2c.pdf" 
+                            type="application/pdf" 
+                            style="width: 100%; height: 800px;">
+                            <p>PDF를 표시할 수 없습니다. <a href="/projects/pdf/i2c.pdf" target="_blank">여기를 클릭하여 PDF 보기</a></p>
+                        </object>
+                    </div>
+                ` : `
+                    <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
+                    <h2>📋 프로젝트 상세 문서</h2>
+                    <div style="width: 100%; height: 800px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; margin: 20px 0;">
+                        <iframe 
+                            src="/projects/pdf/i2c.pdf#zoom=page-width&toolbar=0&navpanes=0&scrollbar=0&view=FitH" 
+                            style="width: 100%; height: 100%; border: none;">
+                        </iframe>
+                    </div>
+                `;
+                
+                readmeContent.innerHTML = htmlContent + documentsSection + pdfSection;
             }else {
                 readmeContent.innerHTML = htmlContent;
             }
@@ -2114,7 +2180,7 @@ function openReadme(projectId) {
             // 프로젝트 이름을 타이틀로 설정
             const projectTitles = {
                 'it-eldorado': 'IT 엘도라도 (블로그)',
-                'fosslight': 'FOSSLight Hub Lite',
+                'RISC-V-Peripheral': 'RISC-V AMBA Peripheral 설계',
                 'AXI4-Lite': 'AXI4-Lite 인터페이스 기반 SPI/I2C 통신 프로토콜 설계',
                 'i2c_vga_videoProcessing': 'I2C 통신 기반 듀얼 FPGA 탁구 게임'
             };
@@ -2337,6 +2403,22 @@ function openVideoModal(projectId) {
                 </div>
                 <p style="color: #666; font-size: 0.9rem; margin-bottom: 40px;">
                     📅 2025.05.25 | 4인 팀 프로젝트 발표
+                </p>`
+            }
+    else if (projectId === 'risc-v-periph-video') {
+        readmeContent.innerHTML = `
+            <div style="text-align: center;">
+                <h3>🎥 RISC-V AMBA Peripheral 설계 발표 영상</h3>
+                <div style="position: relative; padding-bottom: 56.25%; height: 0; margin: 20px 0;">
+                    <iframe 
+                        src="https://www.youtube.com/embed/V-OUSXCUVzI" 
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; border-radius: 8px;"
+                        allowfullscreen
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                    </iframe>
+                </div>
+                <p style="color: #666; font-size: 0.9rem; margin-bottom: 40px;">
+                    📅 2025.05.06 | 4인 팀 프로젝트 발표
                 </p>`
             }
 }
