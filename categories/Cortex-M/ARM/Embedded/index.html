@@ -661,205 +661,6 @@ article img {
     
     <div class="mdui-card-primary mdui-ripple">
     <div class="mdui-card-primary-title">
-        <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" href="/posts/cortex-m-advanced-setup/">7. 고급 초기환경 설정 (STM32CubeIDE 활용)</a>
-        <a class="p-author h-card" style="display:none" href="https://www.goeun-oh.com">고은</a>
-        
-        <small> <a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/">Cortex-M</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/ARM/">ARM</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/ARM/Embedded/">Embedded</a></small>
-        
-    </div>
-    <div class="mdui-card-primary-subtitle mdui-typo">
-        
-        <span><a class="tag-none-link" href="/tags/STM32CubeIDE/" rel="tag">STM32CubeIDE</a> <a class="tag-none-link" href="/tags/Timer/" rel="tag">Timer</a> <a class="tag-none-link" href="/tags/%EA%B3%A0%EA%B8%89%EC%84%A4%EC%A0%95/" rel="tag">고급설정</a> <a class="tag-none-link" href="/tags/%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1/" rel="tag">환경구성</a></span>
-        <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-11 03:42'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
-        <span>-</span>
-        
-            <span>posts/cortex-m-advanced-setup/</span>
-        
-    </div>
-</div>
-    
-    
-    <div class="mdui-divider"></div>
-    <div class="mdui-card-content mdui-typo">
-        
-        <div class="p-summary" style="display:none"></div>
-        
-        <!-- TOC 디버깅 및 렌더링 -->
-        
-        
-        <main class="e-content"><h1 id="고급-초기환경-설정-STM32CubeIDE-활용"><a href="#고급-초기환경-설정-STM32CubeIDE-활용" class="headerlink" title="고급 초기환경 설정 (STM32CubeIDE 활용)"></a>고급 초기환경 설정 (STM32CubeIDE 활용)</h1><p>이번 포스트에서는 Empty Project 말고 STM32CubeIDE에서 제공하는 기능을 이용해서 개발을 진행하는 고급 환경구성 방법을 다룬다.</p>
-<h2 id="🎯-고급-환경구성-개요"><a href="#🎯-고급-환경구성-개요" class="headerlink" title="🎯 고급 환경구성 개요"></a>🎯 고급 환경구성 개요</h2><p>이제 Empty Project 말고 STM32CubeIDE에서 제공하는 것을 이용해서 개발을 진행한다.</p>
-<p>이를 통해 더욱 체계적이고 효율적인 개발 환경을 구축할 수 있다.</p>
-<h2 id="⚙️-1-RCC-설정"><a href="#⚙️-1-RCC-설정" class="headerlink" title="⚙️ 1. RCC 설정"></a>⚙️ 1. RCC 설정</h2><h3 id="HSE와-HSI-비교"><a href="#HSE와-HSI-비교" class="headerlink" title="HSE와 HSI 비교"></a>HSE와 HSI 비교</h3><figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/stm32_%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1.mdimage-1.png" alt="RCC 설정"class="mdui-img-rounded" loading="lazy"></figure>
-<p><strong>HSI vs HSE:</strong></p>
-<ul>
-<li><strong>HSI</strong>: 16MHz로 고정 (내부 클럭)</li>
-<li><strong>HSE</strong>: 외부 클럭 (8MHz, 우리가 사용하는 보드 외부 클럭은 8MHz)</li>
-</ul>
-<p><strong>설정 방법:</strong></p>
-<ul>
-<li>HSE를 사용하도록 설정</li>
-<li>HSE를 8MHz로 설정</li>
-</ul>
-<h3 id="PLL-설정과-클럭-분배"><a href="#PLL-설정과-클럭-분배" class="headerlink" title="PLL 설정과 클럭 분배"></a>PLL 설정과 클럭 분배</h3><p>해당 clock이 PLL 회로로 들어가 클럭을 100MHz로 뻥튀기한다.</p>
-<p>HCLK이 APB Prescaler를 거쳐 Peripheral Clock이 된다:</p>
-<ul>
-<li><strong>Timer는 100MHz로 설정된다</strong></li>
-</ul>
-<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/image-2.png" alt="클럭 분배"class="mdui-img-rounded" loading="lazy"></figure>
-<h2 id="🔧-2-Debugging-설정"><a href="#🔧-2-Debugging-설정" class="headerlink" title="🔧 2. Debugging 설정"></a>🔧 2. Debugging 설정</h2><h3 id="Serial-Wire-설정"><a href="#Serial-Wire-설정" class="headerlink" title="Serial Wire 설정"></a>Serial Wire 설정</h3><p>Debugging용 Wire를 Serial Wire로 설정한다.</p>
-<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/stm32_%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1.mdimage-3.png" alt="디버깅 설정"class="mdui-img-rounded" loading="lazy"></figure>
-<p><strong>Serial Wire Debug의 장점:</strong></p>
-<ul>
-<li>JTAG보다 적은 핀 사용</li>
-<li>효율적인 디버깅 인터페이스</li>
-<li>STM32에서 표준으로 사용</li>
-</ul>
-<h2 id="📍-3-GPIO-설정"><a href="#📍-3-GPIO-설정" class="headerlink" title="📍 3. GPIO 설정"></a>📍 3. GPIO 설정</h2><h3 id="GPIO-핀-구성"><a href="#GPIO-핀-구성" class="headerlink" title="GPIO 핀 구성"></a>GPIO 핀 구성</h3><p>다음과 같이 GPIO를 설정한다:</p>
-<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/stm32_%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1.md%7BEAF31B8D-8800-478B-8202-5B7206C3FE05%7D.png" alt="GPIO 설정 과정"class="mdui-img-rounded" loading="lazy"></figure>
-<h3 id="설정-완료-확인"><a href="#설정-완료-확인" class="headerlink" title="설정 완료 확인"></a>설정 완료 확인</h3><p>설정이 완료된 모습:</p>
-<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/stm32_%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1.md%7B029A8A1D-15A5-4883-BF37-56B66B5AEA89%7D.png" alt="설정 완료"class="mdui-img-rounded" loading="lazy"></figure>
-<p><strong>GPIO 설정 요점:</strong></p>
-<ul>
-<li>사용할 핀들을 적절한 모드로 설정</li>
-<li>Input&#x2F;Output&#x2F;AF&#x2F;Analog 모드 선택</li>
-<li>Pull-up&#x2F;Pull-down 설정</li>
-<li>Output 타입 및 속도 설정</li>
-</ul>
-<h2 id="⏰-4-Timer-설정"><a href="#⏰-4-Timer-설정" class="headerlink" title="⏰ 4. Timer 설정"></a>⏰ 4. Timer 설정</h2><h3 id="Timer-기본-설정"><a href="#Timer-기본-설정" class="headerlink" title="Timer 기본 설정"></a>Timer 기본 설정</h3><p>다음과 같이 Timer를 설정한다:</p>
-<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/stm32_%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1.mdimage-4.png" alt="Timer 설정"class="mdui-img-rounded" loading="lazy"></figure>
-<p><strong>Timer 설정 목적:</strong></p>
-<ul>
-<li>정확한 타이밍 제어</li>
-<li>주기적인 인터럽트 발생</li>
-<li>PWM 신호 생성</li>
-</ul>
-<h3 id="NVIC-설정"><a href="#NVIC-설정" class="headerlink" title="NVIC 설정"></a>NVIC 설정</h3><p>Timer Interrupt를 활성화하기 위해 NVIC를 활성화한다:</p>
-<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/stm32_%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1.mdimage-5.png" alt="NVIC 설정"class="mdui-img-rounded" loading="lazy"></figure>
-<p><strong>NVIC(Nested Vectored Interrupt Controller):</strong></p>
-<ul>
-<li>인터럽트 우선순위 관리</li>
-<li>중첩 인터럽트 처리</li>
-<li>효율적인 인터럽트 핸들링</li>
-</ul>
-<h2 id="📁-5-Project-Manager-설정"><a href="#📁-5-Project-Manager-설정" class="headerlink" title="📁 5. Project Manager 설정"></a>📁 5. Project Manager 설정</h2><h3 id="Code-Generator-설정"><a href="#Code-Generator-설정" class="headerlink" title="Code Generator 설정"></a>Code Generator 설정</h3><p>Code generator에서 **”Generate peripheral initialization as a pair of ‘.c&#x2F;.h’ files per peripheral”**를 선택한다:</p>
-<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/stm32_%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1.mdimage-6.png" alt="Project Manager 설정"class="mdui-img-rounded" loading="lazy"></figure>
-<p><strong>이 설정의 장점:</strong></p>
-<ul>
-<li>관련 파일이 각각 따로 만들어져 보기 편하다</li>
-<li>주변장치별로 파일이 분리되어 유지보수 용이</li>
-<li>코드 구조가 명확해짐</li>
-</ul>
-<h2 id="🚀-6-프로젝트-생성"><a href="#🚀-6-프로젝트-생성" class="headerlink" title="🚀 6. 프로젝트 생성"></a>🚀 6. 프로젝트 생성</h2><h3 id="최종-생성"><a href="#최종-생성" class="headerlink" title="최종 생성"></a>최종 생성</h3><p>다 했으면 톱니바퀴 아이콘을 눌러서 프로젝트를 생성한다:</p>
-<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/stm32_%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1.mdimage-7.png" alt="프로젝트 생성"class="mdui-img-rounded" loading="lazy"></figure>
-<p><strong>생성 과정:</strong></p>
-<ol>
-<li>설정 검증</li>
-<li>코드 생성</li>
-<li>프로젝트 파일 구성</li>
-<li>초기화 코드 생성</li>
-</ol>
-<h2 id="🛠️-컴파일-환경-구성"><a href="#🛠️-컴파일-환경-구성" class="headerlink" title="🛠️ 컴파일 환경 구성"></a>🛠️ 컴파일 환경 구성</h2><h3 id="STM32CubeCLT-설치"><a href="#STM32CubeCLT-설치" class="headerlink" title="STM32CubeCLT 설치"></a>STM32CubeCLT 설치</h3><p>컴파일 하기 위한 프로그램 설치 (STM32CubeCLT_1.18.0):</p>
-<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/Complie_Program.md%7B4891395B-74F4-42E2-9F0B-89D3EB8411DC%7D.png" alt="STM32CubeCLT 설치"class="mdui-img-rounded" loading="lazy"></figure>
-<h3 id="컴파일러-확인"><a href="#컴파일러-확인" class="headerlink" title="컴파일러 확인"></a>컴파일러 확인</h3><p><strong>컴파일러 (<code>arm-none-eabi-gcc</code>):</strong></p>
-<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/Complie_Program.md%7B782895A3-CB33-45A2-96B4-6BCC6A7B0D99%7D.png" alt="컴파일러"class="mdui-img-rounded" loading="lazy"></figure>
-<p><strong>링커 (<code>arm-none-eabi-ld</code>):</strong></p>
-<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/Complie_Program.md%7B73540C4A-7896-45E1-857B-009D7E81AF08%7D.png" alt="링커"class="mdui-img-rounded" loading="lazy"></figure>
-<h3 id="설치-확인"><a href="#설치-확인" class="headerlink" title="설치 확인"></a>설치 확인</h3><p>CMD에서 STM32와 Version 확인:</p>
-<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/Complie_Program.md%7B2EE09E95-4964-4D1B-9DBF-70E5128423D7%7D.png" alt="버전 확인"class="mdui-img-rounded" loading="lazy"></figure>
-<h2 id="📊-생성된-프로젝트-구조"><a href="#📊-생성된-프로젝트-구조" class="headerlink" title="📊 생성된 프로젝트 구조"></a>📊 생성된 프로젝트 구조</h2><h3 id="파일-구조"><a href="#파일-구조" class="headerlink" title="파일 구조"></a>파일 구조</h3><p>STM32CubeIDE가 생성하는 표준 프로젝트 구조:</p>
-<pre class="language-none"><code class="language-none">Project&#x2F;
-├── Core&#x2F;
-│   ├── Inc&#x2F;
-│   │   ├── main.h
-│   │   ├── stm32f4xx_hal_conf.h
-│   │   ├── stm32f4xx_it.h
-│   │   └── gpio.h (설정에 따라 생성)
-│   └── Src&#x2F;
-│       ├── main.c
-│       ├── stm32f4xx_hal_msp.c
-│       ├── stm32f4xx_it.c
-│       ├── system_stm32f4xx.c
-│       └── gpio.c (설정에 따라 생성)
-├── Drivers&#x2F;
-│   ├── CMSIS&#x2F;
-│   └── STM32F4xx_HAL_Driver&#x2F;
-└── Middlewares&#x2F; (필요시)</code></pre>
-
-<h3 id="주요-파일-설명"><a href="#주요-파일-설명" class="headerlink" title="주요 파일 설명"></a>주요 파일 설명</h3><p><strong>main.c:</strong></p>
-<ul>
-<li>메인 애플리케이션 로직</li>
-<li>사용자 코드 영역 제공</li>
-</ul>
-<p><strong>stm32f4xx_hal_msp.c:</strong></p>
-<ul>
-<li>MSP(MCU Support Package) 초기화</li>
-<li>저수준 하드웨어 초기화</li>
-</ul>
-<p><strong>stm32f4xx_it.c:</strong></p>
-<ul>
-<li>인터럽트 핸들러 구현</li>
-<li>시스템 인터럽트와 사용자 인터럽트</li>
-</ul>
-<p><strong>gpio.c&#x2F;gpio.h:</strong></p>
-<ul>
-<li>GPIO 초기화 코드</li>
-<li>주변장치별 파일 분리 시 생성</li>
-</ul>
-<h2 id="💡-고급-환경구성의-장점"><a href="#💡-고급-환경구성의-장점" class="headerlink" title="💡 고급 환경구성의 장점"></a>💡 고급 환경구성의 장점</h2><h3 id="1-자동-코드-생성"><a href="#1-자동-코드-생성" class="headerlink" title="1. 자동 코드 생성"></a>1. 자동 코드 생성</h3><ul>
-<li>초기화 코드 자동 생성</li>
-<li>에러 없는 기본 설정</li>
-<li>표준 HAL 라이브러리 활용</li>
-</ul>
-<h3 id="2-시각적-설정"><a href="#2-시각적-설정" class="headerlink" title="2. 시각적 설정"></a>2. 시각적 설정</h3><ul>
-<li>GUI를 통한 직관적 설정</li>
-<li>실시간 설정 확인</li>
-<li>핀 충돌 자동 감지</li>
-</ul>
-<h3 id="3-유지보수성"><a href="#3-유지보수성" class="headerlink" title="3. 유지보수성"></a>3. 유지보수성</h3><ul>
-<li>설정 변경이 용이</li>
-<li>코드 재생성 가능</li>
-<li>표준화된 구조</li>
-</ul>
-<h3 id="4-호환성"><a href="#4-호환성" class="headerlink" title="4. 호환성"></a>4. 호환성</h3><ul>
-<li>ST 공식 지원</li>
-<li>다양한 STM32 시리즈 지원</li>
-<li>업데이트와 버그 수정</li>
-</ul>
-<h2 id="📋-정리"><a href="#📋-정리" class="headerlink" title="📋 정리"></a>📋 정리</h2><p>이번 포스트에서는 STM32CubeIDE를 활용한 고급 초기환경 설정을 다뤘다:</p>
-<ol>
-<li><strong>RCC 설정</strong>: HSE 사용과 PLL을 통한 클럭 설정</li>
-<li><strong>디버깅 설정</strong>: Serial Wire Debug 인터페이스 설정</li>
-<li><strong>GPIO 설정</strong>: 시각적 인터페이스를 통한 핀 설정</li>
-<li><strong>Timer 설정</strong>: Timer와 NVIC 인터럽트 설정</li>
-<li><strong>프로젝트 관리</strong>: 주변장치별 파일 분리 설정</li>
-<li><strong>컴파일 환경</strong>: STM32CubeCLT 도구 설치</li>
-</ol>
-<p><strong>핵심 장점:</strong></p>
-<ul>
-<li>자동화된 코드 생성</li>
-<li>시각적이고 직관적인 설정</li>
-<li>에러 없는 기본 구성</li>
-<li>표준화된 프로젝트 구조</li>
-</ul>
-<p>이제 초기환경 세팅의 전 과정을 완료했다. 다음 단계에서는 이를 바탕으로 더 복잡한 기능들을 구현할 수 있다.</p>
-<hr>
-<p><strong>이전 포스트</strong>: <a href="/posts/cortex-m-software-stack">6. SW Stack과 모듈화</a></p>
-<hr>
-<h2 id="🎉-초기환경-세팅-시리즈-완료"><a href="#🎉-초기환경-세팅-시리즈-완료" class="headerlink" title="🎉 초기환경 세팅 시리즈 완료!"></a>🎉 초기환경 세팅 시리즈 완료!</h2><p>축하한다! Cortex-M 초기환경 세팅의 모든 과정을 완료했다. 이제 다음 단계로 넘어가 더 고급 기능들을 구현해보자.</p>
-</main>
-        
-    </div>
-    
-</article>
-
-    
-        <article class="h-entry mdui-card mdui-hoverable mdui-shadow-1 mdui-m-y-2" style="opacity: 1; border-radius: 4px"
->
-    
-    <div class="mdui-card-primary mdui-ripple">
-    <div class="mdui-card-primary-title">
         <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" href="/posts/cortex-m-code-improvement-advanced/">5-3. 코드 개선 과정 - 고급 기법과 성능</a>
         <a class="p-author h-card" style="display:none" href="https://www.goeun-oh.com">고은</a>
         
@@ -870,7 +671,7 @@ article img {
         
         <span><a class="tag-none-link" href="/tags/BSRR/" rel="tag">BSRR</a> <a class="tag-none-link" href="/tags/%EA%B3%A0%EA%B8%89%EA%B8%B0%EB%B2%95/" rel="tag">고급기법</a> <a class="tag-none-link" href="/tags/%EB%B9%84%ED%8A%B8%ED%95%84%EB%93%9C/" rel="tag">비트필드</a> <a class="tag-none-link" href="/tags/%EC%84%B1%EB%8A%A5%EC%B5%9C%EC%A0%81%ED%99%94/" rel="tag">성능최적화</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-11 03:42'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-11 03:44'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>posts/cortex-m-code-improvement-advanced/</span>
@@ -1132,6 +933,205 @@ GPIOA<span class="token operator">-></span>  <span class="token comment">// 자�
     
     <div class="mdui-card-primary mdui-ripple">
     <div class="mdui-card-primary-title">
+        <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" href="/posts/cortex-m-advanced-setup/">7. 고급 초기환경 설정 (STM32CubeIDE 활용)</a>
+        <a class="p-author h-card" style="display:none" href="https://www.goeun-oh.com">고은</a>
+        
+        <small> <a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/">Cortex-M</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/ARM/">ARM</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/ARM/Embedded/">Embedded</a></small>
+        
+    </div>
+    <div class="mdui-card-primary-subtitle mdui-typo">
+        
+        <span><a class="tag-none-link" href="/tags/STM32CubeIDE/" rel="tag">STM32CubeIDE</a> <a class="tag-none-link" href="/tags/Timer/" rel="tag">Timer</a> <a class="tag-none-link" href="/tags/%EA%B3%A0%EA%B8%89%EC%84%A4%EC%A0%95/" rel="tag">고급설정</a> <a class="tag-none-link" href="/tags/%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1/" rel="tag">환경구성</a></span>
+        <span>-</span>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-11 03:44'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <span>-</span>
+        
+            <span>posts/cortex-m-advanced-setup/</span>
+        
+    </div>
+</div>
+    
+    
+    <div class="mdui-divider"></div>
+    <div class="mdui-card-content mdui-typo">
+        
+        <div class="p-summary" style="display:none"></div>
+        
+        <!-- TOC 디버깅 및 렌더링 -->
+        
+        
+        <main class="e-content"><h1 id="고급-초기환경-설정-STM32CubeIDE-활용"><a href="#고급-초기환경-설정-STM32CubeIDE-활용" class="headerlink" title="고급 초기환경 설정 (STM32CubeIDE 활용)"></a>고급 초기환경 설정 (STM32CubeIDE 활용)</h1><p>이번 포스트에서는 Empty Project 말고 STM32CubeIDE에서 제공하는 기능을 이용해서 개발을 진행하는 고급 환경구성 방법을 다룬다.</p>
+<h2 id="🎯-고급-환경구성-개요"><a href="#🎯-고급-환경구성-개요" class="headerlink" title="🎯 고급 환경구성 개요"></a>🎯 고급 환경구성 개요</h2><p>이제 Empty Project 말고 STM32CubeIDE에서 제공하는 것을 이용해서 개발을 진행한다.</p>
+<p>이를 통해 더욱 체계적이고 효율적인 개발 환경을 구축할 수 있다.</p>
+<h2 id="⚙️-1-RCC-설정"><a href="#⚙️-1-RCC-설정" class="headerlink" title="⚙️ 1. RCC 설정"></a>⚙️ 1. RCC 설정</h2><h3 id="HSE와-HSI-비교"><a href="#HSE와-HSI-비교" class="headerlink" title="HSE와 HSI 비교"></a>HSE와 HSI 비교</h3><figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/stm32_%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1.mdimage-1.png" alt="RCC 설정"class="mdui-img-rounded" loading="lazy"></figure>
+<p><strong>HSI vs HSE:</strong></p>
+<ul>
+<li><strong>HSI</strong>: 16MHz로 고정 (내부 클럭)</li>
+<li><strong>HSE</strong>: 외부 클럭 (8MHz, 우리가 사용하는 보드 외부 클럭은 8MHz)</li>
+</ul>
+<p><strong>설정 방법:</strong></p>
+<ul>
+<li>HSE를 사용하도록 설정</li>
+<li>HSE를 8MHz로 설정</li>
+</ul>
+<h3 id="PLL-설정과-클럭-분배"><a href="#PLL-설정과-클럭-분배" class="headerlink" title="PLL 설정과 클럭 분배"></a>PLL 설정과 클럭 분배</h3><p>해당 clock이 PLL 회로로 들어가 클럭을 100MHz로 뻥튀기한다.</p>
+<p>HCLK이 APB Prescaler를 거쳐 Peripheral Clock이 된다:</p>
+<ul>
+<li><strong>Timer는 100MHz로 설정된다</strong></li>
+</ul>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/image-2.png" alt="클럭 분배"class="mdui-img-rounded" loading="lazy"></figure>
+<h2 id="🔧-2-Debugging-설정"><a href="#🔧-2-Debugging-설정" class="headerlink" title="🔧 2. Debugging 설정"></a>🔧 2. Debugging 설정</h2><h3 id="Serial-Wire-설정"><a href="#Serial-Wire-설정" class="headerlink" title="Serial Wire 설정"></a>Serial Wire 설정</h3><p>Debugging용 Wire를 Serial Wire로 설정한다.</p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/stm32_%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1.mdimage-3.png" alt="디버깅 설정"class="mdui-img-rounded" loading="lazy"></figure>
+<p><strong>Serial Wire Debug의 장점:</strong></p>
+<ul>
+<li>JTAG보다 적은 핀 사용</li>
+<li>효율적인 디버깅 인터페이스</li>
+<li>STM32에서 표준으로 사용</li>
+</ul>
+<h2 id="📍-3-GPIO-설정"><a href="#📍-3-GPIO-설정" class="headerlink" title="📍 3. GPIO 설정"></a>📍 3. GPIO 설정</h2><h3 id="GPIO-핀-구성"><a href="#GPIO-핀-구성" class="headerlink" title="GPIO 핀 구성"></a>GPIO 핀 구성</h3><p>다음과 같이 GPIO를 설정한다:</p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/stm32_%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1.md%7BEAF31B8D-8800-478B-8202-5B7206C3FE05%7D.png" alt="GPIO 설정 과정"class="mdui-img-rounded" loading="lazy"></figure>
+<h3 id="설정-완료-확인"><a href="#설정-완료-확인" class="headerlink" title="설정 완료 확인"></a>설정 완료 확인</h3><p>설정이 완료된 모습:</p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/stm32_%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1.md%7B029A8A1D-15A5-4883-BF37-56B66B5AEA89%7D.png" alt="설정 완료"class="mdui-img-rounded" loading="lazy"></figure>
+<p><strong>GPIO 설정 요점:</strong></p>
+<ul>
+<li>사용할 핀들을 적절한 모드로 설정</li>
+<li>Input&#x2F;Output&#x2F;AF&#x2F;Analog 모드 선택</li>
+<li>Pull-up&#x2F;Pull-down 설정</li>
+<li>Output 타입 및 속도 설정</li>
+</ul>
+<h2 id="⏰-4-Timer-설정"><a href="#⏰-4-Timer-설정" class="headerlink" title="⏰ 4. Timer 설정"></a>⏰ 4. Timer 설정</h2><h3 id="Timer-기본-설정"><a href="#Timer-기본-설정" class="headerlink" title="Timer 기본 설정"></a>Timer 기본 설정</h3><p>다음과 같이 Timer를 설정한다:</p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/stm32_%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1.mdimage-4.png" alt="Timer 설정"class="mdui-img-rounded" loading="lazy"></figure>
+<p><strong>Timer 설정 목적:</strong></p>
+<ul>
+<li>정확한 타이밍 제어</li>
+<li>주기적인 인터럽트 발생</li>
+<li>PWM 신호 생성</li>
+</ul>
+<h3 id="NVIC-설정"><a href="#NVIC-설정" class="headerlink" title="NVIC 설정"></a>NVIC 설정</h3><p>Timer Interrupt를 활성화하기 위해 NVIC를 활성화한다:</p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/stm32_%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1.mdimage-5.png" alt="NVIC 설정"class="mdui-img-rounded" loading="lazy"></figure>
+<p><strong>NVIC(Nested Vectored Interrupt Controller):</strong></p>
+<ul>
+<li>인터럽트 우선순위 관리</li>
+<li>중첩 인터럽트 처리</li>
+<li>효율적인 인터럽트 핸들링</li>
+</ul>
+<h2 id="📁-5-Project-Manager-설정"><a href="#📁-5-Project-Manager-설정" class="headerlink" title="📁 5. Project Manager 설정"></a>📁 5. Project Manager 설정</h2><h3 id="Code-Generator-설정"><a href="#Code-Generator-설정" class="headerlink" title="Code Generator 설정"></a>Code Generator 설정</h3><p>Code generator에서 **”Generate peripheral initialization as a pair of ‘.c&#x2F;.h’ files per peripheral”**를 선택한다:</p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/stm32_%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1.mdimage-6.png" alt="Project Manager 설정"class="mdui-img-rounded" loading="lazy"></figure>
+<p><strong>이 설정의 장점:</strong></p>
+<ul>
+<li>관련 파일이 각각 따로 만들어져 보기 편하다</li>
+<li>주변장치별로 파일이 분리되어 유지보수 용이</li>
+<li>코드 구조가 명확해짐</li>
+</ul>
+<h2 id="🚀-6-프로젝트-생성"><a href="#🚀-6-프로젝트-생성" class="headerlink" title="🚀 6. 프로젝트 생성"></a>🚀 6. 프로젝트 생성</h2><h3 id="최종-생성"><a href="#최종-생성" class="headerlink" title="최종 생성"></a>최종 생성</h3><p>다 했으면 톱니바퀴 아이콘을 눌러서 프로젝트를 생성한다:</p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/stm32_%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1.mdimage-7.png" alt="프로젝트 생성"class="mdui-img-rounded" loading="lazy"></figure>
+<p><strong>생성 과정:</strong></p>
+<ol>
+<li>설정 검증</li>
+<li>코드 생성</li>
+<li>프로젝트 파일 구성</li>
+<li>초기화 코드 생성</li>
+</ol>
+<h2 id="🛠️-컴파일-환경-구성"><a href="#🛠️-컴파일-환경-구성" class="headerlink" title="🛠️ 컴파일 환경 구성"></a>🛠️ 컴파일 환경 구성</h2><h3 id="STM32CubeCLT-설치"><a href="#STM32CubeCLT-설치" class="headerlink" title="STM32CubeCLT 설치"></a>STM32CubeCLT 설치</h3><p>컴파일 하기 위한 프로그램 설치 (STM32CubeCLT_1.18.0):</p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/Complie_Program.md%7B4891395B-74F4-42E2-9F0B-89D3EB8411DC%7D.png" alt="STM32CubeCLT 설치"class="mdui-img-rounded" loading="lazy"></figure>
+<h3 id="컴파일러-확인"><a href="#컴파일러-확인" class="headerlink" title="컴파일러 확인"></a>컴파일러 확인</h3><p><strong>컴파일러 (<code>arm-none-eabi-gcc</code>):</strong></p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/Complie_Program.md%7B782895A3-CB33-45A2-96B4-6BCC6A7B0D99%7D.png" alt="컴파일러"class="mdui-img-rounded" loading="lazy"></figure>
+<p><strong>링커 (<code>arm-none-eabi-ld</code>):</strong></p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/Complie_Program.md%7B73540C4A-7896-45E1-857B-009D7E81AF08%7D.png" alt="링커"class="mdui-img-rounded" loading="lazy"></figure>
+<h3 id="설치-확인"><a href="#설치-확인" class="headerlink" title="설치 확인"></a>설치 확인</h3><p>CMD에서 STM32와 Version 확인:</p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0623/Complie_Program.md%7B2EE09E95-4964-4D1B-9DBF-70E5128423D7%7D.png" alt="버전 확인"class="mdui-img-rounded" loading="lazy"></figure>
+<h2 id="📊-생성된-프로젝트-구조"><a href="#📊-생성된-프로젝트-구조" class="headerlink" title="📊 생성된 프로젝트 구조"></a>📊 생성된 프로젝트 구조</h2><h3 id="파일-구조"><a href="#파일-구조" class="headerlink" title="파일 구조"></a>파일 구조</h3><p>STM32CubeIDE가 생성하는 표준 프로젝트 구조:</p>
+<pre class="language-none"><code class="language-none">Project&#x2F;
+├── Core&#x2F;
+│   ├── Inc&#x2F;
+│   │   ├── main.h
+│   │   ├── stm32f4xx_hal_conf.h
+│   │   ├── stm32f4xx_it.h
+│   │   └── gpio.h (설정에 따라 생성)
+│   └── Src&#x2F;
+│       ├── main.c
+│       ├── stm32f4xx_hal_msp.c
+│       ├── stm32f4xx_it.c
+│       ├── system_stm32f4xx.c
+│       └── gpio.c (설정에 따라 생성)
+├── Drivers&#x2F;
+│   ├── CMSIS&#x2F;
+│   └── STM32F4xx_HAL_Driver&#x2F;
+└── Middlewares&#x2F; (필요시)</code></pre>
+
+<h3 id="주요-파일-설명"><a href="#주요-파일-설명" class="headerlink" title="주요 파일 설명"></a>주요 파일 설명</h3><p><strong>main.c:</strong></p>
+<ul>
+<li>메인 애플리케이션 로직</li>
+<li>사용자 코드 영역 제공</li>
+</ul>
+<p><strong>stm32f4xx_hal_msp.c:</strong></p>
+<ul>
+<li>MSP(MCU Support Package) 초기화</li>
+<li>저수준 하드웨어 초기화</li>
+</ul>
+<p><strong>stm32f4xx_it.c:</strong></p>
+<ul>
+<li>인터럽트 핸들러 구현</li>
+<li>시스템 인터럽트와 사용자 인터럽트</li>
+</ul>
+<p><strong>gpio.c&#x2F;gpio.h:</strong></p>
+<ul>
+<li>GPIO 초기화 코드</li>
+<li>주변장치별 파일 분리 시 생성</li>
+</ul>
+<h2 id="💡-고급-환경구성의-장점"><a href="#💡-고급-환경구성의-장점" class="headerlink" title="💡 고급 환경구성의 장점"></a>💡 고급 환경구성의 장점</h2><h3 id="1-자동-코드-생성"><a href="#1-자동-코드-생성" class="headerlink" title="1. 자동 코드 생성"></a>1. 자동 코드 생성</h3><ul>
+<li>초기화 코드 자동 생성</li>
+<li>에러 없는 기본 설정</li>
+<li>표준 HAL 라이브러리 활용</li>
+</ul>
+<h3 id="2-시각적-설정"><a href="#2-시각적-설정" class="headerlink" title="2. 시각적 설정"></a>2. 시각적 설정</h3><ul>
+<li>GUI를 통한 직관적 설정</li>
+<li>실시간 설정 확인</li>
+<li>핀 충돌 자동 감지</li>
+</ul>
+<h3 id="3-유지보수성"><a href="#3-유지보수성" class="headerlink" title="3. 유지보수성"></a>3. 유지보수성</h3><ul>
+<li>설정 변경이 용이</li>
+<li>코드 재생성 가능</li>
+<li>표준화된 구조</li>
+</ul>
+<h3 id="4-호환성"><a href="#4-호환성" class="headerlink" title="4. 호환성"></a>4. 호환성</h3><ul>
+<li>ST 공식 지원</li>
+<li>다양한 STM32 시리즈 지원</li>
+<li>업데이트와 버그 수정</li>
+</ul>
+<h2 id="📋-정리"><a href="#📋-정리" class="headerlink" title="📋 정리"></a>📋 정리</h2><p>이번 포스트에서는 STM32CubeIDE를 활용한 고급 초기환경 설정을 다뤘다:</p>
+<ol>
+<li><strong>RCC 설정</strong>: HSE 사용과 PLL을 통한 클럭 설정</li>
+<li><strong>디버깅 설정</strong>: Serial Wire Debug 인터페이스 설정</li>
+<li><strong>GPIO 설정</strong>: 시각적 인터페이스를 통한 핀 설정</li>
+<li><strong>Timer 설정</strong>: Timer와 NVIC 인터럽트 설정</li>
+<li><strong>프로젝트 관리</strong>: 주변장치별 파일 분리 설정</li>
+<li><strong>컴파일 환경</strong>: STM32CubeCLT 도구 설치</li>
+</ol>
+<p><strong>핵심 장점:</strong></p>
+<ul>
+<li>자동화된 코드 생성</li>
+<li>시각적이고 직관적인 설정</li>
+<li>에러 없는 기본 구성</li>
+<li>표준화된 프로젝트 구조</li>
+</ul>
+<p>이제 초기환경 세팅의 전 과정을 완료했다. 다음 단계에서는 이를 바탕으로 더 복잡한 기능들을 구현할 수 있다.</p>
+<hr>
+<p><strong>이전 포스트</strong>: <a href="/posts/cortex-m-software-stack">6. SW Stack과 모듈화</a></p>
+<hr>
+<h2 id="🎉-초기환경-세팅-시리즈-완료"><a href="#🎉-초기환경-세팅-시리즈-완료" class="headerlink" title="🎉 초기환경 세팅 시리즈 완료!"></a>🎉 초기환경 세팅 시리즈 완료!</h2><p>축하한다! Cortex-M 초기환경 세팅의 모든 과정을 완료했다. 이제 다음 단계로 넘어가 더 고급 기능들을 구현해보자.</p>
+</main>
+        
+    </div>
+    
+</article>
+
+    
+        <article class="h-entry mdui-card mdui-hoverable mdui-shadow-1 mdui-m-y-2" style="opacity: 1; border-radius: 4px"
+>
+    
+    <div class="mdui-card-primary mdui-ripple">
+    <div class="mdui-card-primary-title">
         <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" href="/posts/cortex-m-code-improvement-basic/">5-1. 코드 개선 과정 - Define과 베이스 주소</a>
         <a class="p-author h-card" style="display:none" href="https://www.goeun-oh.com">고은</a>
         
@@ -1142,7 +1142,7 @@ GPIOA<span class="token operator">-></span>  <span class="token comment">// 자�
         
         <span><a class="tag-none-link" href="/tags/Define/" rel="tag">Define</a> <a class="tag-none-link" href="/tags/%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81/" rel="tag">리팩토링</a> <a class="tag-none-link" href="/tags/%EB%B2%A0%EC%9D%B4%EC%8A%A4%EC%A3%BC%EC%86%8C/" rel="tag">베이스주소</a> <a class="tag-none-link" href="/tags/%EC%BD%94%EB%93%9C%EA%B0%9C%EC%84%A0/" rel="tag">코드개선</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-11 03:42'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-11 03:44'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>posts/cortex-m-code-improvement-basic/</span>
@@ -1398,7 +1398,7 @@ GPIOA_MODER <span class="token operator">|=</span> <span class="token punctuatio
         
         <span><a class="tag-none-link" href="/tags/%EA%B5%AC%EC%A1%B0%EC%B2%B4/" rel="tag">구조체</a> <a class="tag-none-link" href="/tags/%EB%AA%A8%EB%93%88%ED%99%94/" rel="tag">모듈화</a> <a class="tag-none-link" href="/tags/%EC%BD%94%EB%93%9C%EA%B0%9C%EC%84%A0/" rel="tag">코드개선</a> <a class="tag-none-link" href="/tags/%ED%83%80%EC%9E%85%EC%95%88%EC%A0%84%EC%84%B1/" rel="tag">타입안전성</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-11 03:42'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-11 03:44'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>posts/cortex-m-code-improvement-struct/</span>
@@ -1662,7 +1662,7 @@ GPIOA<span class="token operator">-></span>ODR <span class="token operator">^=</
         
         <span><a class="tag-none-link" href="/tags/STM32/" rel="tag">STM32</a> <a class="tag-none-link" href="/tags/%EA%B0%80%EC%9D%B4%EB%93%9C/" rel="tag">가이드</a> <a class="tag-none-link" href="/tags/%EC%B4%88%EA%B8%B0%ED%99%98%EA%B2%BD/" rel="tag">초기환경</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-11 03:42'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-11 03:44'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>posts/cortex-m-initial-setup-guide/</span>
@@ -1761,7 +1761,7 @@ GPIOA<span class="token operator">-></span>ODR <span class="token operator">^=</
         
         <span><a class="tag-none-link" href="/tags/GPIO/" rel="tag">GPIO</a> <a class="tag-none-link" href="/tags/LED%EC%A0%9C%EC%96%B4/" rel="tag">LED제어</a> <a class="tag-none-link" href="/tags/RCC/" rel="tag">RCC</a> <a class="tag-none-link" href="/tags/%EB%A0%88%EC%A7%80%EC%8A%A4%ED%84%B0/" rel="tag">레지스터</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-11 03:42'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-11 03:44'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>posts/cortex-m-led-control-basics/</span>
