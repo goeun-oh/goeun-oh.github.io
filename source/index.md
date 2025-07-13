@@ -786,7 +786,8 @@ body {
     }
     
     .modal-body {
-        padding: 15px 20px 20px 20px !important;
+        padding: 15px !important;  /* 패딩 줄임 */
+        width: 100% !important;
         overflow-y: auto !important;
         overflow-x: hidden !important;  /* 가로 스크롤 방지 */
         -webkit-overflow-scrolling: touch !important;
@@ -1005,35 +1006,48 @@ body {
 /* 기본 이미지 스타일 */
 /* 기본 이미지 스타일 개선 */
 /* 이미지가 모달을 넘어가지 않도록 */
+/* 이미지 오버플로우 강제 해결 */
 .readme-content img,
 .readme-content .readme-img {
     max-width: 100% !important;
-    width: auto !important;
+    width: 100% !important;  /* auto → 100%로 강제 */
     height: auto !important;
     display: block !important;
     margin: 15px auto !important;
     object-fit: contain !important;
     border-radius: 6px !important;
+    box-sizing: border-box !important;
 }
-
 /* 모바일에서 이미지 크기 제한 */
 @media (max-width: 768px) {
     .readme-content img,
     .readme-content .readme-img {
-        max-width: calc(100vw - 80px) !important;  /* 모달 패딩 고려 */
+        max-width: calc(100vw - 50px) !important;  /* 더 작게 */
+        width: calc(100vw - 50px) !important;
         min-width: auto !important;
-        width: auto !important;
         margin: 10px auto !important;
+        transform: scale(0.95) !important;  /* 크기 강제 축소 */
     }
     
-    /* 이미지 래퍼도 제한 */
-    .readme-content .readme-image-wrapper,
-    .readme-content .image-row {
+  /* 이미지 컨테이너도 제한 */
+    .readme-content .readme-image-wrapper {
         width: 100% !important;
         max-width: 100% !important;
         overflow: hidden !important;
+        text-align: center !important;
     }
     
+    /* 모든 블록 요소 너비 제한 */
+    .readme-content * {
+        max-width: 100% !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+    }
+    /* 모달 전체 가로 스크롤 방지 */
+    .modal-content {
+        overflow-x: hidden !important;
+        max-width: 100vw !important;
+    }
     /* 2개 이미지 나란히 배치는 모바일에서 세로로 */
     .readme-content .image-row {
         flex-direction: column !important;
@@ -1526,15 +1540,24 @@ body {
     .modal-content {
         max-height: 90vh !important;
     }
+    .readme-content img,
+    .readme-content .readme-img {
+        max-width: calc(100vw - 40px) !important;
+        width: calc(100vw - 40px) !important;
+        transform: scale(0.9) !important;  /* 더 작게 */
+    }
     
     .modal-body {
-        max-height: calc(90vh - 60px) !important;
-        padding: 12px 15px !important;
+        padding: 10px !important;
     }
-    
-    .readme-content img {
-        max-width: calc(100vw - 70px) !important;
-    }
+}
+/* 강제로 가로 스크롤 방지 */
+body:has(.modal-overlay.show) {
+    overflow-x: hidden !important;
+}
+
+.modal-overlay.show {
+    overflow-x: hidden !important;
 }
 </style>
 
