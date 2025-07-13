@@ -1051,13 +1051,10 @@ body {
         /* 모달 바디 패딩 줄이기 */
     .modal-body {
         padding: 10px !important;
-        overflow-x: hidden !important;
     }
         /* 모든 요소가 모달을 넘지 않도록 */
-    .readme-content *,
     .modal-body * {
         max-width: 100% !important;
-        overflow-x: hidden !important;
         box-sizing: border-box !important;
     }
 }
