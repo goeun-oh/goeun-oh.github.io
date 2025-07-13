@@ -1020,31 +1020,19 @@ body {
 }
 /* 모바일에서 이미지 크기 제한 */
 @media (max-width: 768px) {
-    .readme-content img,
-    .readme-content .readme-img {
-        max-width: calc(100% - 20px) !important;  /* 패딩 고려 */
-        width: auto !important;  /* 100% → auto로 변경 */
-        min-width: auto !important;  /* min-width 완전 제거 */
-        margin: 10px auto !important;
-        transform: none !important;  /* scale 제거 */
-        box-sizing: border-box !important;
-    }
-    
-    /* 이미지 래퍼도 확실히 제한 */
-    .readme-content .readme-image-wrapper {
+    /* 이미지 래퍼도 강제 제한 */
+    .readme-content .readme-image-wrapper,
+    .readme-content .image-row,
+    .readme-content .image-pair,
+    .readme-content .image-triple,
+    .readme-content .image-group {
         width: 100% !important;
         max-width: 100% !important;
         overflow: hidden !important;
         text-align: center !important;
-        padding: 0 10px !important;  /* 좌우 패딩 추가 */
-        box-sizing: border-box !important;
-    }
-    /* 모든 블록 요소 너비 제한 */
-    .readme-content * {
-        max-width: 100% !important;
-        word-wrap: break-word !important;
-        overflow-wrap: break-word !important;
-    }
+        margin: 10px 0 !important;
+    }    
+   
     /* 모달 전체 가로 스크롤 방지 */
     .modal-content {
         overflow-x: hidden !important;
@@ -1064,6 +1052,13 @@ body {
     .modal-body {
         padding: 10px !important;
         overflow-x: hidden !important;
+    }
+        /* 모든 요소가 모달을 넘지 않도록 */
+    .readme-content *,
+    .modal-body * {
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box !important;
     }
 }
 
@@ -1285,38 +1280,31 @@ body {
 }
 
 /* 모바일 반응형 */
+/* 모바일에서 이미지 완전히 제한 - 최종 해결책 */
 @media (max-width: 768px) {
-    .readme-content img {
-        margin: 15px 0;
-        border-radius: 6px;
-    }
-    
-    .readme-content img[src*=".gif"] {
-        margin: 20px 0;
-        padding: 2px;
-    }
-    
+    /* 모든 기존 이미지 스타일 완전히 덮어쓰기 */
+    .readme-content img,
+    .readme-content .readme-img,
+    .readme-content img[src*=".png"],
+    .readme-content img[src*=".jpg"],
+    .readme-content img[src*=".jpeg"],
+    .readme-content img[src*=".gif"],
     .readme-content img[alt*="플레이"],
     .readme-content img[alt*="데모"],
-    .readme-content img[alt*="시연"] {
-        max-width: calc(100% - 20px) !important;
-        min-height: auto !important;  /* 300px 제거 */
-        margin: 15px auto !important;
-    }
+    .readme-content img[alt*="시연"],
     .readme-content img[alt*="기능"],
     .readme-content img[alt*="과정"],
     .readme-content img[alt*="화면"] {
-        max-width: calc(100% - 20px) !important;  /* 400px 제거 */
+        max-width: 260px !important;     /* 고정 크기로 강제 제한 */
+        width: auto !important;
+        min-width: auto !important;
+        height: auto !important;
         margin: 10px auto !important;
-    }
-    .readme-content .image-group {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .readme-content .image-group img {
-        max-width: 100%;
-        min-width: auto;
+        display: block !important;
+        transform: none !important;
+        object-fit: contain !important;
+        border-radius: 6px !important;
+        box-sizing: border-box !important;
     }
 }
 
@@ -1560,15 +1548,18 @@ body {
 @media (max-width: 430px) {
     .readme-content img,
     .readme-content .readme-img {
-        max-width: calc(100% - 10px) !important;
-        margin: 5px auto !important;
-    }
-    .readme-content .readme-image-wrapper {
-        padding: 0 5px !important;
+        max-width: 240px !important;
     }
     
     .modal-body {
-        padding: 5px !important;
+        padding: 10px 5px !important;
+    }
+}
+/* 아주 작은 화면 (iPhone SE 등) */
+@media (max-width: 375px) {
+    .readme-content img,
+    .readme-content .readme-img {
+        max-width: 220px !important;
     }
 }
 /* 강제로 가로 스크롤 방지 */
