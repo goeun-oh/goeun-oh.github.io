@@ -667,7 +667,7 @@ article img {
     </div>
     <div class="mdui-card-primary-subtitle mdui-typo">
         
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-07-13 11:35<br>수정일: 2025-07-13 11:35'}" datetime="2025-07-13T14:35:01.182Z">2025-07-13</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-07-13 11:35<br>수정일: 2025-07-13 11:35'}" datetime="2025-07-13T14:35:53.901Z">2025-07-13</time>
         <span>-</span>
         
             <a href="/posts/hello-world/">posts/hello-world/</a>
@@ -1094,278 +1094,6 @@ article img {
 <p><strong>이전 포스트</strong>: <a href="/posts/cortex-m-software-stack">6. SW Stack과 모듈화</a></p>
 <hr>
 <h2 id="🎉-초기환경-세팅-시리즈-완료"><a href="#🎉-초기환경-세팅-시리즈-완료" class="headerlink" title="🎉 초기환경 세팅 시리즈 완료!"></a>🎉 초기환경 세팅 시리즈 완료!</h2><p>축하한다! Cortex-M 초기환경 세팅의 모든 과정을 완료했다. 이제 다음 단계로 넘어가 더 고급 기능들을 구현해보자.</p>
-</main>
-        
-    </div>
-    
-</article>
-
-    
-        <article class="h-entry mdui-card mdui-hoverable mdui-shadow-1 mdui-m-y-2" style="opacity: 1; border-radius: 4px"
->
-    
-    <div class="mdui-card-primary mdui-ripple">
-    <div class="mdui-card-primary-title">
-        <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" href="/posts/cortex-m-code-improvement-advanced/">5-3. 코드 개선 과정 - 고급 기법과 성능</a>
-        <a class="p-author h-card" style="display:none" href="https://www.goeun-oh.com">고은</a>
-        
-        <small> <a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/">Cortex-M</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/ARM/">ARM</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/ARM/Embedded/">Embedded</a></small>
-        
-    </div>
-    <div class="mdui-card-primary-subtitle mdui-typo">
-        
-        <span><a class="tag-none-link" href="/tags/BSRR/" rel="tag">BSRR</a> <a class="tag-none-link" href="/tags/%EA%B3%A0%EA%B8%89%EA%B8%B0%EB%B2%95/" rel="tag">고급기법</a> <a class="tag-none-link" href="/tags/%EB%B9%84%ED%8A%B8%ED%95%84%EB%93%9C/" rel="tag">비트필드</a> <a class="tag-none-link" href="/tags/%EC%84%B1%EB%8A%A5%EC%B5%9C%EC%A0%81%ED%99%94/" rel="tag">성능최적화</a></span>
-        <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-13 11:35'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
-        <span>-</span>
-        
-            <span>posts/cortex-m-code-improvement-advanced/</span>
-        
-    </div>
-</div>
-    
-    
-    <div class="mdui-divider"></div>
-    <div class="mdui-card-content mdui-typo">
-        
-        <div class="p-summary" style="display:none"></div>
-        
-        <!-- TOC 디버깅 및 렌더링 -->
-        
-        
-        <main class="e-content"><h1 id="코드-개선-과정-고급-기법과-성능"><a href="#코드-개선-과정-고급-기법과-성능" class="headerlink" title="코드 개선 과정 - 고급 기법과 성능"></a>코드 개선 과정 - 고급 기법과 성능</h1><p>이번 포스트에서는 구조체 기반 코드의 고급 활용 기법과 성능 최적화 방법을 다룬다.</p>
-<h2 id="🔧-고급-활용-기법"><a href="#🔧-고급-활용-기법" class="headerlink" title="🔧 고급 활용 기법"></a>🔧 고급 활용 기법</h2><h3 id="BSRR-레지스터-활용"><a href="#BSRR-레지스터-활용" class="headerlink" title="BSRR 레지스터 활용"></a>BSRR 레지스터 활용</h3><p>BSRR(Bit Set&#x2F;Reset Register)을 사용하면 원자적 연산이 가능하다:</p>
-<pre class="language-c" data-language="c"><code class="language-c"><span class="token comment">// 기존 방식 (Read-Modify-Write, 3단계 연산)</span>
-GPIOA<span class="token operator">-></span>ODR <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">// 1. 읽기 → 2. 수정 → 3. 쓰기</span>
-GPIOA<span class="token operator">-></span>ODR <span class="token operator">&amp;=</span> <span class="token operator">~</span><span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 1. 읽기 → 2. 수정 → 3. 쓰기</span>
-
-<span class="token comment">// BSRR 방식 (원자적 연산, 1단계)</span>
-GPIOA<span class="token operator">-></span>BSRR <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>       <span class="token comment">// Set PA5 (직접 쓰기)</span>
-GPIOA<span class="token operator">-></span>BSRR <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span><span class="token number">5</span><span class="token operator">+</span><span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// Reset PA5 (직접 쓰기)</span></code></pre>
-
-<p><strong>BSRR 레지스터 구조:</strong></p>
-<pre class="language-none"><code class="language-none">Bit 31-16: Reset bits (1 쓰면 해당 핀 Reset)
-Bit 15-0:  Set bits   (1 쓰면 해당 핀 Set)
-
-예시: BSRR &#x3D; 0x00100020
-- Bit 20 (16+4): GPIOA 핀 4를 Reset
-- Bit 5: GPIOA 핀 5를 Set</code></pre>
-
-<h3 id="다중-핀-제어"><a href="#다중-핀-제어" class="headerlink" title="다중 핀 제어"></a>다중 핀 제어</h3><p>구조체를 사용하면 다중 핀 제어가 효율적이다:</p>
-<pre class="language-c" data-language="c"><code class="language-c"><span class="token comment">// 여러 핀을 한 번에 설정</span>
-GPIOA<span class="token operator">-></span>ODR <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">5</span><span class="token punctuation">)</span> <span class="token operator">|</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">6</span><span class="token punctuation">)</span> <span class="token operator">|</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">7</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// PA5, PA6, PA7 동시 ON</span>
-
-<span class="token comment">// BSRR을 사용한 다중 핀 제어 (더 효율적)</span>
-GPIOA<span class="token operator">-></span>BSRR <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">5</span><span class="token punctuation">)</span> <span class="token operator">|</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// PA5, PA6 Set</span>
-GPIOA<span class="token operator">-></span>BSRR <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span><span class="token number">7</span><span class="token operator">+</span><span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment">// PA7 Reset</span>
-
-<span class="token comment">// 동시에 Set과 Reset (가장 효율적)</span>
-GPIOA<span class="token operator">-></span>BSRR <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">5</span><span class="token punctuation">)</span> <span class="token operator">|</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">6</span><span class="token punctuation">)</span> <span class="token operator">|</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span><span class="token number">7</span><span class="token operator">+</span><span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// PA5,6 Set, PA7 Reset</span></code></pre>
-
-<h3 id="비트-필드-매크로-정의"><a href="#비트-필드-매크로-정의" class="headerlink" title="비트 필드 매크로 정의"></a>비트 필드 매크로 정의</h3><p>더욱 명확한 코드를 위해 비트 위치와 마스크를 정의한다:</p>
-<pre class="language-c" data-language="c"><code class="language-c"><span class="token comment">// GPIO MODER 레지스터 비트 정의</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIO_MODER_INPUT</span>    <span class="token expression"><span class="token punctuation">(</span><span class="token number">0x00</span><span class="token punctuation">)</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIO_MODER_OUTPUT</span>   <span class="token expression"><span class="token punctuation">(</span><span class="token number">0x01</span><span class="token punctuation">)</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIO_MODER_AF</span>       <span class="token expression"><span class="token punctuation">(</span><span class="token number">0x02</span><span class="token punctuation">)</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIO_MODER_ANALOG</span>   <span class="token expression"><span class="token punctuation">(</span><span class="token number">0x03</span><span class="token punctuation">)</span></span></span>
-
-<span class="token comment">// 핀별 비트 위치 계산 매크로</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">GPIO_MODER_PIN</span><span class="token expression"><span class="token punctuation">(</span>pin<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>pin<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">)</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">GPIO_MODER_MASK</span><span class="token expression"><span class="token punctuation">(</span>pin<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token number">0x3U</span> <span class="token operator">&lt;&lt;</span> <span class="token function">GPIO_MODER_PIN</span><span class="token punctuation">(</span>pin<span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
-
-<span class="token comment">// 개선된 핀 설정 함수</span>
-<span class="token keyword">void</span> <span class="token function">GPIO_SetMode</span><span class="token punctuation">(</span>GPIO_TypeDef <span class="token operator">*</span>GPIOx<span class="token punctuation">,</span> <span class="token class-name">uint32_t</span> pin<span class="token punctuation">,</span> <span class="token class-name">uint32_t</span> mode<span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token class-name">uint32_t</span> pos <span class="token operator">=</span> <span class="token function">GPIO_MODER_PIN</span><span class="token punctuation">(</span>pin<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    GPIOx<span class="token operator">-></span>MODER <span class="token operator">&amp;=</span> <span class="token operator">~</span><span class="token punctuation">(</span><span class="token number">0x3U</span> <span class="token operator">&lt;&lt;</span> pos<span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token comment">// 기존 값 클리어</span>
-    GPIOx<span class="token operator">-></span>MODER <span class="token operator">|=</span> <span class="token punctuation">(</span>mode <span class="token operator">&lt;&lt;</span> pos<span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">// 새 값 설정</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">// 핀 읽기 함수</span>
-<span class="token class-name">uint32_t</span> <span class="token function">GPIO_ReadPin</span><span class="token punctuation">(</span>GPIO_TypeDef <span class="token operator">*</span>GPIOx<span class="token punctuation">,</span> <span class="token class-name">uint32_t</span> pin<span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>GPIOx<span class="token operator">-></span>IDR <span class="token operator">&amp;</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> pin<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token number">1</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">// 핀 쓰기 함수  </span>
-<span class="token keyword">void</span> <span class="token function">GPIO_WritePin</span><span class="token punctuation">(</span>GPIO_TypeDef <span class="token operator">*</span>GPIOx<span class="token punctuation">,</span> <span class="token class-name">uint32_t</span> pin<span class="token punctuation">,</span> <span class="token class-name">uint32_t</span> value<span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        GPIOx<span class="token operator">-></span>BSRR <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> pin<span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment">// Set</span>
-    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-        GPIOx<span class="token operator">-></span>BSRR <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span>pin <span class="token operator">+</span> <span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Reset</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-
-<h2 id="🚀-개선된-최종-코드"><a href="#🚀-개선된-최종-코드" class="headerlink" title="🚀 개선된 최종 코드"></a>🚀 개선된 최종 코드</h2><h3 id="헬퍼-함수를-사용한-버전"><a href="#헬퍼-함수를-사용한-버전" class="headerlink" title="헬퍼 함수를 사용한 버전"></a>헬퍼 함수를 사용한 버전</h3><pre class="language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdint.h></span></span>
-
-<span class="token comment">// 베이스 주소 정의</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">PERIPH_BASE</span> <span class="token expression"><span class="token punctuation">(</span><span class="token number">0x40000000UL</span><span class="token punctuation">)</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">AHB1PERIPH_OFFSET</span> <span class="token expression"><span class="token punctuation">(</span><span class="token number">0x20000UL</span><span class="token punctuation">)</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">AHB1PERIPH_BASE</span> <span class="token expression"><span class="token punctuation">(</span>PERIPH_BASE <span class="token operator">+</span> AHB1PERIPH_OFFSET<span class="token punctuation">)</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_BASE</span> <span class="token expression"><span class="token punctuation">(</span>AHB1PERIPH_BASE <span class="token operator">+</span> <span class="token number">0x0000UL</span><span class="token punctuation">)</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">RCC_AHB1ENR</span> <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token number">0x40023830</span></span></span>
-
-<span class="token comment">// GPIO 구조체 정의</span>
-<span class="token keyword">typedef</span> <span class="token keyword">struct</span><span class="token punctuation">&#123;</span>
-   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> MODER<span class="token punctuation">;</span>
-   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> OTYPER<span class="token punctuation">;</span>
-   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> OSPEEDR<span class="token punctuation">;</span>
-   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> PUPDR<span class="token punctuation">;</span>
-   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> IDR<span class="token punctuation">;</span>
-   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> ODR<span class="token punctuation">;</span>
-   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> BSRR<span class="token punctuation">;</span>
-   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> LCKR<span class="token punctuation">;</span>
-   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> AFR<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>GPIO_TypeDef<span class="token punctuation">;</span>
-
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA</span> <span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">(</span>GPIO_TypeDef <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOA_BASE<span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
-
-<span class="token comment">// GPIO 모드 정의</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIO_MODER_OUTPUT</span>   <span class="token expression"><span class="token punctuation">(</span><span class="token number">0x01</span><span class="token punctuation">)</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">GPIO_MODER_PIN</span><span class="token expression"><span class="token punctuation">(</span>pin<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>pin<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">)</span></span></span>
-
-<span class="token comment">// 헬퍼 함수들</span>
-<span class="token keyword">void</span> <span class="token function">GPIO_SetMode</span><span class="token punctuation">(</span>GPIO_TypeDef <span class="token operator">*</span>GPIOx<span class="token punctuation">,</span> <span class="token class-name">uint32_t</span> pin<span class="token punctuation">,</span> <span class="token class-name">uint32_t</span> mode<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">void</span> <span class="token function">GPIO_WritePin</span><span class="token punctuation">(</span>GPIO_TypeDef <span class="token operator">*</span>GPIOx<span class="token punctuation">,</span> <span class="token class-name">uint32_t</span> pin<span class="token punctuation">,</span> <span class="token class-name">uint32_t</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">void</span> <span class="token function">delay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token comment">/*1. Enable clock access to GPIOA */</span>
-    RCC_AHB1ENR <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token comment">/*2. Set PA5 as output pin */</span>
-    <span class="token function">GPIO_SetMode</span><span class="token punctuation">(</span>GPIOA<span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> GPIO_MODER_OUTPUT<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#123;</span>
-        <span class="token comment">/*3. Toggle PA5 using BSRR */</span>
-        <span class="token function">GPIO_WritePin</span><span class="token punctuation">(</span>GPIOA<span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// Set</span>
-        <span class="token function">delay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">GPIO_WritePin</span><span class="token punctuation">(</span>GPIOA<span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// Reset</span>
-        <span class="token function">delay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">// 함수 구현</span>
-<span class="token keyword">void</span> <span class="token function">GPIO_SetMode</span><span class="token punctuation">(</span>GPIO_TypeDef <span class="token operator">*</span>GPIOx<span class="token punctuation">,</span> <span class="token class-name">uint32_t</span> pin<span class="token punctuation">,</span> <span class="token class-name">uint32_t</span> mode<span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token class-name">uint32_t</span> pos <span class="token operator">=</span> <span class="token function">GPIO_MODER_PIN</span><span class="token punctuation">(</span>pin<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    GPIOx<span class="token operator">-></span>MODER <span class="token operator">&amp;=</span> <span class="token operator">~</span><span class="token punctuation">(</span><span class="token number">0x3U</span> <span class="token operator">&lt;&lt;</span> pos<span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token comment">// 기존 값 클리어</span>
-    GPIOx<span class="token operator">-></span>MODER <span class="token operator">|=</span> <span class="token punctuation">(</span>mode <span class="token operator">&lt;&lt;</span> pos<span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">// 새 값 설정</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">void</span> <span class="token function">GPIO_WritePin</span><span class="token punctuation">(</span>GPIO_TypeDef <span class="token operator">*</span>GPIOx<span class="token punctuation">,</span> <span class="token class-name">uint32_t</span> pin<span class="token punctuation">,</span> <span class="token class-name">uint32_t</span> value<span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        GPIOx<span class="token operator">-></span>BSRR <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> pin<span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment">// Set</span>
-    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-        GPIOx<span class="token operator">-></span>BSRR <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span>pin <span class="token operator">+</span> <span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Reset</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">void</span> <span class="token function">delay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span><span class="token number">100000</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-
-<h2 id="📊-성능과-메모리-분석"><a href="#📊-성능과-메모리-분석" class="headerlink" title="📊 성능과 메모리 분석"></a>📊 성능과 메모리 분석</h2><h3 id="메모리-사용량-비교"><a href="#메모리-사용량-비교" class="headerlink" title="메모리 사용량 비교"></a>메모리 사용량 비교</h3><p>구조체를 사용해도 실제 메모리 사용량은 변하지 않는다:</p>
-<pre class="language-c" data-language="c"><code class="language-c"><span class="token comment">// Define 방식</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_ODR</span> <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token number">0x40020014</span></span></span>
-GPIOA_ODR <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token comment">// 구조체 방식  </span>
-GPIOA<span class="token operator">-></span>ODR <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token comment">// 둘 다 컴파일 후 동일한 어셈블리 코드 생성</span></code></pre>
-
-<h3 id="컴파일-결과-비교"><a href="#컴파일-결과-비교" class="headerlink" title="컴파일 결과 비교"></a>컴파일 결과 비교</h3><p>두 방식 모두 최적화 후에는 동일한 어셈블리 코드를 생성한다:</p>
-<pre class="language-assembly" data-language="assembly"><code class="language-assembly">; Define 방식과 구조체 방식 모두 다음과 같이 컴파일됨
-
-; 최적화 전 (Debug 모드)
-ldr r3, &#x3D;0x40020014    ; GPIOA ODR 주소 로드
-ldr r2, [r3]           ; 현재 값 읽기
-orr r2, r2, #32        ; 비트 5 설정 (1 &lt;&lt; 5)
-str r2, [r3]           ; 값 쓰기
-
-; 최적화 후 (Release 모드, -O2)
-mov r2, #32            ; 즉시값 32 (1 &lt;&lt; 5)
-str r2, [r3, #24]      ; GPIOA-&gt;BSRR에 직접 쓰기 (더 효율적)</code></pre>
-
-<h3 id="BSRR-vs-ODR-성능-비교"><a href="#BSRR-vs-ODR-성능-비교" class="headerlink" title="BSRR vs ODR 성능 비교"></a>BSRR vs ODR 성능 비교</h3><p><strong>ODR 사용 (Read-Modify-Write):</strong></p>
-<pre class="language-c" data-language="c"><code class="language-c">GPIOA<span class="token operator">-></span>ODR <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 3 cycles: Read + Modify + Write</span></code></pre>
-
-<p><strong>BSRR 사용 (Direct Write):</strong></p>
-<pre class="language-c" data-language="c"><code class="language-c">GPIOA<span class="token operator">-></span>BSRR <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 1 cycle: Write only</span></code></pre>
-
-<p><strong>성능 차이:</strong></p>
-<ul>
-<li>BSRR이 ODR보다 약 <strong>3배 빠르다</strong></li>
-<li>원자적 연산으로 <strong>인터럽트 안전성</strong> 보장</li>
-<li>다중 핀 제어 시 <strong>더욱 효율적</strong></li>
-</ul>
-<h2 id="🛡️-인터럽트-안전성"><a href="#🛡️-인터럽트-안전성" class="headerlink" title="🛡️ 인터럽트 안전성"></a>🛡️ 인터럽트 안전성</h2><h3 id="문제-상황"><a href="#문제-상황" class="headerlink" title="문제 상황"></a>문제 상황</h3><pre class="language-c" data-language="c"><code class="language-c"><span class="token comment">// 인터럽트가 발생할 수 있는 상황</span>
-GPIOA<span class="token operator">-></span>ODR <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">// 3단계 연산 중간에 인터럽트 발생 가능</span>
-
-<span class="token comment">// 만약 인터럽트에서 같은 레지스터를 수정한다면?</span>
-<span class="token keyword">void</span> <span class="token function">interrupt_handler</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    GPIOA<span class="token operator">-></span>ODR <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 충돌 가능성!</span>
-<span class="token punctuation">&#125;</span></code></pre>
-
-<p><strong>문제점:</strong></p>
-<ol>
-<li><strong>경쟁 상태(Race Condition)</strong>: 메인 코드와 인터럽트가 동시에 ODR 수정</li>
-<li><strong>데이터 손실</strong>: 중간에 끼어든 수정으로 인한 값 손실</li>
-<li><strong>예측 불가능한 동작</strong>: 타이밍에 따라 결과가 달라짐</li>
-</ol>
-<h3 id="BSRR을-사용한-해결"><a href="#BSRR을-사용한-해결" class="headerlink" title="BSRR을 사용한 해결"></a>BSRR을 사용한 해결</h3><pre class="language-c" data-language="c"><code class="language-c"><span class="token comment">// 원자적 연산으로 안전함</span>
-GPIOA<span class="token operator">-></span>BSRR <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">// 1단계 연산, 인터럽트 안전</span>
-
-<span class="token keyword">void</span> <span class="token function">interrupt_handler</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    GPIOA<span class="token operator">-></span>BSRR <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 충돌 없음! 각자 독립적으로 동작</span>
-<span class="token punctuation">&#125;</span></code></pre>
-
-<p><strong>장점:</strong></p>
-<ol>
-<li><strong>원자성</strong>: 단일 쓰기 연산으로 완료</li>
-<li><strong>안전성</strong>: 인터럽트와 메인 코드가 서로 영향 없음</li>
-<li><strong>효율성</strong>: 더 빠른 실행 속도</li>
-</ol>
-<h2 id="💡-핵심-개념-정리"><a href="#💡-핵심-개념-정리" class="headerlink" title="💡 핵심 개념 정리"></a>💡 핵심 개념 정리</h2><h3 id="구조체와-하드웨어의-일치"><a href="#구조체와-하드웨어의-일치" class="headerlink" title="구조체와 하드웨어의 일치"></a>구조체와 하드웨어의 일치</h3><p>STM32의 실제 하드웨어 레지스터 배치와 구조체가 정확히 일치한다:</p>
-<pre class="language-c" data-language="c"><code class="language-c"><span class="token comment">// 하드웨어 레지스터 주소    구조체 멤버</span>
-<span class="token comment">// 0x40020000         ←→    MODER</span>
-<span class="token comment">// 0x40020004         ←→    OTYPER  </span>
-<span class="token comment">// 0x40020008         ←→    OSPEEDR</span>
-<span class="token comment">// 0x4002000C         ←→    PUPDR</span>
-<span class="token comment">// 0x40020010         ←→    IDR</span>
-<span class="token comment">// 0x40020014         ←→    ODR</span>
-<span class="token comment">// 0x40020018         ←→    BSRR</span></code></pre>
-
-<h3 id="타입-안전성의-실제-효과"><a href="#타입-안전성의-실제-효과" class="headerlink" title="타입 안전성의 실제 효과"></a>타입 안전성의 실제 효과</h3><pre class="language-c" data-language="c"><code class="language-c"><span class="token comment">// 컴파일 타임에 에러 감지</span>
-GPIOA<span class="token operator">-></span>INVALID_REGISTER <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>  <span class="token comment">// 컴파일 에러!</span>
-GPIOA<span class="token operator">-></span>MODER <span class="token operator">=</span> <span class="token string">"string"</span><span class="token punctuation">;</span>      <span class="token comment">// 타입 에러!</span>
-
-<span class="token comment">// IDE 자동완성으로 개발 효율성 향상</span>
-GPIOA<span class="token operator">-></span>  <span class="token comment">// 자동으로 사용 가능한 멤버들을 표시</span></code></pre>
-
-<h2 id="📋-정리"><a href="#📋-정리" class="headerlink" title="📋 정리"></a>📋 정리</h2><p>이번 포스트에서는 구조체 기반 코드의 고급 기법을 다뤘다:</p>
-<ol>
-<li><strong>BSRR 활용</strong>: 원자적 연산으로 성능과 안전성 향상</li>
-<li><strong>다중 핀 제어</strong>: 효율적인 다중 GPIO 제어 방법</li>
-<li><strong>비트 필드 매크로</strong>: 가독성과 유지보수성 향상</li>
-<li><strong>성능 분석</strong>: 메모리 사용량과 컴파일 결과 비교</li>
-<li><strong>인터럽트 안전성</strong>: 원자적 연산의 중요성</li>
-</ol>
-<p><strong>핵심 개선 효과:</strong></p>
-<ul>
-<li>성능 3배 향상 (BSRR 사용)</li>
-<li>인터럽트 안전성 확보</li>
-<li>타입 안전성으로 버그 예방</li>
-<li>IDE 지원으로 개발 효율성 증대</li>
-</ul>
-<p>다음 포스트에서는 실제 프로젝트 적용 예시와 디버깅 기법을 알아보겠다.</p>
-<hr>
-<p><strong>이전 포스트</strong>: <a href="/posts/cortex-m-code-improvement-struct">5-2. 코드 개선 과정 - 구조체 활용</a><br><strong>다음 포스트</strong>: <a href="/posts/cortex-m-code-improvement-project">5-4. 코드 개선 과정 - 실제 프로젝트 적용</a></p>
 </main>
         
     </div>
@@ -1886,6 +1614,278 @@ GPIOA<span class="token operator">-></span>ODR <span class="token operator">^=</
 <p>다음 포스트에서는 구조체의 고급 활용법과 성능 분석을 알아보겠다.</p>
 <hr>
 <p><strong>이전 포스트</strong>: <a href="/posts/cortex-m-code-improvement-basic">5-1. 코드 개선 과정 - Define과 베이스 주소</a><br><strong>다음 포스트</strong>: <a href="/posts/cortex-m-code-improvement-advanced">5-3. 코드 개선 과정 - 고급 기법과 성능</a></p>
+</main>
+        
+    </div>
+    
+</article>
+
+    
+        <article class="h-entry mdui-card mdui-hoverable mdui-shadow-1 mdui-m-y-2" style="opacity: 1; border-radius: 4px"
+>
+    
+    <div class="mdui-card-primary mdui-ripple">
+    <div class="mdui-card-primary-title">
+        <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" href="/posts/cortex-m-code-improvement-advanced/">5-3. 코드 개선 과정 - 고급 기법과 성능</a>
+        <a class="p-author h-card" style="display:none" href="https://www.goeun-oh.com">고은</a>
+        
+        <small> <a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/">Cortex-M</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/ARM/">ARM</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/ARM/Embedded/">Embedded</a></small>
+        
+    </div>
+    <div class="mdui-card-primary-subtitle mdui-typo">
+        
+        <span><a class="tag-none-link" href="/tags/BSRR/" rel="tag">BSRR</a> <a class="tag-none-link" href="/tags/%EA%B3%A0%EA%B8%89%EA%B8%B0%EB%B2%95/" rel="tag">고급기법</a> <a class="tag-none-link" href="/tags/%EB%B9%84%ED%8A%B8%ED%95%84%EB%93%9C/" rel="tag">비트필드</a> <a class="tag-none-link" href="/tags/%EC%84%B1%EB%8A%A5%EC%B5%9C%EC%A0%81%ED%99%94/" rel="tag">성능최적화</a></span>
+        <span>-</span>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-13 11:35'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <span>-</span>
+        
+            <span>posts/cortex-m-code-improvement-advanced/</span>
+        
+    </div>
+</div>
+    
+    
+    <div class="mdui-divider"></div>
+    <div class="mdui-card-content mdui-typo">
+        
+        <div class="p-summary" style="display:none"></div>
+        
+        <!-- TOC 디버깅 및 렌더링 -->
+        
+        
+        <main class="e-content"><h1 id="코드-개선-과정-고급-기법과-성능"><a href="#코드-개선-과정-고급-기법과-성능" class="headerlink" title="코드 개선 과정 - 고급 기법과 성능"></a>코드 개선 과정 - 고급 기법과 성능</h1><p>이번 포스트에서는 구조체 기반 코드의 고급 활용 기법과 성능 최적화 방법을 다룬다.</p>
+<h2 id="🔧-고급-활용-기법"><a href="#🔧-고급-활용-기법" class="headerlink" title="🔧 고급 활용 기법"></a>🔧 고급 활용 기법</h2><h3 id="BSRR-레지스터-활용"><a href="#BSRR-레지스터-활용" class="headerlink" title="BSRR 레지스터 활용"></a>BSRR 레지스터 활용</h3><p>BSRR(Bit Set&#x2F;Reset Register)을 사용하면 원자적 연산이 가능하다:</p>
+<pre class="language-c" data-language="c"><code class="language-c"><span class="token comment">// 기존 방식 (Read-Modify-Write, 3단계 연산)</span>
+GPIOA<span class="token operator">-></span>ODR <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">// 1. 읽기 → 2. 수정 → 3. 쓰기</span>
+GPIOA<span class="token operator">-></span>ODR <span class="token operator">&amp;=</span> <span class="token operator">~</span><span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 1. 읽기 → 2. 수정 → 3. 쓰기</span>
+
+<span class="token comment">// BSRR 방식 (원자적 연산, 1단계)</span>
+GPIOA<span class="token operator">-></span>BSRR <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>       <span class="token comment">// Set PA5 (직접 쓰기)</span>
+GPIOA<span class="token operator">-></span>BSRR <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span><span class="token number">5</span><span class="token operator">+</span><span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// Reset PA5 (직접 쓰기)</span></code></pre>
+
+<p><strong>BSRR 레지스터 구조:</strong></p>
+<pre class="language-none"><code class="language-none">Bit 31-16: Reset bits (1 쓰면 해당 핀 Reset)
+Bit 15-0:  Set bits   (1 쓰면 해당 핀 Set)
+
+예시: BSRR &#x3D; 0x00100020
+- Bit 20 (16+4): GPIOA 핀 4를 Reset
+- Bit 5: GPIOA 핀 5를 Set</code></pre>
+
+<h3 id="다중-핀-제어"><a href="#다중-핀-제어" class="headerlink" title="다중 핀 제어"></a>다중 핀 제어</h3><p>구조체를 사용하면 다중 핀 제어가 효율적이다:</p>
+<pre class="language-c" data-language="c"><code class="language-c"><span class="token comment">// 여러 핀을 한 번에 설정</span>
+GPIOA<span class="token operator">-></span>ODR <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">5</span><span class="token punctuation">)</span> <span class="token operator">|</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">6</span><span class="token punctuation">)</span> <span class="token operator">|</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">7</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// PA5, PA6, PA7 동시 ON</span>
+
+<span class="token comment">// BSRR을 사용한 다중 핀 제어 (더 효율적)</span>
+GPIOA<span class="token operator">-></span>BSRR <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">5</span><span class="token punctuation">)</span> <span class="token operator">|</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// PA5, PA6 Set</span>
+GPIOA<span class="token operator">-></span>BSRR <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span><span class="token number">7</span><span class="token operator">+</span><span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment">// PA7 Reset</span>
+
+<span class="token comment">// 동시에 Set과 Reset (가장 효율적)</span>
+GPIOA<span class="token operator">-></span>BSRR <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">5</span><span class="token punctuation">)</span> <span class="token operator">|</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">6</span><span class="token punctuation">)</span> <span class="token operator">|</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span><span class="token number">7</span><span class="token operator">+</span><span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// PA5,6 Set, PA7 Reset</span></code></pre>
+
+<h3 id="비트-필드-매크로-정의"><a href="#비트-필드-매크로-정의" class="headerlink" title="비트 필드 매크로 정의"></a>비트 필드 매크로 정의</h3><p>더욱 명확한 코드를 위해 비트 위치와 마스크를 정의한다:</p>
+<pre class="language-c" data-language="c"><code class="language-c"><span class="token comment">// GPIO MODER 레지스터 비트 정의</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIO_MODER_INPUT</span>    <span class="token expression"><span class="token punctuation">(</span><span class="token number">0x00</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIO_MODER_OUTPUT</span>   <span class="token expression"><span class="token punctuation">(</span><span class="token number">0x01</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIO_MODER_AF</span>       <span class="token expression"><span class="token punctuation">(</span><span class="token number">0x02</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIO_MODER_ANALOG</span>   <span class="token expression"><span class="token punctuation">(</span><span class="token number">0x03</span><span class="token punctuation">)</span></span></span>
+
+<span class="token comment">// 핀별 비트 위치 계산 매크로</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">GPIO_MODER_PIN</span><span class="token expression"><span class="token punctuation">(</span>pin<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>pin<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">GPIO_MODER_MASK</span><span class="token expression"><span class="token punctuation">(</span>pin<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token number">0x3U</span> <span class="token operator">&lt;&lt;</span> <span class="token function">GPIO_MODER_PIN</span><span class="token punctuation">(</span>pin<span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
+
+<span class="token comment">// 개선된 핀 설정 함수</span>
+<span class="token keyword">void</span> <span class="token function">GPIO_SetMode</span><span class="token punctuation">(</span>GPIO_TypeDef <span class="token operator">*</span>GPIOx<span class="token punctuation">,</span> <span class="token class-name">uint32_t</span> pin<span class="token punctuation">,</span> <span class="token class-name">uint32_t</span> mode<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token class-name">uint32_t</span> pos <span class="token operator">=</span> <span class="token function">GPIO_MODER_PIN</span><span class="token punctuation">(</span>pin<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    GPIOx<span class="token operator">-></span>MODER <span class="token operator">&amp;=</span> <span class="token operator">~</span><span class="token punctuation">(</span><span class="token number">0x3U</span> <span class="token operator">&lt;&lt;</span> pos<span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token comment">// 기존 값 클리어</span>
+    GPIOx<span class="token operator">-></span>MODER <span class="token operator">|=</span> <span class="token punctuation">(</span>mode <span class="token operator">&lt;&lt;</span> pos<span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">// 새 값 설정</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">// 핀 읽기 함수</span>
+<span class="token class-name">uint32_t</span> <span class="token function">GPIO_ReadPin</span><span class="token punctuation">(</span>GPIO_TypeDef <span class="token operator">*</span>GPIOx<span class="token punctuation">,</span> <span class="token class-name">uint32_t</span> pin<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>GPIOx<span class="token operator">-></span>IDR <span class="token operator">&amp;</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> pin<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token number">1</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">// 핀 쓰기 함수  </span>
+<span class="token keyword">void</span> <span class="token function">GPIO_WritePin</span><span class="token punctuation">(</span>GPIO_TypeDef <span class="token operator">*</span>GPIOx<span class="token punctuation">,</span> <span class="token class-name">uint32_t</span> pin<span class="token punctuation">,</span> <span class="token class-name">uint32_t</span> value<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        GPIOx<span class="token operator">-></span>BSRR <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> pin<span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment">// Set</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+        GPIOx<span class="token operator">-></span>BSRR <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span>pin <span class="token operator">+</span> <span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Reset</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<h2 id="🚀-개선된-최종-코드"><a href="#🚀-개선된-최종-코드" class="headerlink" title="🚀 개선된 최종 코드"></a>🚀 개선된 최종 코드</h2><h3 id="헬퍼-함수를-사용한-버전"><a href="#헬퍼-함수를-사용한-버전" class="headerlink" title="헬퍼 함수를 사용한 버전"></a>헬퍼 함수를 사용한 버전</h3><pre class="language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdint.h></span></span>
+
+<span class="token comment">// 베이스 주소 정의</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">PERIPH_BASE</span> <span class="token expression"><span class="token punctuation">(</span><span class="token number">0x40000000UL</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">AHB1PERIPH_OFFSET</span> <span class="token expression"><span class="token punctuation">(</span><span class="token number">0x20000UL</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">AHB1PERIPH_BASE</span> <span class="token expression"><span class="token punctuation">(</span>PERIPH_BASE <span class="token operator">+</span> AHB1PERIPH_OFFSET<span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_BASE</span> <span class="token expression"><span class="token punctuation">(</span>AHB1PERIPH_BASE <span class="token operator">+</span> <span class="token number">0x0000UL</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">RCC_AHB1ENR</span> <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token number">0x40023830</span></span></span>
+
+<span class="token comment">// GPIO 구조체 정의</span>
+<span class="token keyword">typedef</span> <span class="token keyword">struct</span><span class="token punctuation">&#123;</span>
+   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> MODER<span class="token punctuation">;</span>
+   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> OTYPER<span class="token punctuation">;</span>
+   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> OSPEEDR<span class="token punctuation">;</span>
+   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> PUPDR<span class="token punctuation">;</span>
+   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> IDR<span class="token punctuation">;</span>
+   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> ODR<span class="token punctuation">;</span>
+   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> BSRR<span class="token punctuation">;</span>
+   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> LCKR<span class="token punctuation">;</span>
+   <span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> AFR<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>GPIO_TypeDef<span class="token punctuation">;</span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA</span> <span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">(</span>GPIO_TypeDef <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>GPIOA_BASE<span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
+
+<span class="token comment">// GPIO 모드 정의</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIO_MODER_OUTPUT</span>   <span class="token expression"><span class="token punctuation">(</span><span class="token number">0x01</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">GPIO_MODER_PIN</span><span class="token expression"><span class="token punctuation">(</span>pin<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>pin<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">)</span></span></span>
+
+<span class="token comment">// 헬퍼 함수들</span>
+<span class="token keyword">void</span> <span class="token function">GPIO_SetMode</span><span class="token punctuation">(</span>GPIO_TypeDef <span class="token operator">*</span>GPIOx<span class="token punctuation">,</span> <span class="token class-name">uint32_t</span> pin<span class="token punctuation">,</span> <span class="token class-name">uint32_t</span> mode<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">void</span> <span class="token function">GPIO_WritePin</span><span class="token punctuation">(</span>GPIO_TypeDef <span class="token operator">*</span>GPIOx<span class="token punctuation">,</span> <span class="token class-name">uint32_t</span> pin<span class="token punctuation">,</span> <span class="token class-name">uint32_t</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">void</span> <span class="token function">delay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token comment">/*1. Enable clock access to GPIOA */</span>
+    RCC_AHB1ENR <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/*2. Set PA5 as output pin */</span>
+    <span class="token function">GPIO_SetMode</span><span class="token punctuation">(</span>GPIOA<span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> GPIO_MODER_OUTPUT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token comment">/*3. Toggle PA5 using BSRR */</span>
+        <span class="token function">GPIO_WritePin</span><span class="token punctuation">(</span>GPIOA<span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// Set</span>
+        <span class="token function">delay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">GPIO_WritePin</span><span class="token punctuation">(</span>GPIOA<span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// Reset</span>
+        <span class="token function">delay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">// 함수 구현</span>
+<span class="token keyword">void</span> <span class="token function">GPIO_SetMode</span><span class="token punctuation">(</span>GPIO_TypeDef <span class="token operator">*</span>GPIOx<span class="token punctuation">,</span> <span class="token class-name">uint32_t</span> pin<span class="token punctuation">,</span> <span class="token class-name">uint32_t</span> mode<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token class-name">uint32_t</span> pos <span class="token operator">=</span> <span class="token function">GPIO_MODER_PIN</span><span class="token punctuation">(</span>pin<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    GPIOx<span class="token operator">-></span>MODER <span class="token operator">&amp;=</span> <span class="token operator">~</span><span class="token punctuation">(</span><span class="token number">0x3U</span> <span class="token operator">&lt;&lt;</span> pos<span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token comment">// 기존 값 클리어</span>
+    GPIOx<span class="token operator">-></span>MODER <span class="token operator">|=</span> <span class="token punctuation">(</span>mode <span class="token operator">&lt;&lt;</span> pos<span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">// 새 값 설정</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">void</span> <span class="token function">GPIO_WritePin</span><span class="token punctuation">(</span>GPIO_TypeDef <span class="token operator">*</span>GPIOx<span class="token punctuation">,</span> <span class="token class-name">uint32_t</span> pin<span class="token punctuation">,</span> <span class="token class-name">uint32_t</span> value<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        GPIOx<span class="token operator">-></span>BSRR <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> pin<span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment">// Set</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+        GPIOx<span class="token operator">-></span>BSRR <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span>pin <span class="token operator">+</span> <span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Reset</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">void</span> <span class="token function">delay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span><span class="token number">100000</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<h2 id="📊-성능과-메모리-분석"><a href="#📊-성능과-메모리-분석" class="headerlink" title="📊 성능과 메모리 분석"></a>📊 성능과 메모리 분석</h2><h3 id="메모리-사용량-비교"><a href="#메모리-사용량-비교" class="headerlink" title="메모리 사용량 비교"></a>메모리 사용량 비교</h3><p>구조체를 사용해도 실제 메모리 사용량은 변하지 않는다:</p>
+<pre class="language-c" data-language="c"><code class="language-c"><span class="token comment">// Define 방식</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GPIOA_ODR</span> <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">volatile</span> <span class="token class-name">uint32_t</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token number">0x40020014</span></span></span>
+GPIOA_ODR <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 구조체 방식  </span>
+GPIOA<span class="token operator">-></span>ODR <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 둘 다 컴파일 후 동일한 어셈블리 코드 생성</span></code></pre>
+
+<h3 id="컴파일-결과-비교"><a href="#컴파일-결과-비교" class="headerlink" title="컴파일 결과 비교"></a>컴파일 결과 비교</h3><p>두 방식 모두 최적화 후에는 동일한 어셈블리 코드를 생성한다:</p>
+<pre class="language-assembly" data-language="assembly"><code class="language-assembly">; Define 방식과 구조체 방식 모두 다음과 같이 컴파일됨
+
+; 최적화 전 (Debug 모드)
+ldr r3, &#x3D;0x40020014    ; GPIOA ODR 주소 로드
+ldr r2, [r3]           ; 현재 값 읽기
+orr r2, r2, #32        ; 비트 5 설정 (1 &lt;&lt; 5)
+str r2, [r3]           ; 값 쓰기
+
+; 최적화 후 (Release 모드, -O2)
+mov r2, #32            ; 즉시값 32 (1 &lt;&lt; 5)
+str r2, [r3, #24]      ; GPIOA-&gt;BSRR에 직접 쓰기 (더 효율적)</code></pre>
+
+<h3 id="BSRR-vs-ODR-성능-비교"><a href="#BSRR-vs-ODR-성능-비교" class="headerlink" title="BSRR vs ODR 성능 비교"></a>BSRR vs ODR 성능 비교</h3><p><strong>ODR 사용 (Read-Modify-Write):</strong></p>
+<pre class="language-c" data-language="c"><code class="language-c">GPIOA<span class="token operator">-></span>ODR <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 3 cycles: Read + Modify + Write</span></code></pre>
+
+<p><strong>BSRR 사용 (Direct Write):</strong></p>
+<pre class="language-c" data-language="c"><code class="language-c">GPIOA<span class="token operator">-></span>BSRR <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 1 cycle: Write only</span></code></pre>
+
+<p><strong>성능 차이:</strong></p>
+<ul>
+<li>BSRR이 ODR보다 약 <strong>3배 빠르다</strong></li>
+<li>원자적 연산으로 <strong>인터럽트 안전성</strong> 보장</li>
+<li>다중 핀 제어 시 <strong>더욱 효율적</strong></li>
+</ul>
+<h2 id="🛡️-인터럽트-안전성"><a href="#🛡️-인터럽트-안전성" class="headerlink" title="🛡️ 인터럽트 안전성"></a>🛡️ 인터럽트 안전성</h2><h3 id="문제-상황"><a href="#문제-상황" class="headerlink" title="문제 상황"></a>문제 상황</h3><pre class="language-c" data-language="c"><code class="language-c"><span class="token comment">// 인터럽트가 발생할 수 있는 상황</span>
+GPIOA<span class="token operator">-></span>ODR <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">// 3단계 연산 중간에 인터럽트 발생 가능</span>
+
+<span class="token comment">// 만약 인터럽트에서 같은 레지스터를 수정한다면?</span>
+<span class="token keyword">void</span> <span class="token function">interrupt_handler</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    GPIOA<span class="token operator">-></span>ODR <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 충돌 가능성!</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p><strong>문제점:</strong></p>
+<ol>
+<li><strong>경쟁 상태(Race Condition)</strong>: 메인 코드와 인터럽트가 동시에 ODR 수정</li>
+<li><strong>데이터 손실</strong>: 중간에 끼어든 수정으로 인한 값 손실</li>
+<li><strong>예측 불가능한 동작</strong>: 타이밍에 따라 결과가 달라짐</li>
+</ol>
+<h3 id="BSRR을-사용한-해결"><a href="#BSRR을-사용한-해결" class="headerlink" title="BSRR을 사용한 해결"></a>BSRR을 사용한 해결</h3><pre class="language-c" data-language="c"><code class="language-c"><span class="token comment">// 원자적 연산으로 안전함</span>
+GPIOA<span class="token operator">-></span>BSRR <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">// 1단계 연산, 인터럽트 안전</span>
+
+<span class="token keyword">void</span> <span class="token function">interrupt_handler</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    GPIOA<span class="token operator">-></span>BSRR <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1U</span> <span class="token operator">&lt;&lt;</span> <span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 충돌 없음! 각자 독립적으로 동작</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p><strong>장점:</strong></p>
+<ol>
+<li><strong>원자성</strong>: 단일 쓰기 연산으로 완료</li>
+<li><strong>안전성</strong>: 인터럽트와 메인 코드가 서로 영향 없음</li>
+<li><strong>효율성</strong>: 더 빠른 실행 속도</li>
+</ol>
+<h2 id="💡-핵심-개념-정리"><a href="#💡-핵심-개념-정리" class="headerlink" title="💡 핵심 개념 정리"></a>💡 핵심 개념 정리</h2><h3 id="구조체와-하드웨어의-일치"><a href="#구조체와-하드웨어의-일치" class="headerlink" title="구조체와 하드웨어의 일치"></a>구조체와 하드웨어의 일치</h3><p>STM32의 실제 하드웨어 레지스터 배치와 구조체가 정확히 일치한다:</p>
+<pre class="language-c" data-language="c"><code class="language-c"><span class="token comment">// 하드웨어 레지스터 주소    구조체 멤버</span>
+<span class="token comment">// 0x40020000         ←→    MODER</span>
+<span class="token comment">// 0x40020004         ←→    OTYPER  </span>
+<span class="token comment">// 0x40020008         ←→    OSPEEDR</span>
+<span class="token comment">// 0x4002000C         ←→    PUPDR</span>
+<span class="token comment">// 0x40020010         ←→    IDR</span>
+<span class="token comment">// 0x40020014         ←→    ODR</span>
+<span class="token comment">// 0x40020018         ←→    BSRR</span></code></pre>
+
+<h3 id="타입-안전성의-실제-효과"><a href="#타입-안전성의-실제-효과" class="headerlink" title="타입 안전성의 실제 효과"></a>타입 안전성의 실제 효과</h3><pre class="language-c" data-language="c"><code class="language-c"><span class="token comment">// 컴파일 타임에 에러 감지</span>
+GPIOA<span class="token operator">-></span>INVALID_REGISTER <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>  <span class="token comment">// 컴파일 에러!</span>
+GPIOA<span class="token operator">-></span>MODER <span class="token operator">=</span> <span class="token string">"string"</span><span class="token punctuation">;</span>      <span class="token comment">// 타입 에러!</span>
+
+<span class="token comment">// IDE 자동완성으로 개발 효율성 향상</span>
+GPIOA<span class="token operator">-></span>  <span class="token comment">// 자동으로 사용 가능한 멤버들을 표시</span></code></pre>
+
+<h2 id="📋-정리"><a href="#📋-정리" class="headerlink" title="📋 정리"></a>📋 정리</h2><p>이번 포스트에서는 구조체 기반 코드의 고급 기법을 다뤘다:</p>
+<ol>
+<li><strong>BSRR 활용</strong>: 원자적 연산으로 성능과 안전성 향상</li>
+<li><strong>다중 핀 제어</strong>: 효율적인 다중 GPIO 제어 방법</li>
+<li><strong>비트 필드 매크로</strong>: 가독성과 유지보수성 향상</li>
+<li><strong>성능 분석</strong>: 메모리 사용량과 컴파일 결과 비교</li>
+<li><strong>인터럽트 안전성</strong>: 원자적 연산의 중요성</li>
+</ol>
+<p><strong>핵심 개선 효과:</strong></p>
+<ul>
+<li>성능 3배 향상 (BSRR 사용)</li>
+<li>인터럽트 안전성 확보</li>
+<li>타입 안전성으로 버그 예방</li>
+<li>IDE 지원으로 개발 효율성 증대</li>
+</ul>
+<p>다음 포스트에서는 실제 프로젝트 적용 예시와 디버깅 기법을 알아보겠다.</p>
+<hr>
+<p><strong>이전 포스트</strong>: <a href="/posts/cortex-m-code-improvement-struct">5-2. 코드 개선 과정 - 구조체 활용</a><br><strong>다음 포스트</strong>: <a href="/posts/cortex-m-code-improvement-project">5-4. 코드 개선 과정 - 실제 프로젝트 적용</a></p>
 </main>
         
     </div>
