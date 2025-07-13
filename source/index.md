@@ -2166,7 +2166,6 @@ function openReadme(projectId) {
                 readmeContent.innerHTML = htmlContent + pdfSection;
             }
             else if (projectId === 'AXI4-Lite') {
-                const isMobile = window.innerWidth <= 1024;
                     // 🔥 문서 다운로드 섹션 추가
     const documentsSection = `
         <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
@@ -2221,7 +2220,6 @@ function openReadme(projectId) {
         readmeContent.innerHTML = htmlContent + documentsSection + pdfSection;
     }
             else if (projectId === 'RISC-V-Peripheral') {
-                const isMobile = window.innerWidth <= 1024;
     const documentsSection = `
         <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
         <h2>프로젝트 설계서 다운로드</h2>
@@ -2266,7 +2264,6 @@ function openReadme(projectId) {
                 readmeContent.innerHTML = htmlContent + documentsSection + pdfSection;
             }
             else if (projectId === 'single-cycle') {
-                const isMobile = window.innerWidth <= 1024;
                 const pdfSection = isMobile ? `
                     <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
                     <h2> 프로젝트 상세 문서</h2>
@@ -2291,7 +2288,6 @@ function openReadme(projectId) {
                 readmeContent.innerHTML = htmlContent + pdfSection;
             }
             else if (projectId === 'multi-display') {
-                const isMobile = window.innerWidth <= 1024;
                 const pdfSection = isMobile ? `
                     <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
                     <h2> 프로젝트 상세 문서</h2>
@@ -2352,6 +2348,7 @@ function openReadme(projectId) {
                 'RISC-V-Peripheral': 'RISC-V AMBA Peripheral 설계',
                 'AXI4-Lite': 'AXI4-Lite 인터페이스 기반 SPI/I2C 통신 프로토콜 설계',
                 'i2c_vga_videoProcessing': 'I2C 통신 기반 듀얼 FPGA 탁구 게임'
+                'multi-display' : '다기능 디스플레이 모듈 개발'
             };
             modalTitle.textContent = projectTitles[projectId] || 'README.md';
         })
