@@ -2347,7 +2347,7 @@ function openReadme(projectId) {
                 'single-cycle': 'Single Cycle CPU Core 설계',
                 'RISC-V-Peripheral': 'RISC-V AMBA Peripheral 설계',
                 'AXI4-Lite': 'AXI4-Lite 인터페이스 기반 SPI/I2C 통신 프로토콜 설계',
-                'i2c_vga_videoProcessing': 'I2C 통신 기반 듀얼 FPGA 탁구 게임'
+                'i2c_vga_videoProcessing': 'I2C 통신 기반 듀얼 FPGA 탁구 게임',
                 'multi-display' : '다기능 디스플레이 모듈 개발'
             };
             modalTitle.textContent = projectTitles[projectId] || 'README.md';
