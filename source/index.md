@@ -766,7 +766,41 @@ body {
         transform: translateY(0) scale(1);
     }
 }
-
+/* 모바일 모달 전체 최적화 */
+@media (max-width: 768px) {
+    .modal-overlay {
+        padding: 10px !important;
+    }
+    
+    .modal-content {
+        margin: 0 !important;
+        max-height: 95vh !important;
+        width: 100% !important;
+        border-radius: 8px !important;
+        overflow: hidden !important;
+    }
+    
+    .modal-header {
+        padding: 15px 20px !important;
+        flex-shrink: 0 !important;
+    }
+    
+    .modal-body {
+        padding: 15px 20px 20px 20px !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;  /* 가로 스크롤 방지 */
+        -webkit-overflow-scrolling: touch !important;
+        max-height: calc(95vh - 70px) !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+    }
+    
+    /* 모든 내용이 모달 너비를 넘지 않도록 */
+    .modal-body * {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+}
 /* 모달 헤더 스타일 변경 */
 .modal-header {
     padding: 15px 20px !important;           /* 기존: 25px 30px 20px → 줄임 */
@@ -970,15 +1004,47 @@ body {
 
 /* 기본 이미지 스타일 */
 /* 기본 이미지 스타일 개선 */
-.readme-content img {
+/* 이미지가 모달을 넘어가지 않도록 */
+.readme-content img,
+.readme-content .readme-img {
     max-width: 100% !important;
     width: auto !important;
     height: auto !important;
-    margin: 20px 0 !important;
     display: block !important;
-    transition: transform 0.3s ease !important;
+    margin: 15px auto !important;
+    object-fit: contain !important;
+    border-radius: 6px !important;
 }
 
+/* 모바일에서 이미지 크기 제한 */
+@media (max-width: 768px) {
+    .readme-content img,
+    .readme-content .readme-img {
+        max-width: calc(100vw - 80px) !important;  /* 모달 패딩 고려 */
+        min-width: auto !important;
+        width: auto !important;
+        margin: 10px auto !important;
+    }
+    
+    /* 이미지 래퍼도 제한 */
+    .readme-content .readme-image-wrapper,
+    .readme-content .image-row {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+    }
+    
+    /* 2개 이미지 나란히 배치는 모바일에서 세로로 */
+    .readme-content .image-row {
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
+    
+    .readme-content .image-row img {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+}
 
 
 .readme-content img[src*=".gif"]:hover {
@@ -1441,6 +1507,33 @@ body {
     .video-grid {
         grid-template-columns: 1fr !important;
         gap: 30px !important;
+    }
+}
+/* iOS Safari 특화 */
+@supports (-webkit-touch-callout: none) {
+    .modal-body {
+        -webkit-overflow-scrolling: touch !important;
+        transform: translateZ(0) !important;  /* 하드웨어 가속 */
+    }
+    
+    .readme-content img {
+        transform: translateZ(0) !important;  /* 렌더링 최적화 */
+    }
+}
+
+/* iPhone 16 등 큰 화면 모바일 */
+@media (max-width: 430px) {
+    .modal-content {
+        max-height: 90vh !important;
+    }
+    
+    .modal-body {
+        max-height: calc(90vh - 60px) !important;
+        padding: 12px 15px !important;
+    }
+    
+    .readme-content img {
+        max-width: calc(100vw - 70px) !important;
     }
 }
 </style>
