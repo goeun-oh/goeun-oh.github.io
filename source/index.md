@@ -2141,7 +2141,7 @@ function openReadme(projectId) {
         .then(markdownText => {
             const htmlContent = parseMarkdown(markdownText);
             if (projectId === 'i2c_vga_videoProcessing') {
-                const isMobile = window.innerWidth <= 1024;
+                const isMobile =  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
                 const pdfSection = isMobile ? `
                     <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
                     <h2> 프로젝트 상세 문서</h2>
