@@ -261,6 +261,7 @@ body {
     margin: 0 auto;
     text-align: center;
     padding-bottom: 100px;
+    padding: var(--section-padding) 0;
 }
 
 .skill-category-name {
@@ -274,7 +275,7 @@ body {
   grid-template-columns: 40px 100px auto;
   align-items: center;
   gap: 20px;
-  margin-bottom: 24px;
+  margin-bottom: 10px;
   padding-left: 20px;
 }
 
@@ -283,19 +284,31 @@ body {
   padding-right: 24px !important;
 }
 
+/* skill-tag를 회색 버튼으로 */
 .skill-tag {
-  white-space: nowrap !important;
-  font-size: 0.875rem !important;
-  padding: 0.25rem 0.75rem !important;
-  border-radius: 0.5rem !important;
-  font-weight: 500 !important;
-  flex-shrink: 0;
-  width: auto !important;
+    background: #f3f4f6 !important;        /* 연한 회색 배경 */
+    color: #374151 !important;             /* 진한 회색 텍스트 */
+    padding: 6px 12px !important;
+    border: 1px solid #d1d5db !important;  /* 회색 테두리 */
+    border-radius: 6px !important;
+    font-size: 0.85rem !important;
+    font-weight: 500 !important;
+    display: inline-block !important;
+    margin: 4px !important;
+    transition: all 0.2s ease !important;
+    cursor: default !important;
+}
+
+.skill-tag:hover {
+    background: #e5e7eb !important;        /* 호버시 더 진한 회색 */
+    border-color: #9ca3af !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
 }
 
 .skill-icon{
-  width: 50px !important;
-  height: 50px !important;
+  width: 40px !important;
+  height: 40px !important;
   margin: 0 auto !important;
   background: #fff !important;
   border: 2px solid #ddd !important;
@@ -316,7 +329,7 @@ body {
 .skill-tags.language-row,
 .skill-tags.tools-row {
   justify-content: start !important;
-  gap: 12px 16px !important;
+  gap: 10px 12px !important;
   padding: 12px 0;
 }
 
@@ -1663,7 +1676,7 @@ body {
         </div>
         </div>
         <!-- Project 5: FPGA를 이용한 UART 통신 기반 통합 제어 시스템 구현-->
-        <div class="project-card">
+        <div class="project-card" data-readme="multi-display">
             <div class="project-header">
                 <span class="project-title">센서 제어</span>
                 <span class="project-date">2025.03.27 - 2025.03.30 (4人 프로젝트)</span>
@@ -1683,9 +1696,19 @@ body {
             <div class="tech-stack">
                 <span class="tech-tag">verilog, UART, Vivado</span>
             </div>
-            <div class="project-buttons">
-                <a href="#" class="btn btn-primary">발표 영상</a>
-            </div>
+                       <div class="project-buttons">
+            <a href="#" class="btn-minimal" onclick="event.preventDefault(); event.stopPropagation(); openReadme('multi-display')">                <svg width="16" height="16" viewBox="0 0 24 24" fill="#333333">
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+        </svg>
+          자세히보기</a>
+            <a href="#" class="btn-minimal" onclick="event.preventDefault(); event.stopPropagation(); openVideoModal('multi-display-video')">🎥 발표 영상</a>
+            <a href="#" class="btn-minimal" onclick="event.preventDefault(); event.stopPropagation(); window.open('https://github.com/goeun-oh/mixmaster.git, '_blank')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.30 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                Github
+            </a>
+        </div>
         </div>
         <!-- Project 6:Python 기반의 Verilog 검증 자동화툴 개발-->
         <div class="project-card">
@@ -1708,9 +1731,6 @@ body {
             <div class="tech-stack">
                 <span class="tech-tag">verilog, Python, Github, CI/CD</span>
             </div>
-            <div class="project-buttons">
-                <a href="#" class="btn btn-primary">발표 영상</a>
-            </div>
         </div>
         <!-- Project 7:최종 오차 0.01% 미만의 센서 인터페이스 설계 - PCB, FPGA 로직 설계-->
         <div class="project-card">
@@ -1730,9 +1750,6 @@ body {
             </div>
             <div class="tech-stack">
                 <span class="tech-tag">verilog, Python, PCB, UV-C Sensor</span>
-            </div>
-            <div class="project-buttons">
-                <a href="#" class="btn btn-primary">발표 영상</a>
             </div>
         </div>
         <!-- Project 5: DESAES 암복호화기 설계 -->
@@ -1796,8 +1813,9 @@ body {
     <div class="skills-container">
         <div class="skill-row">
             <div class="skill-icon">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0L19.2 12l-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
+                <svg viewBox="0 0 100 100" fill="currentColor">
+                    <path d="M85 15H15c-2.76 0-5 2.24-5 5v50c0 2.76 2.24 5 5 5h25v5h-8c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5h36c1.38 0 2.5-1.12 2.5-2.5s-1.12-2.5-2.5-2.5h-8v-5h25c2.76 0 5-2.24 5-5V20c0-2.76-2.24-5-5-5zM85 65H15V25h70v40z"/>
+                    <path d="M30 35l-5 5 5 5 3-3-2-2 2-2-3-3zM40 35l3 3-2 2 2 2-3 3 5-5-5-5zM35 32h2l-2 16h-2l2-16z"/>
                 </svg>
             </div>
             <div class="skill-category-name">Language</div>
@@ -1828,50 +1846,27 @@ body {
     </div>
 </section>
 <script>
-
-
 let scrollY = 0;
-
 function lockScroll() {
   // 🔥 먼저 현재 위치를 저장
-  scrollY = window.scrollY;
-  
-  console.log('🔒 lockScroll 호출됨');
-  console.log('   현재 scrollY:', window.scrollY);
-  console.log('   저장된 scrollY:', scrollY);
-  console.log('   body overflow 상태:', document.body.style.overflow);
-  
+  scrollY = window.scrollY;  
   document.body.style.overflow = 'hidden';
   document.body.style.height = '100%';
-  
   document.addEventListener('touchmove', preventScroll, { passive: false });
 }
-
-function unlockScroll() {
-  console.log('🔓 unlockScroll 호출됨');
-  console.log('   복원할 scrollY:', scrollY);
-  console.log('   현재 실제 scrollY:', window.scrollY);
-  console.log('   body overflow 상태:', document.body.style.overflow);
-  
+function unlockScroll() {  
   document.body.style.overflow = '';
-  document.body.style.height = '';
-  
-  console.log('   스크롤 복원 전 위치:', window.scrollY);
-  window.scrollTo(0, scrollY);
-  console.log('   스크롤 복원 후 위치:', window.scrollY);
-  
+  document.body.style.height = '';  
   document.removeEventListener('touchmove', preventScroll);
 }
 // 🔥 터치 스크롤 방지 함수
 function preventScroll(e) {
   // 모달 내부 스크롤은 허용
   const modal = document.getElementById('readmeModal');
-  const modalBody = modal?.querySelector('.modal-body');
-  
+  const modalBody = modal?.querySelector('.modal-body'); 
   if (modalBody && modalBody.contains(e.target)) {
     return; // 모달 내부에서는 스크롤 허용
   }
-  
   e.preventDefault(); // 배경 스크롤만 차단
 }
 // 페이지 로드 후 네비게이션 메뉴 동적 추가
@@ -1880,12 +1875,10 @@ document.addEventListener('DOMContentLoaded', function () {
   if (toolbar) {
     const spacer = document.querySelector('.mdui-toolbar-spacer') ||
                    toolbar.querySelector('div[class*=spacer]');
-
     // 로고
     const siteTitle = document.createElement('div');
     siteTitle.className = 'site-title';
-    siteTitle.textContent = "Goeun's Space";
-    
+    siteTitle.textContent = "Goeun's Space";    
     // 모바일에서 스타일 직접 적용
     if (window.innerWidth <= 768) {
         siteTitle.style.fontSize = '20px';
@@ -1897,7 +1890,6 @@ document.addEventListener('DOMContentLoaded', function () {
         siteTitle.style.textAlign = 'center';
         siteTitle.style.margin = '0 15px';
     }
-
     // 오른쪽 네비 메뉴
     const navMenu = document.createElement('div');
     navMenu.className = 'custom-nav';
@@ -1907,33 +1899,27 @@ document.addEventListener('DOMContentLoaded', function () {
       <a class="custom-nav-item" onclick="scrollToSection('skills')">Skills</a>
       <a class="custom-nav-item" onclick="scrollToSection('contact')">Contact</a>
     `;
-
     // 오른쪽 그룹: 네비 + 검색
     const rightGroup = document.createElement('div');
     rightGroup.className = 'right-group';
     rightGroup.style.display = 'flex';
     rightGroup.style.alignItems = 'center';
     rightGroup.style.gap = '24px';
-    
     // 모바일에서는 네비게이션 숨기기
     if (window.innerWidth <= 768) {
         navMenu.style.display = 'none';
     }
     rightGroup.appendChild(navMenu);
-
     // 검색 버튼도 오른쪽 그룹에 포함
     const search = toolbar.querySelector('a[href="/search/"]');
     if (search) rightGroup.appendChild(search);
-
     // 햄버거 다음에 로고 추가
     const menuButton = toolbar.querySelector('button');
     if (menuButton) toolbar.insertBefore(siteTitle, menuButton.nextSibling);
-
     // spacer 뒤에 오른쪽 그룹 삽입
     if (spacer) toolbar.insertBefore(rightGroup, spacer.nextSibling);
   }
 });
-
 // 섹션 스크롤
 function scrollToSection(sectionId) {
   const element = document.getElementById(sectionId);
@@ -1943,12 +1929,10 @@ function scrollToSection(sectionId) {
     });
   }
 }
-
 // 스크롤 시 네비게이션 업데이트
 window.addEventListener('scroll', function() {
   const sections = ['about', 'projects', 'skills', 'contact'];
-  const navItems = document.querySelectorAll('.custom-nav-item');
-  
+  const navItems = document.querySelectorAll('.custom-nav-item'); 
   let current = '';
   sections.forEach(section => {
     const element = document.getElementById(section);
@@ -1959,7 +1943,6 @@ window.addEventListener('scroll', function() {
       }
     }
   });
-  
   // 네비게이션 업데이트
   navItems.forEach((item, index) => {
     item.classList.remove('active');
@@ -1968,12 +1951,10 @@ window.addEventListener('scroll', function() {
     }
   });
 });
-
 // 프로젝트 필터 기능
 document.addEventListener('DOMContentLoaded', function() {
     const filterCheckbox = document.getElementById('filter-projects');
-    const projectCards = document.querySelectorAll('.project-card');
-    
+    const projectCards = document.querySelectorAll('.project-card'); 
     if (filterCheckbox) {
         filterCheckbox.addEventListener('change', function() {
             projectCards.forEach((card, index) => {
@@ -1986,7 +1967,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         });
-        
         // 초기값 설정
         filterCheckbox.dispatchEvent(new Event('change'));
     }
@@ -1994,41 +1974,28 @@ document.addEventListener('DOMContentLoaded', function() {
 // 프로젝트 카드 클릭 이벤트
 document.addEventListener('DOMContentLoaded', function() {
     const projectCards = document.querySelectorAll('.project-card[data-readme]');
-    
     projectCards.forEach(card => {
-        card.addEventListener('click', function(e) {
-            console.log('🃏 프로젝트 카드 클릭됨');
-            console.log('   클릭된 요소:', e.target);
-            console.log('   버튼 클릭인가?:', e.target.closest('.btn, .btn-minimal, .btn-primary, .btn-secondary'));
-            
+        card.addEventListener('click', function(e) {            
             if (e.target.closest('.btn, .btn-minimal, .btn-primary, .btn-secondary')) {
                 console.log('   → 버튼이므로 카드 클릭 무시');
                 return;
             }
-            
             const readmeFile = this.getAttribute('data-readme');
             if (readmeFile) {
-                console.log('   → 카드 클릭으로 README 열기:', readmeFile);
                 openReadme(readmeFile);
             }
         });
     });
 });
 // 수정된 README 열기 함수
-function openReadme(projectId) {
-    console.log('📖 openReadme 호출됨 - 프로젝트:', projectId);
-    console.log('   호출 스택:', new Error().stack);
-    
+function openReadme(projectId) { 
     const modal = document.getElementById('readmeModal');
     const modalTitle = document.getElementById('modalTitle');
     const readmeContent = document.getElementById('readmeContent');
-
     // 스크롤 잠금
     lockScroll();
-
     modal.style.display = 'flex';
     modal.classList.add('show');
-
     modalTitle.textContent = 'README.md';
     readmeContent.innerHTML = `
         <div class="loading-content">
@@ -2036,9 +2003,7 @@ function openReadme(projectId) {
         <p>README 파일을 불러오는 중...</p>
         </div>
     `;
-
     const readmeUrl = `readmes/${projectId}.md`;
-    
     fetch(readmeUrl)
         .then(response => {
             if (!response.ok) {
@@ -2048,10 +2013,8 @@ function openReadme(projectId) {
         })
         .then(markdownText => {
             const htmlContent = parseMarkdown(markdownText);
-                    
             if (projectId === 'i2c_vga_videoProcessing') {
                 const isMobile = window.innerWidth <= 1024;
-                
                 const pdfSection = isMobile ? `
                     <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
                     <h2> 프로젝트 상세 문서</h2>
@@ -2073,7 +2036,6 @@ function openReadme(projectId) {
                         </iframe>
                     </div>
                 `;
-                
                 readmeContent.innerHTML = htmlContent + pdfSection;
             }
             else if (projectId === 'AXI4-Lite') {
@@ -2093,7 +2055,6 @@ function openReadme(projectId) {
                          <p style="margin: 0; color: #ff4c4ce0; font-size: 0.9rem; text-decoration: underline;"> 1. I2C 통신 프로토콜 설계서</p>
                     </div>
                 </div>
-                
                 <!-- 문서 2 -->
                 <div style="display: flex; align-items: center; cursor: pointer; transition: all 0.2s ease;" 
                      onclick="downloadFile('/projects/pdf/spi-design-spec.pdf', 'spi-design-spec.pdf')"
@@ -2130,20 +2091,14 @@ function openReadme(projectId) {
                 </iframe>
             </div>
         `;
-        
         readmeContent.innerHTML = htmlContent + documentsSection + pdfSection;
     }
             else if (projectId === 'RISC-V-Peripheral') {
                 const isMobile = window.innerWidth <= 1024;
-                    // 🔥 문서 다운로드 섹션 추가
     const documentsSection = `
         <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
-        <h2>📄 프로젝트 문서 다운로드</h2>
-        <div style="background: #f8fafc; border-radius: 12px; padding: 30px; margin: 20px 0;">
-            <p style="color: #4a5568; margin-bottom: 25px; font-size: 1rem;">
-                프로젝트에서 작성한 상세 문서들을 다운로드하여 확인할 수 있습니다.
-            </p>
-            
+        <h2>프로젝트 설계서 다운로드</h2>
+        <div style="background: #f8fafc; border-radius: 12px; padding: 30px; margin: 20px 0;">            
             <div style="display: grid; gap: 15px;">
                 <!-- 문서 1 -->
                 <div style="display: flex; align-items: center; padding: 15px; background: white; border-radius: 8px; border: 1px solid #e2e8f0; cursor: pointer; transition: all 0.2s ease;" 
@@ -2151,20 +2106,18 @@ function openReadme(projectId) {
                      onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'; this.style.transform='translateY(-2px)'"
                      onmouseout="this.style.boxShadow=''; this.style.transform=''">
                     <div style="flex: 1;">
-                        <h4 style="margin: 0 0 5px 0; color: #2d3748; font-size: 1.1rem;">APB Periph Deisgn 설계서</h4>
+                        <p style="margin: 0; color: #ff4c4ce0; font-size: 0.9rem; text-decoration: underline;">APB Periph Deisgn 설계서</ㅔ>
                     </div>
-                    <div style="color: #3182ce; font-size: 20px;">⬇️</div>
-                </div>
-
-                
+                </div>      
             <p style="color: #718096; font-size: 0.8rem; margin-top: 20px; text-align: center;">
-                💡 문서를 클릭하면 자동으로 다운로드됩니다
+                문서를 클릭하면 자동으로 다운로드됩니다
             </p>
+        </div>
         </div>
     `;
                 const pdfSection = isMobile ? `
                     <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
-                    <h2>📋 프로젝트 상세 문서</h2>
+                    <h2>프로젝트 상세 문서</h2>
                     <div style="width: 100%; height: 70vh; border: 1px solid #e2e8f0; border-radius: 8px; overflow: auto; margin: 20px 0; -webkit-overflow-scrolling: touch; padding: 10px;">
                         <object 
                             data="/projects/pdf/risc-v-periph.pdf" 
@@ -2175,7 +2128,7 @@ function openReadme(projectId) {
                     </div>
                 ` : `
                     <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
-                    <h2>📋 프로젝트 상세 문서</h2>
+                    <h2> 프로젝트 상세 문서</h2>
                     <div style="width: 100%; height: 800px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; margin: 20px 0;">
                         <iframe 
                             src="/projects/pdf/risc-v-periph.pdf#zoom=page-width&toolbar=0&navpanes=0&scrollbar=0&view=FitH" 
@@ -2183,14 +2136,13 @@ function openReadme(projectId) {
                         </iframe>
                     </div>
                 `;
-                
                 readmeContent.innerHTML = htmlContent + documentsSection + pdfSection;
             }
             else if (projectId === 'single-cycle') {
                 const isMobile = window.innerWidth <= 1024;
                 const pdfSection = isMobile ? `
                     <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
-                    <h2>📋 프로젝트 상세 문서</h2>
+                    <h2> 프로젝트 상세 문서</h2>
                     <div style="width: 100%; height: 70vh; border: 1px solid #e2e8f0; border-radius: 8px; overflow: auto; margin: 20px 0; -webkit-overflow-scrolling: touch; padding: 10px;">
                         <object 
                             data="/projects/pdf/sigle-cycle.pdf" 
@@ -2201,7 +2153,7 @@ function openReadme(projectId) {
                     </div>
                 ` : `
                     <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
-                    <h2>📋 프로젝트 상세 문서</h2>
+                    <h2> 프로젝트 상세 문서</h2>
                     <div style="width: 100%; height: 800px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; margin: 20px 0;">
                         <iframe 
                             src="/projects/pdf/single-cycle.pdf#zoom=page-width&toolbar=0&navpanes=0&scrollbar=0&view=FitH" 
@@ -2209,19 +2161,41 @@ function openReadme(projectId) {
                         </iframe>
                     </div>
                 `;
-                
+                readmeContent.innerHTML = htmlContent + pdfSection;
+            }
+            else if (projectId === 'multi-display') {
+                const isMobile = window.innerWidth <= 1024;
+                const pdfSection = isMobile ? `
+                    <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
+                    <h2> 프로젝트 상세 문서</h2>
+                    <div style="width: 100%; height: 70vh; border: 1px solid #e2e8f0; border-radius: 8px; overflow: auto; margin: 20px 0; -webkit-overflow-scrolling: touch; padding: 10px;">
+                        <object 
+                            data="/projects/pdf/multi-display-module.pdf" 
+                            type="application/pdf" 
+                            style="width: 100%; height: 800px;">
+                            <p>PDF를 표시할 수 없습니다. <a href="/projects/pdf/single-cycle.pdf" target="_blank">여기를 클릭하여 PDF 보기</a></p>
+                        </object>
+                    </div>
+                ` : `
+                    <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
+                    <h2> 프로젝트 상세 문서</h2>
+                    <div style="width: 100%; height: 800px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; margin: 20px 0;">
+                        <iframe 
+                            src="/projects/pdf/multi-display-module.pdf#zoom=page-width&toolbar=0&navpanes=0&scrollbar=0&view=FitH" 
+                            style="width: 100%; height: 100%; border: none;">
+                        </iframe>
+                    </div>
+                `;
                 readmeContent.innerHTML = htmlContent + pdfSection;
             }else {
                 readmeContent.innerHTML = htmlContent;
             }
-            
             // 이미지 로딩 처리
             const images = readmeContent.querySelectorAll('img');
             images.forEach(img => {
                 img.addEventListener('load', function() {
                     this.style.opacity = '1';
-                });
-                
+                });   
                 img.addEventListener('error', function() {
                     console.log('이미지 로딩 실패:', this.src);
                     this.style.display = 'none';
@@ -2242,14 +2216,12 @@ function openReadme(projectId) {
                     `;
                     this.parentNode.appendChild(errorDiv);
                 });
-                
                 img.style.opacity = '0';
                 img.style.transition = 'opacity 0.3s ease';
             });
-            
             // 프로젝트 이름을 타이틀로 설정
             const projectTitles = {
-                'it-eldorado': 'IT 엘도라도 (블로그)',
+                'single-cycle': 'Single Cycle CPU Core 설계',
                 'RISC-V-Peripheral': 'RISC-V AMBA Peripheral 설계',
                 'AXI4-Lite': 'AXI4-Lite 인터페이스 기반 SPI/I2C 통신 프로토콜 설계',
                 'i2c_vga_videoProcessing': 'I2C 통신 기반 듀얼 FPGA 탁구 게임'

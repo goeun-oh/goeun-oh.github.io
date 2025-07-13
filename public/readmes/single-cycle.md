@@ -2,10 +2,11 @@
 
 2025.04.09 ~ 2025.04.13 (1人 프로젝트)
 
-<img src="../images/projects/single.png" alt="RISC-V Peripheral 프로젝트" style="width: 100%; max-width: 600px; border-radius: 8px;">
 
 ## 요약
 RISC-V 명령어 구조(RV32I)를 기반으로 한 싱글 사이클 CPU Core를 SystemVerilog로 직접 설계하고, 각 명령어 타입(R/I/S/B/U/J Type)에 대한 시뮬레이션을 통해 기능 검증
+
+<img src="../images/projects/single.png" alt="RISC-V Peripheral 프로젝트" style="width: 100%; max-width: 600px; border-radius: 8px;">
 
 - RV32I ISA의 6가지 명령어 형식을 모두 지원하는 싱글 사이클 CPU 설계
 - ALU, 레지스터 파일, 제어 유닛, 메모리, PC/분기 처리 등 데이터패스 전체 구성
@@ -21,38 +22,31 @@ RISC-V 명령어 구조(RV32I)를 기반으로 한 싱글 사이클 CPU Core를 
 ## 트러블 슈팅
 
 ### [1] Branch 명령어(BEQ, BNE 등) 오작동
-<details> 
-<summary>자세히</summary>
-
-- **문제 상황:**
+#### 문제 상황:
 
 BEQ, BNE 등 조건 분기 명령어 실행 시, 의도한 분기 주소로 이동하지 않거나 항상 분기 발생
 
-- **원인 분석:**
+#### 원인 분석:
 
 ALU 비교 결과(btaken)를 분기 제어 신호(Branch)와 올바르게 연결하지 않아서 PCSrcMuxSel이 오동작
 
-- **해결 방법:**
+#### 해결 방법:
 
 btaken 신호와 Branch 신호를 AND한 결과를 사용하여 분기 여부 결정. PCSrcMux 선택 조건을 정밀히 보정함
 
-</details>
 
 ### [2] JALR 명령어에서 잘못된 점프 발생
-<details> 
-<summary>자세히</summary>
 
-- **문제 상황:**
+#### 문제 상황:
 JALR 실행 시, return address 저장은 정상이나 PC가 잘못된 주소로 점프함
 
-- **원인 분석:**
+#### 원인 분석:
+
 JALR 명령어의 PC 계산식 PC = rs1 + imm 구현 시 즉시값(sign-extended imm) 처리에 오류가 있었음
 
-- **해결 방법:**
+#### 해결 방법:
+
 ImmExtender 모듈 수정 및 rs1 + imm 연산 후 LSB 비트 0으로 마스킹 처리 (& ~1) 적용
-
-</details>
-
 
 ## 고찰
 <details>
