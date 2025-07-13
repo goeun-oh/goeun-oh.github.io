@@ -2144,7 +2144,7 @@ function openReadme(projectId) {
             // iPhone + Safari 환경을 따로 잡아서 미리보기 대신 다운로드로 처리
             const forcePdfDownload = isIOS && isSafari;
             if (projectId === 'i2c_vga_videoProcessing') {
-                const pdfSection = isMobile ? `
+                const pdfSection = forcePdfDownload ? `
                     <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
                     <h2> 프로젝트 상세 문서</h2>
                     <div style="width: 100%; height: 70vh; border: 1px solid #e2e8f0; border-radius: 8px; overflow: auto; margin: 20px 0; -webkit-overflow-scrolling: touch; padding: 10px;">
@@ -2198,7 +2198,7 @@ function openReadme(projectId) {
         </div>
     </div>
     `;
-        const pdfSection = isMobile ? `
+        const pdfSection = forcePdfDownload ? `
             <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
             <h2>프로젝트 상세 문서</h2>
             <div style="width: 100%; height: 70vh; border: 1px solid #e2e8f0; border-radius: 8px; overflow: auto; margin: 20px 0; -webkit-overflow-scrolling: touch; padding: 10px;">
@@ -2242,7 +2242,7 @@ function openReadme(projectId) {
         </div>
         </div>
     `;
-                const pdfSection = isMobile ? `
+                const pdfSection = forcePdfDownload ? `
                     <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
                     <h2>프로젝트 상세 문서</h2>
                     <div style="width: 100%; height: 70vh; border: 1px solid #e2e8f0; border-radius: 8px; overflow: auto; margin: 20px 0; -webkit-overflow-scrolling: touch; padding: 10px;">
@@ -2266,7 +2266,7 @@ function openReadme(projectId) {
                 readmeContent.innerHTML = htmlContent + documentsSection + pdfSection;
             }
             else if (projectId === 'single-cycle') {
-                const pdfSection = isMobile ? `
+                const pdfSection = forcePdfDownload ? `
                     <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
                     <h2> 프로젝트 상세 문서</h2>
                     <div style="width: 100%; height: 70vh; border: 1px solid #e2e8f0; border-radius: 8px; overflow: auto; margin: 20px 0; -webkit-overflow-scrolling: touch; padding: 10px;">
@@ -2290,7 +2290,7 @@ function openReadme(projectId) {
                 readmeContent.innerHTML = htmlContent + pdfSection;
             }
             else if (projectId === 'multi-display') {
-                const pdfSection = isMobile ? `
+                const pdfSection = forcePdfDownload ? `
                     <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
                     <h2> 프로젝트 상세 문서</h2>
                     <div style="width: 100%; height: 70vh; border: 1px solid #e2e8f0; border-radius: 8px; overflow: auto; margin: 20px 0; -webkit-overflow-scrolling: touch; padding: 10px;">
