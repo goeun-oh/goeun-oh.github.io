@@ -475,36 +475,6 @@ body {
     cursor: pointer;
 }
 
-.project-card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #e74c3c, #f39c12);
-}
-
-.project-card:nth-child(2)::before {
-    background: linear-gradient(90deg, #3498db, #2ecc71);
-}
-
-.project-card:nth-child(3)::before {
-    background: linear-gradient(90deg, #9b59b6, #e67e22);
-}
-
-.project-card:nth-child(4)::before {
-    background: linear-gradient(90deg, #1abc9c, #16a085);
-}
-
-.project-card:nth-child(5)::before {
-    background: linear-gradient(90deg, #f1c40f, #e67e22);
-}
-
-.project-card:nth-child(6)::before {
-    background: linear-gradient(90deg, #e74c3c, #c0392b);
-}
-
 .project-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 20px 40px rgba(0,0,0,0.15);
@@ -1434,43 +1404,7 @@ body {
     </div>
 </section>
 
-<!-- Skills Section -->
-<section id="skills" class="skills-section">
-    <h2 class="numbered-heading">SKILLS</h2>
-    <div class="skills-container">
-        <div class="skill-row">
-            <div class="skill-icon">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0L19.2 12l-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
-                </svg>
-            </div>
-            <div class="skill-category-name">Language</div>
-            <div class="skill-tags language-row">
-                <div class="skill-tag">Verilog</div>
-                <div class="skill-tag">SystemVerilog</div>
-                <div class="skill-tag">Python</div>
-                <div class="skill-tag">Java</div>
-                <div class="skill-tag">C</div>
-            </div>
-        </div>
-        <div class="skill-row">
-            <div class="skill-icon">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
-                </svg>
-            </div>
-            <div class="skill-category-name">Tools</div>
-            <div class="skill-tags tools-row">
-                <span class="skill-tag">Vivado</span>
-                <span class="skill-tag">Vitis</span>
-                <span class="skill-tag">ModelSim</span>
-                <span class="skill-tag">PsPice</span>
-                <span class="skill-tag">Synopsys Verdi</span>
-                <span class="skill-tag">Synopsys VCS</span>
-            </div>
-        </div>
-    </div>
-</section>
+
 
 <!-- Projects Section -->
 <section id="projects" class="projects-section">
@@ -1763,7 +1697,43 @@ body {
         </div>
     </div>
 </div>
-
+<!-- Skills Section -->
+<section id="skills" class="skills-section">
+    <h2 class="numbered-heading">SKILLS</h2>
+    <div class="skills-container">
+        <div class="skill-row">
+            <div class="skill-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0L19.2 12l-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
+                </svg>
+            </div>
+            <div class="skill-category-name">Language</div>
+            <div class="skill-tags language-row">
+                <div class="skill-tag">Verilog</div>
+                <div class="skill-tag">SystemVerilog</div>
+                <div class="skill-tag">Python</div>
+                <div class="skill-tag">Java</div>
+                <div class="skill-tag">C</div>
+            </div>
+        </div>
+        <div class="skill-row">
+            <div class="skill-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+                </svg>
+            </div>
+            <div class="skill-category-name">Tools</div>
+            <div class="skill-tags tools-row">
+                <span class="skill-tag">Vivado</span>
+                <span class="skill-tag">Vitis</span>
+                <span class="skill-tag">ModelSim</span>
+                <span class="skill-tag">PsPice</span>
+                <span class="skill-tag">Synopsys Verdi</span>
+                <span class="skill-tag">Synopsys VCS</span>
+            </div>
+        </div>
+    </div>
+</section>
 <script>
 
 
@@ -1840,8 +1810,8 @@ document.addEventListener('DOMContentLoaded', function () {
     navMenu.className = 'custom-nav';
     navMenu.innerHTML = `
       <a class="custom-nav-item active" onclick="scrollToSection('about')">About me</a>
-      <a class="custom-nav-item" onclick="scrollToSection('skills')">Skills</a>
       <a class="custom-nav-item" onclick="scrollToSection('projects')">Projects</a>
+      <a class="custom-nav-item" onclick="scrollToSection('skills')">Skills</a>
       <a class="custom-nav-item" onclick="scrollToSection('contact')">Contact</a>
     `;
 
@@ -1883,7 +1853,7 @@ function scrollToSection(sectionId) {
 
 // 스크롤 시 네비게이션 업데이트
 window.addEventListener('scroll', function() {
-  const sections = ['about', 'skills', 'projects', 'contact'];
+  const sections = ['about', 'projects', 'skills', 'contact'];
   const navItems = document.querySelectorAll('.custom-nav-item');
   
   let current = '';
