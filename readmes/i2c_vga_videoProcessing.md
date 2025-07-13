@@ -4,6 +4,7 @@
 
 ## 요약
 I2C 통신을 활용한 듀얼 FPGA 기반 탁구 게임 시스템 구현  
+
 <div style="display: flex; justify-content: center; gap: 20px; align-items: center;">
     <img src="images/projects/gifs/vga_i2c/vga1.gif" alt="VGA 게임 화면" style="max-width: 400px; width: 40%;" />
     <img src="images/projects/gifs/vga_i2c/vga2.gif" alt="VGA 게임 화면" style="max-width: 600px; width: 60%;" />
@@ -23,42 +24,37 @@ I2C 통신을 활용한 듀얼 FPGA 기반 탁구 게임 시스템 구현
 
 ### [1] 비동기 클럭 도메인 간 데이터 전달(CDC) 문제
 
-<details>
-<summary> 자세히 </summary>
-
 <img src="images/projects/gifs/vga_i2c/trouble.gif" alt="TROBULE" style="max-width: 400px; width: 40%;" />
 
-- **문제 상황:** 
+#### 문제 상황: 
 
 공이 한 보드에서 다른 보드로 넘어간 뒤, 수신 측에서 공이 일정 위치까지만 이동하고 정지함. 
 
-- **원인 분석:** 
+#### 원인 분석:
 
 I2C 모듈은 100MHz, game Controller는 25MHz로 동작하여  
 
 두 클럭 도메인 차이로 인해 FSM이 전이 조건을 인식하지 못해 멈추는 현상이 발생
 
-- **해결 방법:** 
+#### 해결 방법:
 
 Level 기반의 handshake 방식을 적용하여 CDC 문제 해결
-</details>
+
+<br>
 
 ### [2] 공 종류에 따른 물리 파라미터 적용 오류
 
-<details>
-<summary> 자세히 </summary>
-- **문제 상황:**  
+#### 문제 상황:
 
 게임 내에 등장하는 공(예: 탁구공, 농구공 등)마다 중력 가속도와 반사 계수 등 물리 파라미터가 달라야 했으나, 서로 다른 공들이 유사하게 움직이거나 비정상적으로 튀는 현상이 발생
 
-- **원인 분석:**  
+#### 원인 분석:
 
 공 종류에 따라 적용해야 할 파라미터(G, vx, vy 등)가 FSM 동작 시점에 일관되게 적용되지 않았거나, 이전 공의 속도 정보를 덮어쓰지 않아 새 공의 정보와 충돌이 발생함
 
-- **해결 방법:**
+#### 해결 방법:
 
 공의 종류와 관련된 파라미터를 전용 레지스터에 저장하고, 새로운 공 데이터 수신 시 반드시 초기화되도록 로직을 수정함. 이를 통해 공 종류별 물리 효과(포물선 곡률, 바운스 높이 등)가 정상 반영되도록 시뮬레이션 정확도를 개선함
-</details>
 
 ## 고찰
 <details>
