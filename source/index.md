@@ -2137,7 +2137,12 @@ function openReadme(projectId) {
         })
         .then(markdownText => {
             const htmlContent = parseMarkdown(markdownText);
-            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            const ua = navigator.userAgent || navigator.vendor || window.opera;
+            const isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+            const isSafari = /^((?!chrome|android).)*safari/i.test(ua);
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(ua);
+            // iPhone + Safari 환경을 따로 잡아서 미리보기 대신 다운로드로 처리
+            const forcePdfDownload = isIOS && isSafari;
             if (projectId === 'i2c_vga_videoProcessing') {
                 const pdfSection = isMobile ? `
                     <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
