@@ -341,12 +341,12 @@ body {
 /* 프로젝트 이미지 스타일 - Part 2에 추가/수정 */
 .project-image {
     width: 100%;
-    margin: 15px 0 20px 0;
+    margin: 15px 0 25px 0 !important;  /* 기존: 15px 0 20px 0 → 아래 여백 늘림 */
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
-    background: #f8f9fa; /* 이미지 배경색 */
+    background: #f8f9fa;
 }
 
 .project-image img {
@@ -538,16 +538,21 @@ body {
     font-weight: 500;
 }
 
+/* 프로젝트 이름 가운데 정렬 + 더 굵게 */
+/* 프로젝트 제목 위에 구분선 추가 */
+/* 프로젝트 제목 위 여백 조정 */
 .project-name {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: #2c3e50;
-    margin: 15px 0;
-    line-height: 1.4;
+    font-size: 1.3rem !important;
+    font-weight: 800 !important;
+    color: #2c3e50 !important;
+    margin: 25px 0 15px 0 !important;  /* 위쪽 여백 늘림 */
+    line-height: 1.4 !important;
+    text-align: center !important;
+    padding-top: 20px !important;
+    border-top: 1px solid #e2e8f0 !important;
 }
-
 .project-description {
-    margin-bottom: 25px;
+    margin-bottom: 25px !important;
 }
 
 .project-description ul {
@@ -614,7 +619,9 @@ body {
 .project-buttons {
     display: flex;
     gap: 15px;
+    flex-wrap: wrap;  /* 공간이 부족하면 줄바꿈 */
 }
+
 
 .btn {
     padding: 10px 20px;
@@ -765,104 +772,165 @@ body {
     }
 }
 
+/* 모달 헤더 스타일 변경 */
 .modal-header {
-    padding: 25px 30px 20px;
-    border-bottom: 1px solid #e0e0e0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #f8fafc;
+    padding: 15px 20px !important;           /* 기존: 25px 30px 20px → 줄임 */
+    border-bottom: none !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    background: #333333 !important;  /* 연한 회색 */
+    min-height: auto !important;             /* 최소 높이 제거 */
+    margin-bottom: 0 !important;             /* 여백 제거 */
+
 }
 
 .modal-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #2c3e50;
-    margin: 0;
+    font-size: 1.2rem !important;           /* 기존: 1.5rem → 줄임 */
+    font-weight: 600 !important;            /* 700 → 600으로 */
+    color:rgb(255, 255, 255) !important;              /* 검은색 */
+    margin: 0 !important;
+    line-height: 1.3 !important;
 }
 
+/* 모달 닫기 버튼을 더 크고 도드라지게 */
 .modal-close {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #666;
-    padding: 5px;
-    line-height: 1;
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
+    background: #333333 !important;         /* 연한 회색 배경 */
+    border: 1px solid #333333 !important;  /* 테두리 추가 */
+    font-size: 28px !important;            /* 20px → 24px */
+    cursor: pointer !important;
+    color: #ffffff !important;
+    padding: 8px !important;               /* 4px → 8px */
+    line-height: 1 !important;
+    border-radius: 6px !important;         /* 4px → 6px */
+    width: 36px !important;                /* 28px → 36px */
+    height: 36px !important;               /* 28px → 36px */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.2s ease !important;
+    font-weight: 600 !important;           /* 굵게 */
 }
 
 .modal-close:hover {
-    background: #e0e0e0;
-    color: #333;
+    background: #e2e8f0 !important;        /* 더 진한 회색 */
+    border-color: #cbd5e0 !important;      /* 테두리도 진하게 */
+    color: #1a202c !important;             /* 텍스트 더 진하게 */
+    transform: scale(1.05) !important;     /* 살짝 확대 */
+}
+
+/* 모달 전체 스타일 조정 */
+.modal-content {
+    background: white !important;
+    border-radius: 8px !important;          /* 15px → 8px로 덜 둥글게 */
+    max-width: 900px !important;
+    max-height: 90vh !important;
+    width: 100% !important;
+    overflow: hidden !important;
+    position: relative !important;
+    margin: 0 auto !important;
 }
 
 .modal-body {
-    padding: 30px;
-    overflow-y: auto;
-    max-height: calc(90vh - 100px);
+    padding: 20px 30px 30px 30px !important;  /* 위쪽 패딩 줄임 */
+    overflow-y: auto !important;
+    max-height: calc(90vh - 60px) !important;  /* 헤더 높이 고려 */
+    margin-top: 0 !important;                  /* 마진 제거 */
     -webkit-overflow-scrolling: touch; /* iOS 스크롤 활성화 */
     overscroll-behavior: contain; /* 스크롤 경계 처리 */
 }
-
+/* README 내 MDUI 제목들만 마진 제거 */
+.readme-content .mdui-typo h1,
+.readme-content .mdui-typo h2,
+.readme-content .mdui-typo h3,
+.readme-content .mdui-typo h4,
+.readme-content .mdui-typo h5,
+.readme-content .mdui-typo h6,
+.modal-body .mdui-typo h1,
+.modal-body .mdui-typo h2,
+.modal-body .mdui-typo h3,
+.modal-body .mdui-typo h4,
+.modal-body .mdui-typo h5,
+.modal-body .mdui-typo h6 {
+    margin-top: 0 !important;
+}
+/* 모든 가능한 제목에 적용 */
+* h1, * h2, * h3, * h4, * h5, * h6 {
+    margin-top: 0 !important;
+}
 /* README 내용 스타일 */
 .readme-content {
     margin-bottom: 10px;
-    line-height: 1.4;
-    color:rgb(64, 71, 83);
+    line-height: 1.6;
+    color: #374151;
     font-size: 1rem;
     font-weight: 400;
     padding-bottom: 10px;
 }
 
 .readme-content h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #2c3e50;
-    margin-bottom: 15px;
-    border-bottom: 3px solid #3182ce;
-    padding-bottom: 10px;
+    font-size: 1.5rem !important;
+    font-weight: 700 !important;
+    color: #2c3e50 !important;
+    margin-bottom: 15px !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    padding-bottom: 8px !important;
 }
-
+/* README 내용의 첫 번째 h1 여백 조정 */
+.readme-content h1:first-child {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
 .readme-content h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #2c3e50;
-    margin: 25px 0 15px 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    font-size: 1.3rem !important;
+    font-weight: 600 !important;
+    color: #1f2937 !important;
+    margin: 35px 0 10px 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
 }
 
 .readme-content h3 {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #4a5568;
-    margin: 20px 0 10px 0;
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    color: #4a5568 !important;
+    margin: 15px 0 8px 0 !important;
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 15px
+    margin-bottom: 15px !important;
+}
+/* h4 스타일 추가 */
+.readme-content h4 {
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    color: #374151 !important;
+    background:rgb(236, 237, 237) !important;
+    display: inline-block !important;  /* flex → inline-block */
+    align-items: center !important;
 }
 
+/* h6.heading-element 스타일 */
+.readme-content h6.heading-element {
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+    color: #7f8c8d !important;
+    margin: 0 0 15px 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    text-transform: none !important;
+}
 .readme-content p {
     margin-bottom: 8px;
     line-height: 1.4;
     color:rgb(64, 71, 83);
     font-size: 1rem;
     font-weight: 400;
-    padding-left: 25px;
 }
 
 .readme-content ul {
     margin-bottom: 15px;
-    padding-left: 25px;
 }
 
 .readme-content li {
@@ -871,7 +939,6 @@ body {
     color:rgb(64, 71, 83);
     font-size: 1rem;
     font-weight: 400;
-    padding-left: 8px;
 }
 
 .readme-content a {
@@ -907,37 +974,29 @@ body {
 /* README 모달 내 이미지 및 GIF 스타일 - Part 3에 추가 */
 
 /* 기본 이미지 스타일 */
+/* 기본 이미지 스타일 개선 */
 .readme-content img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    margin: 20px 0;
-    display: block;
-    transition: transform 0.3s ease;
+    max-width: 100% !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 20px 0 !important;
+    display: block !important;
+    transition: transform 0.3s ease !important;
 }
 
-.readme-content img:hover {
-    transform: scale(1.02);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-}
 
-/* GIF 전용 스타일 */
-.readme-content img[src*=".gif"] {
-    border: 2px solid #e2e8f0;
-    border-radius: 12px;
-    background: #f8fafc;
-    padding: 4px;
-    margin: 25px 0;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-}
 
 .readme-content img[src*=".gif"]:hover {
-    transform: scale(1.05);
-    border-color: #3182ce;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05) !important;
 }
 
+/* PNG, JPG 등 일반 이미지도 적절한 크기로 */
+.readme-content img[src*=".png"],
+.readme-content img[src*=".jpg"],
+.readme-content img[src*=".jpeg"] {
+    min-width: 350px !important;
+    max-width: 600px !important;
+}
 /* 큰 GIF (메인 데모용) */
 .readme-content img[alt*="플레이"],
 .readme-content img[alt*="데모"],
@@ -1264,10 +1323,20 @@ body {
     }
     
     .project-buttons {
-        flex-direction: column;
-        gap: 10px;
+        flex-direction: row !important;  /* 세로 → 가로로 변경 */
+        gap: 10px !important;            /* 간격 조정 */
+        justify-content: center;
+        flex-wrap: wrap;
     }
     
+    .btn, .btn-minimal {
+        flex: 1;                         /* 균등하게 배치 */
+        min-width: 0;                    /* 최소 너비 제한 해제 */
+        font-size: 0.8rem !important;   /* 폰트 크기 조정 */
+        padding: 8px 12px !important;   /* 패딩 조정 */
+        text-align: center;
+        white-space: nowrap;             /* 텍스트 줄바꿈 방지 */
+    }
     .btn {
         justify-content: center;
         text-align: center;
@@ -1283,7 +1352,7 @@ body {
     }
 
     .modal-header {
-        padding: 20px;
+        padding: 20px !important;
     }
 
     .modal-body {
@@ -2277,11 +2346,15 @@ function parseMarkdown(markdown) {
     });
     
     // 🔥 STEP 2: 나머지 마크다운 처리
+    // 🔥 날짜 패턴을 h6.heading-element로 변환
+    html = html.replace(/^(20\d{2}\.\d{2}.*?프로젝트\))$/gm, '<h6 class="heading-element">$1</h6>');
+
     // 제목들
     html = html.replace(/^# (.*$)/gm, '<h1>$1</h1>');
     html = html.replace(/^## (.*$)/gm, '<h2>$1</h2>');
     html = html.replace(/^### (.*$)/gm, '<h3>$1</h3>');
-    
+    html = html.replace(/^#### (.*$)/gm, '<h4>$1</h4>');  // 🔥 h4 추가
+
     // 강조
     html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
     html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
@@ -2297,6 +2370,7 @@ function parseMarkdown(markdown) {
     
     // 줄바꿈
     html = html.replace(/\n\n/g, '</p><p>');
+    html = html.replace(/^(?!<h[1-6]|<h6 class="heading-element">)(.+)$/gm, '<p>$1</p>');
     html = '<p>' + html + '</p>';
     
     // 리스트를 ul로 감싸기

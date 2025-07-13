@@ -7,9 +7,8 @@ SPI/I2C 프로토콜을 기반으로 한 커스텀 IP 설계 및 보드 간 양�
 
 <img src="images/projects/gifs/i2c/i2c.gif" alt="VGA 게임 화면" style="max-width: 600px; width: 90%;" />
 
-- FPGA 보드 간 2선식(SCL, SDA) I2C 인터페이스를 구성하여 1Byte 단위 송수신 기능을 지원하는 마스터/슬레이브 모듈 설계
-- Vivado IP Integrator를 활용해 MicroBlaze 기반 SoC 시스템에 I2C 마스터를 통합하고, Vitis에서 제어 애플리케이션 구현
-- FSM 구조 개선을 통해 Burst 전송(연속 송수신) 및 상태 제어 기능 확장
+- FPGA 보드 간 I2C 인터페이스를 구성하여 1 Byte 단위 송수신 기능을 지원하는 마스터/슬레이브 모듈 설계
+- Vivado IP Integrator를 통해 MicroBlaze 기반 SoC에 설계한 I2C 마스터 통합, Vitis에서 제어 애플리케이션 구현
 - GPIO 및 FND를 활용한 수신 데이터 시각화 애플리케이션 구현
 
 ## 역할
@@ -21,38 +20,33 @@ SPI/I2C 프로토콜을 기반으로 한 커스텀 IP 설계 및 보드 간 양�
 ## 트러블 슈팅
 
 ### [1] READ 동작 시 예상치 못한 데이터 수신 (0xFF)
-<details> 
-<summary> 자세히</summary>
 
-- **문제 상황:**
+#### 문제 상황:
 
 슬레이브 주소 접근 후 0x01 데이터를 write했지만, read 결과가 0xFF로 출력됨
 
-- **원인 분석:**
+#### 원인 분석:
 
 SDA가 enable되지 않은 상태에서 풀업으로 인해 default high 값이 유지됨
 
-- **해결 방법:**
+#### 해결 방법:
 
 마스터와 슬레이브 모두 SDA Enable 타이밍을 명확히 지정하고, 슬레이브 FSM에서 STOP 전이 조건 추가하여 안정적으로 종료 처리
 
-</details>
+<br>
 
 ### [2] FSM 상태 증가에 따른 복잡성 증가
-<details> 
-<summary> 자세히</summary>
 
-- **문제 상황:**
+#### 문제 상황:
 
 초기 FSM은 상태 하나를 네 단계로 나누는 비효율적 구조였으며, READ/BURST 기능 추가 시 상태 증가로 디버깅 어려움
 
-- **해결 방법:**
+#### 해결 방법:
 
 SCL 자동 생성기를 FSM에 통합하여 상태 수를 줄이고, 상태 전이를 단순화함
 
 또한 SDA 출력 enable 로직을 추가하여 START/STOP 구간에서도 정밀 제어 가능하도록 개선
 
-</details>
 
 ## 고찰
 <details>
