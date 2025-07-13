@@ -563,8 +563,8 @@ article img {
 <meta property="og:image" content="https://www.goeun-oh.com/images/projects/verification_tool.png">
 <meta property="og:image" content="https://www.goeun-oh.com/images/projects/sensor_interface.png">
 <meta property="og:image" content="https://www.goeun-oh.com/$%7Burl%7D">
-<meta property="article:published_time" content="2025-07-13T14:29:07.258Z">
-<meta property="article:modified_time" content="2025-07-13T14:29:07.258Z">
+<meta property="article:published_time" content="2025-07-13T14:32:36.675Z">
+<meta property="article:modified_time" content="2025-07-13T14:32:36.675Z">
 <meta property="article:author" content="고은">
 <meta property="article:tag" content="하드웨어 개발자, Verilog, RISC-V, Cortex-M, AXI4, FPGA, 임베디드, 포트폴리오">
 <meta name="twitter:card" content="summary">
@@ -676,7 +676,7 @@ article img {
     </div>
     <div class="mdui-card-primary-subtitle mdui-typo">
         
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-07-13 11:29<br>수정일: 2025-07-13 11:29'}" datetime="2025-07-13T14:29:07.258Z">2025-07-13</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-07-13 11:32<br>수정일: 2025-07-13 11:32'}" datetime="2025-07-13T14:32:36.675Z">2025-07-13</time>
         <span>-</span>
         
             <span>index.html</span>
@@ -2860,7 +2860,6 @@ function openReadme(projectId) {
                 readmeContent.innerHTML = htmlContent + pdfSection;
             }
             else if (projectId === 'AXI4-Lite') {
-                const isMobile = window.innerWidth <= 1024;
                     // 🔥 문서 다운로드 섹션 추가
     const documentsSection = `
         <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
@@ -2915,7 +2914,6 @@ function openReadme(projectId) {
         readmeContent.innerHTML = htmlContent + documentsSection + pdfSection;
     }
             else if (projectId === 'RISC-V-Peripheral') {
-                const isMobile = window.innerWidth <= 1024;
     const documentsSection = `
         <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
         <h2>프로젝트 설계서 다운로드</h2>
@@ -2960,7 +2958,6 @@ function openReadme(projectId) {
                 readmeContent.innerHTML = htmlContent + documentsSection + pdfSection;
             }
             else if (projectId === 'single-cycle') {
-                const isMobile = window.innerWidth <= 1024;
                 const pdfSection = isMobile ? `
                     <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
                     <h2> 프로젝트 상세 문서</h2>
@@ -2985,7 +2982,6 @@ function openReadme(projectId) {
                 readmeContent.innerHTML = htmlContent + pdfSection;
             }
             else if (projectId === 'multi-display') {
-                const isMobile = window.innerWidth <= 1024;
                 const pdfSection = isMobile ? `
                     <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
                     <h2> 프로젝트 상세 문서</h2>
@@ -3046,6 +3042,7 @@ function openReadme(projectId) {
                 'RISC-V-Peripheral': 'RISC-V AMBA Peripheral 설계',
                 'AXI4-Lite': 'AXI4-Lite 인터페이스 기반 SPI/I2C 통신 프로토콜 설계',
                 'i2c_vga_videoProcessing': 'I2C 통신 기반 듀얼 FPGA 탁구 게임'
+                'multi-display' : '다기능 디스플레이 모듈 개발'
             };
             modalTitle.textContent = projectTitles[projectId] || 'README.md';
         })
