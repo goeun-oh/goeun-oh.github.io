@@ -36,6 +36,10 @@ layout: page
   --section-padding: 100px;
   --max-width: 1400px;
   --transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+  --mdui-color-pink: #333333 !important;
+  --mdui-color-pink-a100: #f3f4f6 !important;
+  --mdui-color-pink-a200: #e5e7eb !important;
+  --mdui-theme-accent-pink: #333333 !important;
 }
 
 html {
@@ -56,7 +60,25 @@ body {
   -moz-osx-font-smoothing: grayscale;
   counter-reset: section;
 }
+/* MDUI 기본 테마 색상 강제 덮어쓰기 */
+.mdui-fab.mdui-color-theme-accent {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12) !important;
+}
 
+.mdui-fab.mdui-color-theme-accent:hover {
+    background-color: #2d3748 !important;
+}
+
+.mdui-fab.mdui-color-theme-accent:active {
+    background-color: #1a202c !important;
+}
+
+/* 리플 효과도 검은색 계열로 */
+.mdui-fab.mdui-ripple::before {
+    background-color: rgba(255, 255, 255, 0.3) !important;
+}
 .mdui-toolbar {
   position: fixed!important;
   width: 100%;
@@ -76,7 +98,19 @@ body {
 .mdui-toolbar-spacer {
   flex-grow: 1;
 }
+/* index.md의 <style> 태그 안에 추가 */
+.mdui-theme-accent-pink .mdui-typo a::before {
+    display: none !important;
+    content: none !important;
+}
 
+.mdui-theme-accent-pink .mdui-typo a {
+    color: #333333 !important;
+}
+
+.mdui-theme-accent-pink .mdui-typo a:hover {
+    color: #000000 !important;
+}
 .right-group {
   display: flex;
   align-items: center;
@@ -100,7 +134,7 @@ body {
 
 .custom-nav-item:hover,
 .custom-nav-item.active {
-  color: #ff4081;
+  color:rgb(0, 0, 0);;
 }
 
 .toolbar-left-group {
@@ -114,14 +148,12 @@ body {
   font-weight: 700;
   font-family: var(--font-sans);
   letter-spacing: -0.02em;
-  color: #ff4081 !important;
 }
 
 .site-title:hover {
   color: var(--accent-hover);
   transition: var(--transition);
   cursor: pointer;
-  color: #ff4081 !important;
 }
 
 .custom-nav {
@@ -136,7 +168,10 @@ body {
 .mdui-m-x-0.mdui-m-t-4 {
   display: none !important;
 }
-
+/* mdui-card-content 패딩 제거 */
+.mdui-card-content {
+    padding: 0 !important;
+}
 .numbered-heading {
     font-family: __Black_Han_Sans_1e1a52,__Black_Han_Sans_Fallback_1e1a52 !important;
     font-style: normal !important;
@@ -451,7 +486,6 @@ body {
 .filter-checkbox input[type="checkbox"] {
     width: 20px;
     height: 20px;
-    accent-color: #ff4081;
 }
 
 .projects-grid {
@@ -488,34 +522,14 @@ body {
 }
 
 .project-title {
-    background: #e74c3c;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    display: inline-block;
-}
-
-.project-card:nth-child(2) .project-title {
-    background: #ff4081;
-}
-
-.project-card:nth-child(3) .project-title {
-    background: #9b59b6;
-}
-
-.project-card:nth-child(4) .project-title {
-    background: #1abc9c;
-}
-
-.project-card:nth-child(5) .project-title {
-    background: #f1c40f;
-    color: #333;
-}
-
-.project-card:nth-child(6) .project-title {
-    background: #e74c3c;
+    background: #555555 !important;
+    color: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    padding: 8px 16px !important;
+    border-radius: 6px !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    display: inline-block !important;
 }
 
 .project-date {
@@ -555,7 +569,6 @@ body {
 
 .project-description li::before {
     content: "•";
-    color: #ff4081;
     position: absolute;
     left: 0;
     font-weight: bold;
@@ -563,21 +576,39 @@ body {
     line-height:1.6;
 }
 
+/* Tech-stack을 텍스트 형태로 변경 */
 .tech-stack {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+    display: inline-block;  /* block → inline-block으로 변경 */
     margin-bottom: 20px;
+    padding: 12px 16px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    font-size: 0.9rem;
+    color: #4a5568;
+    line-height: 1.5;
+    max-width: 100%;  /* 최대 너비 제한 */
+    width: auto;      /* 자동 너비 */
 }
 
+/* 기존 tech-tag 스타일 완전 제거 */
 .tech-tag {
-    background: #f8f9fa;
-    color: #495057;
-    padding: 6px 12px;
-    border-radius: 15px;
-    font-size: 0.8rem;
-    border: 1px solid #dee2e6;
-    font-weight: 500;
+    background: none;
+    color: inherit;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    font-size: inherit;
+    font-weight: inherit;
+    display: inline;
+    margin: 0;
+    transition: none;
+}
+
+.tech-tag:hover {
+    background: none;
+    transform: none;
+    box-shadow: none;
 }
 
 .project-buttons {
@@ -597,34 +628,49 @@ body {
     align-items: center;
     gap: 8px;
     transition: all 0.3s ease;
+    background: #000000;
+    color: white;
 }
 
+.btn:hover {
+    background: #2d3748;
+    transform: translateY(-2px);
+}
+
+/* 기본 버튼 (검은색) */
 .btn-primary {
-    background: #2c3e50;
+    background: #000000;
     color: white;
 }
 
 .btn-primary:hover {
-    background: #34495e;
+    background: #2d3748;
     transform: translateY(-2px);
 }
 
+/* 보조 버튼 (흰색 배경) */
 .btn-secondary {
-    background: #ecf0f1;
-    color: #2c3e50;
-    border: 1px solid #bdc3c7;
+    background: #ffffff;
+    color: #000000;
+    border: 1px solid #e2e8f0;
 }
 
 .btn-secondary:hover {
-    background: #d5dbdb;
+    background: #f8fafc;
+    border-color: #000000;
     transform: translateY(-2px);
 }
-/* 미니멀 버튼 스타일 */
-/* 미니멀 버튼 스타일 */
+
+/* 미니멀 버튼을 흑백으로 */
 .btn-minimal {
-    background: white;
-    color: #333;
-    border: 1.5px solid #ccc;
+    display: inline-flex;
+    align-items: center;      /* 세로 가운데 정렬 */
+    justify-content: center;  /* 가로 가운데 정렬 */
+    gap: 6px;                /* 아이콘과 텍스트 간격 */
+    padding: 10px 18px;
+    background: #ffffff;
+    color: #333333 !important;
+    border: 1.5px solid #d1d5db;
     padding: 10px 18px;
     border-radius: 6px;
     font-size: 0.9rem;
@@ -638,16 +684,21 @@ body {
 }
 
 .btn-minimal:hover {
-    background: #f8f9fa;
-    border-color: #999;
+    background: #f9fafb;
+    border-color: #6b7280 !important;
     transform: translateY(-1px);
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+.btn-minimal svg {
+    vertical-align: middle;   /* SVG 세로 정렬 */
+    flex-shrink: 0;          /* 크기 고정 */
+}
+/* CSS 코드 */
 
 .btn-minimal-dark {
-    background: #2c3e50;
-    color: #333;
-    border: 1.5px solid #ccc;
+    background: #000000;
+    color: #ffffff;
+    border: 1.5px solid #000000;
     padding: 10px 18px;
     border-radius: 6px;
     font-size: 0.9rem;
@@ -661,8 +712,8 @@ body {
 }
 
 .btn-minimal-dark:hover {
-    background: #2c3e50;
-    border-color: #999;
+    background: #374151;
+    border-color: #374151;
     transform: translateY(-1px);
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
@@ -1436,15 +1487,14 @@ body {
                 </ul>
             </div>
             <div class="tech-stack">
-                <span class="tech-tag">systemVerilog</span>
-                <span class="tech-tag">Python</span>
-                <span class="tech-tag">Vivado</span>
-                <span class="tech-tag">VGA</span>
-                <span class="tech-tag">Github</span>
-                <span class="tech-tag">Jira</span>
+                <span class="tech-tag">systemVerilog, Python, Vivado, VGA</span>
             </div>
             <div class="project-buttons">
-            <a href="#" class="btn-minimal" onclick="event.preventDefault(); event.stopPropagation(); openReadme('i2c_vga_videoProcessing')">📋 자세히보기</a>
+            <a href="#" class="btn-minimal" onclick="event.preventDefault(); event.stopPropagation(); openReadme('i2c_vga_videoProcessing')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#333333">
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+        </svg>
+          자세히보기</a>
             <a href="#" class="btn-minimal" onclick="event.preventDefault(); event.stopPropagation(); openVideoModal('i2c-fpga-game')">🎥 발표/동작 영상</a>
             <a href="#" class="btn-minimal" onclick="event.preventDefault(); event.stopPropagation(); window.open('https://github.com/goeun-oh/video_processing.git', '_blank')">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -1473,13 +1523,14 @@ body {
                 </ul>
             </div>
             <div class="tech-stack">
-                <span class="tech-tag">systemVerilog</span>
-                <span class="tech-tag">Vivado</span>
-                <span class="tech-tag">Synopsys VCS</span>
-                <span class="tech-tag">Synopsys Verdi</span>
+                <span class="tech-tag">systemVerilog, Vivado, Synopsys VCS, Synopsys Verdi</span>
             </div>
             <div class="project-buttons">
-            <a href="#" class="btn-minimal" onclick="event.preventDefault(); event.stopPropagation(); openReadme('AXI4-Lite')">📋 자세히보기</a>
+            <a href="#" class="btn-minimal" onclick="event.preventDefault(); event.stopPropagation(); openReadme('AXI4-Lite')">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="#333333">
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+        </svg>
+          자세히보기</a>
             <a href="#" class="btn-minimal" onclick="event.preventDefault(); event.stopPropagation(); openVideoModal('i2c-video')">🎥 발표 영상</a>
             <a href="#" class="btn-minimal" onclick="event.preventDefault(); event.stopPropagation(); window.open('https://github.com/goeun-oh/SPI-I2C.git', '_blank')">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -1508,13 +1559,13 @@ body {
                 </ul>
             </div>
             <div class="tech-stack">
-                <span class="tech-tag">systemVerilog</span>
-                <span class="tech-tag">UVM-lite</span>
-                <span class="tech-tag">RISC-V</span>
-                <span class="tech-tag">AMBA APB</span>
+                <span class="tech-tag">systemVerilog, UVM-lite, RISC-V, AMBA APB</span>
             </div>
             <div class="project-buttons">
-            <a href="#" class="btn-minimal" onclick="event.preventDefault(); event.stopPropagation(); openReadme('RISC-V-Peripheral')">📋 자세히보기</a>
+            <a href="#" class="btn-minimal" onclick="event.preventDefault(); event.stopPropagation(); openReadme('RISC-V-Peripheral')">                <svg width="16" height="16" viewBox="0 0 24 24" fill="#333333">
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+        </svg>
+          자세히보기</a>
             <a href="#" class="btn-minimal" onclick="event.preventDefault(); event.stopPropagation(); openVideoModal('risc-v-periph-video')">🎥 발표 영상</a>
             <a href="#" class="btn-minimal" onclick="event.preventDefault(); event.stopPropagation(); window.open('https://github.com/goeun-oh/AXI4_Lite.git', '_blank')">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -1543,13 +1594,14 @@ body {
                 </ul>
             </div>
             <div class="tech-stack">
-                <span class="tech-tag">verilog</span>
-                <span class="tech-tag">systemVerilog</span>
-                <span class="tech-tag">RISC-V</span>
-                <span class="tech-tag">Vivado</span>
+                <span class="tech-tag">verilog, systemVerilog, RISC-V, Vivado</span>
             </div>
             <div class="project-buttons">
-            <a href="#" class="btn-minimal" onclick="event.preventDefault(); event.stopPropagation(); openReadme('single-cycle')">📋 자세히보기</a>
+            <a href="#" class="btn-minimal" onclick="event.preventDefault(); event.stopPropagation(); openReadme('single-cycle')">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="#333333">
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+        </svg>
+          자세히보기</a>
             <a href="#" class="btn-minimal" onclick="event.preventDefault(); event.stopPropagation(); openVideoModal('single-cycle-video')">🎥 발표 영상</a>
             <a href="#" class="btn-minimal" onclick="event.preventDefault(); event.stopPropagation(); window.open('https://github.com/goeun-oh/CPU-.git', '_blank')">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -1578,9 +1630,7 @@ body {
                 </ul>
             </div>
             <div class="tech-stack">
-                <span class="tech-tag">verilog</span>
-                <span class="tech-tag">UART</span>
-                <span class="tech-tag">Vivado</span>
+                <span class="tech-tag">verilog, UART, Vivado</span>
             </div>
             <div class="project-buttons">
                 <a href="#" class="btn btn-primary">발표 영상</a>
@@ -1605,10 +1655,7 @@ body {
                 </ul>
             </div>
             <div class="tech-stack">
-                <span class="tech-tag">verilog</span>
-                <span class="tech-tag">Python</span>
-                <span class="tech-tag">Github</span>
-                <span class="tech-tag">CI/CD</span>
+                <span class="tech-tag">verilog, Python, Github, CI/CD</span>
             </div>
             <div class="project-buttons">
                 <a href="#" class="btn btn-primary">발표 영상</a>
@@ -1631,10 +1678,7 @@ body {
                 </ul>
             </div>
             <div class="tech-stack">
-                <span class="tech-tag">verilog</span>
-                <span class="tech-tag">Python</span>
-                <span class="tech-tag">PCB</span>
-                <span class="tech-tag">UV-C Sensor</span>
+                <span class="tech-tag">verilog, Python, PCB, UV-C Sensor</span>
             </div>
             <div class="project-buttons">
                 <a href="#" class="btn btn-primary">발표 영상</a>
@@ -1656,8 +1700,7 @@ body {
                 </ul>
             </div>
             <div class="tech-stack">
-                <span class="tech-tag">Verilog</span>
-                <span class="tech-tag">ModelSim</span>
+                <span class="tech-tag">Verilog, ModelSim</span>
             </div>
         </div>
         <!-- Project 6: 계산기설계 -->
@@ -1676,8 +1719,7 @@ body {
             </ul>
             </div>
             <div class="tech-stack">
-                <span class="tech-tag">FPGA</span>
-                <span class="tech-tag">Verilog</span>
+                <span class="tech-tag">FPGA, Verilog</span>
             </div>
         </div>
     </div>
