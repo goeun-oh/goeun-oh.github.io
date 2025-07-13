@@ -256,7 +256,7 @@ body {
 
 /* Skills Section 스타일 */
 .skills-section {
-    background:rgb(245, 245, 145);
+    background:rgb(255, 255, 255);
     max-width: 1200px;
     margin: 0 auto;
     text-align: center;
@@ -318,24 +318,6 @@ body {
   justify-content: start !important;
   gap: 12px 16px !important;
   padding: 12px 0;
-}
-
-.language-row .skill-tag:nth-child(1) { background: #4a90e2; }
-.language-row .skill-tag:nth-child(2) { background: #50c878; }
-.language-row .skill-tag:nth-child(3) { background: #7b68ee; }
-.language-row .skill-tag:nth-child(4) { background: #ff6b6b; }
-.language-row .skill-tag:nth-child(5) { background: #ffa500; }
-
-.tools-row .skill-tag:nth-child(1) { background: #4a90e2; }
-.tools-row .skill-tag:nth-child(2) { background: #50c878; }
-.tools-row .skill-tag:nth-child(3) { background: #7b68ee; }
-.tools-row .skill-tag:nth-child(4) { background: #ff6b6b; }
-.tools-row .skill-tag:nth-child(5) { background: #ffa500; }
-.tools-row .skill-tag:nth-child(6) { background: #20b2aa; }
-
-.skill-tag:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* 프로젝트 이미지 스타일 - Part 2에 추가/수정 */
@@ -462,7 +444,7 @@ body {
     max-height: 100%;
 }
 .projects-section {
-    background: #f8fafc;
+    background: #f3f3f3;
     max-width: 1200px;
     margin: 0 auto;
     text-align: center;
@@ -2072,7 +2054,7 @@ function openReadme(projectId) {
                 
                 const pdfSection = isMobile ? `
                     <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
-                    <h2>📋 프로젝트 상세 문서</h2>
+                    <h2> 프로젝트 상세 문서</h2>
                     <div style="width: 100%; height: 70vh; border: 1px solid #e2e8f0; border-radius: 8px; overflow: auto; margin: 20px 0; -webkit-overflow-scrolling: touch; padding: 10px;">
                         <object 
                             data="/projects/pdf/VGA_video_processing.pdf" 
@@ -2083,7 +2065,7 @@ function openReadme(projectId) {
                     </div>
                 ` : `
                     <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
-                    <h2>📋 프로젝트 상세 문서</h2>
+                    <h2> 프로젝트 상세 문서</h2>
                     <div style="width: 100%; height: 800px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; margin: 20px 0;">
                         <iframe 
                             src="/projects/pdf/VGA_video_processing.pdf#zoom=page-width&toolbar=0&navpanes=0&scrollbar=0&view=FitH" 
@@ -2099,64 +2081,58 @@ function openReadme(projectId) {
                     // 🔥 문서 다운로드 섹션 추가
     const documentsSection = `
         <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
-        <h2>📄 프로젝트 문서 다운로드</h2>
+        <h2> 프로젝트 설계서 다운로드</h2>
         <div style="background: #f8fafc; border-radius: 12px; padding: 30px; margin: 20px 0;">
-            <p style="color: #4a5568; margin-bottom: 25px; font-size: 1rem;">
-                프로젝트에서 작성한 상세 문서들을 다운로드하여 확인할 수 있습니다.
-            </p>
-            
             <div style="display: grid; gap: 15px;">
                 <!-- 문서 1 -->
-                <div style="display: flex; align-items: center; padding: 15px; background: white; border-radius: 8px; border: 1px solid #e2e8f0; cursor: pointer; transition: all 0.2s ease;" 
+                <div style="display: flex; align-items: center; cursor: pointer; transition: all 0.2s ease;" 
                      onclick="downloadFile('/projects/pdf/i2c-design-spec.pdf', 'i2c-design-spec.pdf')"
                      onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'; this.style.transform='translateY(-2px)'"
                      onmouseout="this.style.boxShadow=''; this.style.transform=''">
                     <div style="flex: 1;">
-                        <h4 style="margin: 0 0 5px 0; color: #2d3748; font-size: 1.1rem;">I2C 통신 프로토콜 설계서</h4>
+                         <p style="margin: 0; color: #ff4c4ce0; font-size: 0.9rem; text-decoration: underline;"> 1. I2C 통신 프로토콜 설계서</p>
                     </div>
-                    <div style="color: #3182ce; font-size: 20px;">⬇️</div>
                 </div>
                 
                 <!-- 문서 2 -->
-                <div style="display: flex; align-items: center; padding: 15px; background: white; border-radius: 8px; border: 1px solid #e2e8f0; cursor: pointer; transition: all 0.2s ease;" 
+                <div style="display: flex; align-items: center; cursor: pointer; transition: all 0.2s ease;" 
                      onclick="downloadFile('/projects/pdf/spi-design-spec.pdf', 'spi-design-spec.pdf')"
                      onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'; this.style.transform='translateY(-2px)'"
                      onmouseout="this.style.boxShadow=''; this.style.transform=''">
                     <div style="flex: 1;">
-                        <h4 style="margin: 0 0 5px 0; color: #2d3748; font-size: 1.1rem;">SPI 통신 프로토콜 설계서</h4>
+                        <p style="margin: 0; color: #ff4c4ce0; font-size: 0.9rem; text-decoration: underline;">2. SPI 통신 프로토콜 설계서</p>
                     </div>
-                    <div style="color: #3182ce; font-size: 20px;">⬇️</div>
                 </div>
-                
-            <p style="color: #718096; font-size: 0.8rem; margin-top: 20px; text-align: center;">
-                💡 문서를 클릭하면 자동으로 다운로드됩니다
+            <p style="color: #718096; font-size: 0.8rem; margin-top: 10px; text-align: center;">
+                문서를 클릭하면 자동으로 다운로드됩니다
             </p>
         </div>
+    </div>
     `;
-                const pdfSection = isMobile ? `
-                    <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
-                    <h2>📋 프로젝트 상세 문서</h2>
-                    <div style="width: 100%; height: 70vh; border: 1px solid #e2e8f0; border-radius: 8px; overflow: auto; margin: 20px 0; -webkit-overflow-scrolling: touch; padding: 10px;">
-                        <object 
-                            data="/projects/pdf/i2c.pdf" 
-                            type="application/pdf" 
-                            style="width: 100%; height: 800px;">
-                            <p>PDF를 표시할 수 없습니다. <a href="/projects/pdf/i2c.pdf" target="_blank">여기를 클릭하여 PDF 보기</a></p>
-                        </object>
-                    </div>
-                ` : `
-                    <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
-                    <h2>📋 프로젝트 상세 문서</h2>
-                    <div style="width: 100%; height: 800px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; margin: 20px 0;">
-                        <iframe 
-                            src="/projects/pdf/i2c.pdf#zoom=page-width&toolbar=0&navpanes=0&scrollbar=0&view=FitH" 
-                            style="width: 100%; height: 100%; border: none;">
-                        </iframe>
-                    </div>
-                `;
-                
-                readmeContent.innerHTML = htmlContent + documentsSection + pdfSection;
-            }
+        const pdfSection = isMobile ? `
+            <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
+            <h2>프로젝트 상세 문서</h2>
+            <div style="width: 100%; height: 70vh; border: 1px solid #e2e8f0; border-radius: 8px; overflow: auto; margin: 20px 0; -webkit-overflow-scrolling: touch; padding: 10px;">
+                <object 
+                    data="/projects/pdf/i2c.pdf" 
+                    type="application/pdf" 
+                    style="width: 100%; height: 800px;">
+                    <p>PDF를 표시할 수 없습니다. <a href="/projects/pdf/i2c.pdf" target="_blank">여기를 클릭하여 PDF 보기</a></p>
+                </object>
+            </div>
+        ` : `
+            <hr style="margin: 40px 0; border: none; border-top: 2px solid #e2e8f0;">
+            <h2>프로젝트 상세 문서</h2>
+            <div style="width: 100%; height: 800px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; margin: 20px 0;">
+                <iframe 
+                    src="/projects/pdf/i2c.pdf#zoom=page-width&toolbar=0&navpanes=0&scrollbar=0&view=FitH" 
+                    style="width: 100%; height: 100%; border: none;">
+                </iframe>
+            </div>
+        `;
+        
+        readmeContent.innerHTML = htmlContent + documentsSection + pdfSection;
+    }
             else if (projectId === 'RISC-V-Peripheral') {
                 const isMobile = window.innerWidth <= 1024;
                     // 🔥 문서 다운로드 섹션 추가
