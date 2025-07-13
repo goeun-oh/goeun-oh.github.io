@@ -1022,21 +1022,23 @@ body {
 @media (max-width: 768px) {
     .readme-content img,
     .readme-content .readme-img {
-        max-width: calc(100vw - 50px) !important;  /* 더 작게 */
-        width: calc(100vw - 50px) !important;
-        min-width: auto !important;
+        max-width: calc(100% - 20px) !important;  /* 패딩 고려 */
+        width: auto !important;  /* 100% → auto로 변경 */
+        min-width: auto !important;  /* min-width 완전 제거 */
         margin: 10px auto !important;
-        transform: scale(0.95) !important;  /* 크기 강제 축소 */
+        transform: none !important;  /* scale 제거 */
+        box-sizing: border-box !important;
     }
     
-  /* 이미지 컨테이너도 제한 */
+    /* 이미지 래퍼도 확실히 제한 */
     .readme-content .readme-image-wrapper {
         width: 100% !important;
         max-width: 100% !important;
         overflow: hidden !important;
         text-align: center !important;
+        padding: 0 10px !important;  /* 좌우 패딩 추가 */
+        box-sizing: border-box !important;
     }
-    
     /* 모든 블록 요소 너비 제한 */
     .readme-content * {
         max-width: 100% !important;
@@ -1058,6 +1060,11 @@ body {
         width: 100% !important;
         max-width: 100% !important;
     }
+        /* 모달 바디 패딩 줄이기 */
+    .modal-body {
+        padding: 10px !important;
+        overflow-x: hidden !important;
+    }
 }
 
 
@@ -1069,8 +1076,8 @@ body {
 .readme-content img[src*=".png"],
 .readme-content img[src*=".jpg"],
 .readme-content img[src*=".jpeg"] {
-    min-width: 350px !important;
-    max-width: 600px !important;
+    min-width: auto !important;
+    max-width: 100% !important;
 }
 /* 큰 GIF (메인 데모용) */
 .readme-content img[alt*="플레이"],
@@ -1292,10 +1299,16 @@ body {
     .readme-content img[alt*="플레이"],
     .readme-content img[alt*="데모"],
     .readme-content img[alt*="시연"] {
-        min-height: 200px;
-        margin: 20px 0;
+        max-width: calc(100% - 20px) !important;
+        min-height: auto !important;  /* 300px 제거 */
+        margin: 15px auto !important;
     }
-    
+    .readme-content img[alt*="기능"],
+    .readme-content img[alt*="과정"],
+    .readme-content img[alt*="화면"] {
+        max-width: calc(100% - 20px) !important;  /* 400px 제거 */
+        margin: 10px auto !important;
+    }
     .readme-content .image-group {
         flex-direction: column;
         gap: 10px;
@@ -1479,7 +1492,15 @@ body {
 .pdf-mobile {
     display: none;
 }
-
+/* 데스크톱에서만 min-width 적용 */
+@media (min-width: 769px) {
+    .readme-content img[src*=".png"],
+    .readme-content img[src*=".jpg"],
+    .readme-content img[src*=".jpeg"] {
+        min-width: 350px !important;
+        max-width: 600px !important;
+    }
+}
 @media (max-width: 768px) {
     .pdf-desktop {
         display: none !important;
@@ -1537,18 +1558,17 @@ body {
 
 /* iPhone 16 등 큰 화면 모바일 */
 @media (max-width: 430px) {
-    .modal-content {
-        max-height: 90vh !important;
-    }
     .readme-content img,
     .readme-content .readme-img {
-        max-width: calc(100vw - 40px) !important;
-        width: calc(100vw - 40px) !important;
-        transform: scale(0.9) !important;  /* 더 작게 */
+        max-width: calc(100% - 10px) !important;
+        margin: 5px auto !important;
+    }
+    .readme-content .readme-image-wrapper {
+        padding: 0 5px !important;
     }
     
     .modal-body {
-        padding: 10px !important;
+        padding: 5px !important;
     }
 }
 /* 강제로 가로 스크롤 방지 */
