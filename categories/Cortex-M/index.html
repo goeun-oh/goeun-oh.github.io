@@ -671,7 +671,7 @@ article img {
         
         <span><a class="tag-none-link" href="/tags/STM32CubeIDE/" rel="tag">STM32CubeIDE</a> <a class="tag-none-link" href="/tags/Timer/" rel="tag">Timer</a> <a class="tag-none-link" href="/tags/%EA%B3%A0%EA%B8%89%EC%84%A4%EC%A0%95/" rel="tag">고급설정</a> <a class="tag-none-link" href="/tags/%ED%99%98%EA%B2%BD%EA%B5%AC%EC%84%B1/" rel="tag">환경구성</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-15 09:51'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-15 09:55'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>posts/cortex-m-advanced-setup/</span>
@@ -870,7 +870,7 @@ article img {
         
         <span><a class="tag-none-link" href="/tags/BSRR/" rel="tag">BSRR</a> <a class="tag-none-link" href="/tags/%EA%B3%A0%EA%B8%89%EA%B8%B0%EB%B2%95/" rel="tag">고급기법</a> <a class="tag-none-link" href="/tags/%EB%B9%84%ED%8A%B8%ED%95%84%EB%93%9C/" rel="tag">비트필드</a> <a class="tag-none-link" href="/tags/%EC%84%B1%EB%8A%A5%EC%B5%9C%EC%A0%81%ED%99%94/" rel="tag">성능최적화</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-15 09:51'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-15 09:55'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>posts/cortex-m-code-improvement-advanced/</span>
@@ -1132,105 +1132,6 @@ GPIOA<span class="token operator">-></span>  <span class="token comment">// 자�
     
     <div class="mdui-card-primary mdui-ripple">
     <div class="mdui-card-primary-title">
-        <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" href="/posts/cortex-m-initial-setup-guide/">Cortex-M 초기환경 세팅 가이드</a>
-        <a class="p-author h-card" style="display:none" href="https://www.goeun-oh.com">고은</a>
-        
-        <small> <a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/">Cortex-M</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/ARM/">ARM</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/ARM/Embedded/">Embedded</a></small>
-        
-    </div>
-    <div class="mdui-card-primary-subtitle mdui-typo">
-        
-        <span><a class="tag-none-link" href="/tags/STM32/" rel="tag">STM32</a> <a class="tag-none-link" href="/tags/%EA%B0%80%EC%9D%B4%EB%93%9C/" rel="tag">가이드</a> <a class="tag-none-link" href="/tags/%EC%B4%88%EA%B8%B0%ED%99%98%EA%B2%BD/" rel="tag">초기환경</a></span>
-        <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-15 09:51'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
-        <span>-</span>
-        
-            <span>posts/cortex-m-initial-setup-guide/</span>
-        
-    </div>
-</div>
-    
-    
-    <div class="mdui-divider"></div>
-    <div class="mdui-card-content mdui-typo">
-        
-        <div class="p-summary" style="display:none"></div>
-        
-        <!-- TOC 디버깅 및 렌더링 -->
-        
-        
-        <main class="e-content"><h1 id="Cortex-M-초기환경-세팅-가이드"><a href="#Cortex-M-초기환경-세팅-가이드" class="headerlink" title="Cortex-M 초기환경 세팅 가이드"></a>Cortex-M 초기환경 세팅 가이드</h1><p>STM32F411 Nucleo-64 보드를 사용하여 초기환경 설정부터 고급 기능까지 단계별로 정리한다.</p>
-<h2 id="📚-학습-로드맵"><a href="#📚-학습-로드맵" class="headerlink" title="📚 학습 로드맵"></a>📚 학습 로드맵</h2><p>이 가이드는 총 7개의 주요 섹션으로 구성되어 있으며, 각 섹션은 독립적인 포스트로 작성되어 있다.</p>
-<h3 id="1️⃣-STM32-보드-소개"><a href="#1️⃣-STM32-보드-소개" class="headerlink" title="1️⃣ STM32 보드 소개"></a>1️⃣ <a href="/posts/cortex-m-board-introduction">STM32 보드 소개</a></h3><ul>
-<li>STM32F411RE Nucleo-64 보드 스펙 소개</li>
-<li>핀 맵과 LED 연결 확인</li>
-<li>System Architecture 이해</li>
-<li>RCC의 역할과 저전력 설계 개념</li>
-</ul>
-<h3 id="2️⃣-STM32CubeIDE-프로젝트-생성"><a href="#2️⃣-STM32CubeIDE-프로젝트-생성" class="headerlink" title="2️⃣ STM32CubeIDE 프로젝트 생성"></a>2️⃣ <a href="/posts/cortex-m-project-setup">STM32CubeIDE 프로젝트 생성</a></h3><ul>
-<li>STM32CubeIDE 기본 프로젝트 설정</li>
-<li>RCC 클럭 설정 (HSI vs HSE)</li>
-<li>SYS 디버깅 설정</li>
-<li>GPIO 기본 설정</li>
-</ul>
-<h3 id="3️⃣-개발-환경-구성"><a href="#3️⃣-개발-환경-구성" class="headerlink" title="3️⃣ 개발 환경 구성"></a>3️⃣ <a href="/posts/cortex-m-development-environment">개발 환경 구성</a></h3><ul>
-<li>STM32CubeCLT 설치 및 설정</li>
-<li>컴파일러와 링커 도구 확인</li>
-<li>프로젝트 매니저 설정</li>
-<li>빌드 환경 구성</li>
-</ul>
-<h3 id="4️⃣-바텀부터-LED-제어하기"><a href="#4️⃣-바텀부터-LED-제어하기" class="headerlink" title="4️⃣ 바텀부터 LED 제어하기"></a>4️⃣ <a href="/posts/cortex-m-led-control-basics">바텀부터 LED 제어하기</a></h3><ul>
-<li>레지스터 직접 제어를 통한 LED 제어</li>
-<li>RCC 클럭 설정 실습</li>
-<li>GPIO 모드 레지스터 설정</li>
-<li>LED Toggle 구현</li>
-</ul>
-<h3 id="5️⃣-코드-개선-과정"><a href="#5️⃣-코드-개선-과정" class="headerlink" title="5️⃣ 코드 개선 과정"></a>5️⃣ <a href="/posts/cortex-m-code-improvement">코드 개선 과정</a></h3><ul>
-<li>Define을 활용한 가독성 향상</li>
-<li>범용적 설계를 위한 베이스 주소 정의</li>
-<li>구조체 사용의 중요성과 장점</li>
-<li>최종 개선된 코드 구현</li>
-</ul>
-<h3 id="6️⃣-SW-Stack과-모듈화"><a href="#6️⃣-SW-Stack과-모듈화" class="headerlink" title="6️⃣ SW Stack과 모듈화"></a>6️⃣ <a href="/posts/cortex-m-software-stack">SW Stack과 모듈화</a></h3><ul>
-<li>SW Stack 개념과 계층 구조</li>
-<li>인접 Layer를 통한 통신 원칙</li>
-<li>폴더 구조 분리와 모듈화</li>
-<li>Driver 패턴 구현</li>
-</ul>
-<h3 id="7️⃣-고급-초기환경-설정"><a href="#7️⃣-고급-초기환경-설정" class="headerlink" title="7️⃣ 고급 초기환경 설정"></a>7️⃣ <a href="/posts/cortex-m-advanced-setup">고급 초기환경 설정</a></h3><ul>
-<li>STM32CubeIDE를 활용한 고급 설정</li>
-<li>Timer 설정과 인터럽트 구성</li>
-<li>실제 프로젝트 환경 구성</li>
-<li>프로덕션 레벨 설정</li>
-</ul>
-<h2 id="🎯-학습-목표"><a href="#🎯-학습-목표" class="headerlink" title="🎯 학습 목표"></a>🎯 학습 목표</h2><p>이 가이드를 통해 다음을 습득할 수 있다:</p>
-<ul>
-<li><strong>기초</strong>: STM32 하드웨어 구조와 레지스터 이해</li>
-<li><strong>실습</strong>: 레지스터 직접 제어를 통한 하드웨어 제어</li>
-<li><strong>설계</strong>: 구조체와 모듈화를 통한 코드 개선</li>
-<li><strong>아키텍처</strong>: SW Stack을 고려한 체계적인 코드 구조</li>
-<li><strong>도구</strong>: STM32CubeIDE와 개발 도구 활용</li>
-</ul>
-<h2 id="💡-추천-학습-순서"><a href="#💡-추천-학습-순서" class="headerlink" title="💡 추천 학습 순서"></a>💡 추천 학습 순서</h2><ol>
-<li><strong>순차 학습</strong>: 1번부터 7번까지 순서대로 학습하는 것을 권장한다</li>
-<li><strong>실습 중심</strong>: 각 섹션의 코드를 직접 작성하고 테스트해본다</li>
-<li><strong>응용</strong>: 기본 LED 제어를 다른 GPIO 제어로 확장해본다</li>
-<li><strong>복습</strong>: 구조체와 모듈화 개념은 반복 학습이 중요하다</li>
-</ol>
-<hr>
-<p><em>각 섹션의 링크를 클릭하여 상세 내용을 확인할 수 있다.</em></p>
-</main>
-        
-    </div>
-    
-</article>
-
-    
-        <article class="h-entry mdui-card mdui-hoverable mdui-shadow-1 mdui-m-y-2" style="opacity: 1; border-radius: 4px"
->
-    
-    <div class="mdui-card-primary mdui-ripple">
-    <div class="mdui-card-primary-title">
         <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" href="/posts/cortex-m-code-improvement-basic/">5-1. 코드 개선 과정 - Define과 베이스 주소</a>
         <a class="p-author h-card" style="display:none" href="https://www.goeun-oh.com">고은</a>
         
@@ -1241,7 +1142,7 @@ GPIOA<span class="token operator">-></span>  <span class="token comment">// 자�
         
         <span><a class="tag-none-link" href="/tags/Define/" rel="tag">Define</a> <a class="tag-none-link" href="/tags/%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81/" rel="tag">리팩토링</a> <a class="tag-none-link" href="/tags/%EB%B2%A0%EC%9D%B4%EC%8A%A4%EC%A3%BC%EC%86%8C/" rel="tag">베이스주소</a> <a class="tag-none-link" href="/tags/%EC%BD%94%EB%93%9C%EA%B0%9C%EC%84%A0/" rel="tag">코드개선</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-15 09:51'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-15 09:55'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>posts/cortex-m-code-improvement-basic/</span>
@@ -1497,7 +1398,7 @@ GPIOA_MODER <span class="token operator">|=</span> <span class="token punctuatio
         
         <span><a class="tag-none-link" href="/tags/%EA%B5%AC%EC%A1%B0%EC%B2%B4/" rel="tag">구조체</a> <a class="tag-none-link" href="/tags/%EB%AA%A8%EB%93%88%ED%99%94/" rel="tag">모듈화</a> <a class="tag-none-link" href="/tags/%EC%BD%94%EB%93%9C%EA%B0%9C%EC%84%A0/" rel="tag">코드개선</a> <a class="tag-none-link" href="/tags/%ED%83%80%EC%9E%85%EC%95%88%EC%A0%84%EC%84%B1/" rel="tag">타입안전성</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-15 09:51'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-15 09:55'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>posts/cortex-m-code-improvement-struct/</span>
@@ -1751,6 +1652,105 @@ GPIOA<span class="token operator">-></span>ODR <span class="token operator">^=</
     
     <div class="mdui-card-primary mdui-ripple">
     <div class="mdui-card-primary-title">
+        <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" href="/posts/cortex-m-initial-setup-guide/">Cortex-M 초기환경 세팅 가이드</a>
+        <a class="p-author h-card" style="display:none" href="https://www.goeun-oh.com">고은</a>
+        
+        <small> <a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/">Cortex-M</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/ARM/">ARM</a>><a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/ARM/Embedded/">Embedded</a></small>
+        
+    </div>
+    <div class="mdui-card-primary-subtitle mdui-typo">
+        
+        <span><a class="tag-none-link" href="/tags/STM32/" rel="tag">STM32</a> <a class="tag-none-link" href="/tags/%EA%B0%80%EC%9D%B4%EB%93%9C/" rel="tag">가이드</a> <a class="tag-none-link" href="/tags/%EC%B4%88%EA%B8%B0%ED%99%98%EA%B2%BD/" rel="tag">초기환경</a></span>
+        <span>-</span>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-15 09:55'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <span>-</span>
+        
+            <span>posts/cortex-m-initial-setup-guide/</span>
+        
+    </div>
+</div>
+    
+    
+    <div class="mdui-divider"></div>
+    <div class="mdui-card-content mdui-typo">
+        
+        <div class="p-summary" style="display:none"></div>
+        
+        <!-- TOC 디버깅 및 렌더링 -->
+        
+        
+        <main class="e-content"><h1 id="Cortex-M-초기환경-세팅-가이드"><a href="#Cortex-M-초기환경-세팅-가이드" class="headerlink" title="Cortex-M 초기환경 세팅 가이드"></a>Cortex-M 초기환경 세팅 가이드</h1><p>STM32F411 Nucleo-64 보드를 사용하여 초기환경 설정부터 고급 기능까지 단계별로 정리한다.</p>
+<h2 id="📚-학습-로드맵"><a href="#📚-학습-로드맵" class="headerlink" title="📚 학습 로드맵"></a>📚 학습 로드맵</h2><p>이 가이드는 총 7개의 주요 섹션으로 구성되어 있으며, 각 섹션은 독립적인 포스트로 작성되어 있다.</p>
+<h3 id="1️⃣-STM32-보드-소개"><a href="#1️⃣-STM32-보드-소개" class="headerlink" title="1️⃣ STM32 보드 소개"></a>1️⃣ <a href="/posts/cortex-m-board-introduction">STM32 보드 소개</a></h3><ul>
+<li>STM32F411RE Nucleo-64 보드 스펙 소개</li>
+<li>핀 맵과 LED 연결 확인</li>
+<li>System Architecture 이해</li>
+<li>RCC의 역할과 저전력 설계 개념</li>
+</ul>
+<h3 id="2️⃣-STM32CubeIDE-프로젝트-생성"><a href="#2️⃣-STM32CubeIDE-프로젝트-생성" class="headerlink" title="2️⃣ STM32CubeIDE 프로젝트 생성"></a>2️⃣ <a href="/posts/cortex-m-project-setup">STM32CubeIDE 프로젝트 생성</a></h3><ul>
+<li>STM32CubeIDE 기본 프로젝트 설정</li>
+<li>RCC 클럭 설정 (HSI vs HSE)</li>
+<li>SYS 디버깅 설정</li>
+<li>GPIO 기본 설정</li>
+</ul>
+<h3 id="3️⃣-개발-환경-구성"><a href="#3️⃣-개발-환경-구성" class="headerlink" title="3️⃣ 개발 환경 구성"></a>3️⃣ <a href="/posts/cortex-m-development-environment">개발 환경 구성</a></h3><ul>
+<li>STM32CubeCLT 설치 및 설정</li>
+<li>컴파일러와 링커 도구 확인</li>
+<li>프로젝트 매니저 설정</li>
+<li>빌드 환경 구성</li>
+</ul>
+<h3 id="4️⃣-바텀부터-LED-제어하기"><a href="#4️⃣-바텀부터-LED-제어하기" class="headerlink" title="4️⃣ 바텀부터 LED 제어하기"></a>4️⃣ <a href="/posts/cortex-m-led-control-basics">바텀부터 LED 제어하기</a></h3><ul>
+<li>레지스터 직접 제어를 통한 LED 제어</li>
+<li>RCC 클럭 설정 실습</li>
+<li>GPIO 모드 레지스터 설정</li>
+<li>LED Toggle 구현</li>
+</ul>
+<h3 id="5️⃣-코드-개선-과정"><a href="#5️⃣-코드-개선-과정" class="headerlink" title="5️⃣ 코드 개선 과정"></a>5️⃣ <a href="/posts/cortex-m-code-improvement">코드 개선 과정</a></h3><ul>
+<li>Define을 활용한 가독성 향상</li>
+<li>범용적 설계를 위한 베이스 주소 정의</li>
+<li>구조체 사용의 중요성과 장점</li>
+<li>최종 개선된 코드 구현</li>
+</ul>
+<h3 id="6️⃣-SW-Stack과-모듈화"><a href="#6️⃣-SW-Stack과-모듈화" class="headerlink" title="6️⃣ SW Stack과 모듈화"></a>6️⃣ <a href="/posts/cortex-m-software-stack">SW Stack과 모듈화</a></h3><ul>
+<li>SW Stack 개념과 계층 구조</li>
+<li>인접 Layer를 통한 통신 원칙</li>
+<li>폴더 구조 분리와 모듈화</li>
+<li>Driver 패턴 구현</li>
+</ul>
+<h3 id="7️⃣-고급-초기환경-설정"><a href="#7️⃣-고급-초기환경-설정" class="headerlink" title="7️⃣ 고급 초기환경 설정"></a>7️⃣ <a href="/posts/cortex-m-advanced-setup">고급 초기환경 설정</a></h3><ul>
+<li>STM32CubeIDE를 활용한 고급 설정</li>
+<li>Timer 설정과 인터럽트 구성</li>
+<li>실제 프로젝트 환경 구성</li>
+<li>프로덕션 레벨 설정</li>
+</ul>
+<h2 id="🎯-학습-목표"><a href="#🎯-학습-목표" class="headerlink" title="🎯 학습 목표"></a>🎯 학습 목표</h2><p>이 가이드를 통해 다음을 습득할 수 있다:</p>
+<ul>
+<li><strong>기초</strong>: STM32 하드웨어 구조와 레지스터 이해</li>
+<li><strong>실습</strong>: 레지스터 직접 제어를 통한 하드웨어 제어</li>
+<li><strong>설계</strong>: 구조체와 모듈화를 통한 코드 개선</li>
+<li><strong>아키텍처</strong>: SW Stack을 고려한 체계적인 코드 구조</li>
+<li><strong>도구</strong>: STM32CubeIDE와 개발 도구 활용</li>
+</ul>
+<h2 id="💡-추천-학습-순서"><a href="#💡-추천-학습-순서" class="headerlink" title="💡 추천 학습 순서"></a>💡 추천 학습 순서</h2><ol>
+<li><strong>순차 학습</strong>: 1번부터 7번까지 순서대로 학습하는 것을 권장한다</li>
+<li><strong>실습 중심</strong>: 각 섹션의 코드를 직접 작성하고 테스트해본다</li>
+<li><strong>응용</strong>: 기본 LED 제어를 다른 GPIO 제어로 확장해본다</li>
+<li><strong>복습</strong>: 구조체와 모듈화 개념은 반복 학습이 중요하다</li>
+</ol>
+<hr>
+<p><em>각 섹션의 링크를 클릭하여 상세 내용을 확인할 수 있다.</em></p>
+</main>
+        
+    </div>
+    
+</article>
+
+    
+        <article class="h-entry mdui-card mdui-hoverable mdui-shadow-1 mdui-m-y-2" style="opacity: 1; border-radius: 4px"
+>
+    
+    <div class="mdui-card-primary mdui-ripple">
+    <div class="mdui-card-primary-title">
         <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" href="/posts/cortex-m-led-control-basics/">4. 바텀부터 LED 제어하기</a>
         <a class="p-author h-card" style="display:none" href="https://www.goeun-oh.com">고은</a>
         
@@ -1761,7 +1761,7 @@ GPIOA<span class="token operator">-></span>ODR <span class="token operator">^=</
         
         <span><a class="tag-none-link" href="/tags/GPIO/" rel="tag">GPIO</a> <a class="tag-none-link" href="/tags/LED%EC%A0%9C%EC%96%B4/" rel="tag">LED제어</a> <a class="tag-none-link" href="/tags/RCC/" rel="tag">RCC</a> <a class="tag-none-link" href="/tags/%EB%A0%88%EC%A7%80%EC%8A%A4%ED%84%B0/" rel="tag">레지스터</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-15 09:51'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-15 09:55'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>posts/cortex-m-led-control-basics/</span>
@@ -1988,7 +1988,7 @@ GPIOA<span class="token operator">-></span>ODR <span class="token operator">^=</
         
         <span><a class="tag-none-link" href="/tags/ARM/" rel="tag">ARM</a> <a class="tag-none-link" href="/tags/Embedded/" rel="tag">Embedded</a> <a class="tag-none-link" href="/tags/SW-Stack/" rel="tag">SW Stack</a> <a class="tag-none-link" href="/tags/%EA%B3%84%EC%B8%B5%EA%B5%AC%EC%A1%B0/" rel="tag">계층구조</a> <a class="tag-none-link" href="/tags/%EB%AA%A8%EB%93%88%ED%99%94/" rel="tag">모듈화</a> <a class="tag-none-link" href="/tags/%ED%8F%B4%EB%8D%94%EB%B6%84%EB%A6%AC/" rel="tag">폴더분리</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-15 09:51'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-23 12:00<br>수정일: 2025-07-15 09:55'}" datetime="2025-06-22T15:00:00.000Z">2025-06-23</time>
         <span>-</span>
         
             <span>posts/cortex-m-software-stack/</span>
@@ -2265,6 +2265,151 @@ HAL_StatusTypeDef <span class="token function">led_init</span><span class="token
     
     <div class="mdui-card-primary mdui-ripple">
     <div class="mdui-card-primary-title">
+        <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" href="/posts/0.cortex-m-board-introduction/">1. STM32 보드 소개</a>
+        <a class="p-author h-card" style="display:none" href="https://www.goeun-oh.com">고은</a>
+        
+        <small> <a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/">Cortex-M</a></small>
+        
+    </div>
+    <div class="mdui-card-primary-subtitle mdui-typo">
+        
+        <span><a class="tag-none-link" href="/tags/Nucleo-64/" rel="tag">Nucleo-64</a> <a class="tag-none-link" href="/tags/STM32F411/" rel="tag">STM32F411</a> <a class="tag-none-link" href="/tags/%ED%95%98%EB%93%9C%EC%9B%A8%EC%96%B4/" rel="tag">하드웨어</a></span>
+        <span>-</span>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-22 12:00<br>수정일: 2025-07-15 09:55'}" datetime="2025-06-21T15:00:00.000Z">2025-06-22</time>
+        <span>-</span>
+        
+            <span>posts/0.cortex-m-board-introduction/</span>
+        
+    </div>
+</div>
+    
+    
+    <div class="mdui-divider"></div>
+    <div class="mdui-card-content mdui-typo">
+        
+        <div class="p-summary" style="display:none"></div>
+        
+        <!-- TOC 디버깅 및 렌더링 -->
+        
+        
+        <main class="e-content"><h1 id="STM32-보드-소개"><a href="#STM32-보드-소개" class="headerlink" title="STM32 보드 소개"></a>STM32 보드 소개</h1><p>이번 포스트에서는 STM32F411RE Nucleo-64 보드의 스펙과 하드웨어 구조를 자세히 알아본다.</p>
+<h2 id="사용-보드-STM32F411RE-Nucleo-64"><a href="#사용-보드-STM32F411RE-Nucleo-64" class="headerlink" title="사용 보드: STM32F411RE Nucleo-64"></a>사용 보드: STM32F411RE Nucleo-64</h2><figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/Nucleo-64_board.png" alt="Nucleo-64 보드"class="mdui-img-rounded" loading="lazy"></figure>
+<h3 id="핵심-스펙"><a href="#핵심-스펙" class="headerlink" title="핵심 스펙"></a>핵심 스펙</h3><p><strong>STM32F411RE Nucleo-64 보드의 주요 사양은 다음과 같다:</strong></p>
+<ul>
+<li><strong>MCU</strong>: STM32F411RE</li>
+<li><strong>Core</strong>: ARM Cortex-M4 (DSP 및 FPU 지원)</li>
+<li><strong>Flash Memory</strong>: 512KB</li>
+<li><strong>SRAM</strong>: 128KB </li>
+<li><strong>Maximum CPU Speed</strong>: 100MHz</li>
+<li><strong>ART Accelerator</strong>: 고성능 액세스 지원</li>
+</ul>
+<blockquote>
+<p><strong>중요</strong>: 임베디드 개발에서 보드 스펙을 정확히 아는 것은 개발의 첫걸음이다!<br>사용하는 보드 스펙은 정확히 알고 가자 “512KB Flash Memory, 127KB RAM, 100MHz CPU”</p>
+</blockquote>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/F411RE_MCU.png" alt="STM32F411RE MCU"class="mdui-img-rounded" loading="lazy"></figure>
+<h3 id="보드-특징"><a href="#보드-특징" class="headerlink" title="보드 특징"></a>보드 특징</h3><p>해당 보드는 <strong>고성능 액세스 라인</strong>에 속하며, 다음과 같은 특징을 가진다:</p>
+<ul>
+<li><strong>ARM Cortex-M4 core with DSP and FPU</strong></li>
+<li><strong>512KB Flash memory</strong></li>
+<li><strong>100MHz CPU</strong></li>
+<li><strong>ART Accelerator</strong> (고성능 메모리 액세스)</li>
+</ul>
+<h2 id="핀-구성과-LED-연결"><a href="#핀-구성과-LED-연결" class="headerlink" title="핀 구성과 LED 연결"></a>핀 구성과 LED 연결</h2><h3 id="User-LD2-사용자-LED"><a href="#User-LD2-사용자-LED" class="headerlink" title="User LD2 (사용자 LED)"></a>User LD2 (사용자 LED)</h3><p>우리가 제어할 수 있는 LED는 <strong>User LD2</strong>이다:</p>
+<p><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/image-1.png" alt="LED 연결 구조"><br><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/%7BF1704E07-08E7-4E6D-9A3B-5BEA5201D4C1%7D.png" alt="User LD2"></p>
+<ul>
+<li><strong>연결 핀</strong>: PA5 (Arduino D13 핀과 동일)</li>
+<li><strong>동작 방식</strong>: <ul>
+<li>HIGH (3.3V) → LED ON</li>
+<li>LOW (0V) → LED OFF</li>
+</ul>
+</li>
+</ul>
+<h3 id="핀-맵-이해"><a href="#핀-맵-이해" class="headerlink" title="핀 맵 이해"></a>핀 맵 이해</h3><p><strong>중요한 핀 맵 정보:</strong></p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/%7B85A1DDEE-E018-4060-BD48-E751FC36DF63%7D.png" alt="핀 맵"class="mdui-img-rounded" loading="lazy"></figure>
+<ul>
+<li>같은 행의 핀들은 내부적으로 연결되어 있다</li>
+<li>암&#x2F;수 커넥터의 차이만 있을 뿐 전기적으로는 동일하다</li>
+<li>PA5 핀은 GPIO Output으로 설정하여 LED를 제어할 수 있다</li>
+</ul>
+<blockquote>
+<p><strong>팁</strong>: 핀 맵은 개발 과정에서 지속적으로 참조해야 하므로 별도로 저장해두는 것이 좋다.</p>
+</blockquote>
+<h2 id="System-Architecture"><a href="#System-Architecture" class="headerlink" title="System Architecture"></a>System Architecture</h2><p>STM32F411의 시스템 구조를 이해하는 것은 효율적인 프로그래밍의 기초가 된다.</p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/image-6.png" alt="System Architecture"class="mdui-img-rounded" loading="lazy"></figure>
+<h3 id="주요-구성-요소"><a href="#주요-구성-요소" class="headerlink" title="주요 구성 요소"></a>주요 구성 요소</h3><p><strong>1. Core (ARM Cortex-M4)</strong></p>
+<ul>
+<li>모든 instruction 제어를 수행한다</li>
+<li>DSP와 FPU 기능을 내장하고 있다</li>
+</ul>
+<p><strong>2. Memory 구조</strong></p>
+<ul>
+<li><strong>FLASH</strong>: Instruction Memory 역할 (ROM과 유사하지만 읽기&#x2F;쓰기 가능)</li>
+<li><strong>SRAM</strong>: Data Memory 역할</li>
+</ul>
+<p><strong>3. Bus 시스템</strong></p>
+<ul>
+<li><strong>AHB1 Bus</strong>: 100MHz로 동작하며, GPIO가 연결되어 있다</li>
+<li><strong>APB1&#x2F;APB2 Bus</strong>: 저속 주변장치들이 연결되어 있다</li>
+</ul>
+<p><strong>4. RCC (Reset &amp; Clock Control)</strong></p>
+<ul>
+<li>시스템의 모든 클럭을 관리한다</li>
+<li>각 주변장치에 선택적으로 클럭을 공급한다</li>
+</ul>
+<h2 id="RCC의-역할과-저전력-설계"><a href="#RCC의-역할과-저전력-설계" class="headerlink" title="RCC의 역할과 저전력 설계"></a>RCC의 역할과 저전력 설계</h2><h3 id="RCC의-중요성"><a href="#RCC의-중요성" class="headerlink" title="RCC의 중요성"></a>RCC의 중요성</h3><p><strong>RCC (Reset &amp; Clock Control)</strong> 는 STM32의 핵심 구성 요소 중 하나다:</p>
+<ul>
+<li><strong>클럭 관리</strong>: HCLK, APB CLK, AHB CLK를 각 버스에 제공한다</li>
+<li><strong>선택적 공급</strong>: 사용하는 주변장치에만 클럭을 공급한다</li>
+<li><strong>저전력 구현</strong>: 불필요한 주변장치의 클럭을 차단하여 전력을 절약한다</li>
+</ul>
+<h3 id="저전력-설계-원리"><a href="#저전력-설계-원리" class="headerlink" title="저전력 설계 원리"></a>저전력 설계 원리</h3><p>ARM Core는 저전력으로 설계되어 있어 다음과 같은 특징을 가진다:</p>
+<ul>
+<li><strong>클럭 기반 동작</strong>: 클럭이 공급될 때만 동작한다</li>
+<li><strong>선택적 활성화</strong>: 필요한 주변장치만 활성화한다</li>
+<li><strong>전력 효율성</strong>: 사용하지 않는 기능은 클럭을 차단한다</li>
+</ul>
+<p><strong>예시</strong>: GPIOA를 사용하려면</p>
+<ol>
+<li>RCC에서 AHB1의 GPIOA에 클럭을 공급하도록 설정한다</li>
+<li>나머지 GPIO (B, C, D 등)는 사용하지 않으면 클럭을 공급하지 않는다</li>
+<li>결과적으로 불필요한 전력 소모를 방지할 수 있다</li>
+</ol>
+<h2 id="GPIO-메모리-맵"><a href="#GPIO-메모리-맵" class="headerlink" title="GPIO 메모리 맵"></a>GPIO 메모리 맵</h2><h3 id="GPIOA-메모리-맵-구조"><a href="#GPIOA-메모리-맵-구조" class="headerlink" title="GPIOA 메모리 맵 구조"></a>GPIOA 메모리 맵 구조</h3><p>데이터시트에서 확인할 수 있는 GPIOA의 메모리 맵은 다음과 같다:</p>
+<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/image-4.png" alt="GPIO 메모리 맵"class="mdui-img-rounded" loading="lazy"></figure>
+<ul>
+<li><strong>Base Address</strong>: 0x4002 0000</li>
+<li><strong>주요 레지스터들</strong>:<ul>
+<li>MODER (0x00): Mode register</li>
+<li>OTYPER (0x04): Output type register</li>
+<li>OSPEEDR (0x08): Output speed register</li>
+<li>PUPDR (0x0C): Pull-up&#x2F;pull-down register</li>
+<li>IDR (0x10): Input data register</li>
+<li>ODR (0x14): Output data register</li>
+</ul>
+</li>
+</ul>
+<h2 id="정리"><a href="#정리" class="headerlink" title="정리"></a>정리</h2><p>이번 포스트에서는 STM32F411RE Nucleo-64 보드의 기본 사양과 하드웨어 구조를 살펴보았다:</p>
+<ol>
+<li><strong>보드 스펙</strong>: ARM Cortex-M4, 512KB Flash, 128KB SRAM, 100MHz</li>
+<li><strong>LED 연결</strong>: PA5 핀에 연결된 User LD2</li>
+<li><strong>시스템 구조</strong>: Core, Memory, Bus, RCC의 역할</li>
+<li><strong>저전력 설계</strong>: RCC를 통한 선택적 클럭 공급</li>
+</ol>
+<p>다음 포스트에서는 STM32CubeIDE를 사용하여 실제 프로젝트를 생성하고 기본 설정을 진행해보겠다.</p>
+<hr>
+<p><strong>다음 포스트</strong>: <a href="/posts/1.cortex-m-project-setup">2. STM32CubeIDE 프로젝트 생성</a></p>
+</main>
+        
+    </div>
+    
+</article>
+
+    
+        <article class="h-entry mdui-card mdui-hoverable mdui-shadow-1 mdui-m-y-2" style="opacity: 1; border-radius: 4px"
+>
+    
+    <div class="mdui-card-primary mdui-ripple">
+    <div class="mdui-card-primary-title">
         <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" href="/posts/1.cortex-m-project-setup/">2. STM32CubeIDE 프로젝트 생성</a>
         <a class="p-author h-card" style="display:none" href="https://www.goeun-oh.com">고은</a>
         
@@ -2275,7 +2420,7 @@ HAL_StatusTypeDef <span class="token function">led_init</span><span class="token
         
         <span><a class="tag-none-link" href="/tags/GPIO/" rel="tag">GPIO</a> <a class="tag-none-link" href="/tags/RCC/" rel="tag">RCC</a> <a class="tag-none-link" href="/tags/STM32CubeIDE/" rel="tag">STM32CubeIDE</a> <a class="tag-none-link" href="/tags/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%84%A4%EC%A0%95/" rel="tag">프로젝트설정</a></span>
         <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-22 12:00<br>수정일: 2025-07-15 09:51'}" datetime="2025-06-21T15:00:00.000Z">2025-06-22</time>
+        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-22 12:00<br>수정일: 2025-07-15 09:55'}" datetime="2025-06-21T15:00:00.000Z">2025-06-22</time>
         <span>-</span>
         
             <span>posts/1.cortex-m-project-setup/</span>
@@ -2428,151 +2573,6 @@ HAL_StatusTypeDef <span class="token function">led_init</span><span class="token
 <p>다음 포스트에서는 개발에 필요한 도구들을 설치하고 빌드 환경을 구성해보겠다.</p>
 <hr>
 <p><strong>이전 포스트</strong>: <a href="/posts/0.cortex-m-board-introduction/">1. STM32 보드 소개</a><br><strong>다음 포스트</strong>: <a href="/posts/cortex-m-development-environment">3. 개발 환경 구성</a></p>
-</main>
-        
-    </div>
-    
-</article>
-
-    
-        <article class="h-entry mdui-card mdui-hoverable mdui-shadow-1 mdui-m-y-2" style="opacity: 1; border-radius: 4px"
->
-    
-    <div class="mdui-card-primary mdui-ripple">
-    <div class="mdui-card-primary-title">
-        <a role="heading" aria-level="1" class="u-url p-name mdui-text-color-theme-text" href="/posts/0.cortex-m-board-introduction/">1. STM32 보드 소개</a>
-        <a class="p-author h-card" style="display:none" href="https://www.goeun-oh.com">고은</a>
-        
-        <small> <a class="mdui-text-color-theme-text category-link" href="/categories/Cortex-M/">Cortex-M</a></small>
-        
-    </div>
-    <div class="mdui-card-primary-subtitle mdui-typo">
-        
-        <span><a class="tag-none-link" href="/tags/Nucleo-64/" rel="tag">Nucleo-64</a> <a class="tag-none-link" href="/tags/STM32F411/" rel="tag">STM32F411</a> <a class="tag-none-link" href="/tags/%ED%95%98%EB%93%9C%EC%9B%A8%EC%96%B4/" rel="tag">하드웨어</a></span>
-        <span>-</span>
-        <time class="dt-published" mdui-tooltip="{content:'작성일: 2025-06-22 12:00<br>수정일: 2025-07-15 09:51'}" datetime="2025-06-21T15:00:00.000Z">2025-06-22</time>
-        <span>-</span>
-        
-            <span>posts/0.cortex-m-board-introduction/</span>
-        
-    </div>
-</div>
-    
-    
-    <div class="mdui-divider"></div>
-    <div class="mdui-card-content mdui-typo">
-        
-        <div class="p-summary" style="display:none"></div>
-        
-        <!-- TOC 디버깅 및 렌더링 -->
-        
-        
-        <main class="e-content"><h1 id="STM32-보드-소개"><a href="#STM32-보드-소개" class="headerlink" title="STM32 보드 소개"></a>STM32 보드 소개</h1><p>이번 포스트에서는 STM32F411RE Nucleo-64 보드의 스펙과 하드웨어 구조를 자세히 알아본다.</p>
-<h2 id="사용-보드-STM32F411RE-Nucleo-64"><a href="#사용-보드-STM32F411RE-Nucleo-64" class="headerlink" title="사용 보드: STM32F411RE Nucleo-64"></a>사용 보드: STM32F411RE Nucleo-64</h2><figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/Nucleo-64_board.png" alt="Nucleo-64 보드"class="mdui-img-rounded" loading="lazy"></figure>
-<h3 id="핵심-스펙"><a href="#핵심-스펙" class="headerlink" title="핵심 스펙"></a>핵심 스펙</h3><p><strong>STM32F411RE Nucleo-64 보드의 주요 사양은 다음과 같다:</strong></p>
-<ul>
-<li><strong>MCU</strong>: STM32F411RE</li>
-<li><strong>Core</strong>: ARM Cortex-M4 (DSP 및 FPU 지원)</li>
-<li><strong>Flash Memory</strong>: 512KB</li>
-<li><strong>SRAM</strong>: 128KB </li>
-<li><strong>Maximum CPU Speed</strong>: 100MHz</li>
-<li><strong>ART Accelerator</strong>: 고성능 액세스 지원</li>
-</ul>
-<blockquote>
-<p><strong>중요</strong>: 임베디드 개발에서 보드 스펙을 정확히 아는 것은 개발의 첫걸음이다!<br>사용하는 보드 스펙은 정확히 알고 가자 “512KB Flash Memory, 127KB RAM, 100MHz CPU”</p>
-</blockquote>
-<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/F411RE_MCU.png" alt="STM32F411RE MCU"class="mdui-img-rounded" loading="lazy"></figure>
-<h3 id="보드-특징"><a href="#보드-특징" class="headerlink" title="보드 특징"></a>보드 특징</h3><p>해당 보드는 <strong>고성능 액세스 라인</strong>에 속하며, 다음과 같은 특징을 가진다:</p>
-<ul>
-<li><strong>ARM Cortex-M4 core with DSP and FPU</strong></li>
-<li><strong>512KB Flash memory</strong></li>
-<li><strong>100MHz CPU</strong></li>
-<li><strong>ART Accelerator</strong> (고성능 메모리 액세스)</li>
-</ul>
-<h2 id="핀-구성과-LED-연결"><a href="#핀-구성과-LED-연결" class="headerlink" title="핀 구성과 LED 연결"></a>핀 구성과 LED 연결</h2><h3 id="User-LD2-사용자-LED"><a href="#User-LD2-사용자-LED" class="headerlink" title="User LD2 (사용자 LED)"></a>User LD2 (사용자 LED)</h3><p>우리가 제어할 수 있는 LED는 <strong>User LD2</strong>이다:</p>
-<p><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/image-1.png" alt="LED 연결 구조"><br><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/%7BF1704E07-08E7-4E6D-9A3B-5BEA5201D4C1%7D.png" alt="User LD2"></p>
-<ul>
-<li><strong>연결 핀</strong>: PA5 (Arduino D13 핀과 동일)</li>
-<li><strong>동작 방식</strong>: <ul>
-<li>HIGH (3.3V) → LED ON</li>
-<li>LOW (0V) → LED OFF</li>
-</ul>
-</li>
-</ul>
-<h3 id="핀-맵-이해"><a href="#핀-맵-이해" class="headerlink" title="핀 맵 이해"></a>핀 맵 이해</h3><p><strong>중요한 핀 맵 정보:</strong></p>
-<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/%7B85A1DDEE-E018-4060-BD48-E751FC36DF63%7D.png" alt="핀 맵"class="mdui-img-rounded" loading="lazy"></figure>
-<ul>
-<li>같은 행의 핀들은 내부적으로 연결되어 있다</li>
-<li>암&#x2F;수 커넥터의 차이만 있을 뿐 전기적으로는 동일하다</li>
-<li>PA5 핀은 GPIO Output으로 설정하여 LED를 제어할 수 있다</li>
-</ul>
-<blockquote>
-<p><strong>팁</strong>: 핀 맵은 개발 과정에서 지속적으로 참조해야 하므로 별도로 저장해두는 것이 좋다.</p>
-</blockquote>
-<h2 id="System-Architecture"><a href="#System-Architecture" class="headerlink" title="System Architecture"></a>System Architecture</h2><p>STM32F411의 시스템 구조를 이해하는 것은 효율적인 프로그래밍의 기초가 된다.</p>
-<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/image-6.png" alt="System Architecture"class="mdui-img-rounded" loading="lazy"></figure>
-<h3 id="주요-구성-요소"><a href="#주요-구성-요소" class="headerlink" title="주요 구성 요소"></a>주요 구성 요소</h3><p><strong>1. Core (ARM Cortex-M4)</strong></p>
-<ul>
-<li>모든 instruction 제어를 수행한다</li>
-<li>DSP와 FPU 기능을 내장하고 있다</li>
-</ul>
-<p><strong>2. Memory 구조</strong></p>
-<ul>
-<li><strong>FLASH</strong>: Instruction Memory 역할 (ROM과 유사하지만 읽기&#x2F;쓰기 가능)</li>
-<li><strong>SRAM</strong>: Data Memory 역할</li>
-</ul>
-<p><strong>3. Bus 시스템</strong></p>
-<ul>
-<li><strong>AHB1 Bus</strong>: 100MHz로 동작하며, GPIO가 연결되어 있다</li>
-<li><strong>APB1&#x2F;APB2 Bus</strong>: 저속 주변장치들이 연결되어 있다</li>
-</ul>
-<p><strong>4. RCC (Reset &amp; Clock Control)</strong></p>
-<ul>
-<li>시스템의 모든 클럭을 관리한다</li>
-<li>각 주변장치에 선택적으로 클럭을 공급한다</li>
-</ul>
-<h2 id="RCC의-역할과-저전력-설계"><a href="#RCC의-역할과-저전력-설계" class="headerlink" title="RCC의 역할과 저전력 설계"></a>RCC의 역할과 저전력 설계</h2><h3 id="RCC의-중요성"><a href="#RCC의-중요성" class="headerlink" title="RCC의 중요성"></a>RCC의 중요성</h3><p><strong>RCC (Reset &amp; Clock Control)</strong> 는 STM32의 핵심 구성 요소 중 하나다:</p>
-<ul>
-<li><strong>클럭 관리</strong>: HCLK, APB CLK, AHB CLK를 각 버스에 제공한다</li>
-<li><strong>선택적 공급</strong>: 사용하는 주변장치에만 클럭을 공급한다</li>
-<li><strong>저전력 구현</strong>: 불필요한 주변장치의 클럭을 차단하여 전력을 절약한다</li>
-</ul>
-<h3 id="저전력-설계-원리"><a href="#저전력-설계-원리" class="headerlink" title="저전력 설계 원리"></a>저전력 설계 원리</h3><p>ARM Core는 저전력으로 설계되어 있어 다음과 같은 특징을 가진다:</p>
-<ul>
-<li><strong>클럭 기반 동작</strong>: 클럭이 공급될 때만 동작한다</li>
-<li><strong>선택적 활성화</strong>: 필요한 주변장치만 활성화한다</li>
-<li><strong>전력 효율성</strong>: 사용하지 않는 기능은 클럭을 차단한다</li>
-</ul>
-<p><strong>예시</strong>: GPIOA를 사용하려면</p>
-<ol>
-<li>RCC에서 AHB1의 GPIOA에 클럭을 공급하도록 설정한다</li>
-<li>나머지 GPIO (B, C, D 등)는 사용하지 않으면 클럭을 공급하지 않는다</li>
-<li>결과적으로 불필요한 전력 소모를 방지할 수 있다</li>
-</ol>
-<h2 id="GPIO-메모리-맵"><a href="#GPIO-메모리-맵" class="headerlink" title="GPIO 메모리 맵"></a>GPIO 메모리 맵</h2><h3 id="GPIOA-메모리-맵-구조"><a href="#GPIOA-메모리-맵-구조" class="headerlink" title="GPIOA 메모리 맵 구조"></a>GPIOA 메모리 맵 구조</h3><p>데이터시트에서 확인할 수 있는 GPIOA의 메모리 맵은 다음과 같다:</p>
-<figure class="mdui-img-fluid"><img src="https://raw.githubusercontent.com/goeun-oh/ARM/main/0618/0.%EC%B4%88%EA%B8%B0%EC%84%B8%ED%8C%85/image-4.png" alt="GPIO 메모리 맵"class="mdui-img-rounded" loading="lazy"></figure>
-<ul>
-<li><strong>Base Address</strong>: 0x4002 0000</li>
-<li><strong>주요 레지스터들</strong>:<ul>
-<li>MODER (0x00): Mode register</li>
-<li>OTYPER (0x04): Output type register</li>
-<li>OSPEEDR (0x08): Output speed register</li>
-<li>PUPDR (0x0C): Pull-up&#x2F;pull-down register</li>
-<li>IDR (0x10): Input data register</li>
-<li>ODR (0x14): Output data register</li>
-</ul>
-</li>
-</ul>
-<h2 id="정리"><a href="#정리" class="headerlink" title="정리"></a>정리</h2><p>이번 포스트에서는 STM32F411RE Nucleo-64 보드의 기본 사양과 하드웨어 구조를 살펴보았다:</p>
-<ol>
-<li><strong>보드 스펙</strong>: ARM Cortex-M4, 512KB Flash, 128KB SRAM, 100MHz</li>
-<li><strong>LED 연결</strong>: PA5 핀에 연결된 User LD2</li>
-<li><strong>시스템 구조</strong>: Core, Memory, Bus, RCC의 역할</li>
-<li><strong>저전력 설계</strong>: RCC를 통한 선택적 클럭 공급</li>
-</ol>
-<p>다음 포스트에서는 STM32CubeIDE를 사용하여 실제 프로젝트를 생성하고 기본 설정을 진행해보겠다.</p>
-<hr>
-<p><strong>다음 포스트</strong>: <a href="/posts/1.cortex-m-project-setup">2. STM32CubeIDE 프로젝트 생성</a></p>
 </main>
         
     </div>
