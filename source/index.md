@@ -984,7 +984,7 @@ body {
 
 .readme-content blockquote {
     background: #f8f9fa;
-    border-left: 4px solid #ff4081;
+    border-left: 4px solid #b5abae;
     padding: 15px 20px;
     margin: 20px 0;
     font-style: italic;
