@@ -958,7 +958,16 @@ body {
     font-size: 1rem;
     font-weight: 400;
 }
+/* ul 다음에 오는 p 태그에 인덴테이션 추가 */
+.readme-content ul + p {
+    margin-left: 24px !important;
+    padding-left: 0 !important;
+}
 
+/* ul 바로 다음이 아니더라도 ul 뒤의 p 태그들에 인덴테이션 */
+.readme-content ul ~ p {
+    margin-left: 24px !important;
+}
 .readme-content ul {
     margin-bottom: 15px;
 }
