@@ -2238,11 +2238,11 @@ function openReadme(projectId) {
             <div style="display: grid; gap: 15px;">
                 <!-- 문서 1 -->
                 <div style="display: flex; align-items: center; padding: 15px; background: white; border-radius: 8px; border: 1px solid #e2e8f0; cursor: pointer; transition: all 0.2s ease;" 
-                     onclick="downloadFile('/projects/pdf/i2c-design-spec.pdf', 'i2c-design-spec.pdf')"
+                     onclick="downloadFile('/projects/pdf/APB_periph_design_spec.pdf', 'APB_periph_design_spec.pdf')"
                      onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'; this.style.transform='translateY(-2px)'"
                      onmouseout="this.style.boxShadow=''; this.style.transform=''">
                     <div style="flex: 1;">
-                        <p style="margin: 0; color: #ff4c4ce0; font-size: 0.9rem; text-decoration: underline;">APB Periph Deisgn 설계서</ㅔ>
+                        <p style="margin: 0; color: #ff4c4ce0; font-size: 0.9rem; text-decoration: underline;">APB Periph Deisgn 설계서</p>
                     </div>
                 </div>      
             <p style="color: #718096; font-size: 0.8rem; margin-top: 20px; text-align: center;">
