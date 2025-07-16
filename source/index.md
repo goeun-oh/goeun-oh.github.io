@@ -2614,6 +2614,22 @@ function openVideoModal(projectId) {
                     📅 2025.04.13 | 1인 팀 프로젝트 발표
                 </p>`
             }
+    else if (projectId === 'multi-display') {
+        readmeContent.innerHTML = `
+            <div style="text-align: center;">
+                <h3>🎥 FPGA, UART 통신을 활용한 다기능 디스플레이 모듈 개발</h3>
+                <div style="position: relative; padding-bottom: 56.25%; height: 0; margin: 20px 0;">
+                    <iframe 
+                        src="https://www.youtube.com/embed/ghKQ74TxM14" 
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; border-radius: 8px;"
+                        allowfullscreen
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                    </iframe>
+                </div>
+                <p style="color: #666; font-size: 0.9rem; margin-bottom: 40px;">
+                    📅 2025.03.30 | 1인 팀 프로젝트 발표
+                </p>`
+            }
 }
 
 
