@@ -1,8 +1,4 @@
-# 📌 Verilog Verification Automation Tool
-
-![GitHub repo size](https://img.shields.io/github/repo-size/goeun-oh/Verilog-verification-automation-tool)
-![GitHub last commit](https://img.shields.io/github/last-commit/goeun-oh/Verilog-verification-automation-tool)
-![GitHub contributors](https://img.shields.io/github/contributors/goeun-oh/Verilog-verification-automation-tool)
+# Verilog Verification Automation Tool
 
 ## 📖 소개
 Verilog 기반의 n-bit Full Adder 모듈과 테스트벤치를 자동으로 생성하고 검증하는 Python 기반의 자동화 도구입니다.  
