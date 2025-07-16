@@ -924,7 +924,7 @@ body {
 .readme-content h3 {
     font-size: 1.1rem !important;
     font-weight: 600 !important;
-    color: #4a5568 !important;
+    color: #000000de !important;
     margin: 15px 0 8px 0 !important;
     display: flex;
     align-items: center;
@@ -962,11 +962,6 @@ body {
 .readme-content ul + p {
     margin-left: 24px !important;
     padding-left: 0 !important;
-}
-
-/* ul 바로 다음이 아니더라도 ul 뒤의 p 태그들에 인덴테이션 */
-.readme-content ul ~ p {
-    margin-left: 24px !important;
 }
 .readme-content ul {
     margin-bottom: 15px;
