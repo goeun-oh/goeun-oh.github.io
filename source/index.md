@@ -2614,7 +2614,7 @@ function openVideoModal(projectId) {
                     📅 2025.04.13 | 1인 팀 프로젝트 발표
                 </p>`
             }
-    else if (projectId === 'multi-display') {
+    else if (projectId === 'multi-display-video') {
         readmeContent.innerHTML = `
             <div style="text-align: center;">
                 <h3>🎥 FPGA, UART 통신을 활용한 다기능 디스플레이 모듈 개발</h3>
