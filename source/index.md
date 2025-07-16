@@ -1839,7 +1839,7 @@ body:has(.modal-overlay.show) {
         </div>
         </div>
         <!-- Project 6:Python 기반의 Verilog 검증 자동화툴 개발-->
-        <div class="project-card">
+        <div class="project-card" data-readme='python-verification'>
             <div class="project-header">
                 <span class="project-title">자동화툴 개발</span>
                 <span class="project-date">2025.02.20 - 2025.02.25 (4人 프로젝트)</span>
